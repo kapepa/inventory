@@ -1,7 +1,23 @@
-export const Header = () => {
-  return (
-    <header>
+import { InventorySearch, LiveDatetime } from "@/features";
+import { Logo } from "@/shared";
+import { Container } from "@/shared/ui/container";
 
-    </header>
+interface HeaderProps {
+  showSearch?: boolean;
+}
+
+export const Header = ({ showSearch = true }: HeaderProps) => {
+  return (
+    <header className="border-b shadow-lg">
+      <Container
+        className="flex py-1 md:py-4 justify-between gap-10 md:gap-16 xl:gap-40"
+      >
+        <Logo />
+        {showSearch && <InventorySearch />}
+        <LiveDatetime
+          className="hidden md:block"
+        />
+      </Container>
+    </header >
   );
 };

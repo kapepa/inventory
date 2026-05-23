@@ -1,7 +1,11 @@
+import { Container } from "@/shared/ui/container";
+
 export default function Parishes() {
   return (
-    <div>
-      Parishes
-    </div>
+    <main>
+      <Container>
+        Parishes
+      </Container>
+    </main>
   );
 }
