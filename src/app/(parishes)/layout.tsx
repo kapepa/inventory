@@ -1,16 +1,17 @@
-import { Header } from "@/widgets";
-import { Metadata } from "next";
+'use client';
 
-export const metadata: Metadata = {
-  title: "Приходы | Inventory",
-  description: "Управление приходами и инвентарем",
-};
+import { Header, Sidebar } from "@/widgets";
+import { ModalProvider, ModalRoot } from "@/shared/ui/modal";
 
 export default function ParishesLayout({ children }: { children: React.ReactNode }) {
   return (
-    <>
+    <ModalProvider>
       <Header />
-      {children}
-    </>
+      <Sidebar />
+      <main>
+        {children}
+        <ModalRoot />
+      </main>
+    </ModalProvider>
   );
-};
+}
