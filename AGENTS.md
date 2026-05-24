@@ -36,24 +36,24 @@ src/
 │   └── home/
 │       ├── index.ts
 │       └── ui/
-│           └── HomePage.tsx
+│           └── home-page.tsx
 │
 ├── widgets/                 # 🟡 Large UI blocks
 │   ├── header/
 │   │   ├── index.ts
 │   │   ├── ui/
-│   │   │   └── Header.tsx
+│   │   │   └── header.tsx
 │   │   └── model/
-│   │       └── useHeader.ts
+│   │       └── use-header.ts
 │   └── footer/
 │
 ├── features/                # 🟠 User scenarios
 │   ├── add-to-cart/
 │   │   ├── index.ts
 │   │   ├── ui/
-│   │   │   └── AddToCartButton.tsx
+│   │   │   └── add-to-cart-button.tsx
 │   │   └── model/
-│   │       └── useAddToCart.ts
+│   │       └── use-add-to-cart.ts
 │   └── auth/
 │
 ├── entities/                # 🟣 Business entities
@@ -62,7 +62,7 @@ src/
 │   │   ├── model/
 │   │   │   └── types.ts
 │   │   └── ui/
-│   │       └── ProductCard.tsx
+│   │       └── product-card.tsx
 │   └── user/
 │
 └── shared/                  # ⚪ Reusable infrastructure

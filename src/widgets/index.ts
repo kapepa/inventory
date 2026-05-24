@@ -1,5 +1,4 @@
-import { Header } from "@/widgets/header/ui/header";
+import { Header } from "@/widgets/header";
+import { Sidebar } from "./sidebar";
 
-export {
-  Header
-}
+export { Header, Sidebar }

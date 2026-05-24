@@ -8,7 +8,7 @@ interface HeaderProps {
 
 export const Header = ({ showSearch = true }: HeaderProps) => {
   return (
-    <header className="border-b shadow-lg">
+    <header className="border-b shadow-lg sticky z-40 bg-background">
       <Container
         className="flex py-1 md:py-4 justify-between gap-10 md:gap-16 xl:gap-40"
       >

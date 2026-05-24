@@ -149,8 +149,38 @@
   html {
     @apply font-sans;
   }
+
+  .shadow-right-lg {
+    box-shadow: 10px 0 15px -3px rgba(0, 0, 0, 0.1);
+  }
+
+  .nav-link {
+    @apply relative no-underline font-medium transition-colors duration-200;
+  }
+
+  .nav-link::after {
+    content: '';
+    @apply absolute bottom-[-6px] w-full h-0.5;
+    background-color: var(--accent-color);
+    left: 50%;
+    transform: translateX(-50%) scaleX(0);
+    transition: transform 0.3s ease-out;
+  }
+
+  .nav-link:hover::after {
+    transform: translateX(-50%) scaleX(1);
+  }
+
+  .nav-link--active::after {
+    transform: translateX(-50%) scaleX(1);
+  }
+
 }
 
 .text-accent {
   color: var(--accent-color);
+}
+
+.bg-accent {
+  background-color: var(--accent-color);
 }
