@@ -1,17 +1,21 @@
 import { LoginButton } from "@/features"
-import { cn } from "@/shared/lib/utils"
-import { CircleUserRound } from "lucide-react"
+import { cn, ProfileAvatar } from "@/shared"
 
 interface SidebarUserProps {
   className?: string
 }
 
 export const SidebarUser = ({ className }: SidebarUserProps) => {
+  const MocName = "Cate"
+  const MocUrl = "/images/avatar-face.jpg"
+
   return (
     <div className={cn("", className)}>
-      <div className="size-30 bg-chart-2 rounded-full relative">
-        <CircleUserRound />
-        <LoginButton className="absolute right-0 bottom-0" />
+      <div className="relative size-30">
+        <ProfileAvatar url={MocUrl} name={MocName} />
+        <div className="absolute right-0 bottom-0 transform translate-x-1/4 translate-y-1/4">
+          <LoginButton />
+        </div>
       </div>
     </div>
   )

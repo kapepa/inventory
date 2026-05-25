@@ -1,0 +1,38 @@
+.sidebarToggle {
+  display: none;
+}
+
+.sidebar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  transition: transform 0.3s ease-in-out;
+}
+
+.sidebarLabel {
+  cursor: pointer;
+  position: absolute;
+  left: 100%;
+  transform: translateX(15%);
+}
+
+.sidebarToggle:checked~.sidebar {
+  transform: translateX(-100%);
+}
+
+.menuIcon {
+  display: none;
+}
+
+.arrowIcon {
+  display: block;
+}
+
+.sidebarToggle:checked~.sidebar .menuIcon {
+  display: block;
+}
+
+.sidebarToggle:checked~.sidebar .arrowIcon {
+  display: none;
+}

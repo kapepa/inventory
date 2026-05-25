@@ -1,7 +1,6 @@
 "use client";
 
-import { Button } from "@/shared";
-import { cn } from "@/shared/lib/utils";
+import { Button, cn } from "@/shared";
 import { ModalContents, useModal } from "@/shared/ui/modal";
 import { Search } from "lucide-react";
 import { SearchInput } from "./search-input";
