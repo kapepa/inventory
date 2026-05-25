@@ -1,22 +1,26 @@
 'use client'
 
-import { NavLink } from "@/shared"
+import { cn, NavLink } from "@/shared"
 import { ClipboardList, GroupIcon, HomeIcon, Settings, UsersRound } from "lucide-react";
 import { usePathname } from "next/navigation";
+
+interface SidebarNavProps {
+  className?: string
+}
 
 const navItems = [
   { href: '/', label: 'Главная', icon: HomeIcon },
   { href: '/groups', label: 'Группы', icon: GroupIcon },
   { href: '/inventory', label: 'Инвентарь', icon: ClipboardList },
-  { href: '/users', label: 'Инвентарь', icon: UsersRound },
+  { href: '/users', label: 'Пользователи', icon: UsersRound },
   { href: '/settings', label: 'Настройки', icon: Settings },
 ];
 
-export const SidebarNav = () => {
+export const SidebarNav = ({ className }: SidebarNavProps) => {
   const pathname = usePathname();
 
   return (
-    <nav className="flex flex-col items-center gap-y-7">
+    <nav className={cn("flex flex-col items-center gap-y-7", className)}>
       {navItems.map((item) => (
         <NavLink
           key={item.href}

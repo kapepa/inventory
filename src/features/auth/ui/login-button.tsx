@@ -1,5 +1,4 @@
-import { Button } from "@/shared"
-import { cn } from "@/shared/lib/utils"
+import { Button, cn, DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/shared"
 import { Settings } from "lucide-react"
 
 interface LoginButtonProps {
@@ -8,16 +7,33 @@ interface LoginButtonProps {
 
 export const LoginButton = ({ className }: LoginButtonProps) => {
   return (
-    <Button
-      variant="ghost"
-      className={
-        cn(
-          "size-16 rounded-full transform translate-x-1/4 translate-y-1/4 bg-background",
-          "shadow-sm hover:shadow-md transition-shadow duration-300",
-          className
-        )}
-    >
-      <Settings strokeWidth={2} className="size-8 text-chart-4" />
-    </Button>
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button
+          variant="outline"
+          className={
+            cn(
+              "size-14 rounded-full bg-background cursor-pointer",
+              "shadow-sm hover:shadow-md transition-shadow duration-300",
+              className
+            )}
+        >
+          <Settings strokeWidth={2} className="size-7 text-chart-4" />
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent className="w-40" align="start">
+        <DropdownMenuGroup>
+          <DropdownMenuItem>
+            Профиль
+          </DropdownMenuItem>
+        </DropdownMenuGroup>
+        <DropdownMenuSeparator />
+        <DropdownMenuGroup>
+          <DropdownMenuItem>
+            Выйти
+          </DropdownMenuItem>
+        </DropdownMenuGroup>
+      </DropdownMenuContent>
+    </DropdownMenu>
   )
 }

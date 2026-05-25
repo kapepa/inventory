@@ -1,8 +1,7 @@
 "use client"
 
-import { Input } from "@/shared";
+import { cn, Input } from "@/shared";
 import { useDebounce } from "@/shared/lib/hooks/use-debounce";
-import { cn } from "@/shared/lib/utils";
 import { ChangeEvent, useEffect, useState } from "react";
 import { useInventoryStore } from "../model/inventory-store";
 
