@@ -8,7 +8,7 @@ export default function ParishesLayout({ children }: { children: React.ReactNode
     <ModalProvider>
       <Header />
       <Sidebar />
-      <main className="z-20 relative pt-16 pl-60">
+      <main>
         {children}
         <ModalRoot />
       </main>

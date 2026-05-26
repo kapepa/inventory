@@ -1,0 +1,172 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ========== ENUMS ==========
+
+enum Role {
+  USER // Regular user
+  ADMIN // Administrator with full access
+}
+
+enum ProductStatus {
+  FREE // Available for rent/use
+  BUSY // Currently in use/rented
+  REPAIR // Under maintenance/repair
+}
+
+// ========== USERS ==========
+model User {
+  id        String   @id @default(uuid())
+  name      String
+  email     String   @unique
+  password  String
+  role      Role     @default(USER)
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  parishes UserParish[]
+  products Product[]    @relation("UserProducts")
+
+  @@map("users")
+}
+
+// ========== PARISHES ==========
+model Parish {
+  id          String   @id @default(uuid())
+  name        String
+  description String?
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  users        UserParish[]
+  products     Product[]
+  translations ParishTranslation[]
+
+  @@map("parishes")
+}
+
+// Junction table for many-to-many relationship between Users and Parishes
+model UserParish {
+  userId   String @map("user_id")
+  parishId String @map("parish_id")
+  user     User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  parish   Parish @relation(fields: [parishId], references: [id], onDelete: Cascade)
+
+  @@id([userId, parishId])
+  @@map("user_parishes")
+}
+
+// ========== PARISH TRANSLATIONS (RU, EN) ==========
+model ParishTranslation {
+  id          String  @id @default(uuid())
+  parishId    String  @map("parish_id")
+  locale      String // Language code: 'ru' or 'en'
+  title       String
+  description String?
+
+  parish Parish @relation(fields: [parishId], references: [id], onDelete: Cascade)
+
+  @@unique([parishId, locale])
+  @@map("parish_translations")
+}
+
+// ========== CATEGORIES ==========
+model Category {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  products     Product[]
+  translations CategoryTranslation[]
+
+  @@map("categories")
+}
+
+// ========== CATEGORY TRANSLATIONS (RU, EN) ==========
+model CategoryTranslation {
+  id         String @id @default(uuid())
+  categoryId String @map("category_id")
+  locale     String // Language code: 'ru' or 'en'
+  title      String
+
+  category Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+
+  @@unique([categoryId, locale])
+  @@map("category_translations")
+}
+
+// ========== PRODUCTS ==========
+model Product {
+  id           String        @id @default(uuid())
+  serialNumber Int           @unique @map("serial_number")
+  isNew        Boolean       @default(true) @map("is_new")
+  status       ProductStatus @default(FREE)
+  photo        String? // Product photo path (optional)
+  order        Int? // Display order (optional)
+  createdAt    DateTime      @default(now()) @map("created_at")
+  updatedAt    DateTime      @updatedAt @map("updated_at")
+
+  // Foreign Keys (all optional)
+  categoryId String? @map("category_id")
+  parishId   String? @map("parish_id")
+  userId     String? @map("user_id")
+
+  // Relationships
+  category     Category?            @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+  parish       Parish?              @relation(fields: [parishId], references: [id], onDelete: SetNull)
+  user         User?                @relation(fields: [userId], references: [id], onDelete: SetNull, name: "UserProducts")
+  rental       Rental?
+  prices       Price[]
+  translations ProductTranslation[]
+
+  @@map("products")
+}
+
+// ========== PRODUCT TRANSLATIONS (RU, EN) ==========
+model ProductTranslation {
+  id            String  @id @default(uuid())
+  productId     String  @map("product_id")
+  locale        String // Language code: 'ru' or 'en'
+  title         String
+  specification String? // Product specifications (optional)
+
+  product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@unique([productId, locale])
+  @@map("product_translations")
+}
+
+// ========== RENTALS ==========
+model Rental {
+  id        String   @id @default(uuid())
+  productId String   @unique @map("product_id")
+  startDate DateTime @map("start_date")
+  endDate   DateTime @map("end_date")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@map("rentals")
+}
+
+// ========== PRICES ==========
+model Price {
+  id        String   @id @default(uuid())
+  productId String   @map("product_id")
+  value     Float // Price value
+  symbol    String // Currency symbol (USD, UAH, EUR)
+  isDefault Boolean  @default(false) @map("is_default")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@unique([productId, symbol])
+  @@map("prices")
+}

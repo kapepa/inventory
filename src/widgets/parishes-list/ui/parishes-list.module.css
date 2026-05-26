@@ -1,0 +1,17 @@
+@reference "../../../app/globals.css";
+
+.list {
+  @apply flex flex-col gap-4;
+}
+
+.loader {
+  @apply flex justify-center items-center py-8;
+}
+
+.error {
+  @apply text-destructive text-center py-4;
+}
+
+.empty {
+  @apply text-muted-foreground text-center py-8;
+}
