@@ -12,7 +12,7 @@ export const Sidebar = () => {
       {/* Hidden checkbox */}
       <input type="checkbox" id={htmlFor} className={styles.sidebarToggle} />
 
-      <aside className={cn("shadow-right-lg px-10 sm:px-16 z-30", styles.sidebar)}>
+      <aside className={cn("shadow-right-lg px-10 sm:px-16 z-30 bg-background", styles.sidebar)}>
         <div className="flex flex-col justify-center items-center h-full overflow-hidden">
           <SidebarUser className="pb-20" />
           <SidebarNav />

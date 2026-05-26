@@ -1,9 +1,4 @@
-import { LoginButton } from "./auth";
-import { InventorySearch } from "./inventory-search";
-import { LiveDatetime } from "./live-datetime";
-
-export {
-  InventorySearch,
-  LiveDatetime,
-  LoginButton
-}
+export { AddParishButton } from "./add-parish";
+export { LoginButton } from "./auth";
+export { InventorySearch } from "./inventory-search";
+export { LiveDatetime } from "./live-datetime";

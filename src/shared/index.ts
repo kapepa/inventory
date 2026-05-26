@@ -1,22 +1,16 @@
-import { Container } from "@/shared/ui/container";
-import { Button } from "@/shared/ui/button";
-import { Logo } from "@/shared/ui/logo";
-import { Input } from "@/shared/ui/input";
-import { Skeleton } from "@/shared/ui/skeleton";
-import { NavLink } from "./ui/nav-link";
-import { ProfileAvatar } from "./ui/profile-avatar";
-import { getFirstLetter } from "./lib/get-first-letter";
-import { getRandomColor } from "./lib/get-random-color";
-import { cn } from "./lib/utils";
-
-//common
-export { Container, Button, Logo, Input, Skeleton, NavLink, ProfileAvatar };
-//lib
-export { cn, getFirstLetter, getRandomColor }
-
+export { Container } from "@/shared/ui/container";
+export { Button } from "@/shared/ui/button";
+export { Logo } from "@/shared/ui/logo";
+export { Input } from "@/shared/ui/input";
+export { Skeleton } from "@/shared/ui/skeleton";
+export { NavLink } from "./ui/nav-link";
+export { ProfileAvatar } from "./ui/profile-avatar";
+export { getFirstLetter } from "./lib/get-first-letter";
+export { getRandomColor } from "./lib/get-random-color";
+export { cn } from "./lib/utils";
+export { axiosInstance } from "./lib/axios/instance";
 
 import * as DropdownMenuExports from "./ui/dropdown-menu";
-
 // Dropdown Menu
 export const DropdownMenu = DropdownMenuExports.DropdownMenu;
 export const DropdownMenuPortal = DropdownMenuExports.DropdownMenuPortal;

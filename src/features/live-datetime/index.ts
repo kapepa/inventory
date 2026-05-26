@@ -1,5 +1,1 @@
-import { LiveDatetime } from "./ui/live-datetime";
-
-export {
-  LiveDatetime
-}
+export { LiveDatetime } from "./ui/live-datetime";
