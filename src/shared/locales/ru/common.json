@@ -1,11 +1,11 @@
-  {
-    "nav": {
-      "parishes": "Parishes",
-      "groups": "Groups"
-    },
-    "actions": {
-      "add": "Add",
-      "edit": "Edit",
-      "delete": "Delete"
-    }
+{
+  "nav": {
+    "parishes": "Приходы",
+    "groups": "Группы"
+  },
+  "actions": {
+    "add": "Добавить",
+    "edit": "Редактировать",
+    "delete": "Удалить"
   }
+}

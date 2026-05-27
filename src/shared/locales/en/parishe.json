@@ -1,0 +1,13 @@
+{
+  "header-title": "Parishes",
+  "list": {
+    "header": {
+      "name": "PARISH NAME",
+      "count": "COUNT",
+      "date": "DATE",
+      "details": "DETAILS",
+      "amount": "AMOUNT",
+      "delete": "DELETE"
+    }
+  }
+}

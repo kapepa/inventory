@@ -1,17 +1,17 @@
 "use client"
 
 import { useState, useEffect, useCallback } from "react"
-import { Parish, fetchParishes } from "@/entities/parish"
+import { ParishWithRelations, fetchParishes } from "@/entities/parish"
 import { useDebounce } from "@/shared/lib/hooks/use-debounce"
+import { PAGINATION_PARISHES_DEFAULTS } from "@/shared"
 
-const LIMIT = 20
 
 export const useInfiniteParishes = (
   search: string = "",
-  initialParishes: Parish[] = [],
+  initialParishes: ParishWithRelations[] = [],
   initialHasMore: boolean = true
 ) => {
-  const [parishes, setParishes] = useState<Parish[]>(initialParishes)
+  const [parishes, setParishes] = useState<ParishWithRelations[]>(initialParishes)
   const [page, setPage] = useState(initialParishes.length > 0 ? 2 : 1)
   const [hasMore, setHasMore] = useState(initialHasMore)
   const [isLoading, setIsLoading] = useState(false)
@@ -30,7 +30,7 @@ export const useInfiniteParishes = (
         const currentPage = isFirstPage ? 1 : page
         const response = await fetchParishes({
           page: currentPage,
-          limit: LIMIT,
+          limit: PAGINATION_PARISHES_DEFAULTS.LIMIT,
           search: debouncedSearch,
           signal,
         })

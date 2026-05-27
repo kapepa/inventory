@@ -1,27 +1,14 @@
 import axios, { AxiosError } from "axios"
 
 import { axiosInstance } from "@/shared"
-import { Parish } from "@prisma/client"
-
-interface FetchParishesParams {
-  page: number
-  limit: number
-  search?: string
-  signal?: AbortSignal
-}
-
-interface FetchParishesResponse {
-  data: Parish[]
-  total: number
-  hasMore: boolean
-}
+import { FetchParishesParams, GetParishesResponse } from "../model/types"
 
 export const fetchParishes = async ({
   page,
   limit,
   search = "",
   signal,
-}: FetchParishesParams): Promise<FetchParishesResponse> => {
+}: FetchParishesParams): Promise<GetParishesResponse> => {
   const queryParams = {
     page,
     limit,
@@ -29,7 +16,7 @@ export const fetchParishes = async ({
   }
 
   try {
-    const response = await axiosInstance.get<FetchParishesResponse>(`/parishes`, {
+    const response = await axiosInstance.get<GetParishesResponse>(`/parishes`, {
       params: queryParams,
       signal,
     })

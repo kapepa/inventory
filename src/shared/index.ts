@@ -9,6 +9,9 @@ export { getFirstLetter } from "./lib/get-first-letter";
 export { getRandomColor } from "./lib/get-random-color";
 export { cn } from "./lib/utils";
 export { axiosInstance } from "./lib/axios/instance";
+export { PAGINATION_PARISHES_DEFAULTS } from "./constants/pagination"
+export { LOCALES_LANGUAGES } from "./locales/locale"
+
 
 import * as DropdownMenuExports from "./ui/dropdown-menu";
 // Dropdown Menu
@@ -27,3 +30,12 @@ export const DropdownMenuShortcut = DropdownMenuExports.DropdownMenuShortcut;
 export const DropdownMenuSub = DropdownMenuExports.DropdownMenuSub;
 export const DropdownMenuSubTrigger = DropdownMenuExports.DropdownMenuSubTrigger;
 export const DropdownMenuSubContent = DropdownMenuExports.DropdownMenuSubContent;
+
+import * as TooltipExports from "./ui/tooltip";
+
+export const Tooltip = TooltipExports.Tooltip;
+export const TooltipContent = TooltipExports.TooltipContent;
+export const TooltipProvider = TooltipExports.TooltipProvider;
+export const TooltipTrigger = TooltipExports.TooltipTrigger;
+
+export type { LocalesLanguages } from "./locales/locale"

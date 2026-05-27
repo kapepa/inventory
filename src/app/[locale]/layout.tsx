@@ -3,6 +3,8 @@ import { getMessages, setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { routing } from '@/i18n/routing';
 import { Inter } from "next/font/google";
+import { Providers } from './providers';
+import { ModalRoot } from '@/shared/ui/modal';
 
 const inter = Inter({
   subsets: ['cyrillic', 'latin'],
@@ -35,7 +37,10 @@ export default async function LocaleLayout({
     <html lang={locale} className={`${inter.className} h-full antialiased`}>
       <body>
         <NextIntlClientProvider messages={messages}>
-          {children}
+          <Providers>
+            {children}
+            <ModalRoot />
+          </Providers>
         </NextIntlClientProvider>
       </body>
     </html>

@@ -9,14 +9,14 @@ datasource db {
 // ========== ENUMS ==========
 
 enum Role {
-  USER // Regular user
-  ADMIN // Administrator with full access
+  USER
+  ADMIN
 }
 
 enum ProductStatus {
-  FREE // Available for rent/use
-  BUSY // Currently in use/rented
-  REPAIR // Under maintenance/repair
+  FREE
+  BUSY
+  REPAIR
 }
 
 // ========== USERS ==========
@@ -30,18 +30,16 @@ model User {
   updatedAt DateTime @updatedAt @map("updated_at")
 
   parishes UserParish[]
-  products Product[]    @relation("UserProducts")
+  products Product[]
 
   @@map("users")
 }
 
 // ========== PARISHES ==========
 model Parish {
-  id          String   @id @default(uuid())
-  name        String
-  description String?
-  createdAt   DateTime @default(now()) @map("created_at")
-  updatedAt   DateTime @updatedAt @map("updated_at")
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
 
   users        UserParish[]
   products     Product[]
@@ -54,8 +52,9 @@ model Parish {
 model UserParish {
   userId   String @map("user_id")
   parishId String @map("parish_id")
-  user     User   @relation(fields: [userId], references: [id], onDelete: Cascade)
-  parish   Parish @relation(fields: [parishId], references: [id], onDelete: Cascade)
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  parish Parish @relation(fields: [parishId], references: [id], onDelete: Cascade)
 
   @@id([userId, parishId])
   @@map("user_parishes")
@@ -65,7 +64,7 @@ model UserParish {
 model ParishTranslation {
   id          String  @id @default(uuid())
   parishId    String  @map("parish_id")
-  locale      String // Language code: 'ru' or 'en'
+  locale      String
   title       String
   description String?
 
@@ -91,7 +90,7 @@ model Category {
 model CategoryTranslation {
   id         String @id @default(uuid())
   categoryId String @map("category_id")
-  locale     String // Language code: 'ru' or 'en'
+  locale     String
   title      String
 
   category Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
@@ -106,12 +105,12 @@ model Product {
   serialNumber Int           @unique @map("serial_number")
   isNew        Boolean       @default(true) @map("is_new")
   status       ProductStatus @default(FREE)
-  photo        String? // Product photo path (optional)
-  order        Int? // Display order (optional)
+  photo        String?
+  order        Int?
   createdAt    DateTime      @default(now()) @map("created_at")
   updatedAt    DateTime      @updatedAt @map("updated_at")
 
-  // Foreign Keys (all optional)
+  // Foreign Keys
   categoryId String? @map("category_id")
   parishId   String? @map("parish_id")
   userId     String? @map("user_id")
@@ -119,7 +118,7 @@ model Product {
   // Relationships
   category     Category?            @relation(fields: [categoryId], references: [id], onDelete: SetNull)
   parish       Parish?              @relation(fields: [parishId], references: [id], onDelete: SetNull)
-  user         User?                @relation(fields: [userId], references: [id], onDelete: SetNull, name: "UserProducts")
+  user         User?                @relation(fields: [userId], references: [id], onDelete: SetNull)
   rental       Rental?
   prices       Price[]
   translations ProductTranslation[]
@@ -131,9 +130,9 @@ model Product {
 model ProductTranslation {
   id            String  @id @default(uuid())
   productId     String  @map("product_id")
-  locale        String // Language code: 'ru' or 'en'
+  locale        String
   title         String
-  specification String? // Product specifications (optional)
+  specification String?
 
   product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
 
@@ -159,8 +158,8 @@ model Rental {
 model Price {
   id        String   @id @default(uuid())
   productId String   @map("product_id")
-  value     Float // Price value
-  symbol    String // Currency symbol (USD, UAH, EUR)
+  value     Float
+  symbol    String
   isDefault Boolean  @default(false) @map("is_default")
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
