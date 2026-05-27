@@ -7,9 +7,11 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
+    "db:generate": "npx prisma generate",
     "db:seed": "npx prisma db seed",
     "db:studio": "prisma studio",
-    "db:push": "prisma db push"
+    "db:push": "prisma db push",
+    "db:reset": "npx prisma db push --force-reset"
   },
   "dependencies": {
     "@prisma/adapter-pg": "^7.8.0",
@@ -20,7 +22,7 @@
     "clsx": "^2.1.1",
     "dotenv": "^17.4.2",
     "lucide-react": "^1.16.0",
-    "next": "16.2.6",
+    "next": "^16.2.6",
     "next-intl": "^4.12.0",
     "pg": "^8.21.0",
     "radix-ui": "^1.4.3",

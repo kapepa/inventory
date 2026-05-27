@@ -1,53 +1,18 @@
-import { prisma } from '@/shared/lib/prisma';
+import { getParishes } from '@/entities';
+import { GetParishesResponse } from '@/entities/parish/model/types';
+import { LocalesLanguages, PAGINATION_PARISHES_DEFAULTS } from '@/shared';
 import { NextRequest, NextResponse } from 'next/server';
 
-export const GET = async (request: NextRequest) => {
+export const GET = async (request: NextRequest): Promise<NextResponse<GetParishesResponse | { error: string }>> => {
   try {
-    const searchParams = request.nextUrl.searchParams;
-
-    const page = parseInt(searchParams.get('page') || '1');
-    const limit = parseInt(searchParams.get('limit') || '20');
-    const search = searchParams.get('search') || '';
-
-    const where = search ? {
-      OR: [
-        { name: { contains: search, mode: 'insensitive' as const } },
-        { description: { contains: search, mode: 'insensitive' as const } },
-        {
-          translations: {
-            some: {
-              title: { contains: search, mode: 'insensitive' as const }
-            }
-          }
-        }
-      ]
-    } : {};
-
-    const [data, total] = await Promise.all([
-      prisma.parish.findMany({
-        where,
-        skip: (page - 1) * limit,
-        take: limit,
-        include: {
-          translations: true,
-          _count: {
-            select: { products: true }
-          }
-        },
-        orderBy: {
-          createdAt: 'desc'
-        }
-      }),
-      prisma.parish.count({ where })
-    ]);
-
-    const hasMore = page * limit < total;
-
-    return NextResponse.json({
-      data,
-      total,
-      hasMore,
+    const { searchParams } = request.nextUrl;
+    const result = await getParishes({
+      page: parseInt(searchParams.get('page') || `${PAGINATION_PARISHES_DEFAULTS.PAGE}`),
+      limit: parseInt(searchParams.get('limit') || `${PAGINATION_PARISHES_DEFAULTS.PARISHES_LIMIT}`),
+      search: searchParams.get('search') || '',
+      locale: request.headers.get('x-locale') as LocalesLanguages
     });
+    return NextResponse.json(result);
   } catch (error) {
     console.error('Fetch parishes error:', error);
     return NextResponse.json(
