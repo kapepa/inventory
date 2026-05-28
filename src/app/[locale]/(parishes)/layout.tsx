@@ -1,5 +1,3 @@
-'use client';
-
 import { Header, Sidebar } from "@/widgets";
 
 export default function ParishesLayout({ children }: { children: React.ReactNode }) {

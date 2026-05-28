@@ -10,12 +10,12 @@ export const TitleCell = ({ title, className }: TitleCellProps) => {
     <div className={cn("", className)}>
       <Tooltip>
         <TooltipTrigger asChild>
-          <span className="font-medium text-base truncate text-chart-3">
+          <span className="font-medium text-xl truncate text-chart-2 underline decoration-1 underline-offset-5">
             {title}
           </span>
         </TooltipTrigger>
-        <TooltipContent className=" bg-chart-3 border-chart-3">
-          <span className="font-medium text-base bg-chart-3 border-chart-3">
+        <TooltipContent className=" bg-chart-2 border-chart-2">
+          <span className="font-medium text-xs bg-chart-2 border-chart-2">
             {title}
           </span>
         </TooltipContent>

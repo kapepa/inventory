@@ -1,13 +1,14 @@
 "use client";
 
 import { Modal } from "./modal";
-import { useModal } from "./modal-context";
+import { useModalActions, useModalState } from "./modal-context";
 
 export const ModalRoot = () => {
-  const { isOpen, content, closeModal } = useModal();
+  const { isOpen, content } = useModalState();
+  const { closeModal } = useModalActions();
 
   return (
-    <Modal isOpen={isOpen} onClose={closeModal}>
+    <Modal isOpen={isOpen} onCloseAction={closeModal}>
       {content}
     </Modal>
   );

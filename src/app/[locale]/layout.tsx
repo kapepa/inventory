@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation';
 import { routing } from '@/i18n/routing';
 import { Inter } from "next/font/google";
 import { Providers } from './providers';
+import { Toaster } from '@/shared';
 import { ModalRoot } from '@/shared/ui/modal';
 
 const inter = Inter({
@@ -40,6 +41,7 @@ export default async function LocaleLayout({
           <Providers>
             {children}
             <ModalRoot />
+            <Toaster />
           </Providers>
         </NextIntlClientProvider>
       </body>

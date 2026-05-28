@@ -1,38 +1,33 @@
-import { Button, cn } from "@/shared"
+import { cn } from "@/shared"
+import Link from "next/link"
 import { ParishWithRelations } from "../model/types"
-import { Menu } from "lucide-react"
 import { TitleCell } from "./cells/title-cell"
 import { DetailsCell } from "./cells/details-cell"
+import { CountCell } from "./cells/count-cell"
+import { DateCell } from "./cells/date-cell"
+import { ActionsCell } from "./cells/actions-cell"
+import { AmountCell } from "./cells/amount-cell"
+import { memo } from "react"
 
 interface ParishCardProps {
   parish: ParishWithRelations
-  onClick?: (parish: ParishWithRelations) => void
+  onDeleteParish?: (parish: ParishWithRelations) => void
   className?: string
 }
 
-export const ParishCard = ({ parish, onClick, className }: ParishCardProps) => {
-  const { title, description } = parish.translations[0]
+export const ParishCard = memo(
+  ({ parish, onDeleteParish, className }: ParishCardProps) => {
+    const { title, description } = parish.translations[0]
 
-  return (
-    <div className={cn("p-6 border rounded-xl bg-card hover:shadow-md transition-all", className)}>
-      <TitleCell title={title} />
-      <DetailsCell description={description} />
-
-      <div>23 Продукта</div>
-
-      <div className="text-sm">
-        04 / 12
-        <div className="text-xs text-muted-foreground mt-1">06 / Апр / 2017</div>
-      </div>
-
-      <div className="font-bold">
-        2 500 $
-        <div className="text-xs text-muted-foreground font-normal mt-1">250 000.50 uah</div>
-      </div>
-
-      <div className="flex justify-end">
-        <button className="text-muted-foreground hover:text-destructive">🗑</button>
-      </div>
-    </div>
-  )
-}
+    return (
+      <Link href={`/:${parish.id}`} className={cn("px-6 py-3 border rounded-xl bg-card hover:shadow-md transition-all", className)}>
+        <TitleCell title={title} />
+        <DetailsCell description={description} />
+        <CountCell count={parish._count.products} />
+        <DateCell created={parish.createdAt} delivery={parish.deliveryDate} />
+        <AmountCell sumUAH={parish.totals.uah} sumUSD={parish.totals.usd} />
+        <ActionsCell isOwner={true} parish={parish} onDeleteParish={onDeleteParish} />
+      </Link>
+    )
+  }
+)
