@@ -13,6 +13,11 @@ enum Role {
   ADMIN
 }
 
+enum Money {
+  UAH
+  USD
+}
+
 enum ProductStatus {
   FREE
   BUSY
@@ -37,9 +42,10 @@ model User {
 
 // ========== PARISHES ==========
 model Parish {
-  id        String   @id @default(uuid())
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
+  id           String    @id @default(uuid())
+  createdAt    DateTime  @default(now()) @map("created_at")
+  updatedAt    DateTime  @updatedAt @map("updated_at")
+  deliveryDate DateTime? @map("delivery_date")
 
   users        UserParish[]
   products     Product[]
@@ -159,8 +165,7 @@ model Price {
   id        String   @id @default(uuid())
   productId String   @map("product_id")
   value     Float
-  symbol    String
-  isDefault Boolean  @default(false) @map("is_default")
+  symbol    Money    @default(UAH)
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 

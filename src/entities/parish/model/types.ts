@@ -1,6 +1,11 @@
 import { LocalesLanguages } from '@/shared';
 import { Parish, ParishTranslation } from '@prisma/client';
 
+export interface DeleteParishesParams {
+  id: string,
+  signal?: AbortSignal,
+}
+
 export interface FetchParishesParams {
   page: number
   limit: number
@@ -18,6 +23,10 @@ export interface GetParishesParams {
 export interface ParishWithRelations extends Parish {
   translations: ParishTranslation[];
   _count: { products: number };
+  totals: {
+    usd: number;
+    uah: number;
+  };
 }
 
 export interface GetParishesResponse {

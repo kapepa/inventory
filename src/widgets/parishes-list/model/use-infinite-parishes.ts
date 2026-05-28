@@ -5,7 +5,6 @@ import { ParishWithRelations, fetchParishes } from "@/entities/parish"
 import { useDebounce } from "@/shared/lib/hooks/use-debounce"
 import { PAGINATION_PARISHES_DEFAULTS } from "@/shared"
 
-
 export const useInfiniteParishes = (
   search: string = "",
   initialParishes: ParishWithRelations[] = [],
@@ -65,5 +64,9 @@ export const useInfiniteParishes = (
 
   const loadMore = () => fetchItems(false)
 
-  return { parishes, isLoading, error, hasMore, loadMore }
+  const removeParish = useCallback((id: string) => {
+    setParishes(prev => prev.filter(p => p.id !== id));
+  }, [])
+
+  return { parishes, isLoading, error, hasMore, loadMore, removeParish }
 }

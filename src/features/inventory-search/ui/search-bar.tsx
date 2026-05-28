@@ -1,9 +1,10 @@
 "use client";
 
 import { Button, cn } from "@/shared";
-import { ModalContents, useModal } from "@/shared/ui/modal";
+import { ModalContents, useModalActions } from "@/shared/ui/modal";
 import { Search } from "lucide-react";
 import { SearchInput } from "./search-input";
+import { memo } from "react";
 
 const ModalSearchView = () => {
   return (
@@ -17,26 +18,28 @@ interface SearchBarProps {
   className?: string
 }
 
-export const SearchBar = (props: SearchBarProps) => {
-  const { openModal } = useModal();
+export const SearchBar = memo(
+  (props: SearchBarProps) => {
+    const { openModal } = useModalActions();
 
-  return (
-    <>
-      <div className={cn("hidden lg:flex items-center grow", props.className)}>
-        <SearchInput
-          className="w-xs"
-        />
-      </div>
-      <div className="flex lg:hidden items-center justify-end md:justify-center  grow">
-        <Button
-          variant="link"
-          className="rounded-s-sm cursor-pointer"
-          onClick={() => openModal(<ModalSearchView />)}
-        >
-          <Search className="size-9 text-accent" />
-        </Button>
-      </div>
-    </>
-  );
-};
+    return (
+      <>
+        <div className={cn("hidden lg:flex items-center grow", props.className)}>
+          <SearchInput
+            className="w-xs"
+          />
+        </div>
+        <div className="flex lg:hidden items-center justify-end md:justify-center  grow">
+          <Button
+            variant="link"
+            className="rounded-s-sm cursor-pointer"
+            onClick={() => openModal(<ModalSearchView />)}
+          >
+            <Search className="size-9 text-accent" />
+          </Button>
+        </div>
+      </>
+    );
+  }
+)
 

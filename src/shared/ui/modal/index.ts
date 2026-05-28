@@ -1,4 +1,4 @@
 export { Modal } from "./modal";
-export { ModalProvider, useModal } from "./modal-context";
+export { ModalProvider, useModal, useModalState, useModalActions } from "./modal-context";
 export { ModalRoot } from "./modal-root";
-export { ModalContents } from "./modal-contents"
+export { ModalContents, ModalHeader, ModalBody, ModalFooter } from "./modal-contents"
