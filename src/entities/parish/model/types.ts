@@ -1,4 +1,4 @@
-import { LocalesLanguages } from '@/shared';
+import { AppLocale } from '@/shared';
 import { Parish, ParishTranslation } from '@prisma/client';
 
 export interface DeleteParishesParams {
@@ -17,7 +17,7 @@ export interface GetParishesParams {
   page?: number;
   limit?: number;
   search?: string;
-  locale: LocalesLanguages;
+  locale: AppLocale;
 }
 
 export interface ParishWithRelations extends Parish {

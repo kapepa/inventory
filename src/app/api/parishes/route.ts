@@ -1,6 +1,6 @@
 import { getParishes } from '@/entities';
 import { GetParishesResponse } from '@/entities/parish/model/types';
-import { LocalesLanguages, PAGINATION_PARISHES_DEFAULTS } from '@/shared';
+import { Locale, PAGINATION_PARISHES_DEFAULTS } from '@/shared';
 import { NextRequest, NextResponse } from 'next/server';
 
 export const GET = async (request: NextRequest): Promise<NextResponse<GetParishesResponse | { error: string }>> => {
@@ -10,7 +10,7 @@ export const GET = async (request: NextRequest): Promise<NextResponse<GetParishe
       page: parseInt(searchParams.get('page') || `${PAGINATION_PARISHES_DEFAULTS.PAGE}`),
       limit: parseInt(searchParams.get('limit') || `${PAGINATION_PARISHES_DEFAULTS.PARISHES_LIMIT}`),
       search: searchParams.get('search') || '',
-      locale: request.headers.get('x-locale') as LocalesLanguages
+      locale: request.headers.get('x-locale') as Locale
     });
     return NextResponse.json(result);
   } catch (error) {

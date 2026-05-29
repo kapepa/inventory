@@ -1,7 +1,6 @@
-import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
-import { routing } from '@/i18n/routing';
+import { routing } from '@/shared/lib/i18n/routing';
 import { Inter } from "next/font/google";
 import { Providers } from './providers';
 import { Toaster } from '@/shared';
@@ -32,18 +31,16 @@ export default async function LocaleLayout({
 
   setRequestLocale(locale);
 
-  const messages = await getMessages();
+  const messages = await getMessages({ locale });
 
   return (
     <html lang={locale} className={`${inter.className} h-full antialiased`}>
       <body>
-        <NextIntlClientProvider messages={messages}>
-          <Providers>
-            {children}
-            <ModalRoot />
-            <Toaster />
-          </Providers>
-        </NextIntlClientProvider>
+        <Providers locale={locale} messages={messages}>
+          {children}
+          <ModalRoot />
+          <Toaster />
+        </Providers>
       </body>
     </html>
   );

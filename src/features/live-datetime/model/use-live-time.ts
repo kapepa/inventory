@@ -1,4 +1,10 @@
+"use client"
+
+import { useLocale } from "next-intl";
 import { useState, useEffect } from 'react';
+import { format } from "date-fns";
+import { ru, enUS } from "date-fns/locale";
+import type { Locale } from "date-fns";
 
 interface LiveTime {
   time: string;
@@ -6,14 +12,20 @@ interface LiveTime {
   dayOfWeek: string;
 }
 
+const LOCALES_MAP: Record<string, Locale> = {
+  ru: ru,
+  en: enUS,
+};
+
 export const useLiveTime = () => {
+  const locale = useLocale();
   const [liveTime, setLiveTime] = useState<LiveTime | null>(null);
 
   useEffect(() => {
-    setLiveTime(getCurrentTime());
+    setLiveTime(getCurrentTime(locale));
 
     const interval = setInterval(() => {
-      setLiveTime(getCurrentTime());
+      setLiveTime(getCurrentTime(locale));
     }, 1000 * 60);
 
     return () => clearInterval(interval);
@@ -22,33 +34,13 @@ export const useLiveTime = () => {
   return liveTime;
 };
 
-function getCurrentTime(): LiveTime {
+function getCurrentTime(localeCode: string): LiveTime {
   const now = new Date();
-
-  const time = now.toLocaleTimeString('ru-RU', {
-    hour: '2-digit',
-    minute: '2-digit',
-  });
-
-  const date = now.toLocaleDateString('ru-RU', {
-    day: '2-digit',
-    month: 'short',
-    year: 'numeric',
-  })
-
-  const dayOfWeek = now.toLocaleDateString('ru-RU', {
-    weekday: 'long',
-  });
-
-  const formattedDate = date
-    .replace(' г.', '')
-    .replace(
-      /(\d{2}) (\S+) (\d{4})/,
-      (_, day, month, year) =>
-        `${day} ${month[0].toUpperCase() + month.slice(1) + "."} ${year}`
-    );
-
+  const dateFnsLocale = LOCALES_MAP[localeCode] || enUS;
+  const time = format(now, 'HH:mm');
+  const date = format(now, 'd MMM yyyy', { locale: dateFnsLocale });
+  const dayOfWeek = format(now, 'EEEE', { locale: dateFnsLocale });
   const formattedDayOfWeek = dayOfWeek[0].toUpperCase() + dayOfWeek.slice(1);
 
-  return { time, date: formattedDate, dayOfWeek: formattedDayOfWeek };
+  return { time, date, dayOfWeek: formattedDayOfWeek };
 }

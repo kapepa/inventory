@@ -19,7 +19,9 @@ const buttonVariants = cva(
         destructive:
           "bg-destructive/10 text-destructive hover:bg-destructive/20 focus-visible:border-destructive/40 focus-visible:ring-destructive/20 dark:bg-destructive/20 dark:hover:bg-destructive/30 dark:focus-visible:ring-destructive/40",
         link: "text-primary underline-offset-4 hover:underline",
-        simple: "no-underline hover:bg-transparent focus:outline-none active:bg-transparent",
+        "simply-transparency": "no-underline hover:bg-background focus:outline-none active:bg-transparent cursor-pointer text-background hover:text-chart-2 shadow-none shadow-black/20 hover:shadow-xl hover:shadow-black/30",
+        "simply-accent": "no-underline bg-background focus:outline-none cursor-pointer text-background hover:text-chart-2 shadow-lg shadow-black/20 hover:shadow-xl hover:shadow-black/30 text-accent",
+        "simply-destructive": "no-underline bg-background focus:outline-none cursor-pointer text-background shadow-lg shadow-black/20 hover:shadow-xl hover:shadow-black/30 text-destructive",
       },
       size: {
         default:

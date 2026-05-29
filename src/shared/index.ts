@@ -6,13 +6,11 @@ export { Skeleton } from "@/shared/ui/skeleton";
 export { NavLink } from "./ui/nav-link";
 export { ProfileAvatar } from "./ui/profile-avatar";
 export { Toaster } from "./ui/sonner";
-export { ModalContents, ModalBody, ModalFooter, ModalHeader } from "./ui/modal/modal-contents"
+export { ModalContents, ModalBody, ModalFooter, ModalHeader, ModalCancelButton, ModalActionButton } from "./ui/modal"
+export { LanguageSwitcher } from "./ui/language-switcher";
 
 //constants
 export { PAGINATION_PARISHES_DEFAULTS } from "./constants/pagination"
-
-//locales
-export { LOCALES_LANGUAGES } from "./locales/locale"
 
 //lib
 export { cn } from "./lib/utils";
@@ -20,6 +18,9 @@ export { axiosInstance } from "./lib/axios/instance";
 export { formatUAH, formatUSD } from "./lib/currency/format-currency";
 export { getFirstLetter } from "./lib/get-first-letter";
 export { getRandomColor } from "./lib/get-random-color";
+//local_i18n
+export { defaultLocale, localeNames, type AppLocale, locales } from "./lib/i18n/config"
+export { Link, redirect, usePathname, useRouter, routing } from "./lib/i18n/routing"
 
 import * as DropdownMenuExports from "./ui/dropdown-menu";
 // Dropdown Menu
@@ -47,11 +48,8 @@ export const TooltipProvider = TooltipExports.TooltipProvider;
 export const TooltipTrigger = TooltipExports.TooltipTrigger;
 
 import * as PopoverExports from "./ui/popover";
-import { ModalContents } from "./ui/modal";
 // Popover
 export const Popover = PopoverExports.Popover;
 export const PopoverTrigger = PopoverExports.PopoverTrigger;
 export const PopoverContent = PopoverExports.PopoverContent;
 export const PopoverAnchor = PopoverExports.PopoverAnchor;
-
-export type { LocalesLanguages } from "./locales/locale"

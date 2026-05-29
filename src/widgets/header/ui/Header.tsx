@@ -1,4 +1,4 @@
-import { InventorySearch, LiveDatetime } from "@/features";
+import { ParishesSearch, LiveDatetime } from "@/features";
 import { Logo } from "@/shared";
 import { Container } from "@/shared/ui/container";
 import { memo } from "react";
@@ -15,7 +15,7 @@ export const Header = memo(
           className="flex py-1 md:py-4 justify-between gap-10 md:gap-16 xl:gap-40"
         >
           <Logo />
-          {showSearch && <InventorySearch />}
+          {showSearch && <ParishesSearch />}
           <LiveDatetime
             className="hidden md:block"
           />

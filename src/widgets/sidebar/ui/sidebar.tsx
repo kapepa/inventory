@@ -1,4 +1,4 @@
-import { cn } from "@/shared";
+import { cn, LanguageSwitcher } from "@/shared";
 import { SidebarNav } from "./sidebar-nav"
 import { SidebarUser } from "./sidebar-user"
 import { ArrowBigLeft, Menu } from "lucide-react";
@@ -16,7 +16,10 @@ export const Sidebar = memo(
 
         <aside className={cn("shadow-right-lg px-10 sm:px-16 z-30 bg-background", styles.sidebar)}>
           <div className="flex flex-col justify-center items-center h-full overflow-hidden">
-            <SidebarUser className="pb-20" />
+            <div className="pb-20 flex flex-col gap-y-10">
+              <LanguageSwitcher />
+              <SidebarUser />
+            </div>
             <SidebarNav />
           </div>
 

@@ -11,6 +11,7 @@ export const ParishesListHeader = memo(
     const t = useTranslations('parishe');
 
     return (
+
       <div className={cn(
         "px-6 py-3 text-[11px] font-bold text-muted-foreground uppercase tracking-widest", className
       )}>
