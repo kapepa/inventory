@@ -8,10 +8,10 @@ import { toast } from "sonner";
 import { useTranslations } from "next-intl";
 import { useCallback } from "react";
 
-
 export const useDeleteParish = () => {
-  const t = useTranslations("parishe");
+  const t = useTranslations('parishe');
   const { openModal, closeModal } = useModalActions();
+
 
   const confirmDelete = useCallback((parish: ParishWithRelations, onSuccess: (id: string) => void) => {
     openModal(

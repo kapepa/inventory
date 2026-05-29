@@ -3,16 +3,18 @@
 import { cn, Input } from "@/shared";
 import { useDebounce } from "@/shared/lib/hooks/use-debounce";
 import { ChangeEvent, useEffect, useState } from "react";
-import { useInventoryStore } from "../model/inventory-store";
+import { useParishesStore } from "../model/parishes-store";
+import { useTranslations } from "next-intl";
 
 interface SearchInputProps {
   className?: string
 }
 
 export const SearchInput = (props: SearchInputProps) => {
+  const t = useTranslations('header');
   const [inputValue, setInputValue] = useState('');
   const debouncedValue = useDebounce(inputValue, 500);
-  const { query, search, setQuery } = useInventoryStore();
+  const { query, search, setQuery } = useParishesStore();
 
   useEffect(() => {
     setQuery(debouncedValue);
@@ -25,7 +27,7 @@ export const SearchInput = (props: SearchInputProps) => {
 
   return (
     <Input
-      placeholder="Поиск"
+      placeholder={t("parishes-search.placeholder")}
       className={cn("font-bold placeholder:font-bold border-t-2 border-t-gray-400 rounded-s-sm", props.className)}
       onChange={handlerChangeSearchInput}
       defaultValue={query}

@@ -1,5 +1,7 @@
 import { cn } from "@/shared/lib/utils";
 import { type ReactNode } from "react";
+import { Button, buttonVariants } from "../button";
+import { VariantProps } from "class-variance-authority";
 
 interface ModalContentsProps {
   children: ReactNode;
@@ -65,3 +67,41 @@ export const ModalFooter = ({ children, className }: ModalFooterProps) => {
     </div>
   );
 };
+
+interface ModalCancelButtonProps {
+  children: ReactNode;
+  className?: string;
+  onCancelAction?: () => void;
+}
+
+export const ModalCancelButton = ({ children, className, onCancelAction }: ModalCancelButtonProps) => {
+  return (
+    <Button
+      variant="simply-transparency"
+      className={cn("px-7 py-5 rounded-full uppercase", className)}
+      onClick={onCancelAction}
+    >
+      {children}
+    </Button>
+  );
+};
+
+interface ModalActionButtonProps {
+  variant: Extract<VariantProps<typeof buttonVariants>['variant'], "simply-accent" | "simply-destructive">;
+  children: ReactNode;
+  className?: string;
+  onConfirmAction?: () => void;
+}
+
+export const ModalActionButton = ({ variant, children, className, onConfirmAction }: ModalActionButtonProps) => {
+  return (
+    <Button
+      variant={variant}
+      className={cn("px-7 py-5 rounded-full uppercase", className)}
+      onClick={onConfirmAction}
+    >
+      {children}
+    </Button>
+  );
+};
+

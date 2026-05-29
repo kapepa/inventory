@@ -1,17 +1,18 @@
 import { AddParishButton } from "@/features";
-import { Container, LocalesLanguages, PAGINATION_PARISHES_DEFAULTS } from "@/shared";
+import { Container, AppLocale, PAGINATION_PARISHES_DEFAULTS } from "@/shared";
 import { PageHeader, ParishesList } from "@/widgets";
 import { getParishes } from "@/entities";
 import { getTranslations } from "next-intl/server";
 
+
 export default async function Parishes({ params }: { params: { locale: string } }) {
-  const locale = (await params).locale as LocalesLanguages;
+  const locale = (await params).locale as AppLocale;
   const initialData = await getParishes({
     page: PAGINATION_PARISHES_DEFAULTS.PAGE,
     limit: PAGINATION_PARISHES_DEFAULTS.LIMIT,
     locale
   });
-  const t = await getTranslations('parishe');
+  const t = await getTranslations({ locale, namespace: "parishe" });
 
   return (
     <Container className="py-16">

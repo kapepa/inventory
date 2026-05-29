@@ -1,0 +1,12 @@
+{
+  "parishes-search": {
+    "popup-title": "Поиск",
+    "placeholder": "Поиск по приходам...",
+    "close": "Закрыть",
+    "clear": "Очистить"
+  },
+  "live-time": {
+    "locales": "ru-RU",
+    "year-suffix": "г."
+  }
+}

@@ -1,14 +1,15 @@
+import { Parish } from '@prisma/client';
 import { create } from 'zustand';
 
 interface SearchState {
   query: string;
-  results: any[];// add here Interface
+  results: Parish[];
   isLoading: boolean;
   setQuery: (query: string) => void;
   search: (query: string) => Promise<void>;
 }
 
-export const useInventoryStore = create<SearchState>((set) => ({
+export const useParishesStore = create<SearchState>((set) => ({
   query: '',
   results: [],
   isLoading: false,
