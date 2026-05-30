@@ -4,7 +4,7 @@ import { cn, NavLink, usePathname } from "@/shared"
 import { Building2, ClipboardList, GroupIcon, Settings, UsersRound } from "lucide-react";
 
 import { useTranslations } from "next-intl";
-import { memo } from "react";
+import { memo, useMemo } from "react";
 
 interface SidebarNavProps {
   className?: string
@@ -15,13 +15,13 @@ export const SidebarNav = memo(
     const pathname = usePathname();
     const t = useTranslations("sidebar");
 
-    const navItems = [
+    const navItems = useMemo(() => [
       { href: '/', label: t('nav.parishes'), icon: Building2 },
       { href: '/groups', label: t('nav.groups'), icon: GroupIcon },
       { href: '/inventory', label: t('nav.inventory'), icon: ClipboardList },
       { href: '/users', label: t('nav.users'), icon: UsersRound },
       { href: '/settings', label: t('nav.settings'), icon: Settings },
-    ];
+    ], [t]);
 
     return (
       <nav className={cn("flex flex-col items-center gap-y-7", className)}>
