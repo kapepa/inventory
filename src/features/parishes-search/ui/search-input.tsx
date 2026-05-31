@@ -1,36 +1,33 @@
 "use client"
 
-import { cn, Input } from "@/shared";
-import { useDebounce } from "@/shared/lib/hooks/use-debounce";
-import { ChangeEvent, useEffect, useState } from "react";
-import { useParishesStore } from "../model/parishes-store";
+import { cn, Input, useDebounce, useQueryParam, QUERY_PARAMS_KEYS } from "@/shared";
+import { useEffect, useState, useRef } from "react";
 import { useTranslations } from "next-intl";
 
-interface SearchInputProps {
-  className?: string
-}
-
-export const SearchInput = (props: SearchInputProps) => {
+export const SearchInput = ({ className }: { className: string }) => {
   const t = useTranslations('header');
-  const [inputValue, setInputValue] = useState('');
+
+  const [initialValue, setTerm] = useQueryParam(QUERY_PARAMS_KEYS.PARISHES_SEARCH);
+  const [inputValue, setInputValue] = useState(initialValue);
   const debouncedValue = useDebounce(inputValue, 500);
-  const { query, search, setQuery } = useParishesStore();
+
+  const isFirstRender = useRef(true);
 
   useEffect(() => {
-    setQuery(debouncedValue);
-    search(debouncedValue);
-  }, [debouncedValue, search, setQuery]);
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
 
-  const handlerChangeSearchInput = (e: ChangeEvent<HTMLInputElement>) => {
-    setInputValue(e.currentTarget.value);
-  };
+    setTerm(debouncedValue);
+  }, [debouncedValue, setTerm]);
 
   return (
     <Input
       placeholder={t("parishes-search.placeholder")}
-      className={cn("font-bold placeholder:font-bold border-t-2 border-t-gray-400 rounded-s-sm", props.className)}
-      onChange={handlerChangeSearchInput}
-      defaultValue={query}
+      className={cn("font-bold placeholder:font-bold border-t-2 border-t-gray-400 rounded-s-sm", className)}
+      onChange={(e) => setInputValue(e.target.value)}
+      value={inputValue}
     />
   );
 };

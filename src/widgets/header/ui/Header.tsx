@@ -1,4 +1,4 @@
-import { ParishesSearch, LiveDatetime } from "@/features";
+import { LiveDatetime, ParishesSearch } from "@/features";
 import { Logo } from "@/shared";
 import { Container } from "@/shared/ui/container";
 import { memo } from "react";

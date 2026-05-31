@@ -1,4 +1,4 @@
-export { Header } from "@/widgets/header";
-export { Sidebar } from "./sidebar";
-export { PageHeader } from "./page-header";
-export { ParishesList } from "./parishes-list/ui/parishes-list";
+export * from "./header";
+export * from "./sidebar";
+export * from "./page-header";
+export * from "./parishes-list/ui/parishes-list";

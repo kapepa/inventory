@@ -1,13 +1,16 @@
 import { Header, Sidebar } from "@/widgets";
+import { memo } from "react";
 
-export default function ParishesLayout({ children }: { children: React.ReactNode }) {
-  return (
-    <>
-      <Header />
-      <Sidebar />
-      <main>
-        {children}
-      </main>
-    </>
-  );
-}
+export default memo(
+  function ParishesLayout({ children }: { children: React.ReactNode }) {
+    return (
+      <>
+        <Header />
+        <Sidebar />
+        <main>
+          {children}
+        </main>
+      </>
+    );
+  }
+)

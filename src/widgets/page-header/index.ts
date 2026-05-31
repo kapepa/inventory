@@ -1,1 +1,1 @@
-export { PageHeader } from "./ui"
+export * from "./ui"

@@ -1,10 +1,9 @@
 import { getMessages, setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
-import { routing } from '@/shared/lib/i18n/routing';
 import { Inter } from "next/font/google";
 import { Providers } from './providers';
-import { Toaster } from '@/shared';
-import { ModalRoot } from '@/shared/ui/modal';
+import { routing, ModalRoot, Toaster } from '@/shared';
+
 
 const inter = Inter({
   subsets: ['cyrillic', 'latin'],

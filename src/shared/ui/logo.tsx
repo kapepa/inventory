@@ -1,12 +1,13 @@
 import Link from "next/link";
 import Image from "next/image";
 import { memo } from "react";
+import { ROUTES } from "../constants";
 
 export const Logo = memo(
   () => {
     return (
       <Link
-        href="/"
+        href={ROUTES.PARISHES}
         className="flex items-center gap-x-2 md:gap-x-5"
       >
         <div className="relative w-16 h-16">

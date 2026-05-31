@@ -1,1 +1,2 @@
-export { DeleteConfirmModal } from "./ui/delete-confirm-modal"
+export * from "./ui"
+export * from "./model"

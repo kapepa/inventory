@@ -21,6 +21,8 @@ export const ProfileAvatar = ({ url, name, size = 120, className }: ProfileAvata
           fill
           sizes={`${size}px`}
           className="object-cover"
+          priority
+          loading="eager"
         />
       </div>
     )

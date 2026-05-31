@@ -1,9 +1,8 @@
 'use client';
 
-import { TooltipProvider } from '@/shared';
-import { ModalProvider } from '@/shared/ui/modal';
+import { TooltipProvider, ModalProvider, QueryParamProvider } from '@/shared';
 import { NextIntlClientProvider, AbstractIntlMessages } from 'next-intl';
-import { ReactNode } from 'react';
+import { ReactNode, useMemo } from 'react';
 
 interface ProvidersProps {
   children: ReactNode;
@@ -12,13 +11,21 @@ interface ProvidersProps {
 }
 
 export function Providers({ children, locale, messages }: ProvidersProps) {
-  return (
-    <NextIntlClientProvider locale={locale} messages={messages} timeZone="Europe/Kiev">
+  const content = useMemo(() => (
+    <QueryParamProvider>
       <ModalProvider>
         <TooltipProvider>
           {children}
         </TooltipProvider>
       </ModalProvider>
+    </QueryParamProvider>
+  ), [children]);
+
+  return (
+    <NextIntlClientProvider locale={locale} messages={messages} timeZone="Europe/Kiev">
+      {content}
     </NextIntlClientProvider>
   );
 }
+
+Providers.displayName = 'Providers';

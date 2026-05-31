@@ -1,1 +1,1 @@
-export { ParishesList } from "./ui"
+export * from "./ui"

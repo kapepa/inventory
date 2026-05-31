@@ -1,16 +1,26 @@
+
+import { getParishes } from "@/entities/parish/api/parish-service";
 import { AddParishButton } from "@/features";
-import { Container, AppLocale, PAGINATION_PARISHES_DEFAULTS } from "@/shared";
+import { Container, AppLocale, PAGINATION_PARISHES_DEFAULTS, QUERY_PARAMS_KEYS } from "@/shared";
 import { PageHeader, ParishesList } from "@/widgets";
-import { getParishes } from "@/entities";
 import { getTranslations } from "next-intl/server";
 
-
-export default async function Parishes({ params }: { params: { locale: string } }) {
+export default async function Parishes({
+  params,
+  searchParams
+}: {
+  params: Promise<{ locale: string }>,
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>
+}) {
   const locale = (await params).locale as AppLocale;
+  const resolvedSearchParams = await searchParams;
+  const searchTerm = (resolvedSearchParams[QUERY_PARAMS_KEYS.PARISHES_SEARCH] as string) || "";
+
   const initialData = await getParishes({
     page: PAGINATION_PARISHES_DEFAULTS.PAGE,
     limit: PAGINATION_PARISHES_DEFAULTS.LIMIT,
-    locale
+    search: searchTerm,
+    locale,
   });
   const t = await getTranslations({ locale, namespace: "parishe" });
 
@@ -21,7 +31,10 @@ export default async function Parishes({ params }: { params: { locale: string } 
         count={initialData.total}
         action={<AddParishButton />}
       />
-      <ParishesList initialParishes={initialData.data} initialHasMore={initialData.hasMore} />
+      <ParishesList
+        initialParishes={initialData.data}
+        initialHasMore={initialData.hasMore}
+      />
     </Container>
   );
 }

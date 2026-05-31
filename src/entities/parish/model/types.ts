@@ -10,7 +10,7 @@ export interface FetchParishesParams {
   page: number
   limit: number
   search?: string
-  signal?: AbortSignal
+  signal?: AbortSignal,
 }
 
 export interface GetParishesParams {

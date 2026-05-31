@@ -1,0 +1,1 @@
+export { ParishCard } from "./parish-card"

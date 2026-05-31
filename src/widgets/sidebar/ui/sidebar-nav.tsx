@@ -1,6 +1,6 @@
 'use client'
 
-import { cn, NavLink, usePathname } from "@/shared"
+import { cn, NavLink, ROUTES, usePathname } from "@/shared"
 import { Building2, ClipboardList, GroupIcon, Settings, UsersRound } from "lucide-react";
 
 import { useTranslations } from "next-intl";
@@ -16,11 +16,11 @@ export const SidebarNav = memo(
     const t = useTranslations("sidebar");
 
     const navItems = useMemo(() => [
-      { href: '/', label: t('nav.parishes'), icon: Building2 },
-      { href: '/groups', label: t('nav.groups'), icon: GroupIcon },
-      { href: '/inventory', label: t('nav.inventory'), icon: ClipboardList },
-      { href: '/users', label: t('nav.users'), icon: UsersRound },
-      { href: '/settings', label: t('nav.settings'), icon: Settings },
+      { href: ROUTES.PARISHES, label: t('nav.parishes'), icon: Building2 },
+      { href: ROUTES.GROUPS, label: t('nav.groups'), icon: GroupIcon },
+      { href: ROUTES.INVENTORY, label: t('nav.inventory'), icon: ClipboardList },
+      { href: ROUTES.USERS, label: t('nav.users'), icon: UsersRound },
+      { href: ROUTES.SETTINGS, label: t('nav.settings'), icon: Settings },
     ], [t]);
 
     return (

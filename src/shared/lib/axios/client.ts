@@ -1,5 +1,6 @@
 'use client';
 
+import { STORAGE_KEYS } from '@/shared/constants';
 import axios, { AxiosInstance, InternalAxiosRequestConfig, AxiosError } from 'axios';
 // import { getSession } from 'next-auth/react';
 
@@ -28,6 +29,13 @@ class AxiosClient {
   }
 
   private setupInterceptors() {
+    this.client.interceptors.request.use(
+      async (config) => {
+        const locale = localStorage.getItem(STORAGE_KEYS.LOCALE) || 'ru';
+        config.headers['Accept-Language'] = locale;
+        return config;
+      }
+    );
     // Request interceptor
     this.client.interceptors.request.use(
       async (config: InternalAxiosRequestConfig) => {
