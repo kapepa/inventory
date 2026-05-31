@@ -12,7 +12,6 @@ export const useDeleteParish = () => {
   const t = useTranslations('parishe');
   const { openModal, closeModal } = useModalActions();
 
-
   const confirmDelete = useCallback((parish: ParishWithRelations, onSuccess: (id: string) => void) => {
     openModal(
       <DeleteConfirmModal

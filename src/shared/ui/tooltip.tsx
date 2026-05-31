@@ -17,6 +17,7 @@ function TooltipProvider({
     />
   )
 }
+TooltipProvider.displayName = 'TooltipProvider';
 
 function Tooltip({
   ...props

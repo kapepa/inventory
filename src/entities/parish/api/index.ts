@@ -1,0 +1,1 @@
+export { deleteParish, fetchParishes } from "./parish-api"

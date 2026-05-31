@@ -6,6 +6,8 @@ import { AppLocale, localeNames, locales } from "../lib/i18n/config";
 import { ChevronDown, GlobeIcon } from "lucide-react";
 import { Button } from "./button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "./dropdown-menu";
+import { useEffect } from "react";
+import { STORAGE_KEYS } from "../constants";
 
 
 interface LanguageSwitcherProps {
@@ -18,8 +20,15 @@ export const LanguageSwitcher = ({ className }: LanguageSwitcherProps) => {
   const pathname = usePathname();
   const router = useRouter();
 
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      localStorage.setItem(STORAGE_KEYS.LOCALE, locale);
+    }
+  }, [locale]);
+
   const handleChange = (newLocale: AppLocale) => {
     if (!pathname) return;
+    localStorage.setItem(STORAGE_KEYS.LOCALE, newLocale);
     const segments = pathname.split('/');
     segments[1] = newLocale;
     const nextPathname = segments.join('/');

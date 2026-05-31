@@ -1,14 +1,14 @@
 "use client";
 
-import { Button, cn } from "@/shared";
-import { ModalContents, ModalHeader, useModalActions, ModalBody, ModalFooter, ModalCancelButton, ModalActionButton } from "@/shared/ui/modal";
+import { Button, cn, useModalQuery, ModalContents, ModalHeader, ModalBody, ModalFooter, ModalCancelButton, ModalActionButton, useModalActions } from "@/shared";
 import { Search } from "lucide-react";
 import { SearchInput } from "./search-input";
-import { memo } from "react";
+import { memo, useCallback } from "react";
 import { useTranslations } from "next-intl";
 
 const ModalSearchView = ({ closeModal }: { closeModal: () => void }) => {
   const t = useTranslations('header');
+
   return (
     <ModalContents>
       <ModalHeader title={t('parishes-search.popup-title')} />
@@ -23,13 +23,21 @@ const ModalSearchView = ({ closeModal }: { closeModal: () => void }) => {
   )
 }
 
-interface SearchBarProps {
+interface ParishesSearchProps {
   className?: string
 }
 
-export const SearchBar = memo(
-  (props: SearchBarProps) => {
+export const ParishesSearch = memo(
+  (props: ParishesSearchProps) => {
     const { openModal, closeModal } = useModalActions();
+
+    const { open } = useModalQuery({
+      modalName: 'parishes-search',
+      onOpen: useCallback((closeQueryModal: () => void) => {
+        openModal(<ModalSearchView closeModal={closeQueryModal} />);
+      }, [openModal]),
+      onClose: closeModal,
+    });
 
     return (
       <>
@@ -38,12 +46,8 @@ export const SearchBar = memo(
             className="w-xs"
           />
         </div>
-        <div className="flex lg:hidden items-center justify-end md:justify-center  grow">
-          <Button
-            variant="link"
-            className="rounded-s-sm cursor-pointer"
-            onClick={() => openModal(<ModalSearchView closeModal={closeModal} />)}
-          >
+        <div className="flex lg:hidden items-center justify-end md:justify-center grow">
+          <Button variant="link" className="rounded-s-sm cursor-pointer" onClick={open}>
             <Search className="size-9 text-accent" />
           </Button>
         </div>
@@ -51,4 +55,3 @@ export const SearchBar = memo(
     );
   }
 )
-

@@ -10,6 +10,7 @@ function Popover({
 }: React.ComponentProps<typeof PopoverPrimitive.Root>) {
   return <PopoverPrimitive.Root data-slot="popover" {...props} />
 }
+Popover.displayName = 'Popover';
 
 function PopoverTrigger({
   ...props

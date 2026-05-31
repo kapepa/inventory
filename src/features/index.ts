@@ -1,5 +1,5 @@
-export { AddParishButton } from "./add-parish";
-export { LoginButton } from "./auth";
-export { ParishesSearch } from "./parishes-search";
-export { LiveDatetime } from "./live-datetime";
-export { DeleteConfirmModal } from "./delete-parish"
+export * from "./add-parish";
+export * from "./auth";
+export * from "./parishes-search";
+export * from "./live-datetime";
+export * from "./delete-parish"

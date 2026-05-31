@@ -28,7 +28,8 @@ export const fetchParishes = async ({
     }
 
     if (error instanceof AxiosError) {
-      throw new Error(error.response?.data?.message || "Failed to fetch parishes")
+      const message = error.response?.data?.error || error.response?.data?.message || "Failed to fetch parishes";
+      throw new Error(message);
     }
 
     throw new Error("Failed to fetch parishes")
