@@ -9,7 +9,7 @@ export const SearchInput = ({ className }: { className: string }) => {
 
   const [initialValue, setTerm] = useQueryParam(QUERY_PARAMS_KEYS.PARISHES_SEARCH);
   const [inputValue, setInputValue] = useState(initialValue);
-  const debouncedValue = useDebounce(inputValue, 500);
+  const debouncedValue = useDebounce(inputValue, 1000);
 
   const isFirstRender = useRef(true);
 

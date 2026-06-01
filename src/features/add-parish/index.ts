@@ -1,1 +1,2 @@
-export { AddParishButton } from "./ui/add-parish-button"
+export * from "./ui";
+export * from "./model"

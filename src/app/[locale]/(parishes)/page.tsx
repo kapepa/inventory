@@ -1,4 +1,3 @@
-
 import { getParishes } from "@/entities/parish/api/parish-service";
 import { AddParishButton } from "@/features";
 import { Container, AppLocale, PAGINATION_PARISHES_DEFAULTS, QUERY_PARAMS_KEYS } from "@/shared";

@@ -1,5 +1,5 @@
 import { cn } from "@/shared/lib/utils";
-import { type ReactNode } from "react";
+import { ButtonHTMLAttributes, memo, type ReactNode } from "react";
 import { Button, buttonVariants } from "../button";
 import { VariantProps } from "class-variance-authority";
 
@@ -8,13 +8,13 @@ interface ModalContentsProps {
   className?: string;
 }
 
-export const ModalContents = ({ children, className }: ModalContentsProps) => {
+export const ModalContents = memo(({ children, className }: ModalContentsProps) => {
   return (
     <div className={cn("flex flex-col gap-0", className)}>
       {children}
     </div>
   );
-};
+});
 
 
 interface ModalHeaderProps {
@@ -23,7 +23,7 @@ interface ModalHeaderProps {
   className?: string;
 }
 
-export const ModalHeader = ({ title, description, className }: ModalHeaderProps) => {
+export const ModalHeader = memo(({ title, description, className }: ModalHeaderProps) => {
   return (
     <div className={cn("flex flex-col gap-1.5 px-6 pt-6 pb-4 border-b border-border", className)}>
       <h2 className="text-xl font-semibold leading-none tracking-tight">
@@ -36,20 +36,20 @@ export const ModalHeader = ({ title, description, className }: ModalHeaderProps)
       )}
     </div>
   );
-};
+});
 
 interface ModalBodyProps {
   children: ReactNode;
   className?: string;
 }
 
-export const ModalBody = ({ children, className }: ModalBodyProps) => {
+export const ModalBody = memo(({ children, className }: ModalBodyProps) => {
   return (
     <div className={cn("px-6 py-4", className)}>
       {children}
     </div>
   );
-};
+});
 
 interface ModalFooterProps {
   children: ReactNode;
@@ -68,37 +68,39 @@ export const ModalFooter = ({ children, className }: ModalFooterProps) => {
   );
 };
 
-interface ModalCancelButtonProps {
+interface ModalCancelButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode;
   className?: string;
   onCancelAction?: () => void;
 }
 
-export const ModalCancelButton = ({ children, className, onCancelAction }: ModalCancelButtonProps) => {
+export const ModalCancelButton = memo(({ children, className, onCancelAction, ...props }: ModalCancelButtonProps) => {
   return (
     <Button
       variant="simply-transparency"
       className={cn("px-7 py-5 rounded-full uppercase", className)}
       onClick={onCancelAction}
+      {...props}
     >
       {children}
     </Button>
   );
-};
+});
 
-interface ModalActionButtonProps {
+interface ModalActionButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant: Extract<VariantProps<typeof buttonVariants>['variant'], "simply-accent" | "simply-destructive">;
   children: ReactNode;
   className?: string;
   onConfirmAction?: () => void;
 }
 
-export const ModalActionButton = ({ variant, children, className, onConfirmAction }: ModalActionButtonProps) => {
+export const ModalActionButton = ({ variant, children, className, onConfirmAction, ...props }: ModalActionButtonProps) => {
   return (
     <Button
       variant={variant}
       className={cn("px-7 py-5 rounded-full uppercase", className)}
       onClick={onConfirmAction}
+      {...props}
     >
       {children}
     </Button>

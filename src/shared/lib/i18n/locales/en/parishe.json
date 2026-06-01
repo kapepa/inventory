@@ -23,5 +23,33 @@
       "cancel": "Cancel",
       "delete": "Delete"
     }
+  },
+  "parishes-list": {
+    "empty": "No parishes"
+  },
+  "parishes-created-btn": {
+    "create": "Create Parish"
+  },
+  "form-created": {
+    "title": "Parish Name",
+    "russian": "Russian",
+    "english": "English",
+    "fields": {
+      "title": "Parish Name",
+      "description": "Parish Description",
+      "delivery-date": "Delivery Date"
+    },
+    "buttons": {
+      "create": "Create",
+      "cancel": "Cancel"
+    },
+    "errors": {
+      "name-required": "Parish name is required",
+      "delivery-date-required": "Delivery date is required"
+    },
+    "placeholders": {
+      "title": "Enter parish name",
+      "description": "Enter parish description"
+    }
   }
 }
