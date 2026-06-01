@@ -23,5 +23,34 @@
       "cancel": "Отмена",
       "delete": "Удалить"
     }
+  },
+  "parishes-list": {
+    "empty": "Нет приходов"
+  },
+  "parishes-created-btn": {
+    "create": "Создать приход"
+  },
+  "form-created": {
+    "title": "Название прихода",
+    "russian": "Русский",
+    "english": "Английский",
+    "fields": {
+      "title": "Название прихода",
+      "description": "Описание прихода",
+      "delivery-date": "Дата доставки"
+    },
+    "buttons": {
+      "create": "Создать",
+      "cancel": "Отмена"
+    },
+    "errors": {
+      "name-required": "Название прихода обязательно",
+      "delivery-date-required": "Дата доставки обязательна"
+    },
+    "placeholders": {
+      "title": "Введите название прихода",
+      "description": "Введите описание прихода",
+      "delivery-date": "Выберите дату доставки"
+    }
   }
 }

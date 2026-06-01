@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, cn, useModalQuery, ModalContents, ModalHeader, ModalBody, ModalFooter, ModalCancelButton, ModalActionButton, useModalActions } from "@/shared";
+import { Button, cn, useModalQuery, ModalContents, ModalHeader, ModalBody, ModalFooter, ModalCancelButton, ModalActionButton, useModalActions, QUERY_PARAMS_KEYS } from "@/shared";
 import { Search } from "lucide-react";
 import { SearchInput } from "./search-input";
 import { memo, useCallback } from "react";
@@ -32,7 +32,7 @@ export const ParishesSearch = memo(
     const { openModal, closeModal } = useModalActions();
 
     const { open } = useModalQuery({
-      modalName: 'parishes-search',
+      modalName: QUERY_PARAMS_KEYS.PARISHES_SEARCH,
       onOpen: useCallback((closeQueryModal: () => void) => {
         openModal(<ModalSearchView closeModal={closeQueryModal} />);
       }, [openModal]),

@@ -1,4 +1,4 @@
-import { cn, Tooltip, TooltipContent, TooltipTrigger } from "@/shared"
+import { cn, Tooltip, TooltipContent, TooltipText, TooltipTrigger } from "@/shared"
 
 interface TitleCellProps {
   title: string,
@@ -15,9 +15,9 @@ export const TitleCell = ({ title, className }: TitleCellProps) => {
           </span>
         </TooltipTrigger>
         <TooltipContent className=" bg-chart-2 border-chart-2">
-          <span className="font-medium text-xs bg-chart-2 border-chart-2">
+          <TooltipText>
             {title}
-          </span>
+          </TooltipText>
         </TooltipContent>
       </Tooltip>
     </div>

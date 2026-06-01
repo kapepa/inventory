@@ -2,10 +2,11 @@
 
 import { useCallback, useEffect } from "react"
 import { ParishCard, ParishWithRelations, useInfiniteParishes } from "@/entities"
-import { cn, useIntersectionObserver, useQueryParam } from "@/shared"
+import { cn, QUERY_PARAMS_KEYS, useIntersectionObserver, useQueryParam } from "@/shared"
 import { ParishesListHeader } from "./parishes-list-header"
 import { ParishCardSkeleton } from "./parish-card-skeleton"
 import { useDeleteParish } from "@/features"
+import { useTranslations } from "next-intl"
 
 export const PARISH_GRID_LAYOUT = "grid grid-cols-[minmax(290px,_1fr)_80px_80px_170px_170px_70px] items-center gap-4";
 
@@ -20,7 +21,8 @@ export const ParishesList = ({
   initialParishes = [],
   initialHasMore = true,
 }: ParishesListProps) => {
-  const [search] = useQueryParam('parishes-search');
+  const t = useTranslations('parishe');
+  const [search] = useQueryParam(QUERY_PARAMS_KEYS.PARISHES_SEARCH);
   const { parishes, isLoading, error, hasMore, loadMore, removeParish } = useInfiniteParishes(search, initialParishes, initialHasMore)
   const { targetRef, isIntersecting } = useIntersectionObserver({ threshold: 0.5, rootMargin: "100px" })
   const { confirmDelete } = useDeleteParish()
@@ -38,6 +40,7 @@ export const ParishesList = ({
   }, [confirmDelete, removeParish])
 
   if (error) return <div className="text-destructive text-center py-4">{error}</div>
+  if (!parishes.length) return <div className="text-center py-4 text-destructive">{t("parishes-list.empty")}</div>
 
   return (
     <div className={cn("w-full", className)}>
@@ -57,9 +60,9 @@ export const ParishesList = ({
             ))}
           </div>
 
-          {hasMore && (
+          {(hasMore || isLoading) && (
             <div ref={targetRef} className="flex flex-col gap-3 mt-3">
-              {isLoading && Array.from({ length: 3 }).map((_, i) => (
+              {isLoading && Array.from({ length: 2 }).map((_, i) => (
                 <ParishCardSkeleton key={i} className={PARISH_GRID_LAYOUT} />
               ))}
             </div>

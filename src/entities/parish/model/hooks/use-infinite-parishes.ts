@@ -49,7 +49,7 @@ export const useInfiniteParishes = (
         setIsLoading(false)
       }
     },
-    [isLoading, hasMore, page, search]
+    [search]
   )
 
   useEffect(() => {

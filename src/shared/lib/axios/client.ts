@@ -62,16 +62,15 @@ class AxiosClient {
     // Response interceptor
     this.client.interceptors.response.use(
       (response) => {
-        // Логирование ответов (dev)
-        if (process.env.NODE_ENV === 'development') {
-          console.log(`[Axios Response] ${response.config.url}`, response.data);
-        }
+        // if (process.env.NODE_ENV === 'development') {
+        //   console.log(`[Axios Response] ${response.config.url}`, response.data);
+        // }
         return response;
       },
       async (error: AxiosError) => {
         const originalRequest = error.config as any;
 
-        // Обработка 401 - истечение токена
+        // 401
         if (error.response?.status === 401 && !originalRequest._retry) {
           originalRequest._retry = true;
 

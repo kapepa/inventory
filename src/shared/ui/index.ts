@@ -7,6 +7,11 @@ export { NavLink } from "./nav-link"
 export { ProfileAvatar } from "./profile-avatar"
 export { Skeleton } from "./skeleton"
 export { Toaster } from "./sonner"
+export { TooltipText } from "./tooltip-text"
+export { Label } from "./label"
+export { Textarea } from "./textarea"
+export { Calendar } from "./calendar"
+export { Tabs, TabsList, TabsTrigger, TabsContent } from "./tabs"
 export {
   Tooltip,
   TooltipContent,
@@ -22,6 +27,16 @@ export {
   PopoverTitle,
   PopoverTrigger
 } from "./popover"
+export {
+  Form,
+  FormField,
+  useFormField,
+  FormControl,
+  FormDescription,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "./form"
 export {
   Modal,
   ModalProvider,
@@ -53,3 +68,4 @@ export {
   DropdownMenuSubTrigger,
   DropdownMenuSubContent,
 } from "./dropdown-menu"
+
