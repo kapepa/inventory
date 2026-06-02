@@ -51,7 +51,7 @@ class AxiosClient {
 
         // Логирование запросов (dev)
         if (process.env.NODE_ENV === 'development') {
-          console.log(`[Axios Request] ${config.method?.toUpperCase()} ${config.url}`, config.data);
+          // console.log(`[Axios Request] ${config.method?.toUpperCase()} ${config.url}`, config.data);
         }
 
         return config;

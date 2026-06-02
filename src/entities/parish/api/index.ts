@@ -1,1 +1,1 @@
-export { deleteParish, fetchParishes } from "./parish-api"
+export { deleteParish, fetchParishes, createParish } from "./parish-api"

@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import { axiosInstance } from '../axios';
 
 export const useTranslate = () => {
@@ -8,7 +8,7 @@ export const useTranslate = () => {
   const [error, setError] = useState<string | null>(null);
 
 
-  const translate = async (text: string, targetLocale: string): Promise<string> => {
+  const translate = useCallback(async (text: string, targetLocale: string): Promise<string> => {
     setIsLoading(true);
     setError(null);
 
@@ -26,7 +26,7 @@ export const useTranslate = () => {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, []);
 
   return {
     translate,

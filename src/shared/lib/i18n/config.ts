@@ -16,3 +16,8 @@ export const dateFnsLocales: Record<AppLocale, Locale> = {
   en: { ...enUS, code: 'en-US' },
 };
 
+export const oppositeLocale: Record<AppLocale, AppLocale> = {
+  en: "ru",
+  ru: "en"
+}
+

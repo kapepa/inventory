@@ -72,6 +72,28 @@ export const getParishes = async ({
   }
 };
 
+export const createParish = async (data: {
+  deliveryDate?: Date | string;
+  translations: { locale: string; title: string; description?: string | null }[];
+}) => {
+  try {
+    return await prisma.parish.create({
+      data: {
+        deliveryDate: data.deliveryDate ? new Date(data.deliveryDate) : null,
+        translations: {
+          create: data.translations,
+        },
+      },
+      include: {
+        translations: true,
+      },
+    });
+  } catch (error) {
+    console.error('Prisma Error in createParish:', error);
+    throw error;
+  }
+};
+
 export const deleteParish = async (id: string) => {
   return await prisma.parish.delete({
     where: { id },

@@ -45,11 +45,24 @@
     },
     "errors": {
       "name-required": "Parish name is required",
+      "err-title-min": "Data consisting of at least 3 characters",
+      "err-description-min": "Data consisting of at least 3 characters",
       "delivery-date-required": "Delivery date is required"
     },
     "placeholders": {
       "title": "Enter parish name",
       "description": "Enter parish description"
+    },
+    "hints": {
+      "translate": {
+        "title": "Translate the title of the parish from",
+        "description": "Translate the description of the parish from"
+      }
+    },
+    "toast": {
+      "translate-error": "Automatic translation is currently unavailable",
+      "create-parish-success": "The parish was successfully established",
+      "create-parish-error": "Something went wrong during creation"
     }
   }
 }

@@ -12,6 +12,7 @@ export { Label } from "./label"
 export { Textarea } from "./textarea"
 export { Calendar } from "./calendar"
 export { Tabs, TabsList, TabsTrigger, TabsContent } from "./tabs"
+export { TranslateWrapperInput } from "./translate-wrapper-input"
 export {
   Tooltip,
   TooltipContent,

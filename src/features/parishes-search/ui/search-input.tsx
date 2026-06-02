@@ -28,6 +28,7 @@ export const SearchInput = ({ className }: { className: string }) => {
       className={cn("font-bold placeholder:font-bold border-t-2 border-t-gray-400 rounded-s-sm", className)}
       onChange={(e) => setInputValue(e.target.value)}
       value={inputValue}
+      maxLength={100}
     />
   );
 };
