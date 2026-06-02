@@ -1,42 +1,65 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { translate } from "@vitalets/google-translate-api";
+import { translate as translateGoogle } from "@vitalets/google-translate-api";
+import translate from "translate";
 import { AppLocale } from '@/shared';
 
-interface TranslateRequest {
-  text: string;
-  targetLocale: AppLocale;
+const translationCache = new Map<string, { text: string; timestamp: number }>();
+const CACHE_TTL = 60 * 60 * 1000;
+
+function getCached(key: string): string | null {
+  const cached = translationCache.get(key);
+  if (cached && Date.now() - cached.timestamp < CACHE_TTL) {
+    return cached.text;
+  }
+  return null;
 }
 
-interface TranslateSuccessResponse {
-  translatedText: string;
+function setCache(key: string, text: string): void {
+  translationCache.set(key, { text, timestamp: Date.now() });
 }
 
-interface TranslateErrorResponse {
-  error: string;
-}
-
-export async function POST(request: NextRequest): Promise<NextResponse<TranslateSuccessResponse | TranslateErrorResponse>> {
+export async function POST(request: NextRequest) {
   try {
-    const { text, targetLocale }: TranslateRequest = await request.json();
+    const { text, targetLocale } = await request.json() as {
+      text: string;
+      targetLocale: AppLocale
+    };
 
     if (!text?.trim()) {
       return NextResponse.json({ translatedText: text });
     }
 
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 10000);
+    const target = targetLocale;
+    const cacheKey = `${text}_${target}`;
 
-    try {
-      const res = await translate(text, {
-        to: targetLocale === 'en' ? 'en' : 'ru'
-      });
-
-      clearTimeout(timeoutId);
-      return NextResponse.json({ translatedText: res.text });
-    } catch (error) {
-      clearTimeout(timeoutId);
-      throw error;
+    const cached = getCached(cacheKey);
+    if (cached) {
+      return NextResponse.json({ translatedText: cached });
     }
+
+    let translatedText: string;
+    try {
+      // 1. LibreTranslate
+      translatedText = await translate(text, { to: targetLocale, from: targetLocale === 'ru' ? 'en' : 'ru' });
+    } catch {
+      try {
+        // 2.Google Translate
+        const res = await translateGoogle(text, { to: targetLocale });
+        translatedText = res.text;
+      } catch {
+        console.error("All translation services failed");
+        return NextResponse.json(
+          { error: "Translation unavailable" },
+          { status: 503 }
+        );
+      }
+    }
+
+    console.log(translatedText)
+
+    setCache(cacheKey, translatedText);
+    return NextResponse.json({ translatedText });
+
   } catch (error) {
     console.error("Translation API error:", error);
     return NextResponse.json(

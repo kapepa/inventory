@@ -1,5 +1,5 @@
 import { GetParishesResponse } from '@/entities';
-import { getParishes } from '@/entities/parish/api/parish-service';
+import { createParish, getParishes } from '@/entities/parish/api/parish-service';
 import { AppLocale, PAGINATION_PARISHES_DEFAULTS, defaultLocale, locales } from '@/shared';
 import { NextRequest, NextResponse } from 'next/server';
 
@@ -28,6 +28,22 @@ export const GET = async (request: NextRequest): Promise<NextResponse<GetParishe
     });
     return NextResponse.json(
       { error: error.message || 'Failed to fetch parishes' },
+      { status: 500 }
+    );
+  }
+};
+
+
+export const POST = async (request: NextRequest) => {
+  try {
+    const body = await request.json();
+    const result = await createParish(body);
+
+    return NextResponse.json(result, { status: 201 });
+  } catch (error: any) {
+    console.error('Create parish error:', error);
+    return NextResponse.json(
+      { error: error.message || 'Failed to create parish' },
       { status: 500 }
     );
   }

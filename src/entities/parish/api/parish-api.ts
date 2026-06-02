@@ -2,6 +2,7 @@ import axios, { AxiosError } from "axios"
 
 import { axiosInstance } from "@/shared"
 import { DeleteParishesParams, FetchParishesParams, GetParishesResponse } from "../model/types"
+import { ParishFormValues } from "@/features"
 
 export const fetchParishes = async ({
   page,
@@ -33,6 +34,22 @@ export const fetchParishes = async ({
     }
 
     throw new Error("Failed to fetch parishes")
+  }
+}
+
+export const createParish = async (data: ParishFormValues) => {
+  const payload = {
+    ...data,
+    translations: Object.values(data.translations)
+  }
+  try {
+    const response = await axiosInstance.post('/parishes', payload)
+    return response.data
+  } catch (error) {
+    if (error instanceof AxiosError) {
+      throw new Error(error.response?.data?.message || "Something went wrong")
+    }
+    throw error
   }
 }
 
