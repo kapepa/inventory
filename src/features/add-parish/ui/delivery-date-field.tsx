@@ -35,7 +35,7 @@ export const DeliveryDateField = memo(
       <FormField
         control={control}
         name="deliveryDate"
-        render={({ field }) => (
+        render={({ field, fieldState }) => (
           <FormItem className="flex flex-col">
             <FormLabel className="mb-3">{t("form-created.fields.delivery-date")}</FormLabel>
             <Popover>
@@ -58,7 +58,7 @@ export const DeliveryDateField = memo(
                   </Button>
                 </FormControl>
               </PopoverTrigger>
-              <PopoverContent className="w-auto p-0" align="start">
+              <PopoverContent className="w-auto mb-1" align="start">
                 <Calendar
                   mode="single"
                   locale={dateFnsLocales[locale]}
@@ -69,10 +69,16 @@ export const DeliveryDateField = memo(
                 />
               </PopoverContent>
             </Popover>
-            <FormMessage />
+            <div className="h-1 mt-0">
+              <FormMessage>
+                {fieldState.error?.message && t(`form-created.errors.${fieldState.error.message}`)}
+              </FormMessage>
+            </div>
           </FormItem>
         )}
       />
     )
   }
 )
+
+DeliveryDateField.displayName = "DeliveryDateField"

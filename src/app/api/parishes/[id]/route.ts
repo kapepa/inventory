@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { apiHandler } from '@/shared/lib/middleware';
-import { deleteParish } from '@/entities';
+import { deleteParish } from '@/entities/parish/api/parish-service';
+
 // import { getParishById, updateParish, deleteParish } from '@/services/parishService';
 
 export const GET = async (
@@ -36,7 +37,7 @@ export const DELETE = apiHandler(async (
 ) => {
   const { id } = await params;
   try {
-    // await deleteParish({ id });
+    await deleteParish(id);
     return NextResponse.json({ success: true });
   } catch (error) {
     return NextResponse.json(

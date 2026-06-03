@@ -6,6 +6,7 @@ import { Languages } from "lucide-react"
 import { cn } from "../lib"
 import { Tooltip, TooltipContent, TooltipTrigger } from "./tooltip"
 import { TooltipText } from "./tooltip-text"
+import { Loader } from "./loader"
 
 interface TranslateWrapperInputProps {
   className?: string,
@@ -13,14 +14,15 @@ interface TranslateWrapperInputProps {
   floatTitle: string,
   onClick?: () => void,
   disabled?: boolean,
+  isLoading?: boolean,
 }
 
-export const TranslateWrapperInput = ({ children, floatTitle, className, onClick, disabled }: TranslateWrapperInputProps) => {
+export const TranslateWrapperInput = ({ children, floatTitle, className, onClick, disabled, isLoading }: TranslateWrapperInputProps) => {
   const handlerClick = useCallback((e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
     e.stopPropagation()
     if (onClick) onClick()
-  }, [floatTitle, onClick])
+  }, [onClick])
 
   return (
     <div className="relative">
@@ -28,8 +30,12 @@ export const TranslateWrapperInput = ({ children, floatTitle, className, onClick
       <div className={cn("absolute top-0 right-0", className)}>
         <Tooltip>
           <TooltipTrigger asChild>
-            <Button variant="ghost" className="cursor-pointer" onClick={handlerClick} disabled={disabled}>
-              <Languages className="text-accent" strokeWidth={3} />
+            <Button variant="ghost" className="cursor-pointer" onClick={handlerClick} disabled={disabled || isLoading}>
+              {isLoading ? (
+                <Loader className="text-accent" strokeWidth={3} />
+              ) : (
+                <Languages className="text-accent" strokeWidth={3} />
+              )}
             </Button>
           </TooltipTrigger>
           <TooltipContent className=" bg-chart-2 border-chart-2">
@@ -41,4 +47,4 @@ export const TranslateWrapperInput = ({ children, floatTitle, className, onClick
       </div>
     </div>
   )
-} 
+}

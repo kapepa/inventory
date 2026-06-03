@@ -1,16 +1,21 @@
 "use client"
-
-import { useCallback, useMemo, useTransition } from "react"
-import { FieldPath, useForm } from "react-hook-form"
+import { useCallback, useMemo, useTransition, useEffect } from "react"
+import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { AppLocale, oppositeLocale, useThrottle, useTranslate } from "@/shared"
-import { parishFormSchema, TranslatableFieldName, type ParishFormValues } from "./types"
 import { createParish } from "@/entities"
 import { toast } from "sonner"
+import { useLocale, useTranslations } from "next-intl"
+import { useParishesStore } from "@/entities/parish/model/parish-store"
+import { AppLocale, STORAGE_KEYS } from "@/shared"
+import { parishFormSchema, type ParishFormValues } from "./types"
+
+const ADD_PARISH_FORM_DATA = STORAGE_KEYS.ADD_PARISH_FORM_DATA
 
 export const useAddParishForm = (closeModalAction: () => void) => {
-  const { translate, isLoading: isTranslating } = useTranslate()
-  const [isPending, startTransition] = useTransition()
+  const t = useTranslations("parishe")
+  const locale = useLocale() as AppLocale
+  const [isSubmitting, startSubmitTransition] = useTransition()
+  const { addParish } = useParishesStore()
 
   const form = useForm<ParishFormValues>({
     resolver: zodResolver(parishFormSchema),
@@ -24,40 +29,52 @@ export const useAddParishForm = (closeModalAction: () => void) => {
     },
   })
 
-  const handleTranslateAction = useThrottle(
-    async (fieldName: TranslatableFieldName, targetLocale: AppLocale) => {
-      const otherLocale = oppositeLocale[targetLocale]
-      const sourceValue = form.getValues(`translations.${otherLocale}.${fieldName}`)
-
-      if (!sourceValue) return
-
+  // Restore data from sessionStorage on mount
+  useEffect(() => {
+    const savedData = sessionStorage.getItem(ADD_PARISH_FORM_DATA);
+    if (savedData) {
       try {
-        const translated = await translate(sourceValue, targetLocale)
-        form.setValue(`translations.${targetLocale}.${fieldName}` as FieldPath<ParishFormValues>, translated, {
-          shouldValidate: true,
-          shouldDirty: true,
-        })
-      } catch (err) {
-        console.error("Translation error:", err)
+        const parsedData = JSON.parse(savedData);
+        form.reset({
+          ...form.getValues(),
+          ...parsedData,
+        });
+      } catch (e) {
+        console.error("Failed to parse saved form data", e);
       }
-    },
-    2500
-  )
+    }
+  }, [form]);
+
+  // Save data to sessionStorage on change
+  useEffect(() => {
+    const subscription = form.watch((values) => {
+      sessionStorage.setItem(ADD_PARISH_FORM_DATA, JSON.stringify(values));
+    });
+    return () => subscription.unsubscribe();
+  }, [form]);
 
   const onSubmit = useCallback(
     (values: ParishFormValues) => {
-      startTransition(async () => {
+      startSubmitTransition(async () => {
         try {
-          await createParish(values)
-          toast("Приход успешно создан")
+          const newParish = await createParish(values)
+          const formattedParish = {
+            ...newParish,
+            translations: newParish.translations.filter((t: any) => t.locale === locale)
+          }
+
+          addParish(formattedParish)
+          sessionStorage.removeItem(ADD_PARISH_FORM_DATA);
+
+          toast(t("form-created.toast.create-parish-success"))
           closeModalAction()
         } catch (error) {
           console.error(error)
-          toast("Ошибка при создании")
+          toast(t("form-created.toast.create-parish-error"))
         }
       })
     },
-    [startTransition]
+    [startSubmitTransition, closeModalAction, t, addParish, locale]
   )
 
   const handleSubmit = useMemo(
@@ -68,10 +85,9 @@ export const useAddParishForm = (closeModalAction: () => void) => {
   return useMemo(
     () => ({
       form,
-      isPending: isPending || isTranslating,
-      handleTranslateAction,
+      isSubmitting,
       onSubmit: handleSubmit,
     }),
-    [form, isPending, isTranslating, handleTranslateAction, handleSubmit]
+    [form, isSubmitting, handleSubmit]
   )
 }

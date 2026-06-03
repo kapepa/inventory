@@ -5,5 +5,5 @@ export type {
   GetParishesResponse,
   ParishWithRelations
 } from "./types"
-
+export { useParishesStore } from "./parish-store"
 export * from "./hooks/use-infinite-parishes"

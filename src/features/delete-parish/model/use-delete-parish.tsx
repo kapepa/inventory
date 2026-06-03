@@ -1,9 +1,8 @@
 "use client"
 
 import { useModalActions } from "@/shared/ui/modal";
-import { ParishWithRelations } from "@/entities/parish";
+import { ParishWithRelations, deleteParish, useParishesStore } from "@/entities";
 import { DeleteConfirmModal } from "../ui/delete-confirm-modal";
-import { deleteParish } from "@/entities/parish/api/parish-api";
 import { toast } from "sonner";
 import { useTranslations } from "next-intl";
 import { useCallback } from "react";
@@ -11,21 +10,29 @@ import { useCallback } from "react";
 export const useDeleteParish = () => {
   const t = useTranslations('parishe');
   const { openModal, closeModal } = useModalActions();
+  const { removeParish } = useParishesStore();
 
-  const confirmDelete = useCallback((parish: ParishWithRelations, onSuccess: (id: string) => void) => {
+  const confirmDelete = useCallback((parish: ParishWithRelations) => {
+    const title = parish.translations[0]?.title || "";
+
     openModal(
       <DeleteConfirmModal
-        title={parish.translations[0].title}
+        title={title}
         onConfirmAction={async () => {
-          await deleteParish({ id: parish.id });
-          onSuccess(parish.id);
-          toast.success(t("sonner.delete-parish"))
-          closeModal();
+          try {
+            await deleteParish({ id: parish.id });
+            removeParish(parish.id);
+            toast.success(t("sonner.delete-parish"));
+            closeModal();
+          } catch (error) {
+            console.error(error);
+            toast.error(t("modal.delete-error"));
+          }
         }}
         onCancelAction={closeModal}
-      />,
-    )
-  }, [closeModal, openModal, t]);
+      />
+    );
+  }, [closeModal, openModal, t, removeParish]);
 
   return { confirmDelete };
 };

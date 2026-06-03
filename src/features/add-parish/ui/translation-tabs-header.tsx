@@ -1,0 +1,49 @@
+"use client"
+
+import { memo } from "react"
+import { useFormContext } from "react-hook-form"
+import { useTranslations } from "next-intl"
+import { TabsList, TabsTrigger, cn } from "@/shared"
+import { ParishFormValues } from "../model"
+
+export const TranslationTabsHeader = memo(() => {
+  const t = useTranslations("parishe")
+  const { getValues, formState } = useFormContext<ParishFormValues>()
+
+  const { errors, submitCount } = formState
+
+  // Вычисляем только при изменении errors или submitCount
+  const hasRuErrors = !!(errors.translations?.ru?.title || errors.translations?.ru?.description)
+  const hasEnErrors = !!(errors.translations?.en?.title || errors.translations?.en?.description)
+
+  // Читаем значения без подписки
+  const ruTitle = getValues("translations.ru.title")
+  const ruDescription = getValues("translations.ru.description")
+  const enTitle = getValues("translations.en.title")
+  const enDescription = getValues("translations.en.description")
+
+  const hasRuEmpty = !ruTitle?.trim() || !ruDescription?.trim()
+  const hasEnEmpty = !enTitle?.trim() || !enDescription?.trim()
+
+  const showRu = hasRuErrors || (submitCount > 0 && hasRuEmpty)
+  const showEn = hasEnErrors || (submitCount > 0 && hasEnEmpty)
+
+  return (
+    <TabsList className="grid w-full grid-cols-2">
+      <TabsTrigger
+        className={cn("cursor-pointer", showRu && "border-destructive text-destructive")}
+        value="ru"
+      >
+        {t("form-created.russian")}
+      </TabsTrigger>
+      <TabsTrigger
+        className={cn("cursor-pointer", showEn && "border-destructive text-destructive")}
+        value="en"
+      >
+        {t("form-created.english")}
+      </TabsTrigger>
+    </TabsList>
+  )
+})
+
+TranslationTabsHeader.displayName = "TranslationTabsHeader"

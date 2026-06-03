@@ -1,7 +1,7 @@
 import { z } from "zod"
 
 export const parishFormSchema = z.object({
-  deliveryDate: z.date(),
+  deliveryDate: z.date("err-date"),
   translations: z.object({
     ru: z.object({
       locale: z.literal('ru'),
