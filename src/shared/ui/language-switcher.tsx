@@ -1,23 +1,22 @@
 "use client"
 
 import { cn } from "../lib/utils"
-import { usePathname, useRouter, useParams } from 'next/navigation';
+import { usePathname, useRouter } from '../lib/i18n/routing';
 import { AppLocale, localeNames, locales } from "../lib/i18n/config";
 import { ChevronDown, GlobeIcon } from "lucide-react";
 import { Button } from "./button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "./dropdown-menu";
-import { useEffect } from "react";
+import { memo, useEffect } from "react";
 import { STORAGE_KEYS } from "../constants";
-
+import { useLocale } from "next-intl";
 
 interface LanguageSwitcherProps {
   className?: string
+  locale: AppLocale
+  pathname: string
 }
 
-export const LanguageSwitcher = ({ className }: LanguageSwitcherProps) => {
-  const params = useParams();
-  const locale = (params?.locale as AppLocale) || 'ru';
-  const pathname = usePathname();
+const LanguageSwitcherInner = memo(({ className, locale, pathname }: LanguageSwitcherProps) => {
   const router = useRouter();
 
   useEffect(() => {
@@ -27,12 +26,8 @@ export const LanguageSwitcher = ({ className }: LanguageSwitcherProps) => {
   }, [locale]);
 
   const handleChange = (newLocale: AppLocale) => {
-    if (!pathname) return;
     localStorage.setItem(STORAGE_KEYS.LOCALE, newLocale);
-    const segments = pathname.split('/');
-    segments[1] = newLocale;
-    const nextPathname = segments.join('/');
-    router.push(nextPathname);
+    router.replace(pathname, { locale: newLocale });
   };
 
   return (
@@ -70,4 +65,11 @@ export const LanguageSwitcher = ({ className }: LanguageSwitcherProps) => {
       </DropdownMenu>
     </div>
   );
+});
+
+export const LanguageSwitcher = ({ className }: Omit<LanguageSwitcherProps, 'locale' | 'pathname'>) => {
+  const locale = useLocale() as AppLocale;
+  const pathname = usePathname();
+
+  return <LanguageSwitcherInner className={className} locale={locale} pathname={pathname} />;
 };

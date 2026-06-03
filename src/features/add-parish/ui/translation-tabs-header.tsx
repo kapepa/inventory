@@ -12,11 +12,9 @@ export const TranslationTabsHeader = memo(() => {
 
   const { errors, submitCount } = formState
 
-  // Вычисляем только при изменении errors или submitCount
   const hasRuErrors = !!(errors.translations?.ru?.title || errors.translations?.ru?.description)
   const hasEnErrors = !!(errors.translations?.en?.title || errors.translations?.en?.description)
 
-  // Читаем значения без подписки
   const ruTitle = getValues("translations.ru.title")
   const ruDescription = getValues("translations.ru.description")
   const enTitle = getValues("translations.en.title")

@@ -1,12 +1,12 @@
-import Link from "next/link";
 import Image from "next/image";
 import { memo } from "react";
 import { ROUTES } from "../constants";
+import { NavLink } from "./nav-link";
 
 export const Logo = memo(
   () => {
     return (
-      <Link
+      <NavLink
         href={ROUTES.PARISHES}
         className="flex items-center gap-x-2 md:gap-x-5"
       >
@@ -22,7 +22,7 @@ export const Logo = memo(
         <span className="font-bold  text-base md:text-lg text-accent">
           INVENTORY
         </span>
-      </Link>
+      </NavLink>
     );
   }
 )
