@@ -8,11 +8,11 @@ import { memo, useMemo } from "react";
 
 interface SidebarNavProps {
   className?: string
+  pathname: string
 }
 
-export const SidebarNav = memo(
-  ({ className }: SidebarNavProps) => {
-    const pathname = usePathname();
+const SidebarNavInner = memo(
+  ({ className, pathname }: SidebarNavProps) => {
     const t = useTranslations("sidebar");
 
     const navItems = useMemo(() => [
@@ -40,5 +40,10 @@ export const SidebarNav = memo(
       </nav>
     )
   }
-
 )
+
+export const SidebarNav = ({ className }: Omit<SidebarNavProps, 'pathname'>) => {
+  const pathname = usePathname();
+
+  return <SidebarNavInner className={className} pathname={pathname} />;
+}

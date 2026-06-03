@@ -8,7 +8,6 @@ import { memo } from "react";
 export const Sidebar = memo(
   () => {
     const htmlFor = "sidebar-toggle"
-
     return (
       <>
         {/* Hidden checkbox */}

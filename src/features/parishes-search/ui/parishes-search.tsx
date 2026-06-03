@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, cn, useModalQuery, ModalContents, ModalHeader, ModalBody, ModalFooter, ModalCancelButton, ModalActionButton, useModalActions, QUERY_PARAMS_KEYS } from "@/shared";
+import { Button, cn, useModalQuery, ModalContents, ModalHeader, ModalBody, ModalFooter, ModalCancelButton, useModalActions, QUERY_PARAMS_KEYS } from "@/shared";
 import { Search } from "lucide-react";
 import { SearchInput } from "./search-input";
 import { memo, useCallback } from "react";
@@ -17,7 +17,7 @@ const ModalSearchView = ({ closeModal }: { closeModal: () => void }) => {
       </ModalBody>
       <ModalFooter>
         <ModalCancelButton onCancelAction={closeModal}>{t("parishes-search.close")}</ModalCancelButton>
-        <ModalActionButton variant="simply-accent">{t("parishes-search.clear")}</ModalActionButton>
+        {/* <ModalActionButton variant="simply-accent">{t("parishes-search.clear")}</ModalActionButton> */}
       </ModalFooter>
     </ModalContents>
   )
