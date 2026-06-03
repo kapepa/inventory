@@ -13,6 +13,7 @@ export { Textarea } from "./textarea"
 export { Calendar } from "./calendar"
 export { Tabs, TabsList, TabsTrigger, TabsContent } from "./tabs"
 export { TranslateWrapperInput } from "./translate-wrapper-input"
+export { Loader } from "./loader"
 export {
   Tooltip,
   TooltipContent,

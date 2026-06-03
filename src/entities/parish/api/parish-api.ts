@@ -29,6 +29,9 @@ export const fetchParishes = async ({
     }
 
     if (error instanceof AxiosError) {
+      if (!error.response) {
+        throw new Error("Проверьте подключение к интернету");
+      }
       const message = error.response?.data?.error || error.response?.data?.message || "Failed to fetch parishes";
       throw new Error(message);
     }

@@ -1,0 +1,12 @@
+import { Loader2, LucideProps } from "lucide-react"
+import { cn } from "../lib"
+
+interface LoaderSpinProps extends LucideProps {
+  className?: string,
+}
+
+export const LoaderSpin = ({ className, ...props }: LoaderSpinProps) => {
+  return (
+    <Loader2 className={cn("animate-spin", className)} {...props} />
+  )
+}

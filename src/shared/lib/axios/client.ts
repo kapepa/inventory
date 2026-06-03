@@ -99,10 +99,9 @@ class AxiosClient {
           throw new ValidationError(validationErrors);
         }
 
-        // Обработка ошибок сети
-        if (error.message === 'Network Error') {
-          console.error('Network error - check your internet connection');
-          throw new Error('Проверьте подключение к интернету');
+        // Обработка ошибок сети - просто логируем и отклоняем
+        if (!error.response && error.code !== 'ERR_CANCELED') {
+          console.error('Network error:', error.message);
         }
 
         return Promise.reject(error);

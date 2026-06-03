@@ -6,7 +6,7 @@ import { getTranslations } from "next-intl/server";
 
 export default async function Parishes({
   params,
-  searchParams
+  searchParams,
 }: {
   params: Promise<{ locale: string }>,
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>
