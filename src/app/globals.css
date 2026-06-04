@@ -24,6 +24,7 @@
 
 
   --accent-color: rgb(112, 153, 0);
+  --static-color: rgb(229, 231, 235);
 
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
@@ -142,7 +143,7 @@
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply text-foreground;
     min-width: 320px;
     scrollbar-gutter: stable;
   }
@@ -183,5 +184,13 @@
 }
 
 .bg-accent {
-  background-color: var(--accent-color);
+  background-color: var(--static-color);
+}
+
+.text-static {
+  color: var(--accent-color);
+}
+
+.bg-static {
+  background-color: var(--static-color);
 }

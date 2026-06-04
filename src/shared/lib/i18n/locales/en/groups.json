@@ -1,3 +1,16 @@
 {
-  "header-title": "Groups"
+  "header-title": "Parishes",
+  "parish-short-header": {
+    "names-desc": "Title and description",
+    "total-number": "Total number",
+    "date": "Date"
+  },
+  "groups-list": {
+    "errors": {
+      "parishes": "Something went wrong in the parishes"
+    }
+  },
+  "groups-relations": {
+    "parishes-not-selected": "No parish selected"
+  }
 }

@@ -1,10 +1,8 @@
 "use client"
 
 import { useCallback, useEffect } from "react"
-import { ParishCard, ParishWithRelations, useInfiniteParishes } from "@/entities"
+import { ParishWideCard, ParishWithRelations, useInfiniteParishes, ParishWideCardSkeleton, ParishWideHeader } from "@/entities"
 import { cn, QUERY_PARAMS_KEYS, useIntersectionObserver, useQueryParam } from "@/shared"
-import { ParishesListHeader } from "./parishes-list-header"
-import { ParishCardSkeleton } from "./parish-card-skeleton"
 import { useDeleteParish } from "@/features"
 import { useTranslations } from "next-intl"
 
@@ -45,11 +43,11 @@ export const ParishesList = ({
       <div className="overflow-x-auto py-4">
         <div className="min-w-250">
 
-          <ParishesListHeader className={PARISH_GRID_LAYOUT} />
+          <ParishWideHeader className={PARISH_GRID_LAYOUT} />
 
           <div className="flex flex-col gap-3">
             {parishes.map((parish) => (
-              <ParishCard
+              <ParishWideCard
                 key={parish.id}
                 parish={parish}
                 onDeleteParish={handlerDeleteParish}
@@ -61,7 +59,7 @@ export const ParishesList = ({
           {(hasMore || isLoading) && (
             <div ref={targetRef} className="flex flex-col gap-3 mt-3">
               {isLoading && Array.from({ length: 2 }).map((_, i) => (
-                <ParishCardSkeleton key={i} className={PARISH_GRID_LAYOUT} />
+                <ParishWideCardSkeleton key={i} className={PARISH_GRID_LAYOUT} />
               ))}
             </div>
           )}

@@ -1,0 +1,10 @@
+{
+  "parishe": {
+    "title": "Parishes — Inventory",
+    "description": "Manage and view your list of parishes."
+  },
+  "groups": {
+    "title": "Groups — Inventory",
+    "description": "Manage and view your groups."
+  }
+}

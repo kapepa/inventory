@@ -40,11 +40,11 @@ const LanguageSwitcherInner = memo(({ className, locale, pathname }: LanguageSwi
             className="gap-1.5 cursor-pointer"
             aria-label={locale === 'ru' ? 'Выбрать язык' : 'Select language'}
           >
-            <GlobeIcon className="h-4 w-4" aria-hidden="true" />
-            <span className="hidden md:inline">
+            <GlobeIcon className="h-4 w-4" aria-hidden="true" aria-label="Language" />
+            <span>
               {localeNames[locale]}
             </span>
-            <ChevronDown className="h-4 w-4" />
+            <ChevronDown className="h-4 w-4" aria-label="Down" />
           </Button>
         </DropdownMenuTrigger>
 

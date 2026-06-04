@@ -1,1 +1,2 @@
-export { ParishCard } from "./parish-card"
+export * from "./parish-wide"
+export * from "./parish-short"
