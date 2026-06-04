@@ -34,7 +34,7 @@ export default async function LocaleLayout({
 
   return (
     <html lang={locale} className={`${inter.className} h-full antialiased`}>
-      <body>
+      <body className='bg-static'>
         <Providers locale={locale} messages={messages}>
           {children}
           <ModalRoot />

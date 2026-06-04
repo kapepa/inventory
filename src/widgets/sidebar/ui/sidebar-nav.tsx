@@ -2,7 +2,6 @@
 
 import { cn, NavLink, ROUTES, usePathname } from "@/shared"
 import { Building2, ClipboardList, GroupIcon, Settings, UsersRound } from "lucide-react";
-
 import { useTranslations } from "next-intl";
 import { memo, useMemo } from "react";
 
@@ -33,7 +32,7 @@ const SidebarNavInner = memo(
             active={pathname === item.href}
             className="flex gap-x-3"
           >
-            <item.icon className="w-5 h-5" />
+            <item.icon className="w-5 h-5" aria-label={item.label} />
             <span>{item.label}</span>
           </NavLink>
         ))}

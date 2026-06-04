@@ -48,7 +48,7 @@ export const SearchInput = memo(({ className }: { className: string }) => {
         onClick={clearInput}
         disabled={!isClient || !inputValue.length}
       >
-        <Eraser className="text-accent size-7" />
+        <Eraser className="text-accent size-7" aria-label="clear" />
       </Button>
     </div>
   );

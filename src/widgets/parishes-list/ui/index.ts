@@ -1,3 +1,2 @@
 export { ParishesList } from "./parishes-list"
-export { ParishesListHeader } from "./parishes-list-header"
-export { ParishCardSkeleton } from "./parish-card-skeleton"
+export { ParishesListHeader } from "../../../entities/parish/ui/parish-wide/parish-wide-header"

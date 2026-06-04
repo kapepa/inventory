@@ -2,7 +2,22 @@ import { getParishes } from "@/entities/parish/api/parish-service";
 import { AddParishButton } from "@/features";
 import { Container, AppLocale, PAGINATION_PARISHES_DEFAULTS, QUERY_PARAMS_KEYS } from "@/shared";
 import { PageHeader, ParishesList } from "@/widgets";
+import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'metadata' });
+
+  return {
+    title: t('parishe.title'),
+    description: t('parishe.description'),
+  };
+}
 
 export default async function Parishes({
   params,

@@ -1,3 +1,16 @@
 {
-  "header-title": "Группы"
+  "header-title": "Приходы",
+  "parish-short-header": {
+    "names-desc": "Название и описание",
+    "total-number": "Общее количество",
+    "date": "Дата"
+  },
+  "groups-list": {
+    "errors": {
+      "parishes": "В приходах произошла какая-то ошибка"
+    }
+  },
+  "groups-relations": {
+    "parishes-not-selected": "Приход не выбран"
+  }
 }

@@ -14,6 +14,7 @@ export default getRequestConfig(async ({ locale }) => {
       parishe: (await import(`../shared/lib/i18n/locales/${locale}/parishe.json`)).default,
       sidebar: (await import(`../shared/lib/i18n/locales/${locale}/sidebar.json`)).default,
       header: (await import(`../shared/lib/i18n/locales/${locale}/header.json`)).default,
+      metadata: (await import(`../shared/lib/i18n/locales/${locale}/metadata.json`)).default,
     }
   };
 });
