@@ -184,7 +184,7 @@
 }
 
 .bg-accent {
-  background-color: var(--static-color);
+  background-color: var(--accent-color);
 }
 
 .text-static {

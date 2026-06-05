@@ -14,6 +14,7 @@ export { Calendar } from "./calendar"
 export { Tabs, TabsList, TabsTrigger, TabsContent } from "./tabs"
 export { TranslateWrapperInput } from "./translate-wrapper-input"
 export { Loader } from "./loader"
+export { XButtonClose } from "./x-button-close"
 export {
   Tooltip,
   TooltipContent,

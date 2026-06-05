@@ -1,26 +1,53 @@
 "use client"
 
-import { ProductWithRelations } from "@/entities/product"
-import { cn } from "@/shared"
+import { ProductsBody, ProductsWithRelations, useInfiniteProducts } from "@/entities/products"
+import { Button, QUERY_PARAMS_KEYS, useMounted, useQueryParam } from "@/shared"
+import { LoaderSpin } from "@/shared/ui/loader-spin"
 import { useTranslations } from "next-intl"
 
 interface GroupsRelationsProps {
-  className?: string
   initialHasMore?: boolean,
-  initialProduct?: ProductWithRelations[]
+  initialProducts?: ProductsWithRelations[]
 }
 
-export const GroupsRelations = ({ className, initialHasMore, initialProduct }: GroupsRelationsProps) => {
+export const GroupsRelations = ({ initialHasMore, initialProducts }: GroupsRelationsProps) => {
   const t = useTranslations('groups');
-  if (!initialProduct) return (
-    <div>{t("groups-relations.parishes-not-selected")}</div>
-  )
+  const mounted = useMounted()
+  const [activeParishId] = useQueryParam(QUERY_PARAMS_KEYS.ACTIVE_PARISH);
+  const { products, isLoading, error, hasMore, loadMore } = useInfiniteProducts({ parishId: activeParishId, initialProducts, initialHasMore });
 
+  if (!mounted || !activeParishId) {
+    return (
+      <div className="flex items-center justify-center py-8 text-muted-foreground">
+        {t("groups-relations.parishes-not-selected")}
+      </div>
+    )
+  }
+
+  if (error) {
+    return (
+      <div className="flex items-center justify-center py-8 text-destructive">
+        {error}
+      </div>
+    )
+  }
+
+  if (isLoading && products.length === 0) {
+    return (
+      <div className="flex items-center justify-center py-8">
+        <LoaderSpin className="h-16 w-16" />
+      </div>
+    )
+  }
 
   return (
-    <div className={cn(className)}>
-      GroupsRelations
-    </div>
+    <ProductsBody
+      title="Some Test text"
+      actions={<Button>Add</Button>}
+      onCloseActions={() => { }}
+    >
+      sdasd
+    </ProductsBody>
   )
 }
 

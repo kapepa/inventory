@@ -2,8 +2,8 @@
 
 import { memo, ReactNode, useEffect } from "react";
 import { createPortal } from "react-dom";
-import { X } from "lucide-react";
 import { cn } from "@/shared/lib/utils";
+import { XButtonClose } from "../x-button-close";
 
 interface ModalProps {
   isOpen: boolean;
@@ -11,30 +11,6 @@ interface ModalProps {
   children: ReactNode;
   className?: string;
 }
-
-const closeButtonClasses = cn(
-  "flex justify-center items-center",
-  "transition-colors cursor-pointer",
-  "absolute top-0 right-0",
-  "bg-background size-10 rounded-full",
-  "translate-x-1/3 md:translate-x-1/2 -translate-y-1/2",
-  "border border-chart-1 shadow-lg",
-  "hover:bg-muted hover:shadow-xl",
-  "focus:outline-none focus-visible:ring-2 focus-visible:ring-chart-2",
-  "active:scale-100"
-);
-
-const ModalXButton = memo(({ onCloseAction }: { onCloseAction: () => void }) => {
-  return (
-    <button
-      onClick={onCloseAction}
-      className={closeButtonClasses}
-      aria-label="close"
-    >
-      <X className="w-6 h-6 text-chart-2" />
-    </button>
-  )
-})
 
 export const Modal = memo(({ isOpen, onCloseAction, children, className }: ModalProps) => {
   useEffect(() => {
@@ -64,7 +40,7 @@ export const Modal = memo(({ isOpen, onCloseAction, children, className }: Modal
 
       <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 w-full rounded-md max-w-lg px-4 animate-in zoom-in-95 duration-200">
         <div className={cn("bg-white rounded-sm shadow-2xl relative ", className)}>
-          <ModalXButton onCloseAction={onCloseAction} />
+          <XButtonClose className="absolute top-0 right-0 translate-x-1/3 md:translate-x-1/2 -translate-y-1/2" onCloseAction={onCloseAction} />
           {children}
         </div>
       </div>

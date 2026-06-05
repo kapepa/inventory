@@ -1,6 +1,6 @@
 import { AppLocale, PAGINATION_PARISHES_DEFAULTS } from '@/shared';
 import { prisma } from '@/shared/lib/prisma';
-import { GetParishesParams, GetParishesResponse, ParishWithRelations } from '../model/types';
+import { FetchParishes, ResponseParishes, ParishWithRelations } from '../model/types';
 import { Prisma } from '@prisma/client';
 import { getLocale } from 'next-intl/server';
 
@@ -9,7 +9,7 @@ export const getParishes = async ({
   limit = PAGINATION_PARISHES_DEFAULTS.LIMIT,
   search = '',
   locale: providedLocale
-}: GetParishesParams): Promise<GetParishesResponse> => {
+}: FetchParishes): Promise<ResponseParishes> => {
   const locale = providedLocale || (await getLocale()) as AppLocale;
 
   const where: Prisma.ParishWhereInput = search.trim() ? {

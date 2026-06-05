@@ -1,7 +1,7 @@
 import axios, { AxiosError } from "axios"
 
 import { axiosInstance } from "@/shared"
-import { DeleteParishesParams, FetchParishesParams, GetParishesResponse } from "../model/types"
+import { DeleteParishesClient, FetchParishesClient, ResponseParishes } from "../model/types"
 import { ParishFormValues } from "@/features"
 
 export const fetchParishes = async ({
@@ -9,7 +9,7 @@ export const fetchParishes = async ({
   limit,
   search = "",
   signal,
-}: FetchParishesParams): Promise<GetParishesResponse> => {
+}: FetchParishesClient): Promise<ResponseParishes> => {
   const queryParams = {
     page,
     limit,
@@ -17,7 +17,7 @@ export const fetchParishes = async ({
   }
 
   try {
-    const response = await axiosInstance.get<GetParishesResponse>(`/parishes`, {
+    const response = await axiosInstance.get<ResponseParishes>(`/parishes`, {
       params: queryParams,
       signal,
     })
@@ -56,7 +56,7 @@ export const createParish = async (data: ParishFormValues) => {
   }
 }
 
-export const deleteParish = async ({ id, signal }: DeleteParishesParams) => {
+export const deleteParish = async ({ id, signal }: DeleteParishesClient) => {
   try {
     const response = await axiosInstance.delete(`/parishes/${id}`, {
       signal,

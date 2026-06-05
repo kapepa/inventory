@@ -1,9 +1,9 @@
 export type {
-  DeleteParishesParams,
-  FetchParishesParams,
-  GetParishesParams,
-  GetParishesResponse,
-  ParishWithRelations
+  FetchParishes,
+  FetchParishesClient,
+  DeleteParishesClient,
+  ResponseParishes,
+  ParishWithRelations,
 } from "./types"
 export { useParishesStore } from "./parish-store"
 export * from "./hooks/use-infinite-parishes"
