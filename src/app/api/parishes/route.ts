@@ -1,9 +1,9 @@
-import { GetParishesResponse } from '@/entities';
+import { ResponseParishes } from '@/entities';
 import { createParish, getParishes } from '@/entities/parish/api/parish-service';
 import { AppLocale, PAGINATION_PARISHES_DEFAULTS, defaultLocale, locales } from '@/shared';
 import { NextRequest, NextResponse } from 'next/server';
 
-export const GET = async (request: NextRequest): Promise<NextResponse<GetParishesResponse | { error: string }>> => {
+export const GET = async (request: NextRequest): Promise<NextResponse<ResponseParishes | { error: string }>> => {
   try {
     const { searchParams } = request.nextUrl;
     const rawLocale = request.headers.get('Accept-Language') || defaultLocale;
@@ -32,7 +32,6 @@ export const GET = async (request: NextRequest): Promise<NextResponse<GetParishe
     );
   }
 };
-
 
 export const POST = async (request: NextRequest) => {
   try {

@@ -9,8 +9,15 @@ export const useQueryParam = (key: string) => {
 
   const value = queryParams.get(key) || '';
 
-  const setValue = useCallback((newValue: string) => {
-    setQueryParam(key, newValue);
+  const setValue = useCallback((newValue: string | ((prev: string) => string | null)) => {
+    if (typeof newValue === 'function') {
+      const currentParams = new URLSearchParams(window.location.search);
+      const prevValue = currentParams.get(key) || '';
+      const computedValue = newValue(prevValue);
+      setQueryParam(key, computedValue || '');
+    } else {
+      setQueryParam(key, newValue);
+    }
   }, [key, setQueryParam]);
 
   return [value, setValue] as const;

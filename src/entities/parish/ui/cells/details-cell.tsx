@@ -15,7 +15,7 @@ export const DetailsCell = ({ title, description, className }: DetailsCellProps)
     }}>
       <Popover>
         <PopoverTrigger asChild>
-          <Button className="cursor-pointer size-11 rounded-full" variant="outline">
+          <Button asChild className="cursor-pointer size-11 rounded-full" variant="outline">
             <Menu className="size-6 text-chart-3" strokeWidth={3} />
           </Button>
         </PopoverTrigger>

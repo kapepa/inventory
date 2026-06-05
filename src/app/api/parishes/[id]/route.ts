@@ -2,8 +2,6 @@ import { NextRequest, NextResponse } from 'next/server';
 import { apiHandler } from '@/shared/lib/middleware';
 import { deleteParish } from '@/entities/parish/api/parish-service';
 
-// import { getParishById, updateParish, deleteParish } from '@/services/parishService';
-
 export const GET = async (
   request: NextRequest,
   { params }: { params: { id: string } }

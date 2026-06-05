@@ -14,7 +14,7 @@ export const ParishWideCard = memo(
     const { title, description } = parish.translations[0]
 
     return (
-      <Link href={`${ROUTES.GROUPS}/:${parish.id}`} className={cn("px-6 py-3 border rounded-md bg-card hover:shadow-md transition-all", className)}>
+      <Link href={`${ROUTES.GROUPS}/${parish.id}`} className={cn("px-6 py-3 border rounded-md bg-card hover:shadow-md transition-all", className)}>
         <TitleCell title={title} />
         <DetailsCell description={description} />
         <CountCell count={parish._count.products} />
