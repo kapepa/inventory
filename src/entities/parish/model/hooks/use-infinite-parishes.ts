@@ -24,7 +24,6 @@ export const useInfiniteParishes = (
 
   const isFirstRender = useRef(true)
   const isInitialized = useRef(false)
-  const loadingRef = useRef(false)
 
   // Avoid hydration flicker: use initialParishes if the store is still empty and we haven't initialized yet
   const effectiveParishes = (!isInitialized.current && parishes.length === 0) ? initialParishes : parishes
@@ -47,9 +46,8 @@ export const useInfiniteParishes = (
       // Use latest state from store to avoid stale closures
       const currentState = useParishesStore.getState()
 
-      if (!isFirstPage && (loadingRef.current || !currentState.hasMore)) return
+      if (!isFirstPage && (isLoading || !currentState.hasMore)) return
 
-      loadingRef.current = true
       setIsLoading(true)
       setError(null)
 
@@ -75,7 +73,6 @@ export const useInfiniteParishes = (
         if (err instanceof Error && err.name === "AbortError") return
         setError(err instanceof Error ? err.message : "Failed to load parishes")
       } finally {
-        loadingRef.current = false
         setIsLoading(false)
       }
     },

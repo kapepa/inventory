@@ -1,20 +1,22 @@
-import { Button, cn, TrashButton } from "@/shared"
-import { Trash } from "lucide-react"
-import { MouseEvent } from "react"
-import { ParishWithRelations } from "../../model/types"
+"use client"
 
-interface ActionsCellProps {
-  parish: ParishWithRelations
+import { Button, cn, TrashButton } from "@/shared"
+import { memo, MouseEvent } from "react"
+import { ProductsWithRelations } from "../../model"
+import { Trash } from "lucide-react"
+
+interface ActionsProductCellProps {
+  parish: ProductsWithRelations
   isOwner?: boolean,
   className?: string,
-  onDeleteParish?: (parish: ParishWithRelations) => void
+  onDeleteActions?: (parish: ProductsWithRelations) => void
 }
 
-export const ActionsCell = ({ parish, isOwner, className, onDeleteParish }: ActionsCellProps) => {
+export const ActionsProductCell = memo(({ parish, isOwner, onDeleteActions, className }: ActionsProductCellProps) => {
   const handlerDelte = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     e.stopPropagation();
-    onDeleteParish?.(parish);
+    onDeleteActions?.(parish);
   }
 
   if (isOwner) return (
@@ -26,4 +28,6 @@ export const ActionsCell = ({ parish, isOwner, className, onDeleteParish }: Acti
   return (
     <div className={cn("flex justify-center", className)}></div>
   )
-}
+})
+
+ActionsProductCell.displayName = "ActionsProductCell"

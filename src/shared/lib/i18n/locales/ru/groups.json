@@ -11,6 +11,17 @@
     }
   },
   "groups-relations": {
-    "parishes-not-selected": "Приход не выбран"
+    "parishes-not-selected": "Приход не выбран",
+    "parishes-error": "Произошла ошибка",
+    "buttons": {
+      "add-new": "Добавить продукт"
+    },
+    "products-cells": {
+      "status": {
+        "status-free": "Свободный",
+        "status-busy": "Занятый",
+        "status-repair": "Ремонт"
+      }
+    }
   }
 }

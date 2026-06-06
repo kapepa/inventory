@@ -2,7 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import { ParishShortCard, ParishShortCardSkeleton, ParishShortHeader, ParishWithRelations, useInfiniteParishes } from "@/entities";
-import { QUERY_PARAMS_KEYS, useIntersectionObserver, useQueryParam, useThrottle } from "@/shared";
+import { cn, QUERY_PARAMS_KEYS, useIntersectionObserver, useQueryParam, useThrottle } from "@/shared";
 import { useCallback, useEffect } from "react";
 
 interface GroupsListProps {
@@ -13,6 +13,7 @@ interface GroupsListProps {
   className?: string,
   initialParishes?: ParishWithRelations[],
   initialHasMore?: boolean,
+  initialParishesId: string | null
 }
 
 const CARD_CLASS = "grid grid-cols-[1fr_1fr_2fr] items-center gap-4";
@@ -21,12 +22,14 @@ export const GroupsList = ({
   className,
   initialParishes = [],
   initialHasMore = true,
+  initialParishesId,
 }: GroupsListProps) => {
   const t = useTranslations('groups');
   const [search] = useQueryParam(QUERY_PARAMS_KEYS.PARISHES_SEARCH);
   const [activeParishId, setActiveParishId] = useQueryParam(QUERY_PARAMS_KEYS.ACTIVE_PARISH);
   const { parishes, isLoading, error, hasMore, loadMore } = useInfiniteParishes(search, initialParishes, initialHasMore)
   const { targetRef, isIntersecting } = useIntersectionObserver({ threshold: 0.5, rootMargin: "100px" })
+  const getActiveParish = activeParishId || initialParishesId
 
   const selectParishesActions = useCallback((id: string) => {
     setActiveParishId((prev: string | null) => prev === id ? null : id);
@@ -44,10 +47,10 @@ export const GroupsList = ({
 
   return (
     <div className={className}>
-      <ParishShortHeader
-        className="grid grid-cols-[1fr_1fr_2fr] items-center gap-4 pr-14"
-      />
       <div className="flex flex-col gap-3 pb-2">
+        <ParishShortHeader
+          className={cn(CARD_CLASS, "pr-14")}
+        />
         {
           parishes.map(parish => (
             <ParishShortCard
@@ -55,7 +58,7 @@ export const GroupsList = ({
               parish={parish}
               className={CARD_CLASS}
               selectParishesActions={throttleSelectParishesActions}
-              isActive={parish.id === activeParishId}
+              isActive={parish.id === getActiveParish}
             />
           ))
         }

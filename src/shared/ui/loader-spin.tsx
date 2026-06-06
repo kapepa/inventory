@@ -7,6 +7,6 @@ interface LoaderSpinProps extends LucideProps {
 
 export const LoaderSpin = ({ className, ...props }: LoaderSpinProps) => {
   return (
-    <Loader2 className={cn("animate-spin text-accent", className)} {...props} />
+    <Loader2 aria-label="loader-spiner" className={cn("animate-spin text-accent", className)} {...props} />
   )
 }

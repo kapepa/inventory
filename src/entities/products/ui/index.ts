@@ -1,1 +1,1 @@
-export * from "./products-body"
+export * from "./products-short"

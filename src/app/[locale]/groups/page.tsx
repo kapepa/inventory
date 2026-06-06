@@ -59,16 +59,18 @@ export default async function Groups({
         count={initialParishes.total}
         action={<AddParishButton />}
       />
-      <div className="w-full">
-        <div className="overflow-x-auto">
-          <div className="grid grid-cols-[minmax(290px,1fr)_2fr] gap-4 items-start">
+      <div className="w-full mx-auto">
+        <div className="overflow-x-auto pt-5 -mx-6 px-6">
+          <div className="grid grid-cols-[minmax(290px,1fr)_2fr] gap-4 items-start ">
             <GroupsList
               initialHasMore={initialParishes.hasMore}
               initialParishes={initialParishes.data}
+              initialParishesId={parishId}
             />
             <GroupsRelations
               initialHasMore={initialProducts?.hasMore}
               initialProducts={initialProducts?.data}
+              initialParishesId={parishId}
             />
           </div>
         </div>
