@@ -20,11 +20,12 @@
   --border-light: #E5E7EB;
   --border-sidebar: #E5E7EB;
   --color-success: #10B981;
-  --color-warning: #F59E0B;
 
 
+  --color-warning: rgb(245, 158, 11);
   --accent-color: rgb(112, 153, 0);
   --static-color: rgb(229, 231, 235);
+
 
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
@@ -193,4 +194,12 @@
 
 .bg-static {
   background-color: var(--static-color);
+}
+
+.text-warning {
+  color: var(--color-warning);
+}
+
+.bg-warning {
+  background-color: var(--color-warning);
 }

@@ -15,6 +15,9 @@ export { Tabs, TabsList, TabsTrigger, TabsContent } from "./tabs"
 export { TranslateWrapperInput } from "./translate-wrapper-input"
 export { Loader } from "./loader"
 export { XButtonClose } from "./x-button-close"
+export { CirclePlusButton } from "./circle-plus-button"
+export { Thumbnail } from "./thumbnail"
+export { TrashButton } from "./trash-button"
 export {
   Tooltip,
   TooltipContent,

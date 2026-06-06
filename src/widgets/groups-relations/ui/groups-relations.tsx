@@ -1,53 +1,55 @@
 "use client"
 
-import { ProductsBody, ProductsWithRelations, useInfiniteProducts } from "@/entities/products"
-import { Button, QUERY_PARAMS_KEYS, useMounted, useQueryParam } from "@/shared"
+import { ProductShortCard, ProductsShortAddNew, ProductsShortBody, ProductsShortStateMessage, ProductsWithRelations, useInfiniteProducts } from "@/entities/products"
+import { Button, QUERY_PARAMS_KEYS, useQueryParam } from "@/shared"
 import { LoaderSpin } from "@/shared/ui/loader-spin"
 import { useTranslations } from "next-intl"
 
 interface GroupsRelationsProps {
+  className?: string,
   initialHasMore?: boolean,
-  initialProducts?: ProductsWithRelations[]
+  initialProducts?: ProductsWithRelations[],
+  initialParishesId: string | null
 }
 
-export const GroupsRelations = ({ initialHasMore, initialProducts }: GroupsRelationsProps) => {
+export const GroupsRelations = ({ initialHasMore, initialProducts, initialParishesId }: GroupsRelationsProps) => {
   const t = useTranslations('groups');
-  const mounted = useMounted()
-  const [activeParishId] = useQueryParam(QUERY_PARAMS_KEYS.ACTIVE_PARISH);
-  const { products, isLoading, error, hasMore, loadMore } = useInfiniteProducts({ parishId: activeParishId, initialProducts, initialHasMore });
+  const [activeParishId, setActiveParishId] = useQueryParam(QUERY_PARAMS_KEYS.ACTIVE_PARISH);
+  const { products, isLoading, error, clearProducts, hasMore, loadMore } = useInfiniteProducts({ parishId: activeParishId, initialProducts, initialHasMore });
 
-  if (!mounted || !activeParishId) {
-    return (
-      <div className="flex items-center justify-center py-8 text-muted-foreground">
-        {t("groups-relations.parishes-not-selected")}
-      </div>
-    )
-  }
+  if (!initialParishesId && !activeParishId) return (
+    <ProductsShortStateMessage className="text-muted-foreground">
+      {t("groups-relations.parishes-not-selected")}
+    </ProductsShortStateMessage>
+  )
 
-  if (error) {
-    return (
-      <div className="flex items-center justify-center py-8 text-destructive">
-        {error}
-      </div>
-    )
-  }
+  if (error) return (
+    <ProductsShortStateMessage className="text-destructive">
+      {t("groups-relations.parishes-error")}
+    </ProductsShortStateMessage>
+  )
 
-  if (isLoading && products.length === 0) {
-    return (
-      <div className="flex items-center justify-center py-8">
-        <LoaderSpin className="h-16 w-16" />
-      </div>
-    )
-  }
+  if (isLoading && products.length === 0) return (
+    <ProductsShortStateMessage>
+      <LoaderSpin className="h-16 w-16" />
+    </ProductsShortStateMessage>
+  )
 
   return (
-    <ProductsBody
-      title="Some Test text"
-      actions={<Button>Add</Button>}
-      onCloseActions={() => { }}
+    <ProductsShortBody
+      title="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua"
+      actions={<ProductsShortAddNew />}
+      onCloseActions={() => { setActiveParishId(""); clearProducts(); }}
     >
-      sdasd
-    </ProductsBody>
+      {
+        products.map((product) => (
+          <ProductShortCard
+            key={product.id}
+            product={product}
+          />
+        ))
+      }
+    </ProductsShortBody>
   )
 }
 

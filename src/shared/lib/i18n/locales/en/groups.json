@@ -11,6 +11,17 @@
     }
   },
   "groups-relations": {
-    "parishes-not-selected": "No parish selected"
+    "parishes-not-selected": "No parish selected",
+    "parishes-error": "Something went wrong",
+    "buttons": {
+      "add-new": "Add a product"
+    },
+    "products-cells": {
+      "status": {
+        "status-free": "Free",
+        "status-busy": "Busy",
+        "status-repair": "Repair"
+      }
+    }
   }
 }

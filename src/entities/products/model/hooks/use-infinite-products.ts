@@ -25,7 +25,6 @@ export const useInfiniteProducts = ({
 
   const isFirstRender = useRef(true)
   const isInitialized = useRef(false)
-  const loadingRef = useRef(false)
 
   // Avoid hydration flicker: use initialProducts if the store is still empty and we haven't initialized yet
   const effectiveProducts = (!isInitialized.current && products.length === 0) ? initialProducts : products
@@ -49,9 +48,8 @@ export const useInfiniteProducts = ({
         return
       }
 
-      if (!isFirstPage && (loadingRef.current || !hasMore)) return
+      if (!isFirstPage && (isLoading || !hasMore)) return
 
-      loadingRef.current = true
       setIsLoading(true)
       setError(null)
 
@@ -78,7 +76,6 @@ export const useInfiniteProducts = ({
         if (err instanceof Error && err.name === "AbortError") return
         setError(err instanceof Error ? err.message : "Failed to load products")
       } finally {
-        loadingRef.current = false
         setIsLoading(false)
       }
     },
@@ -96,7 +93,15 @@ export const useInfiniteProducts = ({
     return () => controller.abort()
   }, [parishId, search, fetchItems])
 
-  const loadMore = () => fetchItems(false)
+  const loadMore = () => fetchItems(false);
+
+  const clearProducts = useCallback(() => {
+    setProducts([])
+    setPage(2)
+    setHasMore(false)
+    setError(null)
+    isInitialized.current = false
+  }, [])
 
   return {
     products: effectiveProducts,
@@ -104,5 +109,6 @@ export const useInfiniteProducts = ({
     error,
     hasMore: effectiveHasMore,
     loadMore,
+    clearProducts,
   }
 }

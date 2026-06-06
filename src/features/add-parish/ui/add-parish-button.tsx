@@ -1,7 +1,6 @@
 "use client"
 
-import { Button, cn, QUERY_PARAMS_KEYS, Tooltip, TooltipContent, TooltipText, TooltipTrigger, useModalActions, useModalQuery } from "@/shared"
-import { Plus } from "lucide-react"
+import { CirclePlusButton, cn, QUERY_PARAMS_KEYS, Tooltip, TooltipContent, TooltipText, TooltipTrigger, useModalActions, useModalQuery } from "@/shared"
 import { useTranslations } from "next-intl"
 import { memo, useCallback } from "react"
 import { AddParishForm } from "./add-parish-form"
@@ -25,9 +24,7 @@ export const AddParishButton = memo(({ className }: AddParishButtonProps) => {
   return (
     <Tooltip>
       <TooltipTrigger asChild>
-        <Button onClick={open} className={cn("bg-accent rounded-full size-10 cursor-pointer", className)} size="icon">
-          <Plus />
-        </Button>
+        <CirclePlusButton onClick={open} className={cn("size-10", className)} />
       </TooltipTrigger>
       <TooltipContent className=" bg-chart-2 border-chart-2">
         <TooltipText>

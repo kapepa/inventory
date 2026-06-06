@@ -13,11 +13,11 @@ interface ParishShortCardProps {
   selectParishesActions: (id: string) => void,
 }
 
-const ActiveChevron = memo(({ isActive, mounted }: { isActive: boolean, mounted: boolean }) => {
+const ActiveChevron = memo(({ isActive }: { isActive: boolean }) => {
   return (
     <div className={cn(
       "absolute top-0 right-0 bottom-0 w-14 bg-chart-1 rounded-tr-md rounded-br-md flex items-center justify-center transition-opacity",
-      mounted && isActive ? "visible opacity-100" : "invisible opacity-0"
+      isActive ? "visible opacity-100" : "invisible opacity-0"
     )}>
       <ChevronRight className="size-7 text-background" />
     </div>
@@ -27,12 +27,11 @@ const ActiveChevron = memo(({ isActive, mounted }: { isActive: boolean, mounted:
 export const ParishShortCard = memo(
   ({ parish, className, isActive, selectParishesActions }: ParishShortCardProps) => {
     const { title, description } = parish.translations[0]
-    const mounted = useMounted()
 
     return (
       <div className="relative">
         <button
-          disabled={mounted && isActive}
+          disabled={isActive}
           onClick={() => { selectParishesActions(parish.id) }}
           className={cn("px-2 py-3 border rounded-md bg-card hover:shadow-md transition-all cursor-pointer w-full pr-14", className)
           }>
@@ -40,7 +39,7 @@ export const ParishShortCard = memo(
           <CountCell count={parish._count.products} />
           <DateCell created={parish.createdAt} delivery={parish.deliveryDate} />
         </button>
-        <ActiveChevron isActive={isActive} mounted={mounted} />
+        <ActiveChevron isActive={isActive} />
       </div>
     )
   }
