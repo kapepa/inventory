@@ -1,4 +1,4 @@
-import { cn, formatUAH, formatUSD } from "@/shared"
+import { cn, formatUAH, formatUSD, Skeleton } from "@/shared"
 
 interface AmountCellProps {
   sumUSD: number,
@@ -16,3 +16,16 @@ export const AmountCell = ({ sumUAH, sumUSD, className }: AmountCellProps) => {
     </div>
   )
 }
+
+AmountCell.displayName = "AmountCell"
+
+export const AmountCellSkeleton = ({ className }: { className?: string }) => {
+  return (
+    <div className={cn("flex flex-col items-center gap-y-2", className)}>
+      <Skeleton className="h-4 w-[50%]" />
+      <Skeleton className="h-5 w-[75%]" />
+    </div>
+  )
+}
+
+AmountCellSkeleton.displayName = "AmountCellSkeleton"

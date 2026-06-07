@@ -62,14 +62,12 @@ export const GroupsList = ({
             />
           ))
         }
+        {(hasMore || isLoading) && (
+          <div ref={targetRef}>
+            {isLoading && <ParishShortCardSkeleton className={CARD_CLASS} />}
+          </div>
+        )}
       </div>
-      {(hasMore || isLoading) && (
-        <div ref={targetRef} className="flex flex-col gap-3 mt-3">
-          {isLoading && Array.from({ length: 2 }).map((_, i) => (
-            <ParishShortCardSkeleton key={i} className={CARD_CLASS} />
-          ))}
-        </div>
-      )}
     </div>
   );
 }

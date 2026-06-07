@@ -22,6 +22,10 @@
         "status-busy": "Занятый",
         "status-repair": "Ремонт"
       }
+    },
+    "product-details-modal": {
+      "product-details": "Сведения о товаре",
+      "ok": "Хорошо"
     }
   }
 }

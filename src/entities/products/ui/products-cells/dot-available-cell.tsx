@@ -1,4 +1,4 @@
-import { cn, STATUS_DISPLAY_CONFIG } from "@/shared"
+import { cn, Skeleton, STATUS_DISPLAY_CONFIG } from "@/shared"
 import { ProductStatus } from "@prisma/client"
 import { memo } from "react"
 
@@ -18,3 +18,13 @@ export const DotAvailableCell = memo(({ className, status }: DotAvailableCellPro
 })
 
 DotAvailableCell.displayName = "DotAvailableCell"
+
+export const DotAvailableCellSkeleton = memo(({ className }: { className?: string }) => {
+  return (
+    <div className={cn("flex justify-center items-center", className)}>
+      <Skeleton className="w-3 h-3 rounded-full" />
+    </div>
+  )
+})
+
+DotAvailableCellSkeleton.displayName = "DotAvailableCellSkeleton"

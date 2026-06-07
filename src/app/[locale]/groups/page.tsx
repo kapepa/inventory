@@ -60,7 +60,7 @@ export default async function Groups({
         action={<AddParishButton />}
       />
       <div className="w-full mx-auto">
-        <div className="overflow-x-auto pt-5 -mx-6 px-6">
+        <div className="overflow-x-auto py-5 -mx-6 px-6">
           <div className="grid grid-cols-[minmax(290px,1fr)_2fr] gap-4 items-start ">
             <GroupsList
               initialHasMore={initialParishes.hasMore}

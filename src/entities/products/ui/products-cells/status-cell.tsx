@@ -1,4 +1,4 @@
-import { cn, STATUS_DISPLAY_CONFIG } from "@/shared"
+import { cn, Skeleton, STATUS_DISPLAY_CONFIG } from "@/shared"
 import { ProductStatus } from "@prisma/client"
 import { useTranslations } from "next-intl"
 import { memo } from "react"
@@ -21,3 +21,14 @@ export const StatusCell = memo(({ status, className }: StatusCellProps) => {
 )
 
 StatusCell.displayName = "StatusCell"
+
+export const StatusCellSkeleton = memo(({ className }: { className?: string }) => {
+  return (
+    <div className={cn("flex justify-center items-center", className)}>
+      <Skeleton className="h-6 w-20" />
+    </div>
+  )
+}
+)
+
+StatusCellSkeleton.displayName = "StatusCellSkeleton"

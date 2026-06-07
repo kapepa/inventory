@@ -1,4 +1,4 @@
-import { cn } from "@/shared"
+import { cn, Skeleton } from "@/shared"
 import { format } from 'date-fns';
 import { ru, enUS } from 'date-fns/locale';
 import { useLocale } from 'next-intl';
@@ -20,3 +20,16 @@ export const DateCell = ({ created, delivery, className }: DateCellProps) => {
     </div>
   )
 }
+
+DateCell.displayName = "DateCell"
+
+export const DateCellSkeleton = ({ className }: { className?: string }) => {
+  return (
+    <div className={cn("flex flex-col items-center gap-y-2", className)}>
+      <Skeleton className="h-4 w-[50%]" />
+      <Skeleton className="h-5 w-[75%]" />
+    </div>
+  )
+}
+
+DateCellSkeleton.displayName = "DateCellSkeleton"

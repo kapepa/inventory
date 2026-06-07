@@ -1,6 +1,6 @@
 "use client"
 
-import { cn, Thumbnail } from "@/shared"
+import { cn, Skeleton, Thumbnail } from "@/shared"
 
 interface PictureCellProps {
   url?: string | null
@@ -17,3 +17,13 @@ export const PictureCell = ({ url, alt = "product", className }: PictureCellProp
 }
 
 PictureCell.displayName = "PictureCell"
+
+export const PictureCellSkeleton = ({ className }: { className?: string }) => {
+  return (
+    <div className={cn("flex items-center justify-center", className)}>
+      <Skeleton className="size-12" />
+    </div>
+  )
+}
+
+PictureCellSkeleton.displayName = "PictureCellSkeleton"

@@ -1,4 +1,4 @@
-import { Button, cn, Popover, PopoverContent, PopoverTrigger } from "@/shared"
+import { Button, cn, Popover, PopoverContent, PopoverTrigger, Skeleton } from "@/shared"
 import { Menu } from "lucide-react"
 
 interface DetailsCellProps {
@@ -29,3 +29,15 @@ export const DetailsCell = ({ title, description, className }: DetailsCellProps)
     </div>
   )
 }
+
+DetailsCell.displayName = "DetailsCell"
+
+export const DetailsCellSkeleton = ({ className }: { className?: string }) => {
+  return (
+    <div className={cn("flex justify-center", className)} >
+      <Skeleton className="size-11 rounded-full" />
+    </div>
+  )
+}
+
+DetailsCellSkeleton.displayName = "DetailsCellSkeleton"

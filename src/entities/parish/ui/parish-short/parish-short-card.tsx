@@ -1,8 +1,8 @@
 "use client"
 
-import { cn, useMounted } from "@/shared";
+import { cn } from "@/shared";
 import { ParishWithRelations } from "../../model";
-import { CountCell, DateCell, DetailsCell } from "../cells";
+import { CountCell, CountCellSkeleton, DateCell, DateCellSkeleton, DetailsCell, DetailsCellSkeleton } from "../cells";
 import { memo } from "react";
 import { ChevronRight } from "lucide-react";
 
@@ -46,3 +46,15 @@ export const ParishShortCard = memo(
 )
 
 ParishShortCard.displayName = 'ParishShortCard';
+
+export const ParishShortCardSkeleton = memo(({ className }: { className?: string }) => {
+  return (
+    <div className={cn("px-2 py-3 border rounded-md bg-card", className)}>
+      <DetailsCellSkeleton />
+      <CountCellSkeleton />
+      <DateCellSkeleton />
+    </div>
+  )
+})
+
+ParishShortCardSkeleton.displayName = "ParishShortCardSkeleton"

@@ -1,3 +1,2 @@
-export { ParishWideCard } from "./parish-wide-card"
-export { ParishWideCardSkeleton } from "./parish-wide-card-skeleton"
+export { ParishWideCard, ParishWideCardSkeleton } from "./parish-wide-card"
 export { ParishWideHeader } from "./parish-wide-header"

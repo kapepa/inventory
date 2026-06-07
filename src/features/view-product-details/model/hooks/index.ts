@@ -1,0 +1,1 @@
+export { useViewProduct } from "./use-view-product"
