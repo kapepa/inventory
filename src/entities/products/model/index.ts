@@ -1,2 +1,2 @@
-export type { FetchProducts, ResponseProducts, ProductsWithRelations, FetchProductsClient } from "./types"
-export { useInfiniteProducts } from "./hooks/use-infinite-products"
+export * from "./hooks"
+export * from "./types"

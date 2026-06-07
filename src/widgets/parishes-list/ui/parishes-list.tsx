@@ -1,7 +1,7 @@
 "use client"
 
 import { useCallback, useEffect } from "react"
-import { ParishWideCard, ParishWithRelations, useInfiniteParishes, ParishWideCardSkeleton, ParishWideHeader } from "@/entities"
+import { ParishWideCard, ParishWithRelations, useInfiniteParishes, ParishWideHeader, ParishWideCardSkeleton } from "@/entities"
 import { cn, QUERY_PARAMS_KEYS, useIntersectionObserver, useQueryParam } from "@/shared"
 import { useDeleteParish } from "@/features"
 import { useTranslations } from "next-intl"
@@ -54,15 +54,13 @@ export const ParishesList = ({
                 className={PARISH_GRID_LAYOUT}
               />
             ))}
+            {(hasMore || isLoading) && (
+              <div ref={targetRef} className="flex flex-col gap-3 mt-3">
+                {isLoading && <ParishWideCardSkeleton className={PARISH_GRID_LAYOUT} />}
+              </div>
+            )}
           </div>
 
-          {(hasMore || isLoading) && (
-            <div ref={targetRef} className="flex flex-col gap-3 mt-3">
-              {isLoading && Array.from({ length: 2 }).map((_, i) => (
-                <ParishWideCardSkeleton key={i} className={PARISH_GRID_LAYOUT} />
-              ))}
-            </div>
-          )}
         </div>
       </div>
     </div>

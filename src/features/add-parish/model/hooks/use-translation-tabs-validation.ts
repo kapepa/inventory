@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 import { UseFormReturn } from 'react-hook-form'
-import { ParishFormValues, TranslatableFieldName } from './types'
+import { ParishFormValues, TranslatableFieldName } from '../types/types'
 import { AppLocale } from '@/shared'
 
 interface LocaleValidation {
@@ -20,7 +20,7 @@ interface UseTranslationTabsValidationReturn {
 export const useTranslationTabsValidation = (
   form: UseFormReturn<ParishFormValues>
 ): UseTranslationTabsValidationReturn => {
-  // Подписываемся только на errors и submitCount, НЕ на значения полей
+  // Subscribe only to `errors` and `submitCount`, NOT to field values
   const { errors, submitCount } = form.formState
 
   return useMemo(() => {
@@ -29,7 +29,7 @@ export const useTranslationTabsValidation = (
     const validateLocale = (locale: AppLocale): LocaleValidation => {
       const localeErrors = errors.translations?.[locale]
 
-      // Читаем текущие значения напрямую через getValues (без подписки)
+      // Read current values directly using getValues (without subscribing)
       const localeData = form.getValues(`translations.${locale}`)
 
       const hasErrors = requiredFields.some(field => !!localeErrors?.[field])

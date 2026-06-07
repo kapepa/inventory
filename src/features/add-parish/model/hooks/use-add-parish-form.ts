@@ -7,7 +7,7 @@ import { toast } from "sonner"
 import { useLocale, useTranslations } from "next-intl"
 import { useParishesStore } from "@/entities/parish/model/parish-store"
 import { AppLocale, STORAGE_KEYS } from "@/shared"
-import { parishFormSchema, type ParishFormValues } from "./types"
+import { parishFormSchema, ParishFormValues } from "../types"
 
 const ADD_PARISH_FORM_DATA = STORAGE_KEYS.ADD_PARISH_FORM_DATA
 

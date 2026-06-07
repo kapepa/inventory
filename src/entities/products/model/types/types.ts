@@ -1,5 +1,5 @@
 import { AppLocale } from "@/shared";
-import { Product, ProductTranslation } from "@prisma/client";
+import { Price, Product, ProductTranslation } from "@prisma/client";
 
 export interface FetchProducts {
   parishId?: string,
@@ -20,4 +20,5 @@ export interface ResponseProducts {
 
 export interface ProductsWithRelations extends Product {
   translations: ProductTranslation[];
+  prices: Pick<Price, "value" | "symbol">[]
 }

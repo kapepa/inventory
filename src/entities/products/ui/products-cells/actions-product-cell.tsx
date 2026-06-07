@@ -1,9 +1,8 @@
 "use client"
 
-import { Button, cn, TrashButton } from "@/shared"
+import { cn, Skeleton, TrashButton } from "@/shared"
 import { memo, MouseEvent } from "react"
 import { ProductsWithRelations } from "../../model"
-import { Trash } from "lucide-react"
 
 interface ActionsProductCellProps {
   parish: ProductsWithRelations
@@ -31,3 +30,14 @@ export const ActionsProductCell = memo(({ parish, isOwner, onDeleteActions, clas
 })
 
 ActionsProductCell.displayName = "ActionsProductCell"
+
+export const ActionsProductCellSkeleton = memo(({ className }: { className?: string }) => {
+  return (
+    <div className={cn("flex justify-center items-center", className)}>
+      <Skeleton className="size-8" />
+    </div>
+  )
+})
+
+ActionsProductCellSkeleton.displayName = "ActionsProductCellSkeleton"
+

@@ -1,4 +1,4 @@
-import { cn, Tooltip, TooltipContent, TooltipText, TooltipTrigger } from "@/shared"
+import { cn, Skeleton, Tooltip, TooltipContent, TooltipText, TooltipTrigger } from "@/shared"
 import { memo } from "react"
 
 interface IdentifierCellProps {
@@ -29,3 +29,17 @@ export const IdentifierCell = memo(({ title, serialNumber, className }: Identifi
 )
 
 IdentifierCell.displayName = "IdentifierCell"
+
+export const IdentifierCellSkeleton = memo(({ className }: { className?: string }) => {
+  return (
+    <div className={cn("grid items-start gap-y-1", className)}>
+      <Skeleton className="h-5 w-[50%]" />
+      <div className="flex items-start gap-1 text-sm text-muted-foreground">
+        <Skeleton className="h-4 w-[25%]" />
+      </div>
+    </div>
+  )
+}
+)
+
+IdentifierCellSkeleton.displayName = "IdentifierCellSkeleton"

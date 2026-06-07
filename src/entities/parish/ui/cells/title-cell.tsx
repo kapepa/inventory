@@ -1,4 +1,4 @@
-import { cn, Tooltip, TooltipContent, TooltipText, TooltipTrigger } from "@/shared"
+import { cn, Skeleton, Tooltip, TooltipContent, TooltipText, TooltipTrigger } from "@/shared"
 
 interface TitleCellProps {
   title: string,
@@ -23,3 +23,15 @@ export const TitleCell = ({ title, className }: TitleCellProps) => {
     </div>
   )
 }
+
+TitleCell.displayName = "TitleCell"
+
+export const TitleCellSkeleton = ({ className }: { className?: string }) => {
+  return (
+    <div className={cn("", className)}>
+      <Skeleton className="h-6 w-[50%]" />
+    </div>
+  )
+}
+
+TitleCellSkeleton.displayName = "TitleCellSkeleton"

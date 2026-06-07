@@ -1,1 +1,1 @@
-export { useDeleteParish } from "./use-delete-parish"
+export * from "./hooks"

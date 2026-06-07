@@ -1,0 +1,1 @@
+export { useDeleteParish } from "./use-delete-parish"

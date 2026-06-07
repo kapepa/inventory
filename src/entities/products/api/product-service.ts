@@ -16,6 +16,12 @@ export async function getProductsByParishId({
       where: { parishId },
       include: {
         translations: { where: { locale } },
+        prices: {
+          select: {
+            value: true,
+            symbol: true
+          }
+        },
       },
       skip,
       take: limit,

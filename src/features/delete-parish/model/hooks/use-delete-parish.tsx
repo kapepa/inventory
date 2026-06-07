@@ -2,7 +2,7 @@
 
 import { useModalActions } from "@/shared/ui/modal";
 import { ParishWithRelations, deleteParish, useParishesStore } from "@/entities";
-import { DeleteConfirmModal } from "../ui/delete-confirm-modal";
+import { DeleteConfirmModal } from "../../ui/delete-confirm-modal";
 import { toast } from "sonner";
 import { useTranslations } from "next-intl";
 import { useCallback } from "react";

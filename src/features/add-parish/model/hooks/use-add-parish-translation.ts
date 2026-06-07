@@ -3,7 +3,7 @@
 import { useMemo, useState, useTransition } from "react"
 import { FieldPath, UseFormReturn } from "react-hook-form"
 import { AppLocale, oppositeLocale, useThrottle, useTranslate } from "@/shared"
-import { ParishFormValues, TranslatableFieldName } from "./types"
+import { ParishFormValues, TranslatableFieldName } from "../types"
 
 export const useAddParishTranslation = (form: UseFormReturn<ParishFormValues>) => {
   const { translate, isLoading: isTranslatingApi } = useTranslate()

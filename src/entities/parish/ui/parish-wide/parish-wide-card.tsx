@@ -1,7 +1,7 @@
 import { cn, Link, ROUTES } from "@/shared"
 import { memo } from "react"
 import { ParishWithRelations } from "../../model"
-import { ActionsCell, AmountCell, CountCell, DateCell, DetailsCell, TitleCell } from "../cells"
+import { ActionsCell, ActionsCellSkeleton, AmountCell, AmountCellSkeleton, CountCell, CountCellSkeleton, DateCell, DateCellSkeleton, DetailsCell, DetailsCellSkeleton, TitleCell, TitleCellSkeleton } from "../cells"
 
 interface ParishWideCardProps {
   parish: ParishWithRelations
@@ -25,3 +25,22 @@ export const ParishWideCard = memo(
     )
   }
 )
+
+ParishWideCard.displayName = "ParishWideCard"
+
+export const ParishWideCardSkeleton = memo(({ className }: { className?: string }) => {
+
+  return (
+    <div className={cn("px-6 py-4 border rounded-md bg-card", className)}>
+      <TitleCellSkeleton />
+      <DetailsCellSkeleton />
+      <CountCellSkeleton />
+      <DateCellSkeleton />
+      <AmountCellSkeleton />
+      <ActionsCellSkeleton />
+    </div>
+  )
+}
+)
+
+ParishWideCard.displayName = "ParishWideCardSkeleton"

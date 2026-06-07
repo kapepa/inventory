@@ -1,5 +1,4 @@
-import { Button, cn, TrashButton } from "@/shared"
-import { Trash } from "lucide-react"
+import { cn, Skeleton, TrashButton } from "@/shared"
 import { MouseEvent } from "react"
 import { ParishWithRelations } from "../../model/types"
 
@@ -27,3 +26,15 @@ export const ActionsCell = ({ parish, isOwner, className, onDeleteParish }: Acti
     <div className={cn("flex justify-center", className)}></div>
   )
 }
+
+ActionsCell.displayName = "ActionsCell"
+
+export const ActionsCellSkeleton = ({ className }: { className?: string }) => {
+  return (
+    <div className={cn("flex justify-center", className)}>
+      <Skeleton className="size-8" />
+    </div>
+  )
+}
+
+ActionsCellSkeleton.displayName = "ActionsCellSkeleton"
