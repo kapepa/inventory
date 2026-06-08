@@ -19,6 +19,7 @@ export { CirclePlusButton } from "./circle-plus-button"
 export { Thumbnail } from "./thumbnail"
 export { ResponsiveImage } from "./responsive-image"
 export { TrashButton } from "./trash-button"
+export { DotsDivider } from "./dots-divider"
 export {
   Tooltip,
   TooltipContent,

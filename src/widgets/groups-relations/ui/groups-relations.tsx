@@ -33,23 +33,6 @@ export const GroupsRelations = ({ initialHasMore, initialProducts, initialParish
   }, [productDetails])
 
   useEffect(() => {
-    productDetails({
-      categoryId: "cccccccc-cccc-cccc-cccc-cccccccccccc",
-      createdAt: new Date(),
-      id: "39792634-0026-4f59-9975-45f60a3d2769",
-      isNew: true,
-      order: 10,
-      parishId: "33333333-3333-3333-3333-333333333333",
-      photo: "/images/products/product-3002.jpg",
-      prices: [{ value: 399.99, symbol: 'USD' }, { value: 15999.6, symbol: 'UAH' }],
-      serialNumber: 3002,
-      status: "REPAIR",
-      translations: [{ title: "Принтер Epson EcoTank", specification: "Струйный, непрерывная подача чернил", locale: "ru" }],
-      userId: "f2f9b3d9-0310-45d2-bfd2-749b59819134"
-    } as ProductsWithRelations)//test file
-  }, [])
-
-  useEffect(() => {
     if (isIntersecting && hasMore && !isLoading) {
       loadMore()
     }

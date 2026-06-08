@@ -3,18 +3,18 @@ import { ModalActionButton, ModalBody, ModalContents, ModalFooter, ModalHeader }
 import { useTranslations } from "next-intl";
 
 interface ProductDetailsModalProps {
-  products: ProductsWithRelations
+  product: ProductsWithRelations
   onCancelAction: () => void;
 }
 
-export const ProductDetailsModal = ({ products, onCancelAction }: ProductDetailsModalProps) => {
+export const ProductDetailsModal = ({ product, onCancelAction }: ProductDetailsModalProps) => {
   const t = useTranslations('groups.groups-relations.product-details-modal');
 
   return (
     <ModalContents>
       <ModalHeader title={t("product-details")} />
       <ModalBody>
-        <ProductDetails products={products} />
+        <ProductDetails product={product} />
       </ModalBody>
       <ModalFooter>
         <ModalActionButton

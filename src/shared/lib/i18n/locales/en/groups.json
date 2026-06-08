@@ -16,16 +16,24 @@
     "buttons": {
       "add-new": "Add a product"
     },
-    "products-cells": {
+    "products": {
       "status": {
         "status-free": "Free",
         "status-busy": "Busy",
         "status-repair": "Repair"
+      },
+      "condition": {
+        "new": "New",
+        "old": "Used"
       }
     },
     "product-details-modal": {
       "product-details": "Product Details",
-      "ok": "Ok"
+      "ok": "Ok",
+      "serial-number": "Serial number",
+      "order": "Remaining items",
+      "status": "Status",
+      "condition": "Condition"
     }
   }
 }

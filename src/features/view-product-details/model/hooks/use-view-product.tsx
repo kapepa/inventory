@@ -6,10 +6,10 @@ import { ProductDetailsModal } from "../../ui";
 export const useViewProduct = () => {
   const { openModal, closeModal } = useModalActions();
 
-  const productDetails = useCallback((products: ProductsWithRelations) => {
+  const productDetails = useCallback((product: ProductsWithRelations) => {
     openModal(
       <ProductDetailsModal
-        products={products}
+        product={product}
         onCancelAction={closeModal}
       />
     );

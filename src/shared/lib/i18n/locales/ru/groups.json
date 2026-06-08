@@ -16,16 +16,24 @@
     "buttons": {
       "add-new": "Добавить продукт"
     },
-    "products-cells": {
+    "products": {
       "status": {
         "status-free": "Свободный",
         "status-busy": "Занятый",
         "status-repair": "Ремонт"
+      },
+      "condition": {
+        "new": "Новое",
+        "old": "Б/y"
       }
     },
     "product-details-modal": {
       "product-details": "Сведения о товаре",
-      "ok": "Хорошо"
+      "ok": "Хорошо",
+      "serial-number": "Серийный номер",
+      "order": "Оставшиеся товары",
+      "status": "Статус",
+      "condition": "Cостояние"
     }
   }
 }
