@@ -1,0 +1,10 @@
+{
+  "buttons": {
+    "add-new": "Add a product"
+  },
+  "modal": {
+    "header": {
+      "create": "Create a product"
+    }
+  }
+}

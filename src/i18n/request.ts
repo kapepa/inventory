@@ -15,6 +15,7 @@ export default getRequestConfig(async ({ locale }) => {
       sidebar: (await import(`../shared/lib/i18n/locales/${locale}/sidebar.json`)).default,
       header: (await import(`../shared/lib/i18n/locales/${locale}/header.json`)).default,
       metadata: (await import(`../shared/lib/i18n/locales/${locale}/metadata.json`)).default,
+      "add-product": (await import(`../shared/lib/i18n/locales/${locale}/add-product.json`)).default,
     }
   };
 });

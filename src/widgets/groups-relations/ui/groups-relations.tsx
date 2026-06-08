@@ -1,8 +1,8 @@
 "use client"
 
 import { useParishesStore } from "@/entities/parish"
-import { ProductShortCard, ProductShortCardSkeleton, ProductsShortAddNew, ProductsShortBody, ProductsShortStateMessage, ProductsWithRelations, useInfiniteProducts } from "@/entities/products"
-import { useViewProduct } from "@/features"
+import { ProductShortCard, ProductShortCardSkeleton, ProductsShortBody, ProductsShortStateMessage, ProductsWithRelations, useInfiniteProducts } from "@/entities/products"
+import { ProductCreateButton, useViewProduct } from "@/features"
 import { QUERY_PARAMS_KEYS, useIntersectionObserver, useQueryParam } from "@/shared"
 import { LoaderSpin } from "@/shared/ui/loader-spin"
 import { useTranslations } from "next-intl"
@@ -59,7 +59,7 @@ export const GroupsRelations = ({ initialHasMore, initialProducts, initialParish
   return (
     <ProductsShortBody
       title={activeParishTitle}
-      actions={<ProductsShortAddNew />}
+      actions={<ProductCreateButton />}
       onCloseActions={() => { setActiveParishId(""); clearProducts(); }}
     >
       {

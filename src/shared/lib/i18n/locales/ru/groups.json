@@ -13,9 +13,6 @@
   "groups-relations": {
     "parishes-not-selected": "Приход не выбран",
     "parishes-error": "Произошла ошибка",
-    "buttons": {
-      "add-new": "Добавить продукт"
-    },
     "products": {
       "status": {
         "status-free": "Свободный",
