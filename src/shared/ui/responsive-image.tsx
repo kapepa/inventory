@@ -5,6 +5,7 @@ import { cn } from "@/shared"
 import { ImageIcon } from "lucide-react"
 import { Skeleton } from "@/shared/ui/skeleton"
 import { memo, useState, ReactNode } from "react"
+import { useTranslations } from "next-intl"
 
 // Type for a single image URL (Next.js handles optimization)
 type SingleImageSource = {
@@ -63,12 +64,13 @@ export const ResponsiveImage = memo(
     // Track loading and error states
     const [isLoading, setIsLoading] = useState(true)
     const [hasError, setHasError] = useState(false)
+    const t = useTranslations('responsive-image')
 
     // Default fallback UI when no image is available
     const defaultFallback = (
-      <div className="flex flex-col items-center justify-center text-muted-foreground/40">
+      <div className="flex flex-col items-center justify-center text-muted-foreground/40 h-full">
         <ImageIcon className="w-16 h-16" strokeWidth={1.5} />
-        <span className="text-sm mt-2">No image</span>
+        <span className="text-sm mt-2">{t("no-image")}</span>
       </div>
     )
 

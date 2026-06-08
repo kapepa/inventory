@@ -9,7 +9,7 @@ interface StatusCellProps {
 }
 
 export const StatusCell = memo(({ status, className }: StatusCellProps) => {
-  const t = useTranslations('groups.groups-relations.products-cells.status')
+  const t = useTranslations('groups.groups-relations.products.status')
   const config = STATUS_DISPLAY_CONFIG[status] || STATUS_DISPLAY_CONFIG.FREE
 
   return (

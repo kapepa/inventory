@@ -5,9 +5,7 @@ import {
   ModalActionButton,
   ModalBody,
   ModalCancelButton,
-  ModalContents,
   ModalFooter,
-  ModalHeader,
   Form,
   AppLocale,
   Tabs,
@@ -31,8 +29,7 @@ export const AddParishForm = ({ closeModalAction }: AddParishFormProps) => {
   const isPending = isSubmitting || isTranslating
 
   return (
-    <ModalContents>
-      <ModalHeader title={t("form-created.title")} />
+    <>
       <ModalBody>
         <Form {...form}>
           <form id="add-parish-form" onSubmit={onSubmit}>
@@ -70,7 +67,11 @@ export const AddParishForm = ({ closeModalAction }: AddParishFormProps) => {
         </Form>
       </ModalBody>
       <ModalFooter>
-        <ModalCancelButton type="button" onCancelAction={closeModalAction} disabled={isSubmitting}>
+        <ModalCancelButton
+          type="button"
+          onCancelAction={closeModalAction}
+          disabled={isPending}
+        >
           {t("form-created.buttons.cancel")}
         </ModalCancelButton>
         <ModalActionButton
@@ -83,6 +84,6 @@ export const AddParishForm = ({ closeModalAction }: AddParishFormProps) => {
           {t("form-created.buttons.create")}
         </ModalActionButton>
       </ModalFooter>
-    </ModalContents>
+    </>
   )
 }

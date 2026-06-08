@@ -19,6 +19,7 @@ export { CirclePlusButton } from "./circle-plus-button"
 export { Thumbnail } from "./thumbnail"
 export { ResponsiveImage } from "./responsive-image"
 export { TrashButton } from "./trash-button"
+export { DotsDivider } from "./dots-divider"
 export {
   Tooltip,
   TooltipContent,
@@ -75,4 +76,15 @@ export {
   DropdownMenuSubTrigger,
   DropdownMenuSubContent,
 } from "./dropdown-menu"
-
+export {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectScrollDownButton,
+  SelectScrollUpButton,
+  SelectSeparator,
+  SelectTrigger,
+  SelectValue,
+} from "./select"
