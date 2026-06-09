@@ -26,6 +26,8 @@
     "condition": "Состояние",
     "condition-new": "Новый",
     "condition-used": "Б/у",
+    "category": "Категория",
+    "category-placeholder": "Выберите категорию",
     "photo-url": "URL фото",
     "photo-url-placeholder": "Вставьте ссылку на фото",
     "price-uah": "Цена (грн)",
@@ -52,6 +54,10 @@
       "invalid-category": "Выберите категорию",
       "price-must-number": "Цена должна быть числом",
       "price-must-numbernon-negative": "Цена должна быть неотрицательной"
+    },
+    "toast": {
+      "create-product-success": "Продукт успешно создан",
+      "create-product-error": "Не удалось создать продукт"
     }
   }
 }

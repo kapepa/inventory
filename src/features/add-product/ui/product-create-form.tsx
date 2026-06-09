@@ -11,6 +11,7 @@ import { StatusField } from './status-field'
 import { ConditionField } from './condition-field'
 import { PhotoField } from './photo-field'
 import { PriceFields } from './price-fields'
+import { CategoryField } from './category-field'
 
 interface ProductCreateFormProps {
   parishId: string
@@ -64,6 +65,7 @@ export const ProductCreateForm = ({ parishId, onOpenChangeAction }: ProductCreat
               <StatusField isPending={isPending} />
               <ConditionField isPending={isPending} />
             </div>
+            <CategoryField isPending={isPending} />
             <PhotoField isPending={isPending} />
             <PriceFields isPending={isPending} />
           </form >

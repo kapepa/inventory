@@ -26,6 +26,8 @@
     "condition": "Condition",
     "condition-new": "New",
     "condition-used": "Used",
+    "category": "Category",
+    "category-placeholder": "Select category",
     "photo-url": "Photo URL",
     "photo-url-placeholder": "Paste photo link",
     "price-uah": "Price (UAH)",
@@ -52,6 +54,10 @@
       "invalid-category": "Select a category",
       "price-must-number": "Price must be a number",
       "price-must-numbernon-negative": "Price must be non-negative"
+    },
+    "toast": {
+      "create-product-success": "Product created successfully",
+      "create-product-error": "Failed to create product"
     }
   }
 }

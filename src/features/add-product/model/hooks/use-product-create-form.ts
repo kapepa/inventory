@@ -72,16 +72,67 @@ export const useProductCreateForm = (parishId: string, closeModalAction: () => v
     (values: ProductCreateFormValues) => {
       startSubmitTransition(async () => {
         try {
-          // TODO: Implement createProduct API call
-          console.log(values)
+          let photoUrl: string | undefined = undefined
 
-          sessionStorage.removeItem(ADD_PRODUCT_FORM_DATA);
+          // Upload image if it's a File object
+          if (values.photo instanceof File) {
+            const formData = new FormData()
+            formData.append('file', values.photo)
 
-          toast(t("toast.create-product-success"))
+            const uploadResponse = await fetch('/api/upload', {
+              method: 'POST',
+              body: formData,
+            })
+
+            if (!uploadResponse.ok) {
+              const error = await uploadResponse.json()
+              throw new Error(error.error || 'Failed to upload image')
+            }
+
+            const uploadData = await uploadResponse.json()
+            photoUrl = uploadData.url
+          } else if (typeof values.photo === 'string') {
+            photoUrl = values.photo
+          }
+
+          // Transform form data to DTO
+          const productData = {
+            serialNumber: values.serialNumber,
+            order: values.order,
+            status: values.status,
+            isNew: values.isNew,
+            photo: photoUrl,
+            parishId: values.parishId,
+            categoryId: values.categoryId,
+            translations: [
+              values.translations.ru,
+              values.translations.en,
+            ],
+            prices: [
+              ...(values.priceUAH ? [{ value: values.priceUAH, symbol: 'UAH' as const }] : []),
+              ...(values.priceUSD ? [{ value: values.priceUSD, symbol: 'USD' as const }] : []),
+            ],
+          }
+
+          const response = await fetch('/api/products', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(productData),
+          })
+
+          if (!response.ok) {
+            const error = await response.json()
+            throw new Error(error.error || 'Failed to create product')
+          }
+
+          sessionStorage.removeItem(ADD_PRODUCT_FORM_DATA)
+          toast.success(t("toast.create-product-success"))
           closeModalAction()
         } catch (error) {
           console.error(error)
-          toast(t("toast.create-product-error"))
+          toast.error(t("toast.create-product-error"))
         }
       })
     },

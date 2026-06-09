@@ -179,7 +179,7 @@ export const ImageUploadField = memo(({
                 type="button"
                 variant="destructive"
                 size="icon"
-                className="absolute top-2 right-2 h-8 w-8"
+                className="absolute top-2 right-2 h-8 w-8 cursor-pointer"
                 onClick={(e) => {
                   e.stopPropagation()
                   handleRemove()

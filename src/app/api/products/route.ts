@@ -1,5 +1,6 @@
 import { ResponseProducts } from '@/entities';
 import { getProductsByParishId } from '@/entities/products/api/product-service';
+import { createProduct } from '@/features/add-product/api/product-service';
 import { AppLocale, defaultLocale, locales, PAGINATION_PRODUCTS_DEFAULTS } from '@/shared';
 import { NextRequest, NextResponse } from 'next/server';
 
@@ -24,6 +25,22 @@ export const GET = async (request: NextRequest): Promise<NextResponse<ResponsePr
     console.error('Fetch products error:', error);
     return NextResponse.json(
       { error: error.message || 'Failed to fetch products' },
+      { status: 500 }
+    );
+  }
+};
+
+export const POST = async (request: NextRequest): Promise<NextResponse> => {
+  try {
+    const body = await request.json();
+
+    const newProduct = await createProduct(body);
+
+    return NextResponse.json(newProduct, { status: 201 });
+  } catch (error: any) {
+    console.error('Create product error:', error);
+    return NextResponse.json(
+      { error: error.message || 'Failed to create product' },
       { status: 500 }
     );
   }
