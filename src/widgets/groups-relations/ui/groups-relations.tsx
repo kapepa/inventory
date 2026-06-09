@@ -25,7 +25,8 @@ export const GroupsRelations = ({ initialHasMore, initialProducts, initialParish
   const { targetRef, isIntersecting } = useIntersectionObserver({ threshold: 0.5, rootMargin: "100px" })
   const { productDetails } = useViewProduct()
 
-  const activeParish = parishes.find((p) => p.id === (activeParishId || initialParishesId));
+  const getActiveParishId = activeParishId || initialParishesId
+  const activeParish = parishes.find((p) => p.id === getActiveParishId);
   const activeParishTitle = activeParish?.translations[0]?.title || "";
 
   const openProductModal = useCallback((product: ProductsWithRelations) => {
@@ -59,7 +60,7 @@ export const GroupsRelations = ({ initialHasMore, initialProducts, initialParish
   return (
     <ProductsShortBody
       title={activeParishTitle}
-      actions={<ProductCreateButton />}
+      actions={<ProductCreateButton parishId={getActiveParishId} />}
       onCloseActions={() => { setActiveParishId(""); clearProducts(); }}
     >
       {

@@ -6,5 +6,52 @@
     "header": {
       "create": "Создать товары"
     }
+  },
+  "create-form": {
+    "russian": "Русский",
+    "english": "Английский",
+    "title": "Название товара",
+    "title-placeholder": "Введите название товара",
+    "serial-number": "Серийный номер",
+    "serial-number-placeholder": "Введите серийный номер",
+    "specification": "Характеристики",
+    "specification-placeholder": "Введите характеристики товара",
+    "order": "Количество в заказе",
+    "order-placeholder": "Введите количество в заказе",
+    "status": "Статус",
+    "status-placeholder": "Выберите статус товара",
+    "status-free": "Свободен",
+    "status-busy": "Занят",
+    "status-repair": "В ремонте",
+    "condition": "Состояние",
+    "condition-new": "Новый",
+    "condition-used": "Б/у",
+    "photo-url": "URL фото",
+    "photo-url-placeholder": "Вставьте ссылку на фото",
+    "price-uah": "Цена (грн)",
+    "price-usd": "Цена ($)",
+    "hints": {
+      "translate": {
+        "title": "Перевести название продукта",
+        "specification": "Перевести характеристики продукта"
+      }
+    },
+    "buttons": {
+      "cancel": "Отменить",
+      "create": "Создать"
+    },
+    "errors": {
+      "title-required": "Введите название продукта",
+      "serial-number-required": "Необходимо указать серийный номер",
+      "serial-number-integer": "Серийный номер должен быть целым числом",
+      "serial-number-positive": "Серийный номер должен быть положительным",
+      "order-must-number": "Значение должно быть числом",
+      "order-must-integer": "Значение должно быть целым числом",
+      "order-must-positive": "Должно быть положительным",
+      "upload-image": "Загрузить изображение",
+      "invalid-category": "Выберите категорию",
+      "price-must-number": "Цена должна быть числом",
+      "price-must-numbernon-negative": "Цена должна быть неотрицательной"
+    }
   }
 }

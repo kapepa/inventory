@@ -6,31 +6,21 @@ import { useTranslations } from 'next-intl'
 
 interface ProductCreateModalProps {
   parishId: string
-  open: boolean
-  onOpenChange: (open: boolean) => void
+  onOpenChangeAction: () => void
 }
 
-export const ProductCreateModal = ({ parishId }: ProductCreateModalProps) => {
+export const ProductCreateModal = ({ parishId, onOpenChangeAction }: ProductCreateModalProps) => {
   const t = useTranslations('add-product.modal.header');
 
   return (
     <ModalContents>
       <ModalHeader title={t("create")} />
-      <ModalBody>
-        <ProductCreateForm
-          parishId={parishId}
-          onSuccess={() => { }}
-          onCancel={() => { }}
-        />
-      </ModalBody>
-      <ModalFooter>
-        <ModalActionButton
-          variant="simply-accent"
-          onConfirmAction={() => { }}
-        >
-          {t("ok")}
-        </ModalActionButton>
-      </ModalFooter>
+      <ProductCreateForm
+        parishId={parishId}
+        onOpenChangeAction={onOpenChangeAction}
+      />
     </ModalContents>
   )
 }
+
+ProductCreateModal.displayName = "ProductCreateModal"

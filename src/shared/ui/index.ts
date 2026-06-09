@@ -20,6 +20,7 @@ export { Thumbnail } from "./thumbnail"
 export { ResponsiveImage } from "./responsive-image"
 export { TrashButton } from "./trash-button"
 export { DotsDivider } from "./dots-divider"
+export { ImageUploadField } from "./image-upload-field"
 export {
   Tooltip,
   TooltipContent,

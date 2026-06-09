@@ -6,5 +6,52 @@
     "header": {
       "create": "Create a product"
     }
+  },
+  "create-form": {
+    "russian": "Russian",
+    "english": "English",
+    "title": "Product title",
+    "title-placeholder": "Enter product title",
+    "serial-number": "Serial number",
+    "serial-number-placeholder": "Enter serial number",
+    "specification": "Specification",
+    "specification-placeholder": "Enter product specification",
+    "order": "Quantity in order",
+    "order-placeholder": "Enter the quantity in your order",
+    "status": "Status",
+    "status-placeholder": "Select product status",
+    "status-free": "Free",
+    "status-busy": "Busy",
+    "status-repair": "Under repair",
+    "condition": "Condition",
+    "condition-new": "New",
+    "condition-used": "Used",
+    "photo-url": "Photo URL",
+    "photo-url-placeholder": "Paste photo link",
+    "price-uah": "Price (UAH)",
+    "price-usd": "Price (USD)",
+    "hints": {
+      "translate": {
+        "title": "Translate the product name",
+        "specification": "Translate the product specification"
+      }
+    },
+    "buttons": {
+      "cancel": "Cancel",
+      "create": "Create"
+    },
+    "errors": {
+      "title-required": "Enter the product name",
+      "serial-number-required": "Serial number is required",
+      "serial-number-integer": "Serial number must be integer",
+      "serial-number-positive": "Serial number must be positive",
+      "order-must-number": "Order must be a number",
+      "order-must-integer": "Order must be integer",
+      "order-must-positive": "Order must be positive",
+      "upload-image": "Upload image",
+      "invalid-category": "Select a category",
+      "price-must-number": "Price must be a number",
+      "price-must-numbernon-negative": "Price must be non-negative"
+    }
   }
 }

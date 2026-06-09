@@ -1,0 +1,47 @@
+"use client"
+
+import { memo } from "react"
+import { useFormContext } from "react-hook-form"
+import { useTranslations } from "next-intl"
+import {
+  FormField,
+  FormItem,
+  FormLabel,
+  FormControl,
+  FormMessage,
+  Input,
+} from "@/shared"
+
+interface OrderFieldProps {
+  isPending?: boolean
+}
+
+export const OrderField = memo(({ isPending }: OrderFieldProps) => {
+  const t = useTranslations("add-product.create-form")
+  const { control } = useFormContext()
+
+  return (
+    <FormField
+      control={control}
+      name="order"
+      render={({ field }) => (
+        <FormItem>
+          <FormLabel>{t('order')}</FormLabel>
+          <FormControl>
+            <Input
+              type="number"
+              placeholder={t('order-placeholder')}
+              {...field}
+              value={field.value ?? ''}
+              onChange={(e) => field.onChange(e.target.value === '' ? undefined : e.target.valueAsNumber)}
+              disabled={isPending}
+            />
+          </FormControl>
+          <FormMessage />
+        </FormItem>
+      )}
+    />
+  )
+})
+
+OrderField.displayName = "OrderField"

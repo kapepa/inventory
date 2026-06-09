@@ -1,41 +1,47 @@
 import { z } from 'zod'
 import { ProductStatus } from '@prisma/client'
 
-export const productCreateSchema = z.object({
-  serialNumber: z.number({
-    error: 'Serial number is required',
+type TranslationFunction = (key: string) => string
+
+export const createProductCreateSchema = (t: TranslationFunction) => z.object({
+  serialNumber: z.coerce.number({
+    message: t('serial-number-required'),
   })
-    .int('Serial number must be integer')
-    .positive('Serial number must be positive'),
+    .int(t('serial-number-integer'))
+    .positive(t('serial-number-positive')),
 
-  title: z.string()
-    .min(1, 'Title is required'),
-
-  locale: z.string()
-    .min(1, 'Locale is required'),
+  translations: z.object({
+    ru: z.object({
+      locale: z.literal('ru'),
+      title: z.string().min(1, t('title-required')),
+      specification: z.string().optional().or(z.literal('')),
+    }),
+    en: z.object({
+      locale: z.literal('en'),
+      title: z.string().min(1, t('title-required')),
+      specification: z.string().optional().or(z.literal('')),
+    }),
+  }),
 
   isNew: z.boolean(),
 
   status: z.nativeEnum(ProductStatus),
 
-  order: z.number({
-    error: 'Order must be a number',
+  order: z.coerce.number({
+    message: t('order-must-number'),
   })
-    .int('Order must be integer')
-    .positive('Order must be positive')
+    .int(t('order-must-integer'))
+    .positive(t('order-must-positive'))
     .optional(),
 
-  photo: z.string()
-    .url('Photo must be a valid URL')
-    .optional()
-    .or(z.literal('')),
-
-  specification: z.string()
-    .optional()
-    .or(z.literal('')),
+  photo: z.union([
+    z.instanceof(File),
+    z.string().url(t('upload-image')),
+    z.literal('')
+  ]).optional().nullable(),
 
   categoryId: z.string()
-    .uuid('Invalid category ID')
+    .uuid(t('invalid-category'))
     .optional(),
 
   parishId: z.string()
@@ -46,17 +52,19 @@ export const productCreateSchema = z.object({
     .uuid('Invalid user ID')
     .optional(),
 
-  priceUAH: z.number({
-    error: 'Price must be a number',
+  priceUAH: z.coerce.number({
+    message: t('price-must-number'),
   })
-    .nonnegative('Price must be non-negative')
+    .nonnegative(t('price-must-numbernon-negative'))
     .optional(),
 
-  priceUSD: z.number({
-    error: 'Price must be a number',
+  priceUSD: z.coerce.number({
+    message: t('price-must-number'),
   })
-    .nonnegative('Price must be non-negative')
+    .nonnegative(t('price-must-numbernon-negative'))
     .optional(),
 })
 
-export type ProductCreateFormData = z.infer<typeof productCreateSchema>
+export type ProductCreateSchema = ReturnType<typeof createProductCreateSchema>
+export type ProductCreateFormValues = z.infer<ProductCreateSchema>
+export type TranslatableProductFieldName = 'title' | 'specification'
