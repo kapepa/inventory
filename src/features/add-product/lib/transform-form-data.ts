@@ -1,15 +1,15 @@
-import { ProductCreateDTO, ProductCreateFormData } from "../model"
+import { ProductCreateDTO, ProductCreateFormValues } from "../model"
 
 
-export const transformFormToDTO = (formData: ProductCreateFormData): ProductCreateDTO => {
+export const transformFormToDTO = (formData: ProductCreateFormValues): ProductCreateDTO => {
   const prices = []
 
   if (formData.priceUAH) {
-    prices.push({ value: formData.priceUAH, symbol: 'UAH' })
+    prices.push({ value: formData.priceUAH, symbol: 'UAH' as const })
   }
 
   if (formData.priceUSD) {
-    prices.push({ value: formData.priceUSD, symbol: 'USD' })
+    prices.push({ value: formData.priceUSD, symbol: 'USD' as const })
   }
 
   return {
@@ -17,14 +17,12 @@ export const transformFormToDTO = (formData: ProductCreateFormData): ProductCrea
     order: formData.order,
     status: formData.status,
     isNew: formData.isNew,
-    photo: formData.photo || undefined,
+    photo: formData.photo instanceof File ? undefined : (formData.photo || undefined),
     parishId: formData.parishId,
+    categoryId: formData.categoryId,
     translations: [
-      {
-        title: formData.title,
-        specification: formData.specification || undefined,
-        locale: formData.locale,
-      }
+      formData.translations.ru,
+      formData.translations.en,
     ],
     prices,
   }

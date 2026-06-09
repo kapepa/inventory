@@ -1,3 +1,3 @@
-export { productCreateSchema, type ProductCreateFormData } from "./schemas"
+export { createProductCreateSchema, type ProductCreateSchema, type ProductCreateFormValues, type TranslatableProductFieldName } from "./schemas"
 export * from "./types"
 export * from "./hooks"
