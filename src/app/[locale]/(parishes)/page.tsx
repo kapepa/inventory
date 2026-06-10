@@ -48,6 +48,7 @@ export default async function Parishes({
       <ParishesList
         initialParishes={initialData.data}
         initialHasMore={initialData.hasMore}
+        initialTotal={initialData.total}
       />
     </Container>
   );

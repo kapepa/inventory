@@ -1,15 +1,15 @@
 "use client"
 
-import { ModalActionButton, ModalBody, ModalContents, ModalFooter, ModalHeader } from '@/shared'
+import { ModalContents, ModalHeader } from '@/shared'
 import { ProductCreateForm } from './product-create-form'
 import { useTranslations } from 'next-intl'
 
 interface ProductCreateModalProps {
   parishId: string
-  onOpenChangeAction: () => void
+  onCancelAction: () => void
 }
 
-export const ProductCreateModal = ({ parishId, onOpenChangeAction }: ProductCreateModalProps) => {
+export const ProductCreateModal = ({ parishId, onCancelAction }: ProductCreateModalProps) => {
   const t = useTranslations('add-product.modal.header');
 
   return (
@@ -17,7 +17,7 @@ export const ProductCreateModal = ({ parishId, onOpenChangeAction }: ProductCrea
       <ModalHeader title={t("create")} />
       <ProductCreateForm
         parishId={parishId}
-        onOpenChangeAction={onOpenChangeAction}
+        onCancelAction={onCancelAction}
       />
     </ModalContents>
   )

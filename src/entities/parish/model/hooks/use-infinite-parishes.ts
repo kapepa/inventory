@@ -8,7 +8,8 @@ import { useParishesStore } from "../parish-store"
 export const useInfiniteParishes = (
   search: string = "",
   initialParishes: ParishWithRelations[] = [],
-  initialHasMore: boolean = true
+  initialHasMore: boolean = true,
+  initialTotal: number = 0
 ) => {
   const {
     parishes,
@@ -16,7 +17,8 @@ export const useInfiniteParishes = (
     appendParishes,
     setPage,
     hasMore,
-    setHasMore
+    setHasMore,
+    setTotal
   } = useParishesStore()
 
   const [isLoading, setIsLoading] = useState(false)
@@ -37,9 +39,11 @@ export const useInfiniteParishes = (
         setPage(2)
         setHasMore(initialHasMore)
       }
+      // We always set `total`, even if `initialParishes` is empty
+      setTotal(initialTotal)
       isInitialized.current = true
     }
-  }, [initialParishes, initialHasMore, setParishes, setPage, setHasMore, parishes.length])
+  }, [initialParishes, initialHasMore, initialTotal, setParishes, setPage, setHasMore, setTotal, parishes.length])
 
   const fetchItems = useCallback(
     async (isFirstPage: boolean = false, signal?: AbortSignal) => {
@@ -63,6 +67,7 @@ export const useInfiniteParishes = (
         if (isFirstPage) {
           setParishes(response.data)
           setPage(2)
+          setTotal(response.total || response.data.length)
         } else {
           appendParishes(response.data)
           setPage(currentState.page + 1)
@@ -76,7 +81,7 @@ export const useInfiniteParishes = (
         setIsLoading(false)
       }
     },
-    [search, setParishes, appendParishes, setPage, setHasMore]
+    [search, setParishes, appendParishes, setPage, setHasMore, setTotal]
   )
 
   useEffect(() => {

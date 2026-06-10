@@ -15,14 +15,14 @@ import { CategoryField } from './category-field'
 
 interface ProductCreateFormProps {
   parishId: string
-  onOpenChangeAction: () => void
+  onCancelAction: () => void
 }
 
-export const ProductCreateForm = ({ parishId, onOpenChangeAction }: ProductCreateFormProps) => {
+export const ProductCreateForm = ({ parishId, onCancelAction }: ProductCreateFormProps) => {
   const t = useTranslations("add-product.create-form")
   const locale = useLocale() as AppLocale
 
-  const { form, isSubmitting, onSubmit } = useProductCreateForm(parishId, onOpenChangeAction)
+  const { form, isSubmitting, onSubmit } = useProductCreateForm(parishId, onCancelAction)
   const { isTranslating, translatingField, handleTranslateAction } = useProductTranslation(form)
 
   const isPending = isSubmitting || isTranslating
@@ -74,7 +74,7 @@ export const ProductCreateForm = ({ parishId, onOpenChangeAction }: ProductCreat
       <ModalFooter>
         <ModalCancelButton
           type="button"
-          onCancelAction={onOpenChangeAction}
+          onCancelAction={onCancelAction}
           disabled={isPending}
         >
           {t("buttons.cancel")}

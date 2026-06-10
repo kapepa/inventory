@@ -1,10 +1,4 @@
 {
-  "parishes-search": {
-    "popup-title": "Search",
-    "placeholder": "Search parishes...",
-    "close": "Close",
-    "clear": "Clear"
-  },
   "live-time": {
     "locales": "en-US"
   }

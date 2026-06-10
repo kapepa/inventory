@@ -8,16 +8,6 @@ export interface FetchParishes {
   locale?: AppLocale;
 }
 
-export interface FetchParishesClient extends FetchParishes {
-  signal?: AbortSignal,
-}
-
-export interface DeleteParishesClient {
-  id: string,
-  signal?: AbortSignal,
-}
-
-
 export interface ParishWithRelations extends Parish {
   translations: ParishTranslation[];
   _count: { products: number };
@@ -32,3 +22,9 @@ export interface ResponseParishes {
   total: number;
   hasMore: boolean;
 }
+
+export interface CreateParishInput extends Pick<Parish, "deliveryDate"> {
+  translations: Pick<ParishTranslation, "locale" | "title" | "description">
+}
+
+export interface DeleteParishResult extends Parish { }

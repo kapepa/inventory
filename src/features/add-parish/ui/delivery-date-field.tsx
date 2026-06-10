@@ -28,7 +28,7 @@ interface DeliveryDateFieldProps {
 
 export const DeliveryDateField = memo(
   ({ isPending, locale }: DeliveryDateFieldProps) => {
-    const t = useTranslations("parishe")
+    const t = useTranslations("add-parish.form")
     const { control } = useFormContext()
 
     return (
@@ -37,7 +37,7 @@ export const DeliveryDateField = memo(
         name="deliveryDate"
         render={({ field, fieldState }) => (
           <FormItem className="flex flex-col">
-            <FormLabel className="mb-3">{t("form-created.fields.delivery-date")}</FormLabel>
+            <FormLabel className="mb-3">{t("fields.delivery-date")}</FormLabel>
             <Popover>
               <PopoverTrigger asChild>
                 <FormControl>
@@ -52,7 +52,7 @@ export const DeliveryDateField = memo(
                     {field.value ? (
                       format(field.value, "PPP", { locale: dateFnsLocales[locale] })
                     ) : (
-                      <span>{t("form-created.placeholders.delivery-date")}</span>
+                      <span>{t("placeholders.delivery-date")}</span>
                     )}
                     <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
                   </Button>

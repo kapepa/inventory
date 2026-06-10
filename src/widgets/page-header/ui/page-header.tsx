@@ -1,5 +1,6 @@
 import { ReactNode } from "react"
 import { cn } from "@/shared"
+import { ParishesTotal } from "./parishes-total"
 
 interface PageHeaderProps {
   title: string
@@ -14,7 +15,7 @@ export const PageHeader = ({ title, count, action, className }: PageHeaderProps)
       {action}
       <div className="flex text-3xl font-semibold  gap-x-3" >
         <h2>{title}</h2>
-        {count !== undefined && (<> <span>/</span> <span>{count}</span> </>)}
+        <ParishesTotal fallbackCount={count} />
       </div>
     </div>
   )

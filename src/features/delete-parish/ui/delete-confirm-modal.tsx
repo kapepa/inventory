@@ -23,7 +23,7 @@ export const DeleteConfirmModal = ({
   onConfirmAction,
   onCancelAction
 }: DeleteConfirmModalProps) => {
-  const t = useTranslations('parishe');
+  const t = useTranslations('parishe.modal');
   const [isPending, startTransition] = useTransition();
 
   const handleConfirm = () => {
@@ -34,7 +34,7 @@ export const DeleteConfirmModal = ({
 
   return (
     <ModalContents>
-      <ModalHeader title={`${t("modal.delete-confirm")}?`} />
+      <ModalHeader title={`${t("delete-confirm")}?`} />
       <ModalBody>
         <p className="text-base text-muted-foreground">
           <strong>{title}</strong>
@@ -42,7 +42,7 @@ export const DeleteConfirmModal = ({
       </ModalBody>
       <ModalFooter>
         <ModalCancelButton onCancelAction={onCancelAction} disabled={isPending}>
-          {t("modal.button.cancel")}
+          {t("buttons.cancel")}
         </ModalCancelButton>
         <ModalActionButton
           variant="simply-destructive"
@@ -51,7 +51,7 @@ export const DeleteConfirmModal = ({
         >
           <div className="flex gap-x-2">
             <Trash />
-            <span>{t("modal.button.delete")}</span>
+            <span>{t("buttons.delete")}</span>
           </div>
         </ModalActionButton>
       </ModalFooter>

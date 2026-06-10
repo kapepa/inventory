@@ -9,7 +9,7 @@ export const useProductCreate = ({ parishId }: { parishId: string }) => {
   const { openModal, closeModal } = useModalActions();
 
   const productCreate = useCallback(() => {
-    openModal(<ProductCreateModal parishId={parishId} onOpenChangeAction={closeModal} />)
+    openModal(<ProductCreateModal parishId={parishId} onCancelAction={closeModal} />)
   }, [openModal, closeModal])
 
   return {

@@ -12,16 +12,18 @@ interface ParishesListProps {
   className?: string,
   initialParishes?: ParishWithRelations[],
   initialHasMore?: boolean,
+  initialTotal?: number,
 }
 
 export const ParishesList = ({
   className,
   initialParishes = [],
   initialHasMore = true,
+  initialTotal = 0,
 }: ParishesListProps) => {
   const t = useTranslations('parishe');
   const [search] = useQueryParam(QUERY_PARAMS_KEYS.PARISHES_SEARCH);
-  const { parishes, isLoading, error, hasMore, loadMore } = useInfiniteParishes(search, initialParishes, initialHasMore)
+  const { parishes, isLoading, error, hasMore, loadMore } = useInfiniteParishes(search, initialParishes, initialHasMore, initialTotal)
   const { targetRef, isIntersecting } = useIntersectionObserver({ threshold: 0.5, rootMargin: "100px" })
   const { confirmDelete } = useDeleteParish()
 

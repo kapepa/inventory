@@ -1,6 +1,6 @@
 import { cn, Skeleton, TrashButton } from "@/shared"
 import { MouseEvent } from "react"
-import { ParishWithRelations } from "../../model/types"
+import { ParishWithRelations } from "../../model/types/types"
 
 interface ActionsCellProps {
   parish: ParishWithRelations

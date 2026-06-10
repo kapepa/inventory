@@ -7,18 +7,19 @@ import { toast } from "sonner"
 import { useLocale, useTranslations } from "next-intl"
 import { useParishesStore } from "@/entities/parish/model/parish-store"
 import { AppLocale, STORAGE_KEYS } from "@/shared"
-import { parishFormSchema, ParishFormValues } from "../types"
+import { createParishFormSchema, ParishFormValues } from "../types"
 
 const ADD_PARISH_FORM_DATA = STORAGE_KEYS.ADD_PARISH_FORM_DATA
 
 export const useAddParishForm = (closeModalAction: () => void) => {
-  const t = useTranslations("parishe")
+  const t = useTranslations("add-parish.form.errors")
+  const tToast = useTranslations("add-parish.form.toast")
   const locale = useLocale() as AppLocale
   const [isSubmitting, startSubmitTransition] = useTransition()
   const { addParish } = useParishesStore()
 
   const form = useForm<ParishFormValues>({
-    resolver: zodResolver(parishFormSchema),
+    resolver: zodResolver(createParishFormSchema(t)),
     mode: "onChange",
     defaultValues: {
       deliveryDate: new Date(),
@@ -57,7 +58,7 @@ export const useAddParishForm = (closeModalAction: () => void) => {
     (values: ParishFormValues) => {
       startSubmitTransition(async () => {
         try {
-          const newParish = await createParish(values)
+          const newParish = await createParish({ data: values })
           const formattedParish = {
             ...newParish,
             translations: newParish.translations.filter((t: any) => t.locale === locale)
@@ -66,11 +67,11 @@ export const useAddParishForm = (closeModalAction: () => void) => {
           addParish(formattedParish)
           sessionStorage.removeItem(ADD_PARISH_FORM_DATA);
 
-          toast(t("form-created.toast.create-parish-success"))
+          toast(tToast("create-parish-success"))
           closeModalAction()
         } catch (error) {
           console.error(error)
-          toast(t("form-created.toast.create-parish-error"))
+          toast(tToast("create-parish-error"))
         }
       })
     },

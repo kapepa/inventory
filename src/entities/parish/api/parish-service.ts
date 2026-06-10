@@ -1,6 +1,6 @@
 import { AppLocale, PAGINATION_PARISHES_DEFAULTS } from '@/shared';
 import { prisma } from '@/shared/lib/prisma';
-import { FetchParishes, ResponseParishes, ParishWithRelations } from '../model/types';
+import { FetchParishes, ResponseParishes, ParishWithRelations, CreateParishInput, DeleteParishResult } from '../model';
 import { Prisma } from '@prisma/client';
 import { getLocale } from 'next-intl/server';
 
@@ -72,10 +72,7 @@ export const getParishes = async ({
   }
 };
 
-export const createParish = async (data: {
-  deliveryDate?: Date | string;
-  translations: { locale: string; title: string; description?: string | null }[];
-}) => {
+export const createParish = async (data: CreateParishInput): Promise<ParishWithRelations> => {
   try {
     const parish = await prisma.parish.create({
       data: {
@@ -100,7 +97,7 @@ export const createParish = async (data: {
   }
 };
 
-export const deleteParish = async (id: string) => {
+export const deleteParish = async (id: string): Promise<DeleteParishResult> => {
   try {
     return await prisma.parish.delete({
       where: { id },

@@ -14,12 +14,12 @@ type HintItem = {
 
 export const ParishShortHeader =
   ({ className }: ParishShortHeaderProps) => {
-    const t = useTranslations('groups');
+    const t = useTranslations('groups.parish-short-header');
 
     const listOfHint: HintItem[] = useMemo(() => [
-      { text: t("parish-short-header.names-desc"), icon: NotebookTabs },
-      { text: t("parish-short-header.total-number"), icon: Info },
-      { text: t("parish-short-header.date"), icon: CalendarDays },
+      { text: t("names-desc"), icon: NotebookTabs },
+      { text: t("total-number"), icon: Info },
+      { text: t("date"), icon: CalendarDays },
     ], [t]);
 
     return (
