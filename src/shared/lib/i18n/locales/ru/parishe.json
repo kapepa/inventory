@@ -20,7 +20,7 @@
   "modal": {
     "delete-confirm": "Вы уверены, что хотите удалить приход",
     "delete-error": "При удалении произошла ошибка",
-    "button": {
+    "buttons": {
       "cancel": "Отмена",
       "delete": "Удалить"
     }
@@ -31,42 +31,5 @@
   },
   "parishes-created-btn": {
     "create": "Создать приход"
-  },
-  "form-created": {
-    "title": "Название прихода",
-    "russian": "Русский",
-    "english": "Английский",
-    "fields": {
-      "title": "Название прихода",
-      "description": "Описание прихода",
-      "delivery-date": "Дата доставки"
-    },
-    "buttons": {
-      "create": "Создать",
-      "cancel": "Отмена"
-    },
-    "errors": {
-      "name-required": "Название прихода обязательно",
-      "err-title-min": "Данные длиной не менее 3 символов",
-      "err-description-min": "Данные длиной не менее 3 символов",
-      "err-date": "Укажите дату доставки",
-      "delivery-date-required": "Дата доставки обязательна"
-    },
-    "placeholders": {
-      "title": "Введите название прихода",
-      "description": "Введите описание прихода",
-      "delivery-date": "Выберите дату доставки"
-    },
-    "hints": {
-      "translate": {
-        "title": "Переведите название прихода с",
-        "description": "Переведите описание прихода с"
-      }
-    },
-    "toast": {
-      "translate-error": "Автоматический перевод в настоящее время недоступен",
-      "create-parish-success": "Приход был успешно создан",
-      "create-parish-error": "При создании произошла ошибка"
-    }
   }
 }

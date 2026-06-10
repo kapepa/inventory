@@ -31,7 +31,7 @@ export const TitleField = memo(({
   isTranslating,
   onTranslate
 }: TitleFieldProps) => {
-  const t = useTranslations("parishe")
+  const t = useTranslations("add-parish.form")
   const { control } = useFormContext()
   const otherLocaleUpper = oppositeLocale[locale].toUpperCase()
 
@@ -39,21 +39,21 @@ export const TitleField = memo(({
     <FormField
       control={control}
       name={`translations.${locale}.title`}
-      render={({ field, fieldState }) => (
+      render={({ field }) => (
         <FormItem>
           <FormLabel className="mb-3">
-            {t("form-created.fields.title")} ({locale.toUpperCase()})
+            {t("fields.title")} ({locale.toUpperCase()})
           </FormLabel>
           <FormControl className="mb-1">
             <TranslateWrapperInput
               onClick={onTranslate}
-              floatTitle={`${t("form-created.hints.translate.title")} ${otherLocaleUpper}`}
+              floatTitle={`${t("hints.translate.title")} ${otherLocaleUpper}`}
               disabled={isPending}
               isLoading={isTranslating}
             >
               <Input
                 className="pr-10"
-                placeholder={t("form-created.placeholders.title")}
+                placeholder={t("placeholders.title")}
                 maxLength={100}
                 {...field}
                 disabled={isPending}
@@ -62,9 +62,7 @@ export const TitleField = memo(({
             </TranslateWrapperInput>
           </FormControl>
           <div className="h-1 mt-0">
-            <FormMessage>
-              {fieldState.error?.message && t(`form-created.errors.${fieldState.error.message}`)}
-            </FormMessage>
+            <FormMessage />
           </div>
         </FormItem>
       )}

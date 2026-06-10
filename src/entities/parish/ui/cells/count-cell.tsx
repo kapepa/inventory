@@ -7,13 +7,13 @@ interface CountCellProps {
 }
 
 export const CountCell = ({ count, className }: CountCellProps) => {
-  const t = useTranslations('parishe');
+  const t = useTranslations('parishe.list.cell');
 
   return (
     <div className={cn("flex flex-col", className)}>
       <span className="text-xl text-chart-2">{count}</span>
       <small className="text-sidebar-ring text-sm">
-        {count > 1 ? t("list.cell.products") : t("list.cell.product")}
+        {count > 1 ? t("products") : t("product")}
       </small>
     </div>
   )
@@ -22,8 +22,6 @@ export const CountCell = ({ count, className }: CountCellProps) => {
 CountCell.displayName = "CountCell"
 
 export const CountCellSkeleton = ({ className }: { className?: string }) => {
-  const t = useTranslations('parishe');
-
   return (
     <div className={cn("flex flex-col gap-y-2", className)}>
       <Skeleton className="h-5 w-8" />

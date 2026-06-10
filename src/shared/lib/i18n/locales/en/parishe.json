@@ -20,7 +20,7 @@
   "modal": {
     "delete-confirm": "Are you sure you want to delete this transaction",
     "delete-error": "An error occurred during deletion",
-    "button": {
+    "buttons": {
       "cancel": "Cancel",
       "delete": "Delete"
     }
@@ -31,41 +31,5 @@
   },
   "parishes-created-btn": {
     "create": "Create Parish"
-  },
-  "form-created": {
-    "title": "Parish Name",
-    "russian": "Russian",
-    "english": "English",
-    "fields": {
-      "title": "Parish Name",
-      "description": "Parish Description",
-      "delivery-date": "Delivery Date"
-    },
-    "buttons": {
-      "create": "Create",
-      "cancel": "Cancel"
-    },
-    "errors": {
-      "name-required": "Parish name is required",
-      "err-title-min": "Data consisting of at least 3 characters",
-      "err-description-min": "Data consisting of at least 3 characters",
-      "err-date": "Specify the delivery date",
-      "delivery-date-required": "Delivery date is required"
-    },
-    "placeholders": {
-      "title": "Enter parish name",
-      "description": "Enter parish description"
-    },
-    "hints": {
-      "translate": {
-        "title": "Translate the title of the parish from",
-        "description": "Translate the description of the parish from"
-      }
-    },
-    "toast": {
-      "translate-error": "Automatic translation is currently unavailable",
-      "create-parish-success": "The parish was successfully established",
-      "create-parish-error": "Something went wrong during creation"
-    }
   }
 }

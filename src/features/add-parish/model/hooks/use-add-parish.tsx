@@ -10,7 +10,7 @@ export const useAddParish = () => {
   const { open } = useModalQuery({
     modalName: QUERY_PARAMS_KEYS.ADD_PARISH,
     onOpen: useCallback((closeQueryModal: () => void) => {
-      openModal(<AddParishModal onOpenChange={closeQueryModal} />);
+      openModal(<AddParishModal onCancelAction={closeQueryModal} />);
     }, [openModal]),
     onClose: closeModal,
   });

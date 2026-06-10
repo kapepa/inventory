@@ -7,7 +7,7 @@ import { TabsList, TabsTrigger, cn } from "@/shared"
 import { ParishFormValues } from "../model"
 
 export const TranslationTabsHeader = memo(() => {
-  const t = useTranslations("parishe")
+  const t = useTranslations("add-parish.form")
   const { getValues, formState } = useFormContext<ParishFormValues>()
 
   const { errors, submitCount } = formState
@@ -32,13 +32,13 @@ export const TranslationTabsHeader = memo(() => {
         className={cn("cursor-pointer", showRu && "border-destructive text-destructive")}
         value="ru"
       >
-        {t("form-created.russian")}
+        {t("russian")}
       </TabsTrigger>
       <TabsTrigger
         className={cn("cursor-pointer", showEn && "border-destructive text-destructive")}
         value="en"
       >
-        {t("form-created.english")}
+        {t("english")}
       </TabsTrigger>
     </TabsList>
   )

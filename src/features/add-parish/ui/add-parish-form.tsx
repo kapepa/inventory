@@ -17,13 +17,13 @@ import { DeliveryDateField } from "./delivery-date-field"
 import { TranslationTabsHeader } from "./translation-tabs-header"
 
 interface AddParishFormProps {
-  closeModalAction: () => void
+  onCancelAction: () => void
 }
 
-export const AddParishForm = ({ closeModalAction }: AddParishFormProps) => {
+export const AddParishForm = ({ onCancelAction }: AddParishFormProps) => {
   const currentLocale = useLocale() as AppLocale
-  const t = useTranslations("parishe")
-  const { form, isSubmitting, onSubmit } = useAddParishForm(closeModalAction)
+  const t = useTranslations("add-parish.form")
+  const { form, isSubmitting, onSubmit } = useAddParishForm(onCancelAction)
   const { isTranslating, translatingField, handleTranslateAction } = useAddParishTranslation(form)
 
   const isPending = isSubmitting || isTranslating
@@ -69,10 +69,10 @@ export const AddParishForm = ({ closeModalAction }: AddParishFormProps) => {
       <ModalFooter>
         <ModalCancelButton
           type="button"
-          onCancelAction={closeModalAction}
+          onCancelAction={onCancelAction}
           disabled={isPending}
         >
-          {t("form-created.buttons.cancel")}
+          {t("buttons.cancel")}
         </ModalCancelButton>
         <ModalActionButton
           form="add-parish-form"
@@ -81,7 +81,7 @@ export const AddParishForm = ({ closeModalAction }: AddParishFormProps) => {
           isLoading={isSubmitting}
           disabled={isPending}
         >
-          {t("form-created.buttons.create")}
+          {t("buttons.create")}
         </ModalActionButton>
       </ModalFooter>
     </>

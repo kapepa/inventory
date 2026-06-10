@@ -1,4 +1,4 @@
-import { ResponseParishes } from '@/entities';
+import { ParishWithRelations, ResponseParishes } from '@/entities';
 import { createParish, getParishes } from '@/entities/parish/api/parish-service';
 import { AppLocale, PAGINATION_PARISHES_DEFAULTS, defaultLocale, locales } from '@/shared';
 import { NextRequest, NextResponse } from 'next/server';
@@ -33,7 +33,7 @@ export const GET = async (request: NextRequest): Promise<NextResponse<ResponsePa
   }
 };
 
-export const POST = async (request: NextRequest) => {
+export const POST = async (request: NextRequest): Promise<NextResponse<ParishWithRelations | { error: string }>> => {
   try {
     const body = await request.json();
     const result = await createParish(body);

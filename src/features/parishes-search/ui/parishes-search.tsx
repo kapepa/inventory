@@ -1,27 +1,10 @@
 "use client";
 
-import { Button, cn, useModalQuery, ModalContents, ModalHeader, ModalBody, ModalFooter, ModalCancelButton, useModalActions, QUERY_PARAMS_KEYS } from "@/shared";
+import { Button, cn } from "@/shared";
 import { Search } from "lucide-react";
 import { SearchInput } from "./search-input";
-import { memo, useCallback } from "react";
-import { useTranslations } from "next-intl";
-
-const ModalSearchView = ({ closeModal }: { closeModal: () => void }) => {
-  const t = useTranslations('header');
-
-  return (
-    <ModalContents>
-      <ModalHeader title={t('parishes-search.popup-title')} />
-      <ModalBody>
-        <SearchInput className="p-5 text-xl" />
-      </ModalBody>
-      <ModalFooter>
-        <ModalCancelButton onCancelAction={closeModal}>{t("parishes-search.close")}</ModalCancelButton>
-        {/* <ModalActionButton variant="simply-accent">{t("parishes-search.clear")}</ModalActionButton> */}
-      </ModalFooter>
-    </ModalContents>
-  )
-}
+import { memo } from "react";
+import { useParishesSearch } from "../hooks";
 
 interface ParishesSearchProps {
   className?: string
@@ -29,15 +12,7 @@ interface ParishesSearchProps {
 
 export const ParishesSearch = memo(
   (props: ParishesSearchProps) => {
-    const { openModal, closeModal } = useModalActions();
-
-    const { open } = useModalQuery({
-      modalName: QUERY_PARAMS_KEYS.PARISHES_SEARCH,
-      onOpen: useCallback((closeQueryModal: () => void) => {
-        openModal(<ModalSearchView closeModal={closeQueryModal} />);
-      }, [openModal]),
-      onClose: closeModal,
-    });
+    const { openParishesSearch } = useParishesSearch()
 
     return (
       <>
@@ -47,7 +22,7 @@ export const ParishesSearch = memo(
           />
         </div>
         <div className="flex lg:hidden items-center justify-end md:justify-center grow">
-          <Button variant="link" className="rounded-s-sm cursor-pointer" onClick={open}>
+          <Button variant="link" className="rounded-s-sm cursor-pointer" onClick={openParishesSearch}>
             <Search className="size-9 text-accent" />
           </Button>
         </div>

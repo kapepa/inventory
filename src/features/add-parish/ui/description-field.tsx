@@ -28,7 +28,7 @@ export const DescriptionField = memo(({
   isTranslating,
   onTranslate
 }: DescriptionFieldProps) => {
-  const t = useTranslations("parishe")
+  const t = useTranslations("add-parish.form")
   const { control } = useFormContext()
   const otherLocaleUpper = oppositeLocale[locale].toUpperCase()
 
@@ -36,20 +36,20 @@ export const DescriptionField = memo(({
     <FormField
       control={control}
       name={`translations.${locale}.description`}
-      render={({ field, fieldState }) => (
+      render={({ field }) => (
         <FormItem>
           <FormLabel className="mb-3">
-            {t("form-created.fields.description")} ({locale.toUpperCase()})
+            {t("fields.description")} ({locale.toUpperCase()})
           </FormLabel>
           <FormControl className="mb-1">
             <TranslateWrapperInput
               onClick={onTranslate}
-              floatTitle={`${t("form-created.hints.translate.description")} ${otherLocaleUpper}`}
+              floatTitle={`${t("hints.translate.description")} ${otherLocaleUpper}`}
               disabled={isPending}
               isLoading={isTranslating}
             >
               <Textarea
-                placeholder={t("form-created.placeholders.description")}
+                placeholder={t("placeholders.description")}
                 className="resize-none min-h-25 max-h-60 overflow-y-autopr-10 break-all pr-10"
                 maxLength={400}
                 {...field}
@@ -58,9 +58,7 @@ export const DescriptionField = memo(({
             </TranslateWrapperInput>
           </FormControl>
           <div className="h-1 mt-0">
-            <FormMessage>
-              {fieldState.error?.message && t(`form-created.errors.${fieldState.error.message}`)}
-            </FormMessage>
+            <FormMessage />
           </div>
         </FormItem>
       )}

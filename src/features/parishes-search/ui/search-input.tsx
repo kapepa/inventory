@@ -6,7 +6,7 @@ import { useTranslations } from "next-intl";
 import { Eraser } from "lucide-react";
 
 export const SearchInput = memo(({ className }: { className: string }) => {
-  const t = useTranslations('header');
+  const t = useTranslations('parishes-search');
 
   const [initialValue, setTerm] = useQueryParam(QUERY_PARAMS_KEYS.PARISHES_SEARCH);
   const [inputValue, setInputValue] = useState(initialValue);
@@ -36,7 +36,7 @@ export const SearchInput = memo(({ className }: { className: string }) => {
   return (
     <div className="relative">
       <Input
-        placeholder={t("parishes-search.placeholder")}
+        placeholder={t("placeholder")}
         className={cn("font-bold placeholder:font-bold border-t-2 border-t-gray-400 rounded-s-sm pr-12", className)}
         onChange={(e) => setInputValue(e.target.value)}
         value={inputValue}

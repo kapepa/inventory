@@ -1,15 +1,9 @@
 import axios, { AxiosError } from "axios"
 
 import { axiosInstance } from "@/shared"
-import { DeleteParishesClient, FetchParishesClient, ResponseParishes } from "../model/types"
-import { ParishFormValues } from "@/features"
+import { FetchParishesParams, DeleteParishesParams, ResponseParishes, CreateParishParams, ParishWithRelations, DeleteParishResult } from "../model"
 
-export const fetchParishes = async ({
-  page,
-  limit,
-  search = "",
-  signal,
-}: FetchParishesClient): Promise<ResponseParishes> => {
+export const fetchParishes = async ({ page, limit, search = "", signal }: FetchParishesParams): Promise<ResponseParishes> => {
   const queryParams = {
     page,
     limit,
@@ -40,13 +34,17 @@ export const fetchParishes = async ({
   }
 }
 
-export const createParish = async (data: ParishFormValues) => {
+export const createParish = async ({ data, signal }: CreateParishParams): Promise<ParishWithRelations> => {
   const payload = {
     ...data,
     translations: Object.values(data.translations)
   }
+
   try {
-    const response = await axiosInstance.post('/parishes', payload)
+    const response = await axiosInstance.post<ParishWithRelations>('/parishes',
+      payload,
+      { signal }
+    )
     return response.data
   } catch (error) {
     if (error instanceof AxiosError) {
@@ -56,9 +54,9 @@ export const createParish = async (data: ParishFormValues) => {
   }
 }
 
-export const deleteParish = async ({ id, signal }: DeleteParishesClient) => {
+export const deleteParish = async ({ id, signal }: DeleteParishesParams): Promise<DeleteParishResult> => {
   try {
-    const response = await axiosInstance.delete(`/parishes/${id}`, {
+    const response = await axiosInstance.delete<DeleteParishResult>(`/parishes/${id}`, {
       signal,
     })
 
