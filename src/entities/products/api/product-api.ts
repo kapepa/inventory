@@ -1,6 +1,6 @@
 import { axiosInstance } from "@/shared"
 import axios, { AxiosError } from "axios"
-import { FetchProductsClient, ResponseProducts } from "../model"
+import { FetchProductsParams, ResponseProductsDTO } from "../model"
 
 export const fetchProducts = async ({
   parishId,
@@ -8,7 +8,7 @@ export const fetchProducts = async ({
   limit,
   search = "",
   signal,
-}: FetchProductsClient): Promise<ResponseProducts> => {
+}: FetchProductsParams): Promise<ResponseProductsDTO> => {
   const queryParams = {
     parishId,
     page,
@@ -17,7 +17,7 @@ export const fetchProducts = async ({
   }
 
   try {
-    const response = await axiosInstance.get<ResponseProducts>(`/products`, {
+    const response = await axiosInstance.get<ResponseProductsDTO>(`/products`, {
       params: queryParams,
       signal,
     })

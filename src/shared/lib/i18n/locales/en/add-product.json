@@ -40,6 +40,7 @@
     },
     "buttons": {
       "cancel": "Cancel",
+      "reset": "Reset",
       "create": "Create"
     },
     "errors": {

@@ -31,7 +31,7 @@ export const ProductCreateForm = ({ parishId, onCancelAction }: ProductCreateFor
     <>
       <ModalBody>
         <Form {...form}>
-          <form id="add-product-form" onSubmit={onSubmit} className="space-y-4 pb-5">
+          <form id="add-product-form" onSubmit={onSubmit} className="space-y-6 pb-5">
             <Tabs
               defaultValue={locale}
               className="w-full"
@@ -61,23 +61,30 @@ export const ProductCreateForm = ({ parishId, onCancelAction }: ProductCreateFor
 
             <SerialNumberField isPending={isPending} />
             <OrderField isPending={isPending} />
-            <div className='grid grid-cols-2 gap-x-10'>
+            <div className='grid grid-cols-2 gap-x-10 gap-y-5'>
               <StatusField isPending={isPending} />
               <ConditionField isPending={isPending} />
+              <CategoryField isPending={isPending} />
             </div>
-            <CategoryField isPending={isPending} />
             <PhotoField isPending={isPending} />
             <PriceFields isPending={isPending} />
           </form >
         </Form>
       </ModalBody>
-      <ModalFooter>
+      <ModalFooter className='flex justify-between'>
         <ModalCancelButton
           type="button"
           onCancelAction={onCancelAction}
           disabled={isPending}
         >
           {t("buttons.cancel")}
+        </ModalCancelButton>
+        <ModalCancelButton
+          type="button"
+          onClick={() => form.reset()}
+          disabled={isPending}
+        >
+          {t("buttons.reset")}
         </ModalCancelButton>
         <ModalActionButton
           form="add-product-form"

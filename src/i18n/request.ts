@@ -18,6 +18,8 @@ export default getRequestConfig(async ({ locale }) => {
       "add-product": (await import(`../shared/lib/i18n/locales/${locale}/add-product.json`)).default,
       "add-parish": (await import(`../shared/lib/i18n/locales/${locale}/add-parish.json`)).default,
       "parishes-search": (await import(`../shared/lib/i18n/locales/${locale}/parishes-search.json`)).default,
+      "parishes-page": (await import(`../shared/lib/i18n/locales/${locale}/parishes-page.json`)).default,
+      "groups-page": (await import(`../shared/lib/i18n/locales/${locale}/groups-page.json`)).default,
     }
   };
 });

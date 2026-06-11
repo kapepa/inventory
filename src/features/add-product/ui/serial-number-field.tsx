@@ -37,7 +37,9 @@ export const SerialNumberField = memo(({ isPending }: SerialNumberFieldProps) =>
               disabled={isPending}
             />
           </FormControl>
-          <FormMessage />
+          <div className="h-1 mt-0">
+            <FormMessage />
+          </div>
         </FormItem>
       )}
     />

@@ -1,28 +1,27 @@
 "use client"
-import { useCallback, useMemo, useTransition, useEffect } from "react"
+import { useCallback, useMemo, useTransition } from "react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { toast } from "sonner"
 import { useTranslations } from "next-intl"
 import { STORAGE_KEYS } from "@/shared"
-import { ProductCreateFormValues, createProductCreateSchema } from "../schemas"
+import { ProductCreateFormValues, productCreateFormSchema } from "../schemas"
 import { ProductStatus } from "@prisma/client"
+import { formatResponsiveImage, useUpload } from "@/entities"
+import { useSyncFormWithStorage } from "./use-sync-form-with-storage"
 
 const ADD_PRODUCT_FORM_DATA = STORAGE_KEYS.ADD_PRODUCT_FORM_DATA
 
-export const useProductCreateForm = (parishId: string, closeModalAction: () => void) => {
+export const useProductCreateForm = (parishId: string = "33333333-3333-3333-3333-333333333333", closeModalAction: () => void) => {
   const t = useTranslations("add-product.create-form")
   const tErrors = useTranslations("add-product.create-form.errors")
   const [isSubmitting, startSubmitTransition] = useTransition()
-
-  const productCreateSchema = useMemo(
-    () => createProductCreateSchema(tErrors),
-    [tErrors]
-  )
+  const { upload } = useUpload()
 
   const form = useForm<ProductCreateFormValues>({
-    resolver: zodResolver(productCreateSchema),
+    resolver: zodResolver(productCreateFormSchema(tErrors)),
     mode: "onChange",
+    reValidateMode: "onChange",
     defaultValues: {
       parishId,
       translations: {
@@ -43,30 +42,7 @@ export const useProductCreateForm = (parishId: string, closeModalAction: () => v
     },
   })
 
-  // Restore data from sessionStorage on mount
-  useEffect(() => {
-    const savedData = sessionStorage.getItem(ADD_PRODUCT_FORM_DATA);
-    if (savedData) {
-      try {
-        const parsedData = JSON.parse(savedData);
-        form.reset({
-          ...parsedData,
-          parishId, // Always use the current parishId
-        });
-      } catch (e) {
-        console.error("Failed to parse saved form data", e);
-      }
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [parishId]);
-
-  // Save data to sessionStorage on change
-  useEffect(() => {
-    const subscription = form.watch((values) => {
-      sessionStorage.setItem(ADD_PRODUCT_FORM_DATA, JSON.stringify(values));
-    });
-    return () => subscription.unsubscribe();
-  }, [form]);
+  useSyncFormWithStorage(form, parishId)
 
   const onSubmit = useCallback(
     (values: ProductCreateFormValues) => {
@@ -76,56 +52,45 @@ export const useProductCreateForm = (parishId: string, closeModalAction: () => v
 
           // Upload image if it's a File object
           if (values.photo instanceof File) {
-            const formData = new FormData()
-            formData.append('file', values.photo)
-
-            const uploadResponse = await fetch('/api/upload', {
-              method: 'POST',
-              body: formData,
-            })
-
-            if (!uploadResponse.ok) {
-              const error = await uploadResponse.json()
-              throw new Error(error.error || 'Failed to upload image')
-            }
-
-            const uploadData = await uploadResponse.json()
-            photoUrl = uploadData.url
+            const uploadData = await upload(values.photo)
+            photoUrl = formatResponsiveImage(uploadData)
           } else if (typeof values.photo === 'string') {
             photoUrl = values.photo
           }
 
-          // Transform form data to DTO
-          const productData = {
-            serialNumber: values.serialNumber,
-            order: values.order,
-            status: values.status,
-            isNew: values.isNew,
-            photo: photoUrl,
-            parishId: values.parishId,
-            categoryId: values.categoryId,
-            translations: [
-              values.translations.ru,
-              values.translations.en,
-            ],
-            prices: [
-              ...(values.priceUAH ? [{ value: values.priceUAH, symbol: 'UAH' as const }] : []),
-              ...(values.priceUSD ? [{ value: values.priceUSD, symbol: 'USD' as const }] : []),
-            ],
-          }
+          console.log("onSubmitonSubmitonSubmitonSubmitonSubmit", photoUrl)
 
-          const response = await fetch('/api/products', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(productData),
-          })
+          // // Transform form data to DTO
+          // const productData = {
+          //   serialNumber: values.serialNumber,
+          //   order: values.order,
+          //   status: values.status,
+          //   isNew: values.isNew,
+          //   photo: photoUrl,
+          //   parishId: values.parishId,
+          //   categoryId: values.categoryId,
+          //   translations: [
+          //     values.translations.ru,
+          //     values.translations.en,
+          //   ],
+          //   prices: [
+          //     ...(values.priceUAH ? [{ value: values.priceUAH, symbol: 'UAH' as const }] : []),
+          //     ...(values.priceUSD ? [{ value: values.priceUSD, symbol: 'USD' as const }] : []),
+          //   ],
+          // }
 
-          if (!response.ok) {
-            const error = await response.json()
-            throw new Error(error.error || 'Failed to create product')
-          }
+          // const response = await fetch('/api/products', {
+          //   method: 'POST',
+          //   headers: {
+          //     'Content-Type': 'application/json',
+          //   },
+          //   body: JSON.stringify(productData),
+          // })
+
+          // if (!response.ok) {
+          //   const error = await response.json()
+          //   throw new Error(error.error || 'Failed to create product')
+          // }
 
           sessionStorage.removeItem(ADD_PRODUCT_FORM_DATA)
           toast.success(t("toast.create-product-success"))
@@ -140,7 +105,12 @@ export const useProductCreateForm = (parishId: string, closeModalAction: () => v
   )
 
   const handleSubmit = useMemo(
-    () => form.handleSubmit(onSubmit),
+    () => form.handleSubmit(
+      onSubmit,
+      (errors) => {
+        console.error('Form validation errors:', errors)
+      }
+    ),
     [form, onSubmit]
   )
 

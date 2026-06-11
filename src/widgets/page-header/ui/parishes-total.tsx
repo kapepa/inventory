@@ -10,7 +10,7 @@ interface ParishesTotalProps {
 export const ParishesTotal = ({ fallbackCount, className }: ParishesTotalProps) => {
   const total = useParishesStore((state) => state.total);
 
-  const displayTotal = total !== undefined && total >= 0 ? total : fallbackCount;
+  const displayTotal = total > 0 ? total : (fallbackCount ?? 0)
 
   if (displayTotal === undefined) return null;
 

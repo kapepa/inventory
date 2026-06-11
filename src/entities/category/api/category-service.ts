@@ -1,7 +1,7 @@
 import { prisma } from "@/shared/lib/prisma"
-import { GetCategoriesParams } from "../model/types"
+import { CategoryWithTranslations, GetCategoriesParams } from "../model/types"
 
-export const getCategories = async ({ locale }: GetCategoriesParams) => {
+export const getCategories = async ({ locale }: GetCategoriesParams): Promise<CategoryWithTranslations[]> => {
   const categories = await prisma.category.findMany({
     include: {
       translations: {

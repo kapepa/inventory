@@ -39,7 +39,9 @@ export const PriceFields = memo(({ isPending }: PriceFieldsProps) => {
                 disabled={isPending}
               />
             </FormControl>
-            <FormMessage />
+            <div className="h-1 mt-0">
+              <FormMessage />
+            </div>
           </FormItem>
         )}
       />
@@ -47,7 +49,7 @@ export const PriceFields = memo(({ isPending }: PriceFieldsProps) => {
       <FormField
         control={control}
         name="priceUSD"
-        render={({ field, fieldState }) => (
+        render={({ field }) => (
           <FormItem>
             <FormLabel>{t('price-usd')}</FormLabel>
             <FormControl>
@@ -61,7 +63,9 @@ export const PriceFields = memo(({ isPending }: PriceFieldsProps) => {
                 disabled={isPending}
               />
             </FormControl>
-            <FormMessage />
+            <div className="h-1 mt-0">
+              <FormMessage />
+            </div>
           </FormItem>
         )}
       />

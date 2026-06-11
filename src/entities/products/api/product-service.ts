@@ -1,5 +1,5 @@
 import { prisma } from '@/shared/lib/prisma';
-import { FetchProducts, ResponseProducts } from '../model';
+import { FetchProducts, ResponseProductsDTO } from '../model';
 import { PAGINATION_PRODUCTS_DEFAULTS } from '@/shared';
 
 export async function getProductsByParishId({
@@ -8,7 +8,7 @@ export async function getProductsByParishId({
   limit = PAGINATION_PRODUCTS_DEFAULTS.LIMIT,
   locale
 }: FetchProducts,
-): Promise<ResponseProducts> {
+): Promise<ResponseProductsDTO> {
   const skip = (page - 1) * limit;
 
   const [data, total] = await Promise.all([

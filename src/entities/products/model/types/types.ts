@@ -9,15 +9,6 @@ export interface FetchProducts {
   locale?: AppLocale,
 }
 
-export interface FetchProductsClient extends FetchProducts {
-  signal?: AbortSignal,
-}
-
-export interface ResponseProducts {
-  data: ProductsWithRelations[],
-  hasMore: boolean,
-}
-
 export interface ProductsWithRelations extends Product {
   translations: ProductTranslation[];
   prices: Pick<Price, "value" | "symbol">[]

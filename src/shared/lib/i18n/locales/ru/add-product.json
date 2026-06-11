@@ -40,6 +40,7 @@
     },
     "buttons": {
       "cancel": "Отменить",
+      "reset": "Сбросить",
       "create": "Создать"
     },
     "errors": {
