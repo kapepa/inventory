@@ -1,10 +1,11 @@
-import { ResponseProducts } from '@/entities';
+import { ResponseProductsDTO } from '@/entities';
 import { getProductsByParishId } from '@/entities/products/api/product-service';
+import { ProductCreate, ProductWithRelations } from '@/features';
 import { createProduct } from '@/features/add-product/api/product-service';
 import { AppLocale, defaultLocale, locales, PAGINATION_PRODUCTS_DEFAULTS } from '@/shared';
 import { NextRequest, NextResponse } from 'next/server';
 
-export const GET = async (request: NextRequest): Promise<NextResponse<ResponseProducts | { error: string }>> => {
+export const GET = async (request: NextRequest): Promise<NextResponse<ResponseProductsDTO | { error: string }>> => {
   try {
     const { searchParams } = request.nextUrl;
     const rawLocale = request.headers.get('Accept-Language') || defaultLocale;
@@ -30,10 +31,9 @@ export const GET = async (request: NextRequest): Promise<NextResponse<ResponsePr
   }
 };
 
-export const POST = async (request: NextRequest): Promise<NextResponse> => {
+export const POST = async (request: NextRequest): Promise<NextResponse<ProductWithRelations | { error: string }>> => {
   try {
-    const body = await request.json();
-
+    const body: ProductCreate = await request.json();
     const newProduct = await createProduct(body);
 
     return NextResponse.json(newProduct, { status: 201 });

@@ -50,7 +50,7 @@ export default async function Groups({
     });
   }
 
-  const t = await getTranslations({ locale, namespace: "groups" });
+  const t = await getTranslations({ locale, namespace: "groups-page" });
 
   return (
     <Container className="py-16">

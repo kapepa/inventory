@@ -36,7 +36,7 @@ export default async function Parishes({
     search: searchTerm,
     locale,
   });
-  const t = await getTranslations({ locale, namespace: "parishe" });
+  const t = await getTranslations({ locale, namespace: "parishes-page" });
 
   return (
     <Container className="py-16">

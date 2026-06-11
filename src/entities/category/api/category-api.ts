@@ -1,10 +1,10 @@
 import { axiosInstance } from "@/shared"
-import { CategoryWithTranslations } from "../model/types"
+import { CategoryWithTranslations, RequestCategoriesParams } from "../model/types"
 import axios, { AxiosError } from "axios"
 
-export const requestCategories = async (): Promise<CategoryWithTranslations[]> => {
+export const requestCategories = async ({ signal }: RequestCategoriesParams = {}): Promise<CategoryWithTranslations[]> => {
   try {
-    const response = await axiosInstance.get(`/categories`)
+    const response = await axiosInstance.get(`/categories`, { signal })
     return response.data
 
   } catch (error) {

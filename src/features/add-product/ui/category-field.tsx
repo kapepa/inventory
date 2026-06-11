@@ -15,9 +15,11 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-  AppLocale
+  AppLocale,
+  STORAGE_KEYS
 } from "@/shared"
 import { useCategories } from "@/entities"
+import { useRestoreFieldFromStorage } from "../model"
 
 interface CategoryFieldProps {
   isPending?: boolean
@@ -28,6 +30,8 @@ export const CategoryField = memo(({ isPending }: CategoryFieldProps) => {
   const locale = useLocale() as AppLocale
   const { control } = useFormContext()
   const { categories, isLoading } = useCategories(locale)
+
+  useRestoreFieldFromStorage(categories)
 
   return (
     <FormField
@@ -42,11 +46,11 @@ export const CategoryField = memo(({ isPending }: CategoryFieldProps) => {
             disabled={isPending || isLoading}
           >
             <FormControl>
-              <SelectTrigger>
+              <SelectTrigger className="w-full">
                 <SelectValue placeholder={t('category-placeholder')} />
               </SelectTrigger>
             </FormControl>
-            <SelectContent>
+            <SelectContent position="popper" sideOffset={5}>
               {categories.map((category) => (
                 <SelectItem key={category.id} value={category.id}>
                   {category.translations[0]?.title || 'Untitled'}
@@ -54,7 +58,9 @@ export const CategoryField = memo(({ isPending }: CategoryFieldProps) => {
               ))}
             </SelectContent>
           </Select>
-          <FormMessage />
+          <div className="h-1 mt-0">
+            <FormMessage />
+          </div>
         </FormItem>
       )}
     />

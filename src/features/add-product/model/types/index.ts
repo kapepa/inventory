@@ -1,2 +1,2 @@
-export type { ProductPriceType, ProductTranslationType } from "./types"
-export type { ProductCreateDTO, CreateProductParams } from "./dto"
+export type { ProductPriceType, ProductTranslationType, ProductCreate, ProductWithRelations } from "./types"
+export type { CreateProductParams } from "./api-params"

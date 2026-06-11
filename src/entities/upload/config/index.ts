@@ -1,0 +1,1 @@
+export { getCloudinary } from "./cloudinary"

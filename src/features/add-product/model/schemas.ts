@@ -3,10 +3,8 @@ import { ProductStatus } from '@prisma/client'
 
 type TranslationFunction = (key: string) => string
 
-export const createProductCreateSchema = (t: TranslationFunction) => z.object({
-  serialNumber: z.coerce.number({
-    message: t('serial-number-required'),
-  })
+export const productCreateFormSchema = (t: TranslationFunction) => z.object({
+  serialNumber: z.number()
     .int(t('serial-number-integer'))
     .positive(t('serial-number-positive')),
 
@@ -27,9 +25,7 @@ export const createProductCreateSchema = (t: TranslationFunction) => z.object({
 
   status: z.nativeEnum(ProductStatus),
 
-  order: z.coerce.number({
-    message: t('order-must-number'),
-  })
+  order: z.number()
     .int(t('order-must-integer'))
     .positive(t('order-must-positive'))
     .optional(),
@@ -40,31 +36,21 @@ export const createProductCreateSchema = (t: TranslationFunction) => z.object({
     z.literal('')
   ]).optional().nullable(),
 
-  categoryId: z.string()
-    .uuid(t('invalid-category'))
-    .optional(),
+  categoryId: z.string().min(1, t('invalid-category')).optional(),
 
-  parishId: z.string()
-    .uuid('Invalid parish ID')
-    .min(1, 'Parish is required'),
+  parishId: z.string().min(1, 'Parish is required'),
 
-  userId: z.string()
-    .uuid('Invalid user ID')
-    .optional(),
+  userId: z.string().optional(),
 
-  priceUAH: z.coerce.number({
-    message: t('price-must-number'),
-  })
+  priceUAH: z.number()
     .nonnegative(t('price-must-numbernon-negative'))
     .optional(),
 
-  priceUSD: z.coerce.number({
-    message: t('price-must-number'),
-  })
+  priceUSD: z.number()
     .nonnegative(t('price-must-numbernon-negative'))
     .optional(),
 })
 
-export type ProductCreateSchema = ReturnType<typeof createProductCreateSchema>
+export type ProductCreateSchema = ReturnType<typeof productCreateFormSchema>
 export type ProductCreateFormValues = z.infer<ProductCreateSchema>
 export type TranslatableProductFieldName = 'title' | 'specification'

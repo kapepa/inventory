@@ -1,36 +1,11 @@
 "use client"
 
 import Image from "next/image"
-import { cn } from "@/shared"
+import { BREAKPOINTS, cn, ImageSource, isMultipleSources, isSingleSource, MultipleImageSources, ResponsiveImageProps } from "@/shared"
 import { ImageIcon } from "lucide-react"
 import { Skeleton } from "@/shared/ui/skeleton"
-import { memo, useState, ReactNode } from "react"
+import { memo, useState } from "react"
 import { useTranslations } from "next-intl"
-
-// Type for a single image URL (Next.js handles optimization)
-type SingleImageSource = {
-  url: string;
-}
-
-// Type for multiple image URLs (different sizes from backend)
-type MultipleImageSources = {
-  small: string;   // for mobile devices (≤768px)
-  medium: string;  // for tablets (≤1200px)
-  large: string;   // for desktops (>1200px)
-}
-
-type ImageSource = SingleImageSource | MultipleImageSources;
-
-interface ResponsiveImageProps {
-  source: ImageSource | string;  // Accepts an object or a plain string
-  alt?: string;
-  className?: string;
-  aspectRatio?: "square" | "video" | "portrait" | "auto";
-  objectFit?: "cover" | "contain";
-  priority?: boolean;
-  fallback?: ReactNode;
-  sizes?: string;  // Custom sizes attribute for Next.js Image
-}
 
 // Maps aspect ratio variants to Tailwind classes
 const aspectRatioMap = {
@@ -38,16 +13,6 @@ const aspectRatioMap = {
   video: "aspect-video",      // 16:9
   portrait: "aspect-[3/4]",   // 3:4
   auto: "",                   // Natural image proportions
-}
-
-// Type guard to check if the source has multiple sizes
-const isMultipleSources = (source: ImageSource): source is MultipleImageSources => {
-  return typeof source === "object" && "small" in source && "medium" in source && "large" in source;
-}
-
-// Type guard to check if the source has a single URL
-const isSingleSource = (source: ImageSource): source is SingleImageSource => {
-  return typeof source === "object" && "url" in source;
 }
 
 export const ResponsiveImage = memo(
@@ -59,7 +24,7 @@ export const ResponsiveImage = memo(
     objectFit = "cover",
     priority = false,
     fallback,
-    sizes = "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+    sizes = `(max-width: 480px) 100vw, (max-width: 768px) 80vw, (max-width: 1200px) 50vw, (max-width: 1920px) 33vw, 25vw`
   }: ResponsiveImageProps) => {
     // Track loading and error states
     const [isLoading, setIsLoading] = useState(true)
@@ -77,7 +42,6 @@ export const ResponsiveImage = memo(
     // Normalize source: convert string to SingleImageSource, return null if empty
     const normalizedSource: ImageSource | null = (() => {
       if (!source) return null;
-      if (typeof source === "string") return { url: source };
       return source;
     })();
 
@@ -109,19 +73,31 @@ export const ResponsiveImage = memo(
 
           {!hasError && (
             <picture className="w-full h-full">
-              {/* Desktop: screens wider than 1200px */}
+              {/* Ultra HD: screens wider than 1920px (4K displays) */}
+              {normalizedSource.original && (
+                <source
+                  media={`(min-width: ${BREAKPOINTS.LARGE_DESKTOP + 1}px)`}
+                  srcSet={normalizedSource.original}
+                />
+              )}
+              {/* Desktop: screens wider than 1200px (Full HD) */}
               <source
-                media="(min-width: 1200px)"
+                media={`(min-width: ${BREAKPOINTS.DESKTOP + 1}px)`}
                 srcSet={normalizedSource.large}
               />
               {/* Tablet: screens wider than 768px */}
               <source
-                media="(min-width: 768px)"
+                media={`(min-width: ${BREAKPOINTS.TABLET + 1}px)`}
                 srcSet={normalizedSource.medium}
               />
-              {/* Mobile: default image (screens smaller than 768px) */}
+              {/* Mobile: screens wider than 480px */}
+              <source
+                media={`(min-width: ${BREAKPOINTS.MOBILE + 1}px)`}
+                srcSet={normalizedSource.small}
+              />
+              {/* Mobile default: screens ≤480px, or thumbnail if available for data saving */}
               <img
-                src={normalizedSource.small}
+                src={normalizedSource.thumbnail || normalizedSource.small}
                 alt={alt}
                 className={cn(
                   "w-full h-full transition-opacity duration-300",
@@ -142,8 +118,18 @@ export const ResponsiveImage = memo(
       )
     }
 
-    // Case 2: Single URL — render using Next.js Image component for optimization
-    const imageUrl = isSingleSource(normalizedSource) ? normalizedSource.url : normalizedSource;
+    // Case 2: Single URL or string — render using Next.js Image component for optimization
+    let imageUrl: string;
+
+    if (isSingleSource(normalizedSource)) {
+      imageUrl = normalizedSource.url;
+    } else if (typeof normalizedSource === 'string') {
+      imageUrl = normalizedSource;
+    } else {
+      // Fallback: use url field from MultipleImageSources for backwards compatibility
+      const multipleSource = normalizedSource as MultipleImageSources;
+      imageUrl = multipleSource.url || multipleSource.small || '';
+    }
 
     return (
       <div className={cn(
