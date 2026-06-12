@@ -50,6 +50,7 @@ export default async function Groups({
     });
   }
 
+  const parish = initialParishes.data.find(p => p.id === parishId);
   const t = await getTranslations({ locale, namespace: "groups-page" });
 
   return (
@@ -71,6 +72,7 @@ export default async function Groups({
               initialHasMore={initialProducts?.hasMore}
               initialProducts={initialProducts?.data}
               initialParishesId={parishId}
+              initialParishTitle={parish?.translations?.[0]?.title || ""}
             />
           </div>
         </div>

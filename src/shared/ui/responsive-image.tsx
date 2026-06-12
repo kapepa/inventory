@@ -1,7 +1,7 @@
 "use client"
 
 import Image from "next/image"
-import { BREAKPOINTS, cn, ImageSource, isMultipleSources, isSingleSource, MultipleImageSources, ResponsiveImageProps } from "@/shared"
+import { BREAKPOINTS, cn, ImageSource, isMultipleSources, isSingleSource, MultipleImageSources, parseResponsiveImage, ResponsiveImageProps } from "@/shared"
 import { ImageIcon } from "lucide-react"
 import { Skeleton } from "@/shared/ui/skeleton"
 import { memo, useState } from "react"
@@ -31,19 +31,25 @@ export const ResponsiveImage = memo(
     const [hasError, setHasError] = useState(false)
     const t = useTranslations('responsive-image')
 
+    const normalizedSource: ImageSource | null = (() => {
+      if (!source) return null;
+
+      // Если строка - парсим через parseResponsiveImage
+      if (typeof source === 'string') {
+        return parseResponsiveImage(source);
+      }
+
+      // Иначе возвращаем как есть
+      return source;
+    })()
+
     // Default fallback UI when no image is available
     const defaultFallback = (
       <div className="flex flex-col items-center justify-center text-muted-foreground/40 h-full">
+        {/* <span className="text-sm mb-2">{t("no-image")}</span> */}
         <ImageIcon className="w-16 h-16" strokeWidth={1.5} />
-        <span className="text-sm mt-2">{t("no-image")}</span>
       </div>
     )
-
-    // Normalize source: convert string to SingleImageSource, return null if empty
-    const normalizedSource: ImageSource | null = (() => {
-      if (!source) return null;
-      return source;
-    })();
 
     // Render fallback if no image source is provided
     if (!normalizedSource) {

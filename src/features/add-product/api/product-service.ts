@@ -12,6 +12,7 @@ export const createProduct = async (body: ProductCreate): Promise<ProductWithRel
         isNew: body.isNew,
         photo: body.photo,
         parishId: body.parishId,
+        categoryId: body.categoryId,
         translations: {
           create: body.translations,
         },

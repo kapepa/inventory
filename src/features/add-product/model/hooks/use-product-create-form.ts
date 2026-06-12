@@ -9,6 +9,8 @@ import { ProductCreateFormValues, productCreateFormSchema } from "../schemas"
 import { ProductStatus } from "@prisma/client"
 import { formatResponsiveImage, useUpload } from "@/entities"
 import { useSyncFormWithStorage } from "./use-sync-form-with-storage"
+import { requestСreateProduct } from "../../api"
+import { ProductCreate } from "../types"
 
 const ADD_PRODUCT_FORM_DATA = STORAGE_KEYS.ADD_PRODUCT_FORM_DATA
 
@@ -58,15 +60,14 @@ export const useProductCreateForm = (parishId: string, closeModalAction: () => v
             photoUrl = values.photo
           }
 
-          console.log("onSubmitonSubmitonSubmitonSubmitonSubmit", photoUrl)
-
           // Transform form data to DTO
-          const productData = {
+          const productData: ProductCreate = {
+            userId: "", //You must set your user ID after registering
             serialNumber: values.serialNumber,
             order: values.order,
             status: values.status,
             isNew: values.isNew,
-            photo: photoUrl,
+            photo: photoUrl ?? null,
             parishId: values.parishId,
             categoryId: values.categoryId,
             translations: [
@@ -79,42 +80,25 @@ export const useProductCreateForm = (parishId: string, closeModalAction: () => v
             ],
           }
 
-          console.log("productDataproductDataproductData", productData)
+          await requestСreateProduct({ data: productData })
 
-          // const response = await fetch('/api/products', {
-          //   method: 'POST',
-          //   headers: {
-          //     'Content-Type': 'application/json',
-          //   },
-          //   body: JSON.stringify(productData),
-          // })
-
-          // if (!response.ok) {
-          //   const error = await response.json()
-          //   throw new Error(error.error || 'Failed to create product')
-          // }
-
-          sessionStorage.removeItem(ADD_PRODUCT_FORM_DATA)
           toast.success(t("toast.create-product-success"))
+          form.reset()
           closeModalAction()
+
+          setTimeout(() => {
+            sessionStorage.removeItem(ADD_PRODUCT_FORM_DATA)
+          }, 100)
         } catch (error) {
           console.error(error)
           toast.error(t("toast.create-product-error"))
         }
       })
     },
-    [startSubmitTransition, closeModalAction, t]
+    [upload, closeModalAction, t, form]
   )
 
-  const handleSubmit = useMemo(
-    () => form.handleSubmit(
-      onSubmit,
-      // (errors) => {
-      //   console.error('Form validation errors:', errors)
-      // }
-    ),
-    [form, onSubmit]
-  )
+  const handleSubmit = useMemo(() => form.handleSubmit(onSubmit), [form, onSubmit])
 
   return useMemo(
     () => ({

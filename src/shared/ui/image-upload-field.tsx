@@ -1,32 +1,26 @@
 "use client"
 
 import { memo } from "react"
-import { Control } from "react-hook-form"
 import { Upload, X, ImageIcon } from "lucide-react"
 import { Button } from "./button"
-import { Label } from "./label"
 import { cn } from "../lib/utils"
 import { useImageUpload } from "../lib"
 import { useTranslations } from "next-intl"
 
 interface ImageUploadFieldProps {
-  name: string
-  control: Control<any>
-  label?: string
   disabled?: boolean
   maxSizeMB?: number
   acceptedFormats?: string[]
   className?: string
+  onChange?: (file: File | null) => void
 }
 
 export const ImageUploadField = memo(({
-  name,
-  control,
-  label = "Image",
   disabled = false,
   maxSizeMB = 5,
   acceptedFormats = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'],
-  className
+  className,
+  onChange
 }: ImageUploadFieldProps) => {
   const t = useTranslations("image-upload-field")
   const {
@@ -41,12 +35,10 @@ export const ImageUploadField = memo(({
     handleDrop,
     handleRemove,
     handleClick
-  } = useImageUpload({ name, control, maxSizeMB, acceptedFormats, disabled })
+  } = useImageUpload({ maxSizeMB, acceptedFormats, disabled, onChange })
 
   return (
     <div className={cn("space-y-2", className)}>
-      {label && <Label className="text-sm font-medium">{label}</Label>}
-
       <div
         className={cn(
           "relative border-2 border-dashed rounded-lg transition-colors",

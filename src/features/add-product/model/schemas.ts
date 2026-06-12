@@ -30,10 +30,9 @@ export const productCreateFormSchema = (t: TranslationFunction) => z.object({
     .positive(t('order-must-positive')),
 
   photo: z.union([
-    z.instanceof(File),
-    z.string().url(t('upload-image')),
-    z.literal('')
-  ]).optional().nullable(),
+    z.instanceof(File, { message: t('upload-image') }),
+    z.string().min(1, t('upload-image'))
+  ], { message: t('upload-image') }),
 
   categoryId: z.string({ error: t('invalid-category') }).min(1, t('invalid-category')),
 

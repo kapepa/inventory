@@ -49,7 +49,7 @@ export const uploadFile = async (file: File): Promise<UploadResponse> => {
 
     console.log("uploadFileuploadFileuploadFileuploadFile", {
       // Return multiple sizes for ResponsiveImage component
-      thumbnail: generateTransformationUrl(150, 150),
+      thumbnail: generateTransformationUrl(150),
       small: generateTransformationUrl(640),
       medium: generateTransformationUrl(1024),
       large: generateTransformationUrl(1920),
@@ -60,7 +60,7 @@ export const uploadFile = async (file: File): Promise<UploadResponse> => {
     })
     return {
       // Return multiple sizes for ResponsiveImage component
-      thumbnail: generateTransformationUrl(150, 150),
+      thumbnail: generateTransformationUrl(150),
       small: generateTransformationUrl(640),
       medium: generateTransformationUrl(1024),
       large: generateTransformationUrl(1920),

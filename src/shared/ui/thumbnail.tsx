@@ -1,13 +1,13 @@
 "use client"
 
 import Image from "next/image"
-import { cn } from "@/shared"
+import { cn, getThumbnailUrl } from "@/shared"
 import { ImageIcon, LucideIcon } from "lucide-react"
 import { Skeleton } from "@/shared/ui/skeleton"
 import { memo, useState, ReactNode } from "react"
 
 interface ThumbnailProps {
-  url?: string | null
+  source?: string | null
   alt?: string
   className?: string
   size?: "sm" | "md" | "lg" | "xl"
@@ -34,7 +34,7 @@ const sizesProp = {
 
 export const Thumbnail = memo(
   ({
-    url,
+    source,
     alt = "product",
     className,
     size = "md",
@@ -53,7 +53,9 @@ export const Thumbnail = memo(
       </div>
     )
 
-    if (!url) {
+    const thumbnailUrl = getThumbnailUrl(source)
+
+    if (!thumbnailUrl) {
       return (
         <div className={cn(
           "relative overflow-hidden bg-muted flex items-center justify-center border shrink-0",
@@ -79,7 +81,7 @@ export const Thumbnail = memo(
 
         {!hasError && (
           <Image
-            src={url}
+            src={thumbnailUrl}
             alt={alt}
             fill
             sizes={sizesProp[size]}

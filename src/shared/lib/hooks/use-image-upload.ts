@@ -1,41 +1,26 @@
 "use client"
 
 import { useTranslations } from "next-intl"
-import { useState, useCallback, useRef, useEffect } from "react"
-import { useController, Control } from "react-hook-form"
+import { useState, useCallback, useRef } from "react"
 
 interface UseImageUploadProps {
-  name: string
-  control: Control<any>
   maxSizeMB: number
   acceptedFormats: string[]
   disabled: boolean
+  onChange?: (file: File | null) => void
 }
 
 export const useImageUpload = ({
-  name,
-  control,
   maxSizeMB,
   acceptedFormats,
-  disabled
+  disabled,
+  onChange
 }: UseImageUploadProps) => {
   const t = useTranslations("image-upload-field")
   const fileInputRef = useRef<HTMLInputElement>(null)
   const [isDragging, setIsDragging] = useState(false)
   const [preview, setPreview] = useState<string | null>(null)
   const [error, setError] = useState<string | null>(null)
-
-  const {
-    field: { value, onChange },
-    fieldState: { error: fieldError }
-  } = useController({ name, control })
-
-  // Set initial preview (e.g., link from DB)
-  useEffect(() => {
-    if (value && typeof value === 'string' && !preview) {
-      setPreview(value)
-    }
-  }, [value, preview])
 
   const validateFile = useCallback((file: File): string | null => {
     if (!acceptedFormats.includes(file.type)) {
@@ -47,13 +32,13 @@ export const useImageUpload = ({
       return t('file-too-large', { maxSizeMB })
     }
     return null
-  }, [acceptedFormats, maxSizeMB])
+  }, [acceptedFormats, maxSizeMB, t])
 
   const handleFileChange = useCallback((file: File | null) => {
     if (!file) {
       setPreview(null)
       setError(null)
-      onChange(null)
+      onChange?.(null)
       return
     }
 
@@ -61,7 +46,7 @@ export const useImageUpload = ({
     if (validationError) {
       setError(validationError)
       setPreview(null)
-      onChange(null)
+      onChange?.(null)
       return
     }
 
@@ -69,8 +54,8 @@ export const useImageUpload = ({
     const reader = new FileReader()
     reader.onloadend = () => setPreview(reader.result as string)
     reader.readAsDataURL(file)
-    onChange(file)
-  }, [onChange, validateFile])
+    onChange?.(file)
+  }, [validateFile, onChange])
 
   const handlers = {
     handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -99,7 +84,7 @@ export const useImageUpload = ({
     handleRemove: () => {
       setPreview(null)
       setError(null)
-      onChange(null)
+      onChange?.(null)
       if (fileInputRef.current) fileInputRef.current.value = ''
     },
     handleClick: () => {
@@ -110,7 +95,7 @@ export const useImageUpload = ({
   return {
     preview,
     isDragging,
-    error: error || fieldError?.message,
+    error: error,
     fileInputRef,
     ...handlers
   }
