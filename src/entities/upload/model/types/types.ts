@@ -1,19 +1,9 @@
-export interface UploadResponse {
-  // Responsive image sizes (must match responsive-image.tsx)
-  thumbnail: string
-  small: string
-  medium: string
-  large: string
-  original: string
-  url: string
-}
+import { ImageSizes } from "@/shared"
 
-export interface UploadError {
+export interface UploadImageResponse extends ImageSizes { }
+
+export interface UploadImageError {
   error: string
 }
 
-export interface ResponsiveImageSizes {
-  small: string
-  medium: string
-  large: string
-}
+export interface ResponsiveImageSizes extends Pick<ImageSizes, "small" | "medium" | "large"> { }

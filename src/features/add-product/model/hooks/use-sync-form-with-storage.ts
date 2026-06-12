@@ -17,11 +17,15 @@ export const useSyncFormWithStorage = (
     if (savedData) {
       try {
         const parsedData = JSON.parse(savedData);
-        form.reset({
-          ...parsedData,
-          categoryId: "",
-          parishId, // Always use the current parishId
-        });
+        if (parsedData.parishId === parishId) {
+          form.reset({
+            ...parsedData,
+            categoryId: "",
+            parishId, // Always use the current parishId
+          })
+        } else {
+          sessionStorage.removeItem(ADD_PRODUCT_FORM_DATA)
+        };
       } catch (e) {
         console.error("Failed to parse saved form data", e);
       }

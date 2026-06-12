@@ -15,9 +15,10 @@ interface GroupsRelationsProps {
   initialHasMore?: boolean,
   initialProducts?: ProductsWithRelations[],
   initialParishesId: string | null
+  initialParishTitle: string
 }
 
-export const GroupsRelations = ({ initialHasMore, initialProducts, initialParishesId }: GroupsRelationsProps) => {
+export const GroupsRelations = ({ initialHasMore, initialProducts, initialParishesId, initialParishTitle }: GroupsRelationsProps) => {
   const t = useTranslations('groups');
   const { parishes } = useParishesStore();
   const [activeParishId, setActiveParishId] = useQueryParam(QUERY_PARAMS_KEYS.ACTIVE_PARISH);
@@ -27,7 +28,7 @@ export const GroupsRelations = ({ initialHasMore, initialProducts, initialParish
 
   const getActiveParishId = activeParishId || initialParishesId
   const activeParish = parishes.find((p) => p.id === getActiveParishId);
-  const activeParishTitle = activeParish?.translations[0]?.title || "";
+  const activeParishTitle = activeParish?.translations[0]?.title || initialParishTitle;
 
   const openProductModal = useCallback((product: ProductsWithRelations) => {
     productDetails(product)

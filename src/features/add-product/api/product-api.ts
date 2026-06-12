@@ -13,9 +13,9 @@ export const requestСreateProduct = async ({ signal, data }: CreateProductParam
     }
 
     if (error instanceof AxiosError) {
-      throw new Error(error.response?.data?.message || "Failed to delete product")
+      throw new Error(error.response?.data?.message || "Failed to create product")
     }
 
-    throw new Error("Failed to delete product")
+    throw new Error("Failed to create product")
   }
 }

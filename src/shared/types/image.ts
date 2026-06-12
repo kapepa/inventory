@@ -13,14 +13,13 @@ export type MultipleImageSources = {
   medium: string;     // ~1024px - for tablets (≤768px)
   large: string;      // ~1920px - for desktop (>1200px)
   original?: string;  // ~2560px - original size (4K/full quality, optional)
-  // Optional fields from upload-service for compatibility
   url?: string;       // Main URL (for backwards compatibility)
 }
 
 export type ImageSource = SingleImageSource | MultipleImageSources;
 
 export interface ResponsiveImageProps {
-  source: ImageSource;  // Accepts an object or a plain string
+  source: ImageSource | string | null | undefined;
   alt?: string;
   className?: string;
   aspectRatio?: "square" | "video" | "portrait" | "auto";
@@ -28,4 +27,13 @@ export interface ResponsiveImageProps {
   priority?: boolean;
   fallback?: ReactNode;
   sizes?: string;  // Custom sizes attribute for Next.js Image
+}
+
+export interface ImageSizes {
+  thumbnail: string
+  small: string
+  medium: string
+  large: string
+  original: string
+  url: string
 }

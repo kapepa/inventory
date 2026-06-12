@@ -4,7 +4,7 @@ import { ProductStatus } from '@prisma/client'
 type TranslationFunction = (key: string) => string
 
 export const productCreateFormSchema = (t: TranslationFunction) => z.object({
-  serialNumber: z.number()
+  serialNumber: z.number({ error: t('serial-number-required') })
     .int(t('serial-number-integer'))
     .positive(t('serial-number-positive')),
 
@@ -12,12 +12,12 @@ export const productCreateFormSchema = (t: TranslationFunction) => z.object({
     ru: z.object({
       locale: z.literal('ru'),
       title: z.string().min(1, t('title-required')),
-      specification: z.string().optional().or(z.literal('')),
+      specification: z.string().min(1, t('specification-required')),
     }),
     en: z.object({
       locale: z.literal('en'),
       title: z.string().min(1, t('title-required')),
-      specification: z.string().optional().or(z.literal('')),
+      specification: z.string().min(1, t('specification-required')),
     }),
   }),
 
@@ -25,29 +25,29 @@ export const productCreateFormSchema = (t: TranslationFunction) => z.object({
 
   status: z.nativeEnum(ProductStatus),
 
-  order: z.number()
+  order: z.number({ message: t("order-must-required") })
     .int(t('order-must-integer'))
-    .positive(t('order-must-positive'))
-    .optional(),
+    .positive(t('order-must-positive')),
 
   photo: z.union([
-    z.instanceof(File),
-    z.string().url(t('upload-image')),
-    z.literal('')
-  ]).optional().nullable(),
+    z.instanceof(File, { message: t('upload-image') }),
+    z.string().min(1, t('upload-image'))
+  ], { message: t('upload-image') }),
 
-  categoryId: z.string().min(1, t('invalid-category')).optional(),
+  categoryId: z.string({ error: t('invalid-category') }).min(1, t('invalid-category')),
 
   parishId: z.string().min(1, 'Parish is required'),
 
   userId: z.string().optional(),
 
-  priceUAH: z.number()
-    .nonnegative(t('price-must-numbernon-negative'))
+  priceUAH: z.number({ error: t("price-must-number") })
+    .nonnegative(t('price-must-positive'))
+    .positive(t('price-must-positive'))
     .optional(),
 
-  priceUSD: z.number()
-    .nonnegative(t('price-must-numbernon-negative'))
+  priceUSD: z.number({ error: t("price-must-number") })
+    .nonnegative(t('price-must-positive'))
+    .positive(t('price-must-positive'))
     .optional(),
 })
 

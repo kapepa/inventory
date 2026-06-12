@@ -3,9 +3,9 @@
 import { useMemo, useState, useTransition } from "react"
 import { FieldPath, UseFormReturn } from "react-hook-form"
 import { AppLocale, oppositeLocale, useThrottle, useTranslate } from "@/shared"
-import { ProductCreateFormData, TranslatableProductFieldName } from "../schemas"
+import { ProductCreateFormValues, TranslatableProductFieldName } from "../schemas"
 
-export const useProductTranslation = (form: UseFormReturn<ProductCreateFormData>) => {
+export const useProductTranslation = (form: UseFormReturn<ProductCreateFormValues>) => {
   const { translate, isLoading: isTranslatingApi } = useTranslate()
   const [isTranslatingTransition, startTranslateTransition] = useTransition()
   const [translatingField, setTranslatingField] = useState<{ name: TranslatableProductFieldName, locale: AppLocale } | null>(null)
@@ -23,7 +23,7 @@ export const useProductTranslation = (form: UseFormReturn<ProductCreateFormData>
         setTranslatingField({ name: fieldName, locale: targetLocale })
         try {
           const translated = await translate(sourceValue, targetLocale)
-          form.setValue(`translations.${targetLocale}.${fieldName}` as FieldPath<ProductCreateFormData>, translated, {
+          form.setValue(`translations.${targetLocale}.${fieldName}` as FieldPath<ProductCreateFormValues>, translated, {
             shouldValidate: true,
             shouldDirty: true,
           })

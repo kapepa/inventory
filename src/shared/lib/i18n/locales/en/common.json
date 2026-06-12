@@ -1,5 +1,11 @@
 {
   "responsive-image": {
     "no-image": "No image"
+  },
+  "image-upload-field": {
+    "drop-image-here": "Drop image here",
+    "upload-drag-drop": "Click to upload or drag and drop",
+    "invalid-format": "Only {formats} formats are allowed",
+    "file-too-large": "File size must be less than {maxSizeMB}MB"
   }
 }

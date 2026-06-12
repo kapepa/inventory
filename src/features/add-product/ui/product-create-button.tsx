@@ -2,8 +2,7 @@
 
 import { CirclePlusButton, cn } from "@/shared";
 import { useTranslations } from "next-intl";
-import { useProductCreate } from "../model";
-import { useEffect } from "react";
+import { useAddProduct } from "../model";
 
 interface ProductCreateButtonProps {
   isAuthor?: boolean
@@ -14,11 +13,7 @@ interface ProductCreateButtonProps {
 export const ProductCreateButton = ({ parishId, className, isAuthor = true }: ProductCreateButtonProps) => {
   if (!isAuthor || !parishId) return null;
   const t = useTranslations('add-product.buttons');
-  const { productCreate } = useProductCreate({ parishId })
-
-  useEffect(() => {
-    productCreate()
-  }, [productCreate])//test open
+  const { productCreate } = useAddProduct({ parishId })
 
   return (
     <div className={cn("flex items-center gap-x-2", className)}>

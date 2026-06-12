@@ -45,16 +45,17 @@
     },
     "errors": {
       "title-required": "Введите название продукта",
+      "specification-required": "Введите технические характеристики",
       "serial-number-required": "Необходимо указать серийный номер",
       "serial-number-integer": "Серийный номер должен быть целым числом",
       "serial-number-positive": "Серийный номер должен быть положительным",
-      "order-must-number": "Значение должно быть числом",
+      "order-must-required": "Укажите количество",
       "order-must-integer": "Значение должно быть целым числом",
       "order-must-positive": "Должно быть положительным",
       "upload-image": "Загрузить изображение",
       "invalid-category": "Выберите категорию",
       "price-must-number": "Цена должна быть числом",
-      "price-must-numbernon-negative": "Цена должна быть неотрицательной"
+      "price-must-positive": "Цена должна быть > 0"
     },
     "toast": {
       "create-product-success": "Продукт успешно создан",

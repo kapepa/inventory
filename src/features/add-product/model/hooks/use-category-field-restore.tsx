@@ -21,7 +21,7 @@ export const useRestoreFieldFromStorage = (
       const savedData = sessionStorage.getItem(ADD_PRODUCT_FORM_DATA)
       if (!savedData) return
 
-      const { [fieldName]: value } = JSON.parse(savedData)
+      const { categoryId: value } = JSON.parse(savedData)
       if (value && items.some(item => item.id === value)) {
         setValue(fieldName, value, {
           shouldValidate: false,
@@ -31,5 +31,6 @@ export const useRestoreFieldFromStorage = (
     } catch (error) {
       console.error(`Failed to restore ${fieldName}:`, error)
     }
-  }, [items, fieldName, ADD_PRODUCT_FORM_DATA, setValue, getValues])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [items])
 }

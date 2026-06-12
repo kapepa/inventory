@@ -1,5 +1,11 @@
 {
   "responsive-image": {
     "no-image": "Изображение отсутствует"
+  },
+  "image-upload-field": {
+    "drop-image-here": "Перетащите изображение сюда",
+    "upload-drag-drop": "Нажмите, чтобы загрузить, или перетащите файл",
+    "invalid-format": "Разрешены только форматы: {formats}",
+    "file-too-large": "Размер файла должен быть меньше {maxSizeMB}МБ"
   }
 }
