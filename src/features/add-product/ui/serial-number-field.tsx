@@ -24,7 +24,7 @@ export const SerialNumberField = memo(({ isPending }: SerialNumberFieldProps) =>
     <FormField
       control={control}
       name="serialNumber"
-      render={({ field, fieldState }) => (
+      render={({ field }) => (
         <FormItem>
           <FormLabel>{t('serial-number')}</FormLabel>
           <FormControl>

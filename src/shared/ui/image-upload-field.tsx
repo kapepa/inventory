@@ -1,11 +1,13 @@
 "use client"
 
-import { memo, useRef, useState, useCallback } from "react"
-import { useController, Control } from "react-hook-form"
+import { memo } from "react"
+import { Control } from "react-hook-form"
 import { Upload, X, ImageIcon } from "lucide-react"
 import { Button } from "./button"
 import { Label } from "./label"
 import { cn } from "../lib/utils"
+import { useImageUpload } from "../lib"
+import { useTranslations } from "next-intl"
 
 interface ImageUploadFieldProps {
   name: string
@@ -26,119 +28,20 @@ export const ImageUploadField = memo(({
   acceptedFormats = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'],
   className
 }: ImageUploadFieldProps) => {
-  const fileInputRef = useRef<HTMLInputElement>(null)
-  const [isDragging, setIsDragging] = useState(false)
-  const [preview, setPreview] = useState<string | null>(null)
-  const [error, setError] = useState<string | null>(null)
-
+  const t = useTranslations("image-upload-field")
   const {
-    field: { value, onChange },
-    fieldState: { error: fieldError }
-  } = useController({
-    name,
-    control,
-  })
-
-  // Generate preview when value changes (for existing images from DB)
-  useState(() => {
-    if (value && typeof value === 'string' && !preview) {
-      setPreview(value)
-    }
-  })
-
-  const validateFile = useCallback((file: File): string | null => {
-    // Check file type
-    if (!acceptedFormats.includes(file.type)) {
-      return `Only ${acceptedFormats.map(f => f.split('/')[1]).join(', ')} formats are allowed`
-    }
-
-    // Check file size
-    const sizeMB = file.size / (1024 * 1024)
-    if (sizeMB > maxSizeMB) {
-      return `File size must be less than ${maxSizeMB}MB`
-    }
-
-    return null
-  }, [acceptedFormats, maxSizeMB])
-
-  const handleFileChange = useCallback((file: File | null) => {
-    if (!file) {
-      setPreview(null)
-      setError(null)
-      onChange(null)
-      return
-    }
-
-    const validationError = validateFile(file)
-    if (validationError) {
-      setError(validationError)
-      setPreview(null)
-      onChange(null)
-      return
-    }
-
-    setError(null)
-
-    // Create preview
-    const reader = new FileReader()
-    reader.onloadend = () => {
-      setPreview(reader.result as string)
-    }
-    reader.readAsDataURL(file)
-
-    // Store file object in form state
-    onChange(file)
-  }, [onChange, validateFile])
-
-  const handleInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0] || null
-    handleFileChange(file)
-  }, [handleFileChange])
-
-  const handleDragEnter = useCallback((e: React.DragEvent) => {
-    e.preventDefault()
-    e.stopPropagation()
-    if (!disabled) {
-      setIsDragging(true)
-    }
-  }, [disabled])
-
-  const handleDragLeave = useCallback((e: React.DragEvent) => {
-    e.preventDefault()
-    e.stopPropagation()
-    setIsDragging(false)
-  }, [])
-
-  const handleDragOver = useCallback((e: React.DragEvent) => {
-    e.preventDefault()
-    e.stopPropagation()
-  }, [])
-
-  const handleDrop = useCallback((e: React.DragEvent) => {
-    e.preventDefault()
-    e.stopPropagation()
-    setIsDragging(false)
-
-    if (disabled) return
-
-    const file = e.dataTransfer.files?.[0] || null
-    handleFileChange(file)
-  }, [disabled, handleFileChange])
-
-  const handleRemove = useCallback(() => {
-    setPreview(null)
-    setError(null)
-    onChange(null)
-    if (fileInputRef.current) {
-      fileInputRef.current.value = ''
-    }
-  }, [onChange])
-
-  const handleClick = useCallback(() => {
-    if (!disabled) {
-      fileInputRef.current?.click()
-    }
-  }, [disabled])
+    preview,
+    isDragging,
+    error,
+    fileInputRef,
+    handleInputChange,
+    handleDragEnter,
+    handleDragLeave,
+    handleDragOver,
+    handleDrop,
+    handleRemove,
+    handleClick
+  } = useImageUpload({ name, control, maxSizeMB, acceptedFormats, disabled })
 
   return (
     <div className={cn("space-y-2", className)}>
@@ -169,11 +72,7 @@ export const ImageUploadField = memo(({
 
         {preview ? (
           <div className="relative aspect-video w-full overflow-hidden rounded-lg">
-            <img
-              src={preview}
-              alt="Preview"
-              className="w-full h-full object-contain bg-gray-50 dark:bg-gray-900"
-            />
+            <img src={preview} alt="Preview" className="w-full h-full object-contain bg-gray-50 dark:bg-gray-900" />
             {!disabled && (
               <Button
                 type="button"
@@ -192,14 +91,10 @@ export const ImageUploadField = memo(({
         ) : (
           <div className="flex flex-col items-center justify-center py-12 px-6 text-center">
             <div className="mb-4 rounded-full bg-gray-100 dark:bg-gray-800 p-4">
-              {isDragging ? (
-                <ImageIcon className="h-8 w-8 text-primary" />
-              ) : (
-                <Upload className="h-8 w-8 text-gray-400" />
-              )}
+              {isDragging ? <ImageIcon className="h-8 w-8 text-primary" /> : <Upload className="h-8 w-8 text-gray-400" />}
             </div>
             <p className="text-sm font-medium text-gray-700 dark:text-gray-300">
-              {isDragging ? "Drop image here" : "Click to upload or drag and drop"}
+              {isDragging ? t("drop-image-here") : t("upload-drag-drop")}
             </p>
             <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
               {acceptedFormats.map(f => f.split('/')[1].toUpperCase()).join(', ')} (max {maxSizeMB}MB)
@@ -208,12 +103,7 @@ export const ImageUploadField = memo(({
         )}
       </div>
 
-      {/* Error messages */}
-      {(error || fieldError?.message) && (
-        <p className="text-sm text-red-500 dark:text-red-400">
-          {error || fieldError?.message}
-        </p>
-      )}
+      {error && <p className="text-sm text-red-500 dark:text-red-400">{error}</p>}
     </div>
   )
 })

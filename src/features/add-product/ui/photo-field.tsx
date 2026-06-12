@@ -14,14 +14,16 @@ export const PhotoField = memo(({ isPending }: PhotoFieldProps) => {
   const { control } = useFormContext()
 
   return (
-    <ImageUploadField
-      name="photo"
-      control={control}
-      label={t('photo-url')}
-      disabled={isPending}
-      maxSizeMB={5}
-      acceptedFormats={['image/jpeg', 'image/png', 'image/webp']}
-    />
+    <>
+      <ImageUploadField
+        name="photo"
+        control={control}
+        label={t('photo-url')}
+        disabled={isPending}
+        maxSizeMB={5}
+        acceptedFormats={['image/jpeg', 'image/png', 'image/webp']}
+      />
+    </>
   )
 })
 

@@ -12,7 +12,7 @@ import { useSyncFormWithStorage } from "./use-sync-form-with-storage"
 
 const ADD_PRODUCT_FORM_DATA = STORAGE_KEYS.ADD_PRODUCT_FORM_DATA
 
-export const useProductCreateForm = (parishId: string = "33333333-3333-3333-3333-333333333333", closeModalAction: () => void) => {
+export const useProductCreateForm = (parishId: string, closeModalAction: () => void) => {
   const t = useTranslations("add-product.create-form")
   const tErrors = useTranslations("add-product.create-form.errors")
   const [isSubmitting, startSubmitTransition] = useTransition()
@@ -60,24 +60,26 @@ export const useProductCreateForm = (parishId: string = "33333333-3333-3333-3333
 
           console.log("onSubmitonSubmitonSubmitonSubmitonSubmit", photoUrl)
 
-          // // Transform form data to DTO
-          // const productData = {
-          //   serialNumber: values.serialNumber,
-          //   order: values.order,
-          //   status: values.status,
-          //   isNew: values.isNew,
-          //   photo: photoUrl,
-          //   parishId: values.parishId,
-          //   categoryId: values.categoryId,
-          //   translations: [
-          //     values.translations.ru,
-          //     values.translations.en,
-          //   ],
-          //   prices: [
-          //     ...(values.priceUAH ? [{ value: values.priceUAH, symbol: 'UAH' as const }] : []),
-          //     ...(values.priceUSD ? [{ value: values.priceUSD, symbol: 'USD' as const }] : []),
-          //   ],
-          // }
+          // Transform form data to DTO
+          const productData = {
+            serialNumber: values.serialNumber,
+            order: values.order,
+            status: values.status,
+            isNew: values.isNew,
+            photo: photoUrl,
+            parishId: values.parishId,
+            categoryId: values.categoryId,
+            translations: [
+              values.translations.ru,
+              values.translations.en,
+            ],
+            prices: [
+              ...(values.priceUAH ? [{ value: values.priceUAH, symbol: 'UAH' as const }] : []),
+              ...(values.priceUSD ? [{ value: values.priceUSD, symbol: 'USD' as const }] : []),
+            ],
+          }
+
+          console.log("productDataproductDataproductData", productData)
 
           // const response = await fetch('/api/products', {
           //   method: 'POST',
@@ -107,9 +109,9 @@ export const useProductCreateForm = (parishId: string = "33333333-3333-3333-3333
   const handleSubmit = useMemo(
     () => form.handleSubmit(
       onSubmit,
-      (errors) => {
-        console.error('Form validation errors:', errors)
-      }
+      // (errors) => {
+      //   console.error('Form validation errors:', errors)
+      // }
     ),
     [form, onSubmit]
   )

@@ -16,10 +16,6 @@ export const ProductCreateButton = ({ parishId, className, isAuthor = true }: Pr
   const t = useTranslations('add-product.buttons');
   const { productCreate } = useProductCreate({ parishId })
 
-  useEffect(() => {
-    productCreate()
-  }, [productCreate])//test open
-
   return (
     <div className={cn("flex items-center gap-x-2", className)}>
       <CirclePlusButton onClick={productCreate} className={cn("size-8", className)} />

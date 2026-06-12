@@ -10,7 +10,7 @@ export const useProductCreate = ({ parishId }: { parishId: string }) => {
 
   const productCreate = useCallback(() => {
     openModal(<ProductCreateModal parishId={parishId} onCancelAction={closeModal} />)
-  }, [openModal, closeModal])
+  }, [parishId, openModal, closeModal])
 
   return {
     productCreate

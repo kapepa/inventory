@@ -38,7 +38,7 @@ export const TitleField = memo(({
     <FormField
       control={control}
       name={`translations.${locale}.title`}
-      render={({ field }) => (
+      render={({ field, fieldState }) => (
         <FormItem>
           <FormLabel className="mb-3">
             {t('title')} ({locale.toUpperCase()})
@@ -57,6 +57,7 @@ export const TitleField = memo(({
                 {...field}
                 disabled={isPending}
                 autoFocus={autoFocus}
+                aria-invalid={!!fieldState.error}
               />
             </TranslateWrapperInput>
           </FormControl>
