@@ -4,9 +4,10 @@ import { ProductStatus } from '@prisma/client'
 type TranslationFunction = (key: string) => string
 
 export const productCreateFormSchema = (t: TranslationFunction) => z.object({
-  serialNumber: z.number({ error: t('serial-number-required') })
-    .int(t('serial-number-integer'))
-    .positive(t('serial-number-positive')),
+  serialNumber: z.string({
+    error: t('serial-number-required'),
+  })
+    .min(3, t("serial-number-min")),
 
   translations: z.object({
     ru: z.object({
@@ -54,3 +55,36 @@ export const productCreateFormSchema = (t: TranslationFunction) => z.object({
 export type ProductCreateSchema = ReturnType<typeof productCreateFormSchema>
 export type ProductCreateFormValues = z.infer<ProductCreateSchema>
 export type TranslatableProductFieldName = 'title' | 'specification'
+
+export const productCreateServerSchema = z.object({
+  serialNumber: z.string().min(3),
+  order: z.number().int().positive(),
+  status: z.nativeEnum(ProductStatus),
+  isNew: z.boolean(),
+  // On server, photo is already a string (URL) or null if not uploaded
+  photo: z.string().nullable(),
+  parishId: z.string().min(1),
+  categoryId: z.string().min(1),
+  // UserId is required for creating a record in DB
+  userId: z.string().min(1),
+
+  // Translations array validation
+  translations: z.array(
+    z.object({
+      locale: z.string().length(2), // 'ru' or 'en'
+      title: z.string().min(1),
+      specification: z.string().min(1),
+    })
+  ).min(1), // At least one translation required
+
+  // Prices array validation
+  prices: z.array(
+    z.object({
+      value: z.number().nonnegative(),
+      symbol: z.enum(['UAH', 'USD']),
+    })
+  ),
+})
+
+// Type inferred from server schema
+export type ProductCreateServerValues = z.infer<typeof productCreateServerSchema>

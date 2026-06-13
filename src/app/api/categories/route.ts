@@ -1,9 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { AppLocale, defaultLocale } from '@/shared';
+import { apiHandler, AppLocale, defaultLocale } from '@/shared';
 import { getCategories } from '@/entities/category/api/category-service';
 import { CategoryWithTranslations } from '@/entities/category/model/types';
 
-export async function GET(request: NextRequest): Promise<NextResponse<CategoryWithTranslations[] | { error: string }>> {
+export const GET = apiHandler(async (request: NextRequest): Promise<NextResponse<CategoryWithTranslations[] | { error: string }>> => {
   try {
     const rawLocale = request.headers.get('Accept-Language') || defaultLocale;
     const locale = (rawLocale.split(',')[0].split('-')[0].trim().toLowerCase()) as AppLocale;
@@ -18,4 +18,4 @@ export async function GET(request: NextRequest): Promise<NextResponse<CategoryWi
       { status: 500 }
     )
   }
-}
+})

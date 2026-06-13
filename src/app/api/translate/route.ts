@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { translate as translateGoogle } from "@vitalets/google-translate-api";
 import translate from "translate";
-import { AppLocale } from '@/shared';
+import { apiHandler, AppLocale } from '@/shared';
 
 const translationCache = new Map<string, { text: string; timestamp: number }>();
 const CACHE_TTL = 60 * 60 * 1000;
@@ -18,7 +18,7 @@ function setCache(key: string, text: string): void {
   translationCache.set(key, { text, timestamp: Date.now() });
 }
 
-export async function POST(request: NextRequest) {
+export const POST = apiHandler(async (request: NextRequest) => {
   try {
     const { text, targetLocale } = await request.json() as {
       text: string;
@@ -55,8 +55,6 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    console.log(translatedText)
-
     setCache(cacheKey, translatedText);
     return NextResponse.json({ translatedText });
 
@@ -67,4 +65,4 @@ export async function POST(request: NextRequest) {
       { status: 500 }
     );
   }
-}
+})

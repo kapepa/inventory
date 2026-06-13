@@ -33,7 +33,10 @@ export const OrderField = memo(({ isPending }: OrderFieldProps) => {
               placeholder={t('order-placeholder')}
               {...field}
               value={field.value ?? ''}
-              onChange={(e) => field.onChange(e.target.value === '' ? undefined : e.target.valueAsNumber)}
+              onChange={(e) => {
+                const raw = e.target.value.replace(/\D/g, '').slice(0, 10)
+                field.onChange(raw === '' ? undefined : Number(raw))
+              }}
               disabled={isPending}
             />
           </FormControl>

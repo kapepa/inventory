@@ -2,10 +2,11 @@ import { ResponseProductsDTO } from '@/entities';
 import { getProductsByParishId } from '@/entities/products/api/product-service';
 import { ProductCreate, ProductWithRelations } from '@/features';
 import { createProduct } from '@/features/add-product/api/product-service';
-import { AppLocale, defaultLocale, locales, PAGINATION_PRODUCTS_DEFAULTS } from '@/shared';
+import { apiHandler, AppLocale, defaultLocale, locales, PAGINATION_PRODUCTS_DEFAULTS } from '@/shared';
 import { NextRequest, NextResponse } from 'next/server';
+import { ZodError } from 'zod';
 
-export const GET = async (request: NextRequest): Promise<NextResponse<ResponseProductsDTO | { error: string }>> => {
+export const GET = apiHandler(async (request: NextRequest): Promise<NextResponse<ResponseProductsDTO | { error: string }>> => {
   try {
     const { searchParams } = request.nextUrl;
     const rawLocale = request.headers.get('Accept-Language') || defaultLocale;
@@ -13,7 +14,7 @@ export const GET = async (request: NextRequest): Promise<NextResponse<ResponsePr
 
     const finalLocale = (locales.includes(locale) ? locale : defaultLocale);
 
-    const result = await getProductsByParishId({
+    const response = await getProductsByParishId({
       parishId: searchParams.get('parishId') || '',
       page: parseInt(searchParams.get('page') || `${PAGINATION_PRODUCTS_DEFAULTS.PAGE}`),
       limit: parseInt(searchParams.get('limit') || `${PAGINATION_PRODUCTS_DEFAULTS.LIMIT}`),
@@ -21,7 +22,7 @@ export const GET = async (request: NextRequest): Promise<NextResponse<ResponsePr
       locale: finalLocale
     })
 
-    return NextResponse.json(result);
+    return NextResponse.json(response);
   } catch (error: any) {
     console.error('Fetch products error:', error);
     return NextResponse.json(
@@ -29,19 +30,34 @@ export const GET = async (request: NextRequest): Promise<NextResponse<ResponsePr
       { status: 500 }
     );
   }
-};
+});
 
-export const POST = async (request: NextRequest): Promise<NextResponse<ProductWithRelations | { error: string }>> => {
+export const POST = apiHandler(async (request: NextRequest): Promise<NextResponse<ProductWithRelations | { error: string }>> => {
   try {
     const body: ProductCreate = await request.json();
     const newProduct = await createProduct(body);
 
     return NextResponse.json(newProduct, { status: 201 });
   } catch (error: any) {
+    if (error instanceof ZodError) {
+      return NextResponse.json(
+        { error: 'Invalid data format', details: error.format() },
+        { status: 400 }
+      );
+    }
+
+    // If this is a Prisma uniqueness error (for example, a serial number like this already exists)
+    if (error.code === 'P2002') {
+      return NextResponse.json(
+        { error: 'Product with this serial number already exists' },
+        { status: 409 } // 409 Conflict
+      );
+    }
+
     console.error('Create product error:', error);
     return NextResponse.json(
-      { error: error.message || 'Failed to create product' },
+      { error: 'Internal Server Error' },
       { status: 500 }
     );
   }
-};
+});

@@ -29,11 +29,10 @@ export const SerialNumberField = memo(({ isPending }: SerialNumberFieldProps) =>
           <FormLabel>{t('serial-number')}</FormLabel>
           <FormControl>
             <Input
-              type="number"
               placeholder={t('serial-number-placeholder')}
               {...field}
               value={field.value ?? ''}
-              onChange={(e) => field.onChange(e.target.value === '' ? undefined : e.target.valueAsNumber)}
+              maxLength={50}
               disabled={isPending}
             />
           </FormControl>

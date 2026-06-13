@@ -12,7 +12,7 @@ export const useDeleteParish = () => {
   const { openModal, closeModal } = useModalActions();
   const { removeParish } = useParishesStore();
 
-  const confirmDelete = useCallback((parish: ParishWithRelations) => {
+  const confirmDeleteParish = useCallback((parish: ParishWithRelations) => {
     const title = parish.translations[0]?.title || "";
 
     openModal(
@@ -34,5 +34,5 @@ export const useDeleteParish = () => {
     );
   }, [closeModal, openModal, t, removeParish]);
 
-  return { confirmDelete };
+  return { confirmDeleteParish };
 };

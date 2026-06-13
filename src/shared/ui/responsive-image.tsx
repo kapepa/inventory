@@ -34,12 +34,12 @@ export const ResponsiveImage = memo(
     const normalizedSource: ImageSource | null = (() => {
       if (!source) return null;
 
-      // Если строка - парсим через parseResponsiveImage
+      // If it's a string, parse it using parseResponsiveImage
       if (typeof source === 'string') {
         return parseResponsiveImage(source);
       }
 
-      // Иначе возвращаем как есть
+      // Otherwise, return it as is
       return source;
     })()
 
