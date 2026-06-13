@@ -7,10 +7,11 @@ interface ProductShortCardProps {
   className?: string,
   product: ProductsWithRelations,
   openProductModal: (products: ProductsWithRelations) => void
+  onDeleteProduct: (products: ProductsWithRelations) => void
 }
 
 export const ProductShortCard = memo(
-  ({ product, className, openProductModal }: ProductShortCardProps) => {
+  ({ product, className, openProductModal, onDeleteProduct }: ProductShortCardProps) => {
     const { title } = product.translations[0]
 
     return (
@@ -23,7 +24,7 @@ export const ProductShortCard = memo(
         <PictureCell url={product.photo} alt={title} />
         <IdentifierCell title={title} serialNumber={product.serialNumber} />
         <StatusCell status={product.status} />
-        <ActionsProductCell onDeleteActions={() => { }} parish={product} isOwner={true} />
+        <ActionsProductCell onDeleteProduct={onDeleteProduct} parish={product} isOwner={true} />
       </button>
     )
   }

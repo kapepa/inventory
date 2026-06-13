@@ -13,3 +13,5 @@ export interface ProductsWithRelations extends Product {
   translations: ProductTranslation[];
   prices: Pick<Price, "value" | "symbol">[]
 }
+
+export interface DeleteProductResult extends Product { }

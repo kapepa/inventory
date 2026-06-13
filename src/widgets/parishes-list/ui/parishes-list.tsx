@@ -25,7 +25,7 @@ export const ParishesList = ({
   const [search] = useQueryParam(QUERY_PARAMS_KEYS.PARISHES_SEARCH);
   const { parishes, isLoading, error, hasMore, loadMore } = useInfiniteParishes(search, initialParishes, initialHasMore, initialTotal)
   const { targetRef, isIntersecting } = useIntersectionObserver({ threshold: 0.5, rootMargin: "100px" })
-  const { confirmDelete } = useDeleteParish()
+  const { confirmDeleteParish } = useDeleteParish()
 
   useEffect(() => {
     if (isIntersecting && hasMore && !isLoading) {
@@ -34,8 +34,8 @@ export const ParishesList = ({
   }, [isIntersecting, hasMore, isLoading, loadMore])
 
   const handlerDeleteParish = useCallback((parish: ParishWithRelations) => {
-    confirmDelete(parish);
-  }, [confirmDelete])
+    confirmDeleteParish(parish);
+  }, [confirmDeleteParish])
 
   if (error) return <div className="text-destructive text-center py-4">{t("parishes-list.error")}</div>
   if (!parishes.length) return <div className="text-center py-4 text-destructive">{t("parishes-list.empty")}</div>

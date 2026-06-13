@@ -12,17 +12,19 @@ import { ConditionField } from './condition-field'
 import { PhotoField } from './photo-field'
 import { PriceFields } from './price-fields'
 import { CategoryField } from './category-field'
+import { ProductsWithRelations } from '@/entities'
 
 interface ProductCreateFormProps {
   parishId: string
   onCancelAction: () => void
+  onSuccessAction: (product: ProductsWithRelations) => void
 }
 
-export const ProductCreateForm = ({ parishId, onCancelAction }: ProductCreateFormProps) => {
+export const ProductCreateForm = ({ parishId, onCancelAction, onSuccessAction }: ProductCreateFormProps) => {
   const t = useTranslations("add-product.create-form")
   const locale = useLocale() as AppLocale
 
-  const { form, isSubmitting, onSubmit } = useProductCreateForm(parishId, onCancelAction)
+  const { form, isSubmitting, onSubmit } = useProductCreateForm(parishId, onCancelAction, onSuccessAction)
   const { isTranslating, translatingField, handleTranslateAction } = useProductTranslation(form)
 
   const isPending = isSubmitting || isTranslating

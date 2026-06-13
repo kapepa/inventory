@@ -40,6 +40,14 @@ export const useInfiniteProducts = ({
     }
   }, [initialProducts, initialHasMore])
 
+  const addProduct = useCallback((newProduct: ProductsWithRelations) => {
+    setProducts((prev) => [newProduct, ...prev]);
+  }, []);
+
+  const removeProduct = useCallback((id: string) => {
+    setProducts((prev) => prev.filter((product) => product.id !== id));
+  }, []);
+
   const fetchItems = useCallback(
     async (isFirstPage: boolean = false, signal?: AbortSignal) => {
       if (!parishId) {
@@ -110,5 +118,7 @@ export const useInfiniteProducts = ({
     hasMore: effectiveHasMore,
     loadMore,
     clearProducts,
+    addProduct,
+    removeProduct,
   }
 }

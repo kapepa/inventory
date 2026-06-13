@@ -1,5 +1,5 @@
-import { UploadResponse } from '../model'
-import { validateFile } from '../lib'
+import { UploadImageResponse } from '../model'
+import { extractPublicId, validateFile } from '../lib'
 
 // Dynamic import for Cloudinary to avoid fs module in client bundles
 const getCloudinary = async () => {
@@ -8,7 +8,7 @@ const getCloudinary = async () => {
   return cloudinaryModule.getCloudinary()
 }
 
-export const uploadFile = async (file: File): Promise<UploadResponse> => {
+export const uploadFile = async (file: File): Promise<UploadImageResponse> => {
   try {
     // 1. Validate file first
     validateFile(file)
@@ -47,17 +47,6 @@ export const uploadFile = async (file: File): Promise<UploadResponse> => {
       return `${baseUrl}${transformations.join(',')}/${publicId}`
     }
 
-    console.log("uploadFileuploadFileuploadFileuploadFile", {
-      // Return multiple sizes for ResponsiveImage component
-      thumbnail: generateTransformationUrl(150),
-      small: generateTransformationUrl(640),
-      medium: generateTransformationUrl(1024),
-      large: generateTransformationUrl(1920),
-      original: generateTransformationUrl(2560),
-
-      // Also return single URL for backwards compatibility
-      url: uploadResponse.secure_url,
-    })
     return {
       // Return multiple sizes for ResponsiveImage component
       thumbnail: generateTransformationUrl(150),
@@ -72,5 +61,54 @@ export const uploadFile = async (file: File): Promise<UploadResponse> => {
   } catch (error) {
     console.error('Cloudinary Error in uploadFile:', error);
     throw error;
+  }
+}
+
+export const deleteFile = async (urlOrId: string): Promise<{ result: string }> => {
+  try {
+    const publicId = urlOrId.startsWith('http') ? extractPublicId(urlOrId) : urlOrId;
+    const cloudinary = await getCloudinary()
+    if (!publicId) throw new Error('Invalid public_id: could not extract from URL');
+
+    // Delete an image by public_id
+    const deleteResponse = await cloudinary.uploader.destroy(publicId, {
+      resource_type: 'image',
+      invalidate: true, // инвалидирует CDN кеш
+    })
+
+    // deleteResponse.result will be ‘ok’ if successful, ‘not found’ if not found
+    if (deleteResponse.result !== "ok" && deleteResponse.result !== "not found") {
+      throw new Error(`Failed to delete image: ${deleteResponse.result}`)
+    }
+
+    return deleteResponse
+  } catch (error) {
+    console.error('Cloudinary Error in deleteFile:', error)
+    throw error
+  }
+}
+
+export const deleteFiles = async (urlOrIds: string[]): Promise<{ deleted: Record<string, string> }> => {
+  try {
+    // Extract public_ids from URLs, filter out invalid ones
+    const publicIds = urlOrIds
+      .map(item => item.startsWith('http') ? extractPublicId(item) : item)
+      .filter((id): id is string => id !== null)
+
+    if (publicIds.length === 0) {
+      throw new Error('No valid public_ids to delete')
+    }
+
+    const cloudinary = await getCloudinary()
+
+    const deleteResponse = await cloudinary.api.delete_resources(publicIds, {
+      resource_type: 'image',
+      invalidate: true,
+    })
+
+    return deleteResponse
+  } catch (error) {
+    console.error('Cloudinary Error in deleteFiles:', error)
+    throw error
   }
 }

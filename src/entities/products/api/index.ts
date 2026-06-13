@@ -1,1 +1,1 @@
-export * from "./product-api"
+export { fetchProducts, requestDeleteProduct } from "./product-api"

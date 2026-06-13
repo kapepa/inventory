@@ -3,7 +3,6 @@ import { ResponsiveImageSizes } from '../model/types/types'
 import axios, { AxiosError } from 'axios'
 import { RequestUploadFileParams } from '../model'
 
-
 export const requestUploadFile = async ({ file, signal }: RequestUploadFileParams): Promise<ResponsiveImageSizes> => {
   try {
     const formData = new FormData()

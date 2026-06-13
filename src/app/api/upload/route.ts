@@ -1,8 +1,9 @@
 import { UploadImageError, UploadImageResponse } from '@/entities'
 import { uploadFile } from '@/entities/upload/api/upload-service'
+import { apiHandler } from '@/shared'
 import { NextRequest, NextResponse } from 'next/server'
 
-export async function POST(request: NextRequest): Promise<NextResponse<UploadImageError | UploadImageResponse>> {
+export const POST = apiHandler(async (request: NextRequest): Promise<NextResponse<UploadImageError | UploadImageResponse>> => {
   try {
     const formData = await request.formData()
     const file = formData.get('file') as File
@@ -19,4 +20,4 @@ export async function POST(request: NextRequest): Promise<NextResponse<UploadIma
       { status: 500 }
     )
   }
-}
+})

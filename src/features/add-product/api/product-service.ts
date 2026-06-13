@@ -1,23 +1,23 @@
 import { prisma } from "@/shared/lib/prisma";
-import { ProductCreate, ProductWithRelations } from "../model";
-
+import { ProductCreate, productCreateServerSchema, ProductWithRelations } from "../model";
 
 export const createProduct = async (body: ProductCreate): Promise<ProductWithRelations> => {
+  const validated = productCreateServerSchema.parse(body)
   try {
     const newProduct = await prisma.product.create({
       data: {
-        serialNumber: body.serialNumber,
-        order: body.order,
-        status: body.status,
-        isNew: body.isNew,
-        photo: body.photo,
-        parishId: body.parishId,
-        categoryId: body.categoryId,
+        serialNumber: validated.serialNumber,
+        order: validated.order,
+        status: validated.status,
+        isNew: validated.isNew,
+        photo: validated.photo,
+        parishId: validated.parishId,
+        categoryId: validated.categoryId,
         translations: {
-          create: body.translations,
+          create: validated.translations,
         },
         prices: {
-          create: body.prices,
+          create: validated.prices,
         },
       },
       include: {

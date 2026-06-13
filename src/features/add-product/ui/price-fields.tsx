@@ -35,7 +35,13 @@ export const PriceFields = memo(({ isPending }: PriceFieldsProps) => {
                 placeholder="0.00"
                 {...field}
                 value={field.value ?? ''}
-                onChange={(e) => field.onChange(e.target.value === '' ? undefined : e.target.valueAsNumber)}
+                onChange={(e) => {
+                  const raw = e.target.value
+                    .replace(/[^\d.]/g, '')
+                    .replace(/(\..*)\./g, '$1')
+                    .slice(0, 10)
+                  field.onChange(raw === '' ? undefined : Number(raw))
+                }}
                 disabled={isPending}
               />
             </FormControl>
@@ -59,7 +65,13 @@ export const PriceFields = memo(({ isPending }: PriceFieldsProps) => {
                 placeholder="0.00"
                 {...field}
                 value={field.value ?? ''}
-                onChange={(e) => field.onChange(e.target.value === '' ? undefined : e.target.valueAsNumber)}
+                onChange={(e) => {
+                  const raw = e.target.value
+                    .replace(/[^\d.]/g, '')
+                    .replace(/(\..*)\./g, '$1')
+                    .slice(0, 10)
+                  field.onChange(raw === '' ? undefined : Number(raw))
+                }}
                 disabled={isPending}
               />
             </FormControl>

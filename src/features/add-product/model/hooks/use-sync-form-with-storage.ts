@@ -22,7 +22,7 @@ export const useSyncFormWithStorage = (
             ...parsedData,
             categoryId: "",
             parishId, // Always use the current parishId
-          })
+          }, { keepDefaultValues: true })
         } else {
           sessionStorage.removeItem(ADD_PRODUCT_FORM_DATA)
         };

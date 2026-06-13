@@ -107,7 +107,7 @@ model CategoryTranslation {
 // ========== PRODUCTS ==========
 model Product {
   id           String        @id @default(uuid())
-  serialNumber Int           @unique @map("serial_number")
+  serialNumber String        @unique @map("serial_number")
   isNew        Boolean       @default(true) @map("is_new")
   status       ProductStatus @default(FREE)
   photo        String?

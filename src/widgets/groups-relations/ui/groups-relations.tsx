@@ -2,7 +2,7 @@
 
 import { useParishesStore } from "@/entities/parish"
 import { ProductShortCard, ProductShortCardSkeleton, ProductsShortBody, ProductsShortStateMessage, ProductsWithRelations, useInfiniteProducts } from "@/entities/products"
-import { ProductCreateButton, useViewProduct } from "@/features"
+import { ProductCreateButton, useDeleteProduct, useViewProduct } from "@/features"
 import { QUERY_PARAMS_KEYS, useIntersectionObserver, useQueryParam } from "@/shared"
 import { LoaderSpin } from "@/shared/ui/loader-spin"
 import { useTranslations } from "next-intl"
@@ -22,9 +22,10 @@ export const GroupsRelations = ({ initialHasMore, initialProducts, initialParish
   const t = useTranslations('groups');
   const { parishes } = useParishesStore();
   const [activeParishId, setActiveParishId] = useQueryParam(QUERY_PARAMS_KEYS.ACTIVE_PARISH);
-  const { products, isLoading, error, clearProducts, hasMore, loadMore } = useInfiniteProducts({ parishId: activeParishId, initialProducts, initialHasMore });
+  const { products, isLoading, error, clearProducts, hasMore, loadMore, addProduct, removeProduct } = useInfiniteProducts({ parishId: activeParishId, initialProducts, initialHasMore });
   const { targetRef, isIntersecting } = useIntersectionObserver({ threshold: 0.5, rootMargin: "100px" })
   const { productDetails } = useViewProduct()
+  const { confirmDeleteProduct } = useDeleteProduct()
 
   const getActiveParishId = activeParishId || initialParishesId
   const activeParish = parishes.find((p) => p.id === getActiveParishId);
@@ -33,6 +34,10 @@ export const GroupsRelations = ({ initialHasMore, initialProducts, initialParish
   const openProductModal = useCallback((product: ProductsWithRelations) => {
     productDetails(product)
   }, [productDetails])
+
+  const handlerDeleteProduct = useCallback((product: ProductsWithRelations) => {
+    confirmDeleteProduct(product, () => { removeProduct(product.id) });
+  }, [confirmDeleteProduct, removeProduct])
 
   useEffect(() => {
     if (isIntersecting && hasMore && !isLoading) {
@@ -61,7 +66,7 @@ export const GroupsRelations = ({ initialHasMore, initialProducts, initialParish
   return (
     <ProductsShortBody
       title={activeParishTitle}
-      actions={<ProductCreateButton parishId={getActiveParishId} />}
+      actions={<ProductCreateButton parishId={getActiveParishId} onSuccessAction={addProduct} />}
       onCloseActions={() => { setActiveParishId(""); clearProducts(); }}
     >
       {
@@ -71,6 +76,7 @@ export const GroupsRelations = ({ initialHasMore, initialProducts, initialParish
             product={product}
             className={CARD_CLASS}
             openProductModal={openProductModal}
+            onDeleteProduct={handlerDeleteProduct}
           />
         ))
       }
