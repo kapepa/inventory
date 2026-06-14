@@ -1,13 +1,13 @@
 "use client"
 
 import { useState, useEffect, useCallback, useRef } from "react"
-import { ProductsWithRelations, fetchProducts } from "@/entities/products"
+import { ProductWithRelations, fetchProducts } from "@/entities/products"
 import { PAGINATION_PRODUCTS_DEFAULTS } from "@/shared"
 
 interface UseInfiniteProducts {
   parishId: string | null,
   search?: string,
-  initialProducts?: ProductsWithRelations[],
+  initialProducts?: ProductWithRelations[],
   initialHasMore?: boolean
 }
 
@@ -17,7 +17,7 @@ export const useInfiniteProducts = ({
   initialProducts = [],
   initialHasMore = false,
 }: UseInfiniteProducts) => {
-  const [products, setProducts] = useState<ProductsWithRelations[]>(initialProducts)
+  const [products, setProducts] = useState<ProductWithRelations[]>(initialProducts)
   const [page, setPage] = useState(2)
   const [hasMore, setHasMore] = useState(initialHasMore)
   const [isLoading, setIsLoading] = useState(false)
@@ -40,7 +40,7 @@ export const useInfiniteProducts = ({
     }
   }, [initialProducts, initialHasMore])
 
-  const addProduct = useCallback((newProduct: ProductsWithRelations) => {
+  const addProduct = useCallback((newProduct: ProductWithRelations) => {
     setProducts((prev) => [newProduct, ...prev]);
   }, []);
 

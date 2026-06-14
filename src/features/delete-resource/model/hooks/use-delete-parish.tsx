@@ -1,11 +1,12 @@
 "use client"
 
-import { useModalActions } from "@/shared/ui/modal";
-import { ParishWithRelations, deleteParish, useParishesStore } from "@/entities";
+import { useModalActions } from "@/shared";
+import { ParishWithRelations, useParishesStore } from "@/entities";
 import { DeleteConfirmModal } from "../../ui/delete-confirm-modal";
 import { toast } from "sonner";
 import { useTranslations } from "next-intl";
 import { useCallback } from "react";
+import { requestDeleteParish } from "../../api";
 
 export const useDeleteParish = () => {
   const t = useTranslations('parishe');
@@ -20,7 +21,7 @@ export const useDeleteParish = () => {
         title={title}
         onConfirmAction={async () => {
           try {
-            await deleteParish({ id: parish.id });
+            await requestDeleteParish({ id: parish.id });
             removeParish(parish.id);
             toast.success(t("sonner.delete-parish"));
             closeModal();

@@ -1,0 +1,1 @@
+export { requestDeleteParish } from "./parish-api"

@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 import { UseFormReturn } from 'react-hook-form'
-import { ParishFormValues, TranslatableFieldName } from '../types/schemas'
+import { ParishFormValues, TranslatableFieldName } from '../schemas'
 import { AppLocale } from '@/shared'
 
 interface LocaleValidation {

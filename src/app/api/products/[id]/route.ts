@@ -1,6 +1,7 @@
-import { DeleteProductResult } from "@/entities";
-import { deleteProduct, getProductById } from "@/entities/products/api/product-service";
+import { getProductById } from "@/entities/products/api/product-service";
 import { deleteFile } from "@/entities/upload/api/upload-service";
+import { DeleteProductResult } from "@/features";
+import { deleteProduct } from "@/features/delete-resource/api/product-service";
 import { apiHandler } from "@/shared";
 import { NextRequest, NextResponse } from "next/server";
 

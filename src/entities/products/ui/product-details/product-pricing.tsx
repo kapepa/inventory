@@ -1,10 +1,10 @@
 import { cn, getProductPrimaryPrice } from "@/shared"
-import { ProductsWithRelations } from "../../model"
+import { ProductWithRelations } from "../../model"
 import { memo } from "react"
 
 interface ProductPricingProps {
   className?: string
-  prices: ProductsWithRelations["prices"]
+  prices: ProductWithRelations["prices"]
 }
 
 export const ProductPricing = memo(

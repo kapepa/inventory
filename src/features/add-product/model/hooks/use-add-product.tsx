@@ -4,9 +4,9 @@ import { useCallback } from 'react'
 
 import { useModalActions } from '@/shared'
 import { ProductCreateModal } from '../../ui';
-import { ProductsWithRelations } from '@/entities';
+import { ProductWithRelations } from '@/entities';
 
-export const useAddProduct = ({ parishId, onSuccessAction }: { parishId: string, onSuccessAction: (product: ProductsWithRelations) => void }) => {
+export const useAddProduct = ({ parishId, onSuccessAction }: { parishId: string, onSuccessAction: (product: ProductWithRelations) => void }) => {
   const { openModal, closeModal } = useModalActions();
 
   const productCreate = useCallback(() => {

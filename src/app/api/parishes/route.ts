@@ -1,7 +1,9 @@
 import { ParishWithRelations, ResponseParishes } from '@/entities';
-import { createParish, getParishes } from '@/entities/parish/api/parish-service';
+import { getParishes } from '@/entities/parish/api/parish-service';
+import { createParish } from '@/features/add-parish/api/add-parish-service';
 import { AppLocale, PAGINATION_PARISHES_DEFAULTS, apiHandler, defaultLocale, locales } from '@/shared';
 import { NextRequest, NextResponse } from 'next/server';
+import { ZodError } from 'zod';
 
 export const GET = apiHandler(async (request: NextRequest): Promise<NextResponse<ResponseParishes | { error: string }>> => {
   try {
@@ -40,6 +42,12 @@ export const POST = apiHandler(async (request: NextRequest): Promise<NextRespons
 
     return NextResponse.json(result, { status: 201 });
   } catch (error: any) {
+    if (error instanceof ZodError) {
+      return NextResponse.json(
+        { error: 'Invalid data format', details: error.format() },
+        { status: 400 }
+      )
+    }
     console.error('Create parish error:', error);
     return NextResponse.json(
       { error: error.message || 'Failed to create parish' },

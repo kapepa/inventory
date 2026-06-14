@@ -1,13 +1,13 @@
 import { cn } from "@/shared"
-import { ProductsWithRelations } from "../../model"
+import { ProductWithRelations } from "../../model"
 import { DotAvailableCell, PictureCell, IdentifierCell, StatusCell, ActionsProductCell } from "../products-cells"
 import { memo } from "react"
 
 interface ProductShortCardProps {
   className?: string,
-  product: ProductsWithRelations,
-  openProductModal: (products: ProductsWithRelations) => void
-  onDeleteProduct: (products: ProductsWithRelations) => void
+  product: ProductWithRelations,
+  openProductModal: (products: ProductWithRelations) => void
+  onDeleteProduct: (products: ProductWithRelations) => void
 }
 
 export const ProductShortCard = memo(

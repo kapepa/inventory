@@ -1,2 +1,2 @@
-export type { FetchParishes, ParishWithRelations, ResponseParishes, CreateParishInput, DeleteParishResult } from "./types"
-export type { FetchParishesParams, CreateParishParams, DeleteParishesParams } from "./api-params"
+export type { FetchParishes, ParishWithRelations, ResponseParishes } from "./types"
+export type { FetchParishesParams } from "./api-params"

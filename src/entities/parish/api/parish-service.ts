@@ -1,6 +1,6 @@
 import { AppLocale, PAGINATION_PARISHES_DEFAULTS } from '@/shared';
 import { prisma } from '@/shared/lib/prisma';
-import { FetchParishes, ResponseParishes, ParishWithRelations, CreateParishInput, DeleteParishResult } from '../model';
+import { FetchParishes, ResponseParishes, ParishWithRelations } from '../model';
 import { Prisma } from '@prisma/client';
 import { getLocale } from 'next-intl/server';
 
@@ -68,42 +68,6 @@ export const getParishes = async ({
     return { data, total, hasMore: page * limit < total };
   } catch (error) {
     console.error('Prisma Error in getParishes:', error);
-    throw error;
-  }
-};
-
-export const createParish = async (data: CreateParishInput): Promise<ParishWithRelations> => {
-  try {
-    const parish = await prisma.parish.create({
-      data: {
-        deliveryDate: data.deliveryDate ? new Date(data.deliveryDate) : null,
-        translations: {
-          create: data.translations,
-        },
-      },
-      include: {
-        translations: true,
-        _count: { select: { products: true } }
-      },
-    });
-
-    return {
-      ...parish,
-      totals: { usd: 0, uah: 0 }
-    };
-  } catch (error) {
-    console.error('Prisma Error in createParish:', error);
-    throw error;
-  }
-};
-
-export const deleteParish = async (id: string): Promise<DeleteParishResult> => {
-  try {
-    return await prisma.parish.delete({
-      where: { id },
-    });
-  } catch (error) {
-    console.error('Prisma Error in createParish:', error);
     throw error;
   }
 };

@@ -22,9 +22,3 @@ export interface ResponseParishes {
   total: number;
   hasMore: boolean;
 }
-
-export interface CreateParishInput extends Pick<Parish, "deliveryDate"> {
-  translations: Pick<ParishTranslation, "locale" | "title" | "description">
-}
-
-export interface DeleteParishResult extends Parish { }
