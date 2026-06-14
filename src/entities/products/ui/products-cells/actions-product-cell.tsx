@@ -2,13 +2,13 @@
 
 import { cn, Skeleton, TrashButton } from "@/shared"
 import { memo, MouseEvent, useCallback } from "react"
-import { ProductsWithRelations } from "../../model"
+import { ProductWithRelations } from "../../model"
 
 interface ActionsProductCellProps {
-  parish: ProductsWithRelations
+  parish: ProductWithRelations
   isOwner?: boolean,
   className?: string,
-  onDeleteProduct?: (parish: ProductsWithRelations) => void
+  onDeleteProduct?: (parish: ProductWithRelations) => void
 }
 
 export const ActionsProductCell = memo(({ parish, isOwner, onDeleteProduct, className }: ActionsProductCellProps) => {

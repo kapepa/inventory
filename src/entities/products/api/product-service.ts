@@ -1,5 +1,5 @@
 import { prisma } from '@/shared/lib/prisma';
-import { DeleteProductResult, FetchProducts, ResponseProductsDTO } from '../model';
+import { FetchProducts, ResponseProductsDTO } from '../model';
 import { PAGINATION_PRODUCTS_DEFAULTS } from '@/shared';
 import { Product } from '@prisma/client';
 
@@ -49,17 +49,6 @@ export async function getProductById({ id }: { id: string }): Promise<Product | 
     });
   } catch (error) {
     console.error('Prisma Error in getProductById:', error);
-    throw error;
-  }
-}
-
-export async function deleteProduct(id: string): Promise<DeleteProductResult> {
-  try {
-    return await prisma.product.delete({
-      where: { id },
-    });
-  } catch (error) {
-    console.error('Prisma Error in deleteProduct:', error);
     throw error;
   }
 }

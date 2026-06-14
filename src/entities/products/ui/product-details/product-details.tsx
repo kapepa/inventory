@@ -1,11 +1,11 @@
-import { ProductsWithRelations } from "../../model";
+import { ProductWithRelations } from "../../model";
 import { ProductInfoList } from "./product-info-list";
 import { ProductPricing } from "./product-pricing";
 import { ProductHeader } from "./product-header";
 import { ProductImage } from "./product-image";
 
 interface ProductDetailsProps {
-  product: ProductsWithRelations
+  product: ProductWithRelations
 }
 
 export const ProductDetails = ({ product }: ProductDetailsProps) => {

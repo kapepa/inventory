@@ -1,6 +1,6 @@
-import { ProductsWithRelations } from "./types";
+import { ProductWithRelations } from "./types";
 
 export interface ResponseProductsDTO {
-  data: ProductsWithRelations[],
+  data: ProductWithRelations[],
   hasMore: boolean,
 }

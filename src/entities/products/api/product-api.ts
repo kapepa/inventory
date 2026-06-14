@@ -1,6 +1,6 @@
 import { axiosInstance } from "@/shared"
 import axios, { AxiosError } from "axios"
-import { DeleteProductResult, FetchProductsParams, RequestDeleteProduct, ResponseProductsDTO } from "../model"
+import { FetchProductsParams, ResponseProductsDTO } from "../model"
 
 export const fetchProducts = async ({
   parishId,
@@ -37,18 +37,5 @@ export const fetchProducts = async ({
     }
 
     throw new Error("Failed to fetch products")
-  }
-}
-
-export const requestDeleteProduct = async ({ id, signal }: RequestDeleteProduct): Promise<DeleteProductResult> => {
-  try {
-    const response = await axiosInstance.delete<DeleteProductResult>(`/products/${id}`, { signal });
-    return response.data
-  } catch (error) {
-    if (error instanceof AxiosError) {
-      const message = error.response?.data?.error || error.response?.data?.message || "Failed to delete product";
-      throw new Error(message);
-    }
-    throw new Error("Failed to delete product")
   }
 }

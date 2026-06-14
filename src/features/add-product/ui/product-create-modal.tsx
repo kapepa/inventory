@@ -3,12 +3,12 @@
 import { ModalContents, ModalHeader } from '@/shared'
 import { ProductCreateForm } from './product-create-form'
 import { useTranslations } from 'next-intl'
-import { ProductsWithRelations } from '@/entities'
+import { ProductWithRelations } from '@/entities'
 
 interface ProductCreateModalProps {
   parishId: string
   onCancelAction: () => void
-  onSuccessAction: (product: ProductsWithRelations) => void
+  onSuccessAction: (product: ProductWithRelations) => void
 }
 
 export const ProductCreateModal = ({ parishId, onCancelAction, onSuccessAction }: ProductCreateModalProps) => {

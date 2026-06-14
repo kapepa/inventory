@@ -1,9 +1,9 @@
-import { ProductDetails, ProductsWithRelations } from "@/entities";
+import { ProductDetails, ProductWithRelations } from "@/entities";
 import { ModalActionButton, ModalBody, ModalContents, ModalFooter, ModalHeader } from "@/shared"
 import { useTranslations } from "next-intl";
 
 interface ProductDetailsModalProps {
-  product: ProductsWithRelations
+  product: ProductWithRelations
   onCancelAction: () => void;
 }
 

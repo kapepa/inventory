@@ -7,14 +7,14 @@ import { useTranslations } from "next-intl"
 import { formatResponsiveImage, STORAGE_KEYS } from "@/shared"
 import { ProductCreateFormValues, productCreateFormSchema } from "../schemas"
 import { ProductStatus } from "@prisma/client"
-import { ProductsWithRelations, useUpload } from "@/entities"
+import { ProductWithRelations, useUpload } from "@/entities"
 import { useSyncFormWithStorage } from "./use-sync-form-with-storage"
 import { requestСreateProduct } from "../../api"
 import { ProductCreate } from "../types"
 
 const ADD_PRODUCT_FORM_DATA = STORAGE_KEYS.ADD_PRODUCT_FORM_DATA
 
-export const useProductCreateForm = (parishId: string, closeModalAction: () => void, onSuccessAction: (product: ProductsWithRelations) => void) => {
+export const useProductCreateForm = (parishId: string, closeModalAction: () => void, onSuccessAction: (product: ProductWithRelations) => void) => {
   const t = useTranslations("add-product.create-form")
   const tErrors = useTranslations("add-product.create-form.errors")
   const [isSubmitting, startSubmitTransition] = useTransition()

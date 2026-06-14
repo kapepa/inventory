@@ -9,9 +9,7 @@ export interface FetchProducts {
   locale?: AppLocale,
 }
 
-export interface ProductsWithRelations extends Product {
+export interface ProductWithRelations extends Product {
   translations: ProductTranslation[];
-  prices: Pick<Price, "value" | "symbol">[]
+  prices: Price[]
 }
-
-export interface DeleteProductResult extends Product { }

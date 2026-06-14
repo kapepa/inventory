@@ -12,12 +12,12 @@ import { ConditionField } from './condition-field'
 import { PhotoField } from './photo-field'
 import { PriceFields } from './price-fields'
 import { CategoryField } from './category-field'
-import { ProductsWithRelations } from '@/entities'
+import { ProductWithRelations } from '@/entities'
 
 interface ProductCreateFormProps {
   parishId: string
   onCancelAction: () => void
-  onSuccessAction: (product: ProductsWithRelations) => void
+  onSuccessAction: (product: ProductWithRelations) => void
 }
 
 export const ProductCreateForm = ({ parishId, onCancelAction, onSuccessAction }: ProductCreateFormProps) => {
