@@ -27,9 +27,10 @@ CountCell.displayName = "CountCell"
 
 export const CountCellSkeleton = ({ className }: { className?: string }) => {
   return (
-    <div className={cn("flex flex-col gap-y-2", className)}>
+    <div className={cn("flex flex-col items-center gap-y-2", className)}>
+      <Skeleton className="h-5 w-[25%] block md:hidden" />
       <Skeleton className="h-5 w-8" />
-      <Skeleton className="h-4 w-[75%]" />
+      <Skeleton className="h-4 w-[50%]" />
     </div>
   )
 }

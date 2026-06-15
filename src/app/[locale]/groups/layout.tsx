@@ -6,7 +6,7 @@ export default memo(
     return (
       <>
         <Header />
-        <Sidebar />
+        {/* <Sidebar /> */}
         <main>
           {children}
         </main>

@@ -13,7 +13,7 @@ export const TitleCell = ({ label, title, className }: TitleCellProps) => {
       {label && <HeaderCell className="block md:hidden">{label}</HeaderCell>}
       <Tooltip>
         <TooltipTrigger asChild>
-          <span className="block truncate font-medium text-xl text-chart-2 underline decoration-1 underline-offset-5 w-full">
+          <span className="block text-center md:text-left truncate font-medium text-xl text-chart-2 underline decoration-1 underline-offset-5 w-full">
             {title}
           </span>
         </TooltipTrigger>
@@ -31,7 +31,8 @@ TitleCell.displayName = "TitleCell"
 
 export const TitleCellSkeleton = ({ className }: { className?: string }) => {
   return (
-    <div className={cn("", className)}>
+    <div className={cn("flex flex-col items-center gap-y-2", className)}>
+      <Skeleton className="h-5 w-[25%] block md:hidden" />
       <Skeleton className="h-6 w-[50%]" />
     </div>
   )
