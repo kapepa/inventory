@@ -33,7 +33,7 @@ export const AddParishForm = ({ onCancelAction }: AddParishFormProps) => {
       <ModalBody>
         <Form {...form}>
           <form id="add-parish-form" onSubmit={onSubmit}>
-            <div className="grid w-full gap-7 pb-7">
+            <div className="grid w-full pb-5 gap-5 md:gap-7 md:pb-7">
               <Tabs
                 defaultValue={currentLocale}
                 className="w-full"
@@ -61,7 +61,11 @@ export const AddParishForm = ({ onCancelAction }: AddParishFormProps) => {
                 </TabsContent>
               </Tabs>
 
-              <DeliveryDateField isPending={isPending} locale={currentLocale} />
+              <DeliveryDateField
+                className="mt-2"
+                isPending={isPending}
+                locale={currentLocale}
+              />
             </div>
           </form>
         </Form>

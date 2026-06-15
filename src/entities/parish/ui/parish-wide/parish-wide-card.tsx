@@ -2,6 +2,9 @@ import { cn, Link, ROUTES } from "@/shared"
 import { memo } from "react"
 import { ParishWithRelations } from "../../model"
 import { ActionsCell, ActionsCellSkeleton, AmountCell, AmountCellSkeleton, CountCell, CountCellSkeleton, DateCell, DateCellSkeleton, DetailsCell, DetailsCellSkeleton, TitleCell, TitleCellSkeleton } from "../cells"
+import { useTranslations } from "next-intl"
+
+const CELL_GENERAL_STYLE = "flex flex-col items-center"
 
 interface ParishWideCardProps {
   parish: ParishWithRelations
@@ -11,16 +14,17 @@ interface ParishWideCardProps {
 
 export const ParishWideCard = memo(
   ({ parish, onDeleteParish, className }: ParishWideCardProps) => {
+    const t = useTranslations('parishe.list.header');
     const { title, description } = parish.translations[0]
 
     return (
-      <Link href={`${ROUTES.GROUPS}/${parish.id}`} className={cn("px-6 py-3 border rounded-md bg-card hover:shadow-md transition-all", className)}>
-        <TitleCell title={title} />
-        <DetailsCell description={description} />
-        <CountCell count={parish._count.products} />
-        <DateCell created={parish.createdAt} delivery={parish.deliveryDate} />
-        <AmountCell sumUAH={parish.totals.uah} sumUSD={parish.totals.usd} />
-        <ActionsCell isOwner={true} parish={parish} onDeleteParish={onDeleteParish} />
+      <Link href={`${ROUTES.GROUPS}/${parish.id}`} className={cn("px-4 py-2 lg:px-6 lg:py-3 border rounded-md bg-card hover:shadow-md transition-all", className)}>
+        <TitleCell title={title} label={t("name")} className={cn("col-span-2 md:col-span-1", CELL_GENERAL_STYLE)} />
+        <DetailsCell description={description} label={t("details")} className={CELL_GENERAL_STYLE} />
+        <CountCell count={parish._count.products} label={t("count")} className={cn(CELL_GENERAL_STYLE, "md:items-start")} />
+        <DateCell created={parish.createdAt} delivery={parish.deliveryDate} label={t("date")} className={CELL_GENERAL_STYLE} />
+        <AmountCell sumUAH={parish.totals.uah} sumUSD={parish.totals.usd} label={t("amount")} className={CELL_GENERAL_STYLE} />
+        <ActionsCell isOwner={true} parish={parish} onDeleteParish={onDeleteParish} label={t("delete")} className={CELL_GENERAL_STYLE} />
       </Link>
     )
   }

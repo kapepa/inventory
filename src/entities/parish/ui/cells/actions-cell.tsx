@@ -1,15 +1,17 @@
 import { cn, Skeleton, TrashButton } from "@/shared"
 import { MouseEvent } from "react"
 import { ParishWithRelations } from "../../model/types/types"
+import { HeaderCell } from "./header-cell"
 
 interface ActionsCellProps {
+  label?: string,
   parish: ParishWithRelations
   isOwner?: boolean,
   className?: string,
   onDeleteParish?: (parish: ParishWithRelations) => void
 }
 
-export const ActionsCell = ({ parish, isOwner, className, onDeleteParish }: ActionsCellProps) => {
+export const ActionsCell = ({ label, parish, isOwner, className, onDeleteParish }: ActionsCellProps) => {
   const handlerDelte = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     e.stopPropagation();
@@ -17,8 +19,11 @@ export const ActionsCell = ({ parish, isOwner, className, onDeleteParish }: Acti
   }
 
   if (isOwner) return (
-    <div className={cn("flex justify-center", className)}>
-      <TrashButton onClick={handlerDelte} className="size-11" />
+    <div className={cn("", className)}>
+      {label && <HeaderCell className="block md:hidden">{label}</HeaderCell>}
+      <div className="flex justify-center">
+        <TrashButton onClick={handlerDelte} className="size-11" />
+      </div>
     </div>
   )
 

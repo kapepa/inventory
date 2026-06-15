@@ -1,20 +1,24 @@
 import { cn, Skeleton } from "@/shared"
 import { useTranslations } from "next-intl";
+import { HeaderCell } from "./header-cell";
 
 interface CountCellProps {
+  label?: string,
   count: number
   className?: string
 }
 
-export const CountCell = ({ count, className }: CountCellProps) => {
+export const CountCell = ({ label, count, className }: CountCellProps) => {
   const t = useTranslations('parishe.list.cell');
-
   return (
-    <div className={cn("flex flex-col", className)}>
-      <span className="text-xl text-chart-2">{count}</span>
-      <small className="text-sidebar-ring text-sm">
-        {count > 1 ? t("products") : t("product")}
-      </small>
+    <div className={cn("", className)}>
+      {label && <HeaderCell className="block md:hidden">{label}</HeaderCell>}
+      <div className={cn("flex flex-col", className)}>
+        <span className="text-xl text-chart-2">{count}</span>
+        <small className="text-sidebar-ring text-sm">
+          {count > 1 ? t("products") : t("product")}
+        </small>
+      </div>
     </div>
   )
 }

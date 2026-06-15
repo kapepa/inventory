@@ -14,10 +14,10 @@
     },
     "errors": {
       "name-required": "Название прихода обязательно",
-      "err-title-min": "Данные длиной не менее 3 символов",
-      "err-description-min": "Данные длиной не менее 3 символов",
-      "err-date": "Укажите дату доставки",
-      "delivery-date-required": "Дата доставки обязательна"
+      "err-title-min": "От 3 символов",
+      "err-description-min": "От 3 символов",
+      "err-date": "Укажите дату",
+      "delivery-date-required": "Дата обязательна"
     },
     "placeholders": {
       "title": "Введите название прихода",

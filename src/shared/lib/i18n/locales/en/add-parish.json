@@ -13,11 +13,11 @@
       "cancel": "Cancel"
     },
     "errors": {
-      "name-required": "Parish name is required",
-      "err-title-min": "Data consisting of at least 3 characters",
-      "err-description-min": "Data consisting of at least 3 characters",
-      "err-date": "Specify the delivery date",
-      "delivery-date-required": "Delivery date is required"
+      "name-required": "Parish name required",
+      "err-title-min": "At least 3 chars",
+      "err-description-min": "At least 3 chars",
+      "err-date": "Delivery date required",
+      "delivery-date-required": "Date required"
     },
     "placeholders": {
       "title": "Enter parish name",

@@ -30,7 +30,7 @@ export const TranslationFields = memo(({
   }, [handleTranslateAction, locale])
 
   return (
-    <div className="space-y-7 mt-8">
+    <div className="space-y-7 mt-6 md:mt-8">
       <TitleField
         locale={locale}
         isPending={isPending}

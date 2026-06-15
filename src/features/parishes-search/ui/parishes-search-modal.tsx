@@ -11,9 +11,9 @@ export const ParishesSearchModal = ({ onCancelAction }: ParishesSearchModalProps
 
   return (
     <ModalContents>
-      <ModalHeader title={t('parishes-search.popup-title')} />
+      <ModalHeader title={t('popup-title')} />
       <ModalBody>
-        <SearchInput className="p-5 text-xl" />
+        <SearchInput className="p-4 text-base md:p-5 md:text-xl" />
       </ModalBody>
       <ModalFooter>
         <ModalCancelButton onCancelAction={onCancelAction}>{t("close")}</ModalCancelButton>
