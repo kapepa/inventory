@@ -26,7 +26,7 @@ interface ModalHeaderProps {
 
 export const ModalHeader = memo(({ title, description, className }: ModalHeaderProps) => {
   return (
-    <div className={cn("flex flex-col gap-1.5 px-6 pt-6 pb-4 border-b border-border", className)}>
+    <div className={cn("flex flex-col gap-1.5 pb-2 px-6 pt-6 md:pb-4 border-b border-border", className)}>
       <h2 className="text-xl font-semibold leading-none tracking-tight">
         {title}
       </h2>
@@ -46,7 +46,7 @@ interface ModalBodyProps {
 
 export const ModalBody = memo(({ children, className }: ModalBodyProps) => {
   return (
-    <div className={cn("px-6 py-4", className)}>
+    <div className={cn("px-4 md:px-6 py-4", className)}>
       {children}
     </div>
   );
@@ -60,8 +60,7 @@ interface ModalFooterProps {
 export const ModalFooter = ({ children, className }: ModalFooterProps) => {
   return (
     <div className={cn(
-      "flex items-center justify-end gap-3",
-      "px-6 pb-6 pt-4 bg-accent",
+      "flex items-center justify-end  px-4 pb-4 pt-3 gap-3 md:px-6 md:pb-6 md:pt-4 bg-accent",
       className
     )}>
       {children}
@@ -79,7 +78,7 @@ export const ModalCancelButton = ({ children, className, onCancelAction, ...prop
   return (
     <Button
       variant="simply-transparency"
-      className={cn("px-7 py-5 rounded-full uppercase", className)}
+      className={cn("px-5 py-4 md:px-7 md:py-5 rounded-full uppercase", className)}
       onClick={onCancelAction}
       {...props}
     >
@@ -101,8 +100,7 @@ export const ModalActionButton = ({ variant, children, className, onConfirmActio
     <Button
       variant={variant}
       className={cn(
-        "px-7 py-5 rounded-full uppercase min-w-32 relative",
-        "inline-flex items-center justify-center",
+        "px-5 py-4 md:px-7 md:py-5  rounded-full uppercase min-w-32 relative inline-flex items-center justify-center",
         className
       )}
       onClick={onConfirmAction}

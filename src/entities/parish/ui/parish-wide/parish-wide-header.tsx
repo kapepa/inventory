@@ -13,14 +13,14 @@ export const ParishWideHeader = memo(
     return (
 
       <div className={cn(
-        "px-6 py-3 text-sm font-bold text-muted-foreground uppercase tracking-widest", className
+        "px-6 py-3 text-xs font-bold text-muted-foreground uppercase tracking-widest", className
       )}>
-        <div>{t('name')}</div>
-        <div className="text-center">{t("details")}</div>
-        <div>{t('count')}</div>
-        <div className="text-center whitespace-nowrap">{t('date')}</div>
-        <div className="text-center">{t('amount')}</div>
-        <div className="text-center">{t('delete')}</div>
+        <div><span>{t('name')}</span></div>
+        <div className="text-center"><span>{t("details")}</span></div>
+        <div><span>{t('count')}</span></div>
+        <div className="text-center whitespace-nowrap"><span>{t('date')}</span></div>
+        <div className="text-center"><span>{t('amount')}</span></div>
+        <div className="text-center"><span>{t('delete')}</span></div>
       </div>
     );
   }

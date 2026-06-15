@@ -23,7 +23,7 @@ export const ParishesSearch = memo(
         </div>
         <div className="flex lg:hidden items-center justify-end md:justify-center grow">
           <Button variant="link" className="rounded-s-sm cursor-pointer" onClick={openParishesSearch}>
-            <Search className="size-9 text-accent" />
+            <Search className="size-7 sm:size-9 text-accent" />
           </Button>
         </div>
       </>

@@ -4,7 +4,7 @@ type TranslationFunction = (key: string) => string
 
 export const createParishFormSchema = (t: TranslationFunction) => z.object({
   deliveryDate: z.date({
-    message: t("err-date"),
+    message: t("delivery-date-required"),
   }),
   translations: z.object({
     ru: z.object({

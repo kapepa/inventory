@@ -54,7 +54,7 @@ export default async function Groups({
   const t = await getTranslations({ locale, namespace: "groups-page" });
 
   return (
-    <Container className="py-16">
+    <Container className="py-6 md:py-16">
       <PageHeader
         title={t("header-title")}
         count={initialParishes.total}

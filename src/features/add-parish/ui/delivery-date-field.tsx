@@ -24,10 +24,11 @@ import { memo } from "react"
 interface DeliveryDateFieldProps {
   isPending?: boolean,
   locale: AppLocale,
+  className?: string
 }
 
 export const DeliveryDateField = memo(
-  ({ isPending, locale }: DeliveryDateFieldProps) => {
+  ({ isPending, locale, className }: DeliveryDateFieldProps) => {
     const t = useTranslations("add-parish.form")
     const { control } = useFormContext()
 
@@ -35,8 +36,8 @@ export const DeliveryDateField = memo(
       <FormField
         control={control}
         name="deliveryDate"
-        render={({ field, fieldState }) => (
-          <FormItem className="flex flex-col">
+        render={({ field }) => (
+          <FormItem className={cn("flex flex-col", className)}>
             <FormLabel className="mb-3">{t("fields.delivery-date")}</FormLabel>
             <Popover>
               <PopoverTrigger asChild>
@@ -70,9 +71,7 @@ export const DeliveryDateField = memo(
               </PopoverContent>
             </Popover>
             <div className="h-1 mt-0">
-              <FormMessage>
-                {fieldState.error?.message && t(`form-created.errors.${fieldState.error.message}`)}
-              </FormMessage>
+              <FormMessage />
             </div>
           </FormItem>
         )}

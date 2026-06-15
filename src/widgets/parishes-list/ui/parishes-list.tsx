@@ -6,7 +6,11 @@ import { cn, QUERY_PARAMS_KEYS, useIntersectionObserver, useQueryParam } from "@
 import { useDeleteParish } from "@/features"
 import { useTranslations } from "next-intl"
 
-export const PARISH_GRID_LAYOUT = "grid grid-cols-[minmax(290px,_1fr)_80px_80px_170px_170px_70px] items-center gap-4";
+export const PARISH_GRID_LAYOUT = cn(
+  "items-center grid gap-4",
+  "grid-rows-6 grid-cols-2 grid-rows-4",
+  "md:grid-cols-[minmax(225px,_6fr)_minmax(45px,_1fr)_minmax(90px,_1fr)_minmax(110px,_2fr)_minmax(90px,_2fr)_minmax(50px,_1fr)] md:min-w-[725px] md:grid-rows-1",
+);
 
 interface ParishesListProps {
   className?: string,
@@ -42,28 +46,26 @@ export const ParishesList = ({
 
   return (
     <div className={cn("w-full", className)}>
-      <div className="overflow-x-auto py-4">
-        <div className="min-w-250">
+      <div className="py-4">
 
-          <ParishWideHeader className={PARISH_GRID_LAYOUT} />
+        <ParishWideHeader className={cn(PARISH_GRID_LAYOUT, "hidden md:grid")} />
 
-          <div className="flex flex-col gap-3">
-            {parishes.map((parish) => (
-              <ParishWideCard
-                key={parish.id}
-                parish={parish}
-                onDeleteParish={handlerDeleteParish}
-                className={PARISH_GRID_LAYOUT}
-              />
-            ))}
-            {(hasMore || isLoading) && (
-              <div ref={targetRef} className="flex flex-col gap-3 mt-3">
-                {isLoading && <ParishWideCardSkeleton className={PARISH_GRID_LAYOUT} />}
-              </div>
-            )}
-          </div>
-
+        <div className="flex flex-col gap-3 mx-auto">
+          {parishes.map((parish) => (
+            <ParishWideCard
+              key={parish.id}
+              parish={parish}
+              onDeleteParish={handlerDeleteParish}
+              className={cn(PARISH_GRID_LAYOUT,)}
+            />
+          ))}
+          {(hasMore || isLoading) && (
+            <div ref={targetRef} className="flex flex-col gap-3 mt-3">
+              {isLoading && <ParishWideCardSkeleton className={PARISH_GRID_LAYOUT} />}
+            </div>
+          )}
         </div>
+
       </div>
     </div>
   )

@@ -2,21 +2,26 @@ import { cn, Skeleton } from "@/shared"
 import { format } from 'date-fns';
 import { ru, enUS } from 'date-fns/locale';
 import { useLocale } from 'next-intl';
+import { HeaderCell } from "./header-cell";
 
 interface DateCellProps {
+  label?: string,
   created: Date,
   delivery: Date | null,
   className?: string
 }
 
-export const DateCell = ({ created, delivery, className }: DateCellProps) => {
+export const DateCell = ({ label, created, delivery, className }: DateCellProps) => {
   const locale = useLocale();
   const dateLocale = locale === 'ru' ? ru : enUS;
 
   return (
-    <div className={cn("flex flex-col items-center", className)}>
-      <small className="text-xs text-sidebar-ring">{format(created, 'dd / MM', { locale: dateLocale })}</small>
-      {delivery && <span className="text-base text-chart-2">{format(delivery, 'dd / MMM / yyyy', { locale: dateLocale })}</span>}
+    <div className={cn("", className)}>
+      {label && <HeaderCell className="block md:hidden whitespace-nowrap truncate w-full">{label}</HeaderCell>}
+      <div className="flex flex-col items-center">
+        <small className="text-xs text-sidebar-ring">{format(created, 'dd / MM', { locale: dateLocale })}</small>
+        {delivery && <span className="text-base text-chart-2 whitespace-nowrap">{format(delivery, 'dd / MMM / yyyy', { locale: dateLocale })}</span>}
+      </div>
     </div>
   )
 }
