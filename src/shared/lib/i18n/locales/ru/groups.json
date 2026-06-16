@@ -42,5 +42,8 @@
       "cancel": "Отменить",
       "delete": "Удалить"
     }
+  },
+  "wrapper-sheetG-groups-relations": {
+    "close": "Закрыть"
   }
 }

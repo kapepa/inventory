@@ -16,7 +16,7 @@ interface ParishShortCardProps {
 const ActiveChevron = memo(({ isActive }: { isActive: boolean }) => {
   return (
     <div className={cn(
-      "absolute top-0 right-0 bottom-0 w-14 bg-chart-1 rounded-tr-md rounded-br-md flex items-center justify-center transition-opacity",
+      "bg-chart-1 flex items-center justify-center transition-opacity h-full",
       isActive ? "visible opacity-100" : "invisible opacity-0"
     )}>
       <ChevronRight className="size-7 text-background" />
@@ -29,18 +29,21 @@ export const ParishShortCard = memo(
     const { title, description } = parish.translations[0]
 
     return (
-      <div className="relative">
-        <button
-          disabled={isActive}
-          onClick={() => { selectParishesActions(parish.id) }}
-          className={cn("px-2 py-3 border rounded-md bg-card hover:shadow-md transition-all cursor-pointer w-full pr-14", className)
-          }>
+      <button
+        disabled={isActive}
+        onClick={() => { selectParishesActions(parish.id) }}
+        className={cn("border rounded-md bg-card hover:shadow-md transition-all cursor-pointer w-full flex overflow-hidden")}
+      >
+        <div className={cn("px-2 py-3 grow", className)}>
           <DetailsCell title={title} description={description} />
           <CountCell count={parish._count.products} />
           <DateCell created={parish.createdAt} delivery={parish.deliveryDate} />
-        </button>
-        <ActiveChevron isActive={isActive} />
-      </div>
+        </div>
+        <div className="w-12 md:w-14">
+          <ActiveChevron isActive={isActive} />
+        </div>
+      </button>
+
     )
   }
 )
@@ -49,10 +52,13 @@ ParishShortCard.displayName = 'ParishShortCard';
 
 export const ParishShortCardSkeleton = memo(({ className }: { className?: string }) => {
   return (
-    <div className={cn("px-2 py-3 border rounded-md bg-card", className)}>
-      <DetailsCellSkeleton />
-      <CountCellSkeleton />
-      <DateCellSkeleton />
+    <div className="border rounded-md bg-card w-full flex">
+      <div className={cn("grow px-2 py-3", className)}>
+        <DetailsCellSkeleton />
+        <CountCellSkeleton />
+        <DateCellSkeleton />
+      </div>
+      <div className="w-12 md:w-14"></div>
     </div>
   )
 })

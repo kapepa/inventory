@@ -6,7 +6,6 @@ const closeButtonClasses = cn(
   "flex justify-center items-center",
   "transition-colors cursor-pointer",
   "bg-background size-10 rounded-full",
-  "translate-x-1/3 md:translate-x-1/2 -translate-y-1/2",
   "border border-chart-1 shadow-lg",
   "hover:bg-muted hover:shadow-xl",
   "focus:outline-none focus-visible:ring-2 focus-visible:ring-chart-2",

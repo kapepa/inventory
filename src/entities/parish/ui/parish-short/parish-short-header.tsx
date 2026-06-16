@@ -38,6 +38,7 @@ export const ParishShortHeader =
                 </TooltipText>
               </TooltipContent>
             </Tooltip>
+            <div className="w-12 md:w-14"></div>
           </div>
         ))}
       </div>

@@ -17,7 +17,7 @@ export const DateCell = ({ label, created, delivery, className }: DateCellProps)
 
   return (
     <div className={cn("", className)}>
-      {label && <HeaderCell className="block md:hidden whitespace-nowrap truncate w-full">{label}</HeaderCell>}
+      {label && <HeaderCell className="block md:hidden whitespace-nowrap truncate w-full text-center">{label}</HeaderCell>}
       <div className="flex flex-col items-center">
         <small className="text-xs text-sidebar-ring">{format(created, 'dd / MM', { locale: dateLocale })}</small>
         {delivery && <span className="text-base text-chart-2 whitespace-nowrap">{format(delivery, 'dd / MMM / yyyy', { locale: dateLocale })}</span>}
@@ -31,8 +31,9 @@ DateCell.displayName = "DateCell"
 export const DateCellSkeleton = ({ className }: { className?: string }) => {
   return (
     <div className={cn("flex flex-col items-center gap-y-2", className)}>
-      <Skeleton className="h-4 w-[50%]" />
-      <Skeleton className="h-5 w-[75%]" />
+      <Skeleton className="h-5 w-[60%] block md:hidden" />
+      <Skeleton className="h-4 w-[30%]" />
+      <Skeleton className="h-5 w-[60%]" />
     </div>
   )
 }

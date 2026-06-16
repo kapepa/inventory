@@ -3,7 +3,7 @@ import { getProductsByParishId } from "@/entities/products/api/product-service";
 import { AddParishButton } from "@/features";
 import { Container, AppLocale, PAGINATION_PARISHES_DEFAULTS, QUERY_PARAMS_KEYS, PAGINATION_PRODUCTS_DEFAULTS } from "@/shared";
 import { GroupsList, PageHeader } from "@/widgets";
-import { GroupsRelations } from "@/widgets/groups-relations";
+import { GroupsRelations, WrapperSheetGroupsRelations } from "@/widgets/groups-relations";
 import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 
@@ -54,27 +54,28 @@ export default async function Groups({
   const t = await getTranslations({ locale, namespace: "groups-page" });
 
   return (
-    <Container className="py-6 md:py-16">
+    <Container className="py-4 flex-1 flex flex-col min-h-0">
       <PageHeader
         title={t("header-title")}
         count={initialParishes.total}
         action={<AddParishButton />}
+        className="shrink-0"
       />
-      <div className="w-full mx-auto">
-        <div className="overflow-x-auto py-5 -mx-6 px-6">
-          <div className="grid grid-cols-[minmax(290px,1fr)_2fr] gap-4 items-start ">
-            <GroupsList
-              initialHasMore={initialParishes.hasMore}
-              initialParishes={initialParishes.data}
-              initialParishesId={parishId}
-            />
-            <GroupsRelations
-              initialHasMore={initialProducts?.hasMore}
-              initialProducts={initialProducts?.data}
-              initialParishesId={parishId}
-              initialParishTitle={parish?.translations?.[0]?.title || ""}
-            />
-          </div>
+      <div className="w-full mx-auto py-6 flex-1 min-h-0">
+        <div className="grid grid-cols-1 lg:grid-cols-[2fr_4fr] gap-4 h-full">
+          <GroupsList
+            initialHasMore={initialParishes.hasMore}
+            initialParishes={initialParishes.data}
+            initialParishesId={parishId}
+            className="h-full max-w-lg lg:w-full m-auto"
+          />
+
+          <WrapperSheetGroupsRelations
+            initialHasMore={initialProducts?.hasMore}
+            initialProducts={initialProducts?.data}
+            initialParishesId={parishId}
+            initialParishTitle={parish?.translations?.[0]?.title || ""}
+          />
         </div>
       </div>
     </Container >

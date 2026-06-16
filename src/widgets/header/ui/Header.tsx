@@ -1,16 +1,17 @@
 import { LiveDatetime, ParishesSearch } from "@/features";
-import { Logo } from "@/shared";
+import { cn, Logo } from "@/shared";
 import { Container } from "@/shared/ui/container";
 import { memo } from "react";
 
 interface HeaderProps {
   showSearch?: boolean;
+  className?: string;
 }
 
 export const Header = memo(
-  ({ showSearch = true }: HeaderProps) => {
+  ({ className, showSearch = true }: HeaderProps) => {
     return (
-      <header className="border-b shadow-lg sticky z-40 bg-background">
+      <header className={cn("border-b shadow-lg sticky z-10 bg-background", className)}>
         <Container
           className="flex py-1 md:py-4 justify-between gap-8 md:gap-16 xl:gap-40"
         >

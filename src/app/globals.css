@@ -177,7 +177,6 @@
   .nav-link--active::after {
     transform: translateX(-50%) scaleX(1);
   }
-
 }
 
 .text-accent {
