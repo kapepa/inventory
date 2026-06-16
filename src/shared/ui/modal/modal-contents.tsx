@@ -60,65 +60,10 @@ interface ModalFooterProps {
 export const ModalFooter = ({ children, className }: ModalFooterProps) => {
   return (
     <div className={cn(
-      "flex items-center justify-end  px-4 pb-4 pt-3 gap-3 md:px-6 md:pb-6 md:pt-4 bg-accent",
+      "grid grid-cols-[repeat(auto-fit,minmax(0,1fr))] gap-3 px-4 pb-4 pt-3 md:px-6 md:pb-6 md:pt-4 bg-accent",
       className
     )}>
       {children}
     </div>
-  );
-};
-
-interface ModalCancelButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  children: ReactNode;
-  className?: string;
-  onCancelAction?: () => void;
-}
-
-export const ModalCancelButton = ({ children, className, onCancelAction, ...props }: ModalCancelButtonProps) => {
-  return (
-    <Button
-      variant="simply-transparency"
-      className={cn("px-5 py-4 md:px-7 md:py-5 rounded-full uppercase", className)}
-      onClick={onCancelAction}
-      {...props}
-    >
-      {children}
-    </Button>
-  );
-};
-
-interface ModalActionButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  variant: Extract<VariantProps<typeof buttonVariants>['variant'], "simply-accent" | "simply-destructive">;
-  children: ReactNode;
-  className?: string;
-  onConfirmAction?: () => void;
-  isLoading?: boolean;
-}
-
-export const ModalActionButton = ({ variant, children, className, onConfirmAction, isLoading, ...props }: ModalActionButtonProps) => {
-  return (
-    <Button
-      variant={variant}
-      className={cn(
-        "px-5 py-4 md:px-7 md:py-5  rounded-full uppercase min-w-32 relative inline-flex items-center justify-center",
-        className
-      )}
-      onClick={onConfirmAction}
-      disabled={isLoading || props.disabled}
-      {...props}
-    >
-      <span className={cn(
-        "transition-all duration-200",
-        isLoading ? "opacity-0 invisible" : "opacity-100 visible"
-      )}>
-        {children}
-      </span>
-
-      {isLoading && (
-        <span className="absolute inset-0 flex items-center justify-center">
-          <Loader className="h-5 w-5" />
-        </span>
-      )}
-    </Button>
   );
 };

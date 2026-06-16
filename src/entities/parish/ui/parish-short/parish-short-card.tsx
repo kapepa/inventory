@@ -32,14 +32,14 @@ export const ParishShortCard = memo(
       <button
         disabled={isActive}
         onClick={() => { selectParishesActions(parish.id) }}
-        className={cn("border rounded-md bg-card hover:shadow-md transition-all cursor-pointer w-full flex overflow-hidden")
-        }>
+        className={cn("border rounded-md bg-card hover:shadow-md transition-all cursor-pointer w-full flex overflow-hidden")}
+      >
         <div className={cn("px-2 py-3 grow", className)}>
           <DetailsCell title={title} description={description} />
           <CountCell count={parish._count.products} />
           <DateCell created={parish.createdAt} delivery={parish.deliveryDate} />
         </div>
-        <div className="w-14">
+        <div className="w-12 md:w-14">
           <ActiveChevron isActive={isActive} />
         </div>
       </button>
@@ -52,10 +52,13 @@ ParishShortCard.displayName = 'ParishShortCard';
 
 export const ParishShortCardSkeleton = memo(({ className }: { className?: string }) => {
   return (
-    <div className={cn("px-2 py-3 border rounded-md bg-card", className)}>
-      <DetailsCellSkeleton />
-      <CountCellSkeleton />
-      <DateCellSkeleton />
+    <div className="border rounded-md bg-card w-full flex">
+      <div className={cn("grow px-2 py-3", className)}>
+        <DetailsCellSkeleton />
+        <CountCellSkeleton />
+        <DateCellSkeleton />
+      </div>
+      <div className="w-12 md:w-14"></div>
     </div>
   )
 })

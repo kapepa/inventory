@@ -8,7 +8,7 @@ import {
   ModalFooter,
   ModalCancelButton,
   ModalActionButton
-} from "@/shared/ui/modal";
+} from "@/shared";
 import { Trash } from "lucide-react";
 import { useTransition } from "react";
 

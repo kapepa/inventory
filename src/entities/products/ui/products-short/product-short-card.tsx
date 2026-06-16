@@ -23,8 +23,8 @@ export const ProductShortCard = memo(
         <DotAvailableCell status={product.status} />
         <PictureCell url={product.photo} alt={title} />
         <IdentifierCell title={title} serialNumber={product.serialNumber} />
-        <StatusCell status={product.status} />
-        <ActionsProductCell onDeleteProduct={onDeleteProduct} parish={product} isOwner={true} />
+        <StatusCell status={product.status} className="min-w-24 hidden lg:flex" />
+        <ActionsProductCell onDeleteProduct={onDeleteProduct} parish={product} isOwner={true} className="hidden lg:flex" />
       </button>
     )
   }

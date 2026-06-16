@@ -7,12 +7,12 @@ interface ProductShortCardSkeletonProps {
 
 export const ProductShortCardSkeleton = ({ className }: ProductShortCardSkeletonProps) => {
   return (
-    <div className={cn("border-t", className)}>
+    <div className={cn("border-t w-full", className)}>
       <DotAvailableCellSkeleton />
       <PictureCellSkeleton />
       <IdentifierCellSkeleton />
-      <StatusCellSkeleton />
-      <ActionsProductCellSkeleton />
+      <StatusCellSkeleton className="hidden lg:flex" />
+      <ActionsProductCellSkeleton className="hidden lg:flex" />
     </div>
   )
 }

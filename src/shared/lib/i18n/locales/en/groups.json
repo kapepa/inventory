@@ -42,5 +42,8 @@
       "cancel": "Cancel",
       "delete": "Delete"
     }
+  },
+  "wrapper-sheetG-groups-relations": {
+    "close": "Close"
   }
 }

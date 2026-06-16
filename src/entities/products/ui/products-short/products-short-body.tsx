@@ -1,7 +1,7 @@
 "use client"
 
-import { cn, Tooltip, TooltipContent, TooltipText, TooltipTrigger, XButtonClose } from "@/shared"
-import { ReactNode } from "react"
+import { cn, ScrollArea, Tooltip, TooltipContent, TooltipText, TooltipTrigger, XButtonClose } from "@/shared"
+import { memo, ReactNode } from "react"
 
 interface ProductsShortBodyProps {
   title: string,
@@ -11,16 +11,16 @@ interface ProductsShortBodyProps {
   onCloseActions?: () => void
 }
 
-export const ProductsShortBody = ({ title, children, actions, className, onCloseActions }: ProductsShortBodyProps) => {
+export const ProductsShortBody = memo(({ title, children, actions, className, onCloseActions }: ProductsShortBodyProps) => {
   return (
     <div
-      className={cn("border rounded-md bg-card grid relative", className)}
+      className={cn("border rounded-md bg-card flex flex-col min-h-0 relative", className)}//h-full
     >
       <XButtonClose
-        className="absolute top-0 right-0 translate-x-1/3 md:translate-x-1/2 -translate-y-1/2"
+        className="hidden lg:flex absolute top-0 right-0 translate-x-1/3 xl:translate-x-1/2 -translate-y-1/2"
         onCloseAction={onCloseActions}
       />
-      <div className="px-6 pb-3 pt-5 flex flex-col min-w-0">
+      <div className="px-6 pb-3 pt-5 flex flex-col min-w-0 shrink-0">
         <div className="pb-4 min-w-0">
           <Tooltip>
             <TooltipTrigger asChild>
@@ -35,9 +35,11 @@ export const ProductsShortBody = ({ title, children, actions, className, onClose
         </div>
         {actions}
       </div>
-      {children}
+      <ScrollArea className="h-full flex-1 min-h-0">
+        {children}
+      </ScrollArea>
     </div>
   )
-}
+})
 
 ProductsShortBody.displayName = "ProductsShortBody"

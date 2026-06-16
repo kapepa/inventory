@@ -4,7 +4,7 @@ import { memo } from "react"
 interface IdentifierCellProps {
   className?: string,
   title: string,
-  serialNumber: number,
+  serialNumber: string,
 }
 
 export const IdentifierCell = memo(({ title, serialNumber, className }: IdentifierCellProps) => {

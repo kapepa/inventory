@@ -21,6 +21,8 @@ export { ResponsiveImage } from "./responsive-image"
 export { TrashButton } from "./trash-button"
 export { DotsDivider } from "./dots-divider"
 export { ImageUploadField } from "./image-upload-field"
+export { ScrollArea, ScrollBar } from "./scroll-area"
+export { ModalCancelButton, ModalActionButton } from "./modal-buttons"
 export {
   Tooltip,
   TooltipContent,
@@ -57,8 +59,6 @@ export {
   ModalHeader,
   ModalBody,
   ModalFooter,
-  ModalCancelButton,
-  ModalActionButton
 } from "./modal"
 export {
   DropdownMenu,
@@ -89,3 +89,13 @@ export {
   SelectTrigger,
   SelectValue,
 } from "./select"
+export {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetDescription,
+  SheetFooter,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "./sheet"

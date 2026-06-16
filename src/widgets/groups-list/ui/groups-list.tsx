@@ -2,7 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import { ParishShortCard, ParishShortCardSkeleton, ParishShortHeader, ParishWithRelations, useInfiniteParishes } from "@/entities";
-import { cn, QUERY_PARAMS_KEYS, useIntersectionObserver, useQueryParam, useThrottle } from "@/shared";
+import { cn, QUERY_PARAMS_KEYS, ScrollArea, useActiveParishId, useIntersectionObserver, useQueryParam, useThrottle } from "@/shared";
 import { useCallback, useEffect } from "react";
 
 interface GroupsListProps {
@@ -26,10 +26,9 @@ export const GroupsList = ({
 }: GroupsListProps) => {
   const t = useTranslations('groups');
   const [search] = useQueryParam(QUERY_PARAMS_KEYS.PARISHES_SEARCH);
-  const [activeParishId, setActiveParishId] = useQueryParam(QUERY_PARAMS_KEYS.ACTIVE_PARISH);
+  const [activeParishId, setActiveParishId] = useActiveParishId(initialParishesId);
   const { parishes, isLoading, error, hasMore, loadMore } = useInfiniteParishes(search, initialParishes, initialHasMore)
   const { targetRef, isIntersecting } = useIntersectionObserver({ threshold: 0.5, rootMargin: "100px" })
-  const getActiveParish = activeParishId || initialParishesId
 
   const selectParishesActions = useCallback((id: string) => {
     setActiveParishId((prev: string | null) => prev === id ? null : id);
@@ -46,28 +45,30 @@ export const GroupsList = ({
   if (error) return <div className="text-destructive text-center py-4">{t("groups-list.errors.parishes")}</div>
 
   return (
-    <div className={className}>
-      <div className="flex flex-col gap-3 pb-2">
-        <ParishShortHeader
-          className={cn(CARD_CLASS, "pr-14")}
-        />
-        {
-          parishes.map(parish => (
-            <ParishShortCard
-              key={parish.id}
-              parish={parish}
-              className={CARD_CLASS}
-              selectParishesActions={throttleSelectParishesActions}
-              isActive={parish.id === getActiveParish}
-            />
-          ))
-        }
-        {(hasMore || isLoading) && (
-          <div ref={targetRef}>
-            {isLoading && <ParishShortCardSkeleton className={CARD_CLASS} />}
-          </div>
-        )}
-      </div>
+    <div className={cn("flex flex-col h-full min-h-0 gap-y-3", className)}>
+      <ParishShortHeader
+        className={cn(CARD_CLASS)}
+      />
+      <ScrollArea className="flex-1 min-h-0">
+        <div className="flex flex-col gap-y-3">
+          {
+            parishes.map(parish => (
+              <ParishShortCard
+                key={parish.id}
+                parish={parish}
+                className={CARD_CLASS}
+                selectParishesActions={throttleSelectParishesActions}
+                isActive={parish.id === activeParishId}
+              />
+            ))
+          }
+          {(hasMore || isLoading) && (
+            <div ref={targetRef} className="w-full h-18 flex items-center justify-center">
+              {isLoading && <ParishShortCardSkeleton className={CARD_CLASS} />}
+            </div>
+          )}
+        </div>
+      </ScrollArea>
     </div>
   );
 }
