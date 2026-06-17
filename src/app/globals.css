@@ -179,6 +179,15 @@
   }
 }
 
+html {
+  min-width: 300px;
+  overflow-x: hidden;
+}
+
+body {
+  min-width: 320px;
+}
+
 .text-accent {
   color: var(--accent-color);
 }

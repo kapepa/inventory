@@ -36,7 +36,9 @@ export default async function LocaleLayout({
     <html lang={locale} className={`${inter.className} h-full antialiased`}>
       <body className='bg-static'>
         <Providers locale={locale} messages={messages}>
-          {children}
+          <div className="min-w-[320px]">
+            {children}
+          </div>
           <ModalRoot />
           <Toaster />
         </Providers>

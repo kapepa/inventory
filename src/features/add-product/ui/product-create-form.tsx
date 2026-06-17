@@ -1,7 +1,7 @@
 "use client"
 
 import { useProductTranslation, useProductCreateForm } from '../model'
-import { AppLocale, Form, ModalActionButton, ModalBody, ModalCancelButton, ModalFooter, Tabs, TabsContent } from '@/shared'
+import { AppLocale, FooterBar, Form, ModalActionButton, ModalCancelButton, OverlayBody, ScrollArea, ScrollBar, Tabs, TabsContent } from '@/shared'
 import { useLocale, useTranslations } from 'next-intl'
 import { TranslationFields } from './translation-fields'
 import { TranslationTabsHeader } from './translation-tabs-header'
@@ -31,53 +31,56 @@ export const ProductCreateForm = ({ parishId, onCancelAction, onSuccessAction }:
 
   return (
     <>
-      <ModalBody>
-        <Form {...form}>
-          <form id="add-product-form" onSubmit={onSubmit} className="space-y-6 pb-5">
-            <Tabs
-              defaultValue={locale}
-              className="w-full"
-            >
-              <TranslationTabsHeader />
+      <ScrollArea className="h-full flex-1 min-h-0">
+        <OverlayBody>
+          <Form {...form}>
+            <form id="add-product-form" onSubmit={onSubmit} className="space-y-6 pb-5">
+              <Tabs
+                defaultValue={locale}
+                className="w-full"
+              >
+                <TranslationTabsHeader />
 
-              <TabsContent value="ru">
-                <TranslationFields
-                  locale="ru"
-                  isPending={isPending}
-                  handleTranslateAction={handleTranslateAction}
-                  autoFocus={locale === "ru"}
-                  translatingFieldName={translatingField?.locale === "ru" ? translatingField.name : null}
-                />
-              </TabsContent>
+                <TabsContent value="ru">
+                  <TranslationFields
+                    locale="ru"
+                    isPending={isPending}
+                    handleTranslateAction={handleTranslateAction}
+                    autoFocus={locale === "ru"}
+                    translatingFieldName={translatingField?.locale === "ru" ? translatingField.name : null}
+                  />
+                </TabsContent>
 
-              <TabsContent value="en">
-                <TranslationFields
-                  locale="en"
-                  isPending={isPending}
-                  handleTranslateAction={handleTranslateAction}
-                  autoFocus={locale === "en"}
-                  translatingFieldName={translatingField?.locale === "en" ? translatingField.name : null}
-                />
-              </TabsContent>
-            </Tabs>
+                <TabsContent value="en">
+                  <TranslationFields
+                    locale="en"
+                    isPending={isPending}
+                    handleTranslateAction={handleTranslateAction}
+                    autoFocus={locale === "en"}
+                    translatingFieldName={translatingField?.locale === "en" ? translatingField.name : null}
+                  />
+                </TabsContent>
+              </Tabs>
 
-            <SerialNumberField isPending={isPending} />
-            <OrderField isPending={isPending} />
-            <div className='grid grid-cols-2 gap-x-10 gap-y-5'>
-              <StatusField isPending={isPending} />
-              <ConditionField isPending={isPending} />
-              <CategoryField isPending={isPending} />
-            </div>
-            <PhotoField isPending={isPending} />
-            <PriceFields isPending={isPending} />
-          </form >
-        </Form>
-      </ModalBody>
-      <ModalFooter className='flex justify-between'>
+              <SerialNumberField isPending={isPending} />
+              <OrderField isPending={isPending} />
+              <div className='grid grid-cols-2 gap-x-8 sm:gap-x-10 gap-y-5'>
+                <StatusField isPending={isPending} />
+                <ConditionField isPending={isPending} />
+                <CategoryField isPending={isPending} className="col-span-2 sm:col-span-1" />
+              </div>
+              <PhotoField isPending={isPending} />
+              <PriceFields isPending={isPending} />
+            </form >
+          </Form>
+        </OverlayBody>
+      </ScrollArea>
+      <FooterBar>
         <ModalCancelButton
           type="button"
           onCancelAction={onCancelAction}
           disabled={isPending}
+          className='hidden sm:flex'
         >
           {t("buttons.cancel")}
         </ModalCancelButton>
@@ -97,8 +100,7 @@ export const ProductCreateForm = ({ parishId, onCancelAction, onSuccessAction }:
         >
           {t("buttons.create")}
         </ModalActionButton>
-      </ModalFooter>
+      </FooterBar>
     </>
-
   )
 }
