@@ -23,6 +23,8 @@ export { DotsDivider } from "./dots-divider"
 export { ImageUploadField } from "./image-upload-field"
 export { ScrollArea, ScrollBar } from "./scroll-area"
 export { ModalCancelButton, ModalActionButton } from "./modal-buttons"
+export { FooterBar } from "./footer-bar"
+export { OverlayBody } from "./overlay-body"
 export {
   Tooltip,
   TooltipContent,
@@ -91,6 +93,7 @@ export {
 } from "./select"
 export {
   Sheet,
+  SheetBody,
   SheetClose,
   SheetContent,
   SheetDescription,

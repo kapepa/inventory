@@ -81,7 +81,7 @@ export const ImageUploadField = memo(({
             )}
           </div>
         ) : (
-          <div className="flex flex-col items-center justify-center py-12 px-6 text-center">
+          <div className="flex flex-col items-center justify-center py-6 px-3 sm:py-12 sm:px-6 text-center">
             <div className="mb-4 rounded-full bg-gray-100 dark:bg-gray-800 p-4">
               {isDragging ? <ImageIcon className="h-8 w-8 text-primary" /> : <Upload className="h-8 w-8 text-gray-400" />}
             </div>

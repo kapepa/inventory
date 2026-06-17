@@ -26,7 +26,7 @@ export const PhotoField = memo(({ isPending }: PhotoFieldProps) => {
               maxSizeMB={5}
               acceptedFormats={['image/jpeg', 'image/png', 'image/webp']}
               onChange={field.onChange}
-              className="w-full aspect-video"
+              className="w-full aspect-video h-auto sm:h-48"
             />
           </FormControl>
           <div className="h-1 mt-0">

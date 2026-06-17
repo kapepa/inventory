@@ -6,7 +6,7 @@ export default memo(
     return (
       <div className="flex flex-col h-screen overflow-hidden">
         <Header className="shrink-0" />
-        {/* <Sidebar /> */}
+        <Sidebar />
         <main className="flex-1 min-h-0 flex flex-col">
           {children}
         </main>

@@ -135,8 +135,19 @@ function SheetDescription({
   )
 }
 
+function SheetBody({ className, ...props }: React.ComponentProps<"div">) {
+  return (
+    <div
+      data-slot="sheet-body"
+      className={cn("flex-1 overflow-y-auto p-4", className)}
+      {...props}
+    />
+  )
+}
+
 export {
   Sheet,
+  SheetBody,
   SheetTrigger,
   SheetClose,
   SheetContent,

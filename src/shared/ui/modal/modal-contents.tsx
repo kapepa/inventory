@@ -3,6 +3,8 @@ import { ButtonHTMLAttributes, memo, type ReactNode } from "react";
 import { Button, buttonVariants } from "../button";
 import { VariantProps } from "class-variance-authority";
 import { Loader } from "../loader";
+import { FooterBar } from "../footer-bar";
+import { OverlayBody } from "../overlay-body";
 
 interface ModalContentsProps {
   children: ReactNode;
@@ -46,9 +48,9 @@ interface ModalBodyProps {
 
 export const ModalBody = memo(({ children, className }: ModalBodyProps) => {
   return (
-    <div className={cn("px-4 md:px-6 py-4", className)}>
+    <OverlayBody className={cn("", className)}>
       {children}
-    </div>
+    </OverlayBody>
   );
 });
 
@@ -59,11 +61,8 @@ interface ModalFooterProps {
 
 export const ModalFooter = ({ children, className }: ModalFooterProps) => {
   return (
-    <div className={cn(
-      "grid grid-cols-[repeat(auto-fit,minmax(0,1fr))] gap-3 px-4 pb-4 pt-3 md:px-6 md:pb-6 md:pt-4 bg-accent",
-      className
-    )}>
+    <FooterBar className={cn("", className)}>
       {children}
-    </div>
+    </FooterBar>
   );
 };
