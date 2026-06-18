@@ -10,7 +10,7 @@ interface AddParishButtonProps {
 }
 
 export const AddParishButton = memo(({ className }: AddParishButtonProps) => {
-  const t = useTranslations('parishe');
+  const t = useTranslations('add-parish');
   const { openAddParishModal } = useAddParish();
 
   return (

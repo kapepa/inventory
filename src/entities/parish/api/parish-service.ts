@@ -1,6 +1,6 @@
 import { AppLocale, PAGINATION_PARISHES_DEFAULTS } from '@/shared';
 import { prisma } from '@/shared/lib/prisma';
-import { FetchParishes, ResponseParishes, ParishWithRelations } from '../model';
+import { FetchParishes, ResponseParishes, ParishWithRelations, ParishWithProducts } from '../model';
 import { Prisma } from '@prisma/client';
 import { getLocale } from 'next-intl/server';
 
@@ -68,6 +68,29 @@ export const getParishes = async ({
     return { data, total, hasMore: page * limit < total };
   } catch (error) {
     console.error('Prisma Error in getParishes:', error);
+    throw error;
+  }
+};
+
+export const getParishById = async (
+  { id, locale: providedLocale }: { id: string, locale?: AppLocale }
+): Promise<ParishWithProducts | null> => {
+  const locale = providedLocale || (await getLocale()) as AppLocale;
+  try {
+    const parish = await prisma.parish.findUnique({
+      where: { id },
+      include: {
+        translations: {
+          where: { locale }
+        },
+        _count: { select: { products: true } },
+      }
+    });
+
+    if (!parish) return null;
+    return parish;
+  } catch (error) {
+    console.error('Prisma Error in getParishById:', error);
     throw error;
   }
 };

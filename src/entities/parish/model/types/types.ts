@@ -5,7 +5,12 @@ export interface FetchParishes {
   page: number
   limit: number
   search?: string
-  locale?: AppLocale;
+  locale?: AppLocale
+}
+
+export interface ParishWithProducts extends Parish {
+  translations: ParishTranslation[];
+  _count: { products: number };
 }
 
 export interface ParishWithRelations extends Parish {

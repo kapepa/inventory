@@ -1,1 +1,1 @@
-export { fetchProducts } from "./product-api"
+export { fetchProductsShort, fetchProductsWide } from "./product-api"

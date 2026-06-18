@@ -27,8 +27,5 @@
   "parishes-list": {
     "empty": "Приходов не найдено",
     "error": "Произошла ошибка"
-  },
-  "parishes-created-btn": {
-    "create": "Создать приход"
   }
 }

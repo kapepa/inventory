@@ -35,5 +35,8 @@
       "create-parish-success": "Приход был успешно создан",
       "create-parish-error": "При создании произошла ошибка"
     }
+  },
+  "parishes-created-btn": {
+    "create": "Создать приход"
   }
 }

@@ -1,0 +1,1 @@
+export { ProductsWideBody } from "./products-wide-body"

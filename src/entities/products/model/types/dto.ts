@@ -1,6 +1,11 @@
-import { ProductWithRelations } from "./types";
+import { ProductWithRelationsShort, ProductWithRelationsWide } from "./types";
 
-export interface ResponseProductsDTO {
-  data: ProductWithRelations[],
+export interface ResponseProductsWideDTO {
+  data: ProductWithRelationsWide[],
+  hasMore: boolean,
+}
+
+export interface ResponseProductsShortDTO {
+  data: ProductWithRelationsShort[],
   hasMore: boolean,
 }

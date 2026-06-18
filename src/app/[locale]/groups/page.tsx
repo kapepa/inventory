@@ -1,9 +1,9 @@
 import { getParishes } from "@/entities/parish/api/parish-service";
-import { getProductsByParishId } from "@/entities/products/api/product-service";
+import { getProductsShortByParishId } from "@/entities/products/api/product-service";
 import { AddParishButton } from "@/features";
 import { Container, AppLocale, PAGINATION_PARISHES_DEFAULTS, QUERY_PARAMS_KEYS, PAGINATION_PRODUCTS_DEFAULTS } from "@/shared";
 import { GroupsList, PageHeader } from "@/widgets";
-import { GroupsRelations, WrapperSheetGroupsRelations } from "@/widgets/groups-relations";
+import { WrapperSheetGroupsRelations } from "@/widgets/groups-relations";
 import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 
@@ -42,7 +42,7 @@ export default async function Groups({
 
   let initialProducts = null;
   if (parishId) {
-    initialProducts = await getProductsByParishId({
+    initialProducts = await getProductsShortByParishId({
       parishId,
       page: PAGINATION_PRODUCTS_DEFAULTS.PAGE,
       limit: PAGINATION_PRODUCTS_DEFAULTS.LIMIT,
@@ -61,7 +61,7 @@ export default async function Groups({
         action={<AddParishButton />}
         className="shrink-0"
       />
-      <div className="w-full mx-auto py-6 flex-1 min-h-0">
+      <div className="w-full mx-auto pb-6 flex-1 min-h-0">
         <div className="grid grid-cols-1 lg:grid-cols-[2fr_4fr] gap-4 h-full">
           <GroupsList
             initialHasMore={initialParishes.hasMore}

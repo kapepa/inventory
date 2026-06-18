@@ -46,7 +46,7 @@ export const ParishesList = ({
 
   return (
     <div className={cn("w-full", className)}>
-      <div className="py-4">
+      <div className="pb-4">
 
         <ParishWideHeader className={cn(PARISH_GRID_LAYOUT, "hidden md:grid")} />
 

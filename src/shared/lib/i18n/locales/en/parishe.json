@@ -27,8 +27,5 @@
   "parishes-list": {
     "empty": "No parishes found",
     "error": "Something went wrong"
-  },
-  "parishes-created-btn": {
-    "create": "Create Parish"
   }
 }
