@@ -7,5 +7,11 @@
     "upload-drag-drop": "Нажмите, чтобы загрузить, или перетащите файл",
     "invalid-format": "Разрешены только форматы: {formats}",
     "file-too-large": "Размер файла должен быть меньше {maxSizeMB}МБ"
+  },
+  "error-block": {
+    "buttons": {
+      "back": "Назад",
+      "home": "Главная"
+    }
   }
 }

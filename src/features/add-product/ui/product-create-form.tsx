@@ -1,7 +1,7 @@
 "use client"
 
 import { useProductTranslation, useProductCreateForm } from '../model'
-import { AppLocale, FooterBar, Form, ModalActionButton, ModalCancelButton, OverlayBody, ScrollArea, ScrollBar, Tabs, TabsContent } from '@/shared'
+import { AppLocale, FooterBar, Form, ModalActionButton, ModalCancelButton, OverlayBody, ScrollArea, Tabs, TabsContent } from '@/shared'
 import { useLocale, useTranslations } from 'next-intl'
 import { TranslationFields } from './translation-fields'
 import { TranslationTabsHeader } from './translation-tabs-header'

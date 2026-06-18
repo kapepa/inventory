@@ -35,5 +35,8 @@
       "create-parish-success": "The parish was successfully established",
       "create-parish-error": "Something went wrong during creation"
     }
+  },
+  "parishes-created-btn": {
+    "create": "Create Parish"
   }
 }

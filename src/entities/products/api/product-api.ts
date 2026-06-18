@@ -1,14 +1,11 @@
 import { axiosInstance } from "@/shared"
 import axios, { AxiosError } from "axios"
-import { FetchProductsParams, ResponseProductsDTO } from "../model"
+import { FetchProductsParams, ResponseProductsShortDTO, ResponseProductsWideDTO } from "../model"
 
-export const fetchProducts = async ({
-  parishId,
-  page,
-  limit,
-  search = "",
-  signal,
-}: FetchProductsParams): Promise<ResponseProductsDTO> => {
+const fetchProductsBase = async <T>(
+  endpoint: string,
+  { parishId, page, limit, search = "", signal }: FetchProductsParams
+): Promise<T> => {
   const queryParams = {
     parishId,
     page,
@@ -17,25 +14,25 @@ export const fetchProducts = async ({
   }
 
   try {
-    const response = await axiosInstance.get<ResponseProductsDTO>(`/products`, {
+    const response = await axiosInstance.get<T>(endpoint, {
       params: queryParams,
       signal,
     })
-
     return response.data
   } catch (error) {
-    if (axios.isCancel(error)) {
-      throw new Error("Request cancelled")
-    }
+    if (axios.isCancel(error)) throw new Error("Request cancelled")
 
     if (error instanceof AxiosError) {
-      if (!error.response) {
-        throw new Error("Проверьте подключение к интернету");
-      }
       const message = error.response?.data?.error || error.response?.data?.message || "Failed to fetch products";
       throw new Error(message);
     }
 
-    throw new Error("Failed to fetch products")
+    throw new Error(`Failed to fetch products from ${endpoint}`)
   }
 }
+
+export const fetchProductsShort = (params: FetchProductsParams) =>
+  fetchProductsBase<ResponseProductsShortDTO>("/products/short", params)
+
+export const fetchProductsWide = (params: FetchProductsParams) =>
+  fetchProductsBase<ResponseProductsWideDTO>("/products/wide", params)

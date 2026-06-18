@@ -1,15 +1,17 @@
 import { Money } from "@prisma/client";
 import { formatCurrency, Currency } from "@/shared/lib/currency";
-import { ProductWithRelations } from "../model";
+import { ProductWithRelationsShort, ProductWithRelationsWide } from "../model";
+
+type ProductType = ProductWithRelationsShort | ProductWithRelationsWide
 
 export function getProductPrice(
-  product: ProductWithRelations,
+  product: ProductType,
   currency: Money
 ) {
   return product.prices.find(price => price.symbol === currency);
 }
 
-export function getProductPrimaryPrice(product: ProductWithRelations) {
+export function getProductPrimaryPrice(product: ProductType) {
   return (
     product.prices.find(p => p.symbol === Money.USD) ||
     product.prices.find(p => p.symbol === Money.UAH) ||
@@ -18,7 +20,7 @@ export function getProductPrimaryPrice(product: ProductWithRelations) {
 }
 
 export function formatProductPrice(
-  product: ProductWithRelations,
+  product: ProductType,
   currency?: Money
 ): string | null {
   const price = currency

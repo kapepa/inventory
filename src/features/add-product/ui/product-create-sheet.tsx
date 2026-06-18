@@ -1,6 +1,6 @@
 "use client"
 
-import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetBody } from '@/shared'
+import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/shared'
 import { ProductCreateForm } from './product-create-form'
 import { ProductWithRelations } from '@/entities'
 import { memo } from 'react'

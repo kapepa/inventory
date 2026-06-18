@@ -1,7 +1,7 @@
 'use client'
 
 import { cn, NavLink, ROUTES, usePathname } from "@/shared"
-import { Building2, ClipboardList, GroupIcon, Settings, UsersRound } from "lucide-react";
+import { Building2, ClipboardList, GroupIcon, Settings, TextAlignStart, UsersRound } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { memo, useMemo } from "react";
 
@@ -17,7 +17,8 @@ const SidebarNavInner = memo(
     const navItems = useMemo(() => [
       { href: ROUTES.PARISHES, label: t('nav.parishes'), icon: Building2 },
       { href: ROUTES.GROUPS, label: t('nav.groups'), icon: GroupIcon },
-      { href: ROUTES.INVENTORY, label: t('nav.inventory'), icon: ClipboardList },
+      { href: ROUTES.PRODUCTS, label: t('nav.products'), icon: TextAlignStart },
+      { href: ROUTES.CATEGORIES, label: t('nav.categories'), icon: ClipboardList },
       { href: ROUTES.USERS, label: t('nav.users'), icon: UsersRound },
       { href: ROUTES.SETTINGS, label: t('nav.settings'), icon: Settings },
     ], [t]);
@@ -29,7 +30,7 @@ const SidebarNavInner = memo(
             key={`${item.href}-${item.label}`}
             href={item.href}
             uppercase
-            active={pathname === item.href}
+            active={pathname === item.href || pathname.startsWith(item.href + '/')}
             className="flex gap-x-3"
           >
             <item.icon className="w-5 h-5" aria-label={item.label} />

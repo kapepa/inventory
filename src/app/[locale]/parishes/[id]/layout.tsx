@@ -2,10 +2,10 @@ import { Header, Sidebar } from "@/widgets";
 import { memo } from "react";
 
 export default memo(
-  function ParishesLayout({ children }: { children: React.ReactNode }) {
+  function ParishesIdLayout({ children }: { children: React.ReactNode }) {
     return (
       <>
-        <Header />
+        <Header showSearch={false} />
         <Sidebar />
         <main>
           {children}

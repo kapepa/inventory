@@ -1,7 +1,7 @@
 "use client"
 
 import { useParishesStore } from "@/entities/parish"
-import { ProductShortCard, ProductShortCardSkeleton, ProductsShortBody, ProductsShortStateMessage, ProductWithRelations, useInfiniteProducts } from "@/entities/products"
+import { fetchProductsShort, ProductShortCard, ProductShortCardSkeleton, ProductsShortBody, ProductsShortStateMessage, ProductWithRelationsShort, useInfiniteProducts } from "@/entities/products"
 import { ProductCreateButton, useDeleteProduct, useViewProduct } from "@/features"
 import { cn, useActiveParishId, useIntersectionObserver } from "@/shared"
 import { LoaderSpin } from "@/shared/ui/loader-spin"
@@ -13,7 +13,7 @@ const CARD_CLASS = "grid gap-x-3 px-5 py-2 grid-cols-[1fr_1fr_6fr] lg:grid-cols-
 interface GroupsRelationsProps {
   className?: string,
   initialHasMore?: boolean,
-  initialProducts?: ProductWithRelations[],
+  initialProducts?: ProductWithRelationsShort[],
   initialParishesId: string | null
   initialParishTitle: string
 }
@@ -22,7 +22,7 @@ export const GroupsRelations = memo(({ className, initialHasMore, initialProduct
   const t = useTranslations('groups');
   const { parishes } = useParishesStore();
   const [activeParishId, setActiveParishId] = useActiveParishId(initialParishesId);
-  const { products, isLoading, error, clearProducts, hasMore, loadMore, addProduct, removeProduct } = useInfiniteProducts({ parishId: activeParishId, initialProducts, initialHasMore });
+  const { products, isLoading, error, clearProducts, hasMore, loadMore, addProduct, removeProduct } = useInfiniteProducts<ProductWithRelationsShort>({ parishId: activeParishId, initialProducts, initialHasMore, fetchFnAction: fetchProductsShort });
   const { targetRef, isIntersecting } = useIntersectionObserver({ threshold: 0.5, rootMargin: "100px" })
   const { productDetails } = useViewProduct()
   const { confirmDeleteProduct } = useDeleteProduct()
@@ -30,11 +30,11 @@ export const GroupsRelations = memo(({ className, initialHasMore, initialProduct
   const activeParish = parishes.find((p) => p.id === activeParishId);
   const activeParishTitle = activeParish?.translations[0]?.title || initialParishTitle;
 
-  const openProductModal = useCallback((product: ProductWithRelations) => {
+  const openProductModal = useCallback((product: ProductWithRelationsShort) => {
     productDetails(product)
   }, [productDetails])
 
-  const handlerDeleteProduct = useCallback((product: ProductWithRelations) => {
+  const handlerDeleteProduct = useCallback((product: ProductWithRelationsShort) => {
     confirmDeleteProduct(product, () => { removeProduct(product.id) });
   }, [confirmDeleteProduct, removeProduct])
 

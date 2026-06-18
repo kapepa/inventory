@@ -2,7 +2,8 @@
   "nav": {
     "parishes": "Приходы",
     "groups": "Группы",
-    "inventory": "Инвентарь",
+    "products": "Продукты",
+    "categories": "Категории",
     "users": "Пользователи",
     "settings": "Настройки"
   }

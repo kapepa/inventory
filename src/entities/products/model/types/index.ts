@@ -1,3 +1,3 @@
-export type { FetchProducts, ProductWithRelations } from "./types"
+export type { FetchProducts, ProductWithRelationsShort, ProductWithRelationsWide } from "./types"
 export type { FetchProductsParams } from "./api-params"
-export type { ResponseProductsDTO } from "./dto"
+export type { ResponseProductsWideDTO, ResponseProductsShortDTO } from "./dto"

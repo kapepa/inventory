@@ -1,2 +1,3 @@
 export { PageHeader } from "./page-header"
-export { ParishesTotal } from "./parishes-total"
+export { CountTotal } from "./count-total"
+export { Subtitle } from "./subtitle"

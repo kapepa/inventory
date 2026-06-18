@@ -1,12 +1,12 @@
-import { ResponseProductsDTO } from '@/entities';
-import { getProductsByParishId } from '@/entities/products/api/product-service';
+import { ResponseProductsShortDTO } from '@/entities';
+import { getProductsShortByParishId } from '@/entities/products/api/product-service';
 import { ProductCreate, ProductWithRelations } from '@/features';
 import { createProduct } from '@/features/add-product/api/product-service';
 import { apiHandler, AppLocale, defaultLocale, locales, PAGINATION_PRODUCTS_DEFAULTS } from '@/shared';
 import { NextRequest, NextResponse } from 'next/server';
 import { ZodError } from 'zod';
 
-export const GET = apiHandler(async (request: NextRequest): Promise<NextResponse<ResponseProductsDTO | { error: string }>> => {
+export const GET = apiHandler(async (request: NextRequest): Promise<NextResponse<ResponseProductsShortDTO | { error: string }>> => {
   try {
     const { searchParams } = request.nextUrl;
     const rawLocale = request.headers.get('Accept-Language') || defaultLocale;
@@ -14,7 +14,7 @@ export const GET = apiHandler(async (request: NextRequest): Promise<NextResponse
 
     const finalLocale = (locales.includes(locale) ? locale : defaultLocale);
 
-    const response = await getProductsByParishId({
+    const response = await getProductsShortByParishId({
       parishId: searchParams.get('parishId') || '',
       page: parseInt(searchParams.get('page') || `${PAGINATION_PRODUCTS_DEFAULTS.PAGE}`),
       limit: parseInt(searchParams.get('limit') || `${PAGINATION_PRODUCTS_DEFAULTS.LIMIT}`),

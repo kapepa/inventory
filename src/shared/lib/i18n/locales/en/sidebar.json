@@ -2,7 +2,8 @@
   "nav": {
     "parishes": "Parishes",
     "groups": "Groups",
-    "inventory": "Inventory",
+    "products": "Products",
+    "categories": "Сategories",
     "users": "Users",
     "settings": "Settings"
   }

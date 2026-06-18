@@ -25,6 +25,8 @@ export { ScrollArea, ScrollBar } from "./scroll-area"
 export { ModalCancelButton, ModalActionButton } from "./modal-buttons"
 export { FooterBar } from "./footer-bar"
 export { OverlayBody } from "./overlay-body"
+export { BackButton } from "./back-button"
+export { ErrorBlock } from "./error-block"
 export {
   Tooltip,
   TooltipContent,

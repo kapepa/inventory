@@ -17,7 +17,7 @@ export const useAddProduct = ({ parishId, onSuccessAction }: { parishId: string,
       setIsSheetOpen(true)
     }
 
-  }, [parishId, openModal, closeModal, isDesktop])
+  }, [parishId, openModal, closeModal, onSuccessAction, isDesktop])
 
   const ProductCreateElement = (
     <ProductCreateSheet

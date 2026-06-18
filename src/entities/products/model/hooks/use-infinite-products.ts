@@ -1,23 +1,30 @@
 "use client"
 
 import { useState, useEffect, useCallback, useRef } from "react"
-import { ProductWithRelations, fetchProducts } from "@/entities/products"
+import { FetchProductsParams } from "@/entities/products"
 import { PAGINATION_PRODUCTS_DEFAULTS } from "@/shared"
 
-interface UseInfiniteProducts {
-  parishId: string | null,
-  search?: string,
-  initialProducts?: ProductWithRelations[],
-  initialHasMore?: boolean
+interface FetchResponse<T> {
+  data: T[];
+  hasMore: boolean;
 }
 
-export const useInfiniteProducts = ({
+interface UseInfiniteProducts<T> {
+  parishId: string | null,
+  search?: string,
+  initialProducts?: T[],
+  initialHasMore?: boolean
+  fetchFnAction: (params: FetchProductsParams) => Promise<FetchResponse<T>>
+}
+
+export const useInfiniteProducts = <T extends { id: string }>({
   parishId,
   search = "",
   initialProducts = [],
   initialHasMore = false,
-}: UseInfiniteProducts) => {
-  const [products, setProducts] = useState<ProductWithRelations[]>(initialProducts)
+  fetchFnAction,
+}: UseInfiniteProducts<T>) => {
+  const [products, setProducts] = useState<T[]>(initialProducts)
   const [page, setPage] = useState(2)
   const [hasMore, setHasMore] = useState(initialHasMore)
   const [isLoading, setIsLoading] = useState(false)
@@ -40,7 +47,7 @@ export const useInfiniteProducts = ({
     }
   }, [initialProducts, initialHasMore])
 
-  const addProduct = useCallback((newProduct: ProductWithRelations) => {
+  const addProduct = useCallback((newProduct: T) => {
     setProducts((prev) => [newProduct, ...prev]);
   }, []);
 
@@ -63,7 +70,7 @@ export const useInfiniteProducts = ({
 
       try {
         const currentPage = isFirstPage ? 1 : page
-        const response = await fetchProducts({
+        const response = await fetchFnAction({
           parishId,
           page: currentPage,
           limit: PAGINATION_PRODUCTS_DEFAULTS.LIMIT,

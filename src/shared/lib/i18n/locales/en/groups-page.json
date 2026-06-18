@@ -1,3 +1,7 @@
 {
-  "header-title": "Parishes"
+  "header-title": "Parishes",
+  "errors": {
+    "title": "Page Not Found — Groups",
+    "description": "The groups you are looking for was not found in the system"
+  }
 }
