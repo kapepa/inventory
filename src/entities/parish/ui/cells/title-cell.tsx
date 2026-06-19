@@ -1,5 +1,4 @@
-import { cn, Skeleton, Tooltip, TooltipContent, TooltipText, TooltipTrigger } from "@/shared"
-import { HeaderCell } from "./header-cell";
+import { cn, MobileCellLabel, Skeleton, Tooltip, TooltipContent, TooltipText, TooltipTrigger } from "@/shared"
 
 interface TitleCellProps {
   label?: string,
@@ -10,7 +9,7 @@ interface TitleCellProps {
 export const TitleCell = ({ label, title, className }: TitleCellProps) => {
   return (
     <div className={cn("", className)}>
-      {label && <HeaderCell className="block md:hidden">{label}</HeaderCell>}
+      {label && <MobileCellLabel className="block md:hidden">{label}</MobileCellLabel>}
       <Tooltip>
         <TooltipTrigger asChild>
           <span className="block text-center md:text-left truncate font-medium text-xl text-chart-2 underline decoration-1 underline-offset-5 w-full">

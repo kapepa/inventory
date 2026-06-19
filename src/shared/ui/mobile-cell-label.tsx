@@ -1,12 +1,12 @@
 import { cn } from "@/shared"
 import { memo, ReactNode } from "react"
 
-interface HeaderCellProps {
+interface MobileCellLabelProps {
   children: ReactNode,
   className?: string,
 }
 
-export const HeaderCell = memo(({ children, className }: HeaderCellProps) => {
+export const MobileCellLabel = memo(({ children, className }: MobileCellLabelProps) => {
   return (
     <div className={cn("pb-1.5", className)}>
       <span className="text-xs font-bold text-muted-foreground">{children}</span>
@@ -14,4 +14,4 @@ export const HeaderCell = memo(({ children, className }: HeaderCellProps) => {
   )
 })
 
-HeaderCell.displayName = "HeaderCell"
+MobileCellLabel.displayName = "MobileCellLabel"

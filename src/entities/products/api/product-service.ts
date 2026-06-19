@@ -36,7 +36,13 @@ export async function getProductsWideByParishId({
           user: {
             select: {
               id: true,
-              name: true
+              name: true,
+            }
+          },
+          rental: {
+            select: {
+              startDate: true,
+              endDate: true,
             }
           }
         },

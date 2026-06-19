@@ -4,13 +4,13 @@ import { memo } from "react";
 export default memo(
   function ParishesIdLayout({ children }: { children: React.ReactNode }) {
     return (
-      <>
-        <Header showSearch={false} />
+      <div className="flex flex-col h-screen overflow-hidden">
+        <Header className="shrink-0" />
         <Sidebar />
-        <main>
+        <main className="flex-1 min-h-0 flex flex-col">
           {children}
         </main>
-      </>
+      </div>
     );
   }
 )

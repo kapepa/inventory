@@ -40,7 +40,7 @@ export default async function ParishesId({
   const { title, description } = parish.translations[0]
 
   return (
-    <Container className="py-6 md:py-16">
+    <Container className="py-6 md:py-16 flex-1 flex flex-col min-h-0">
       <PageHeader
         title={t("header-title")}
         subtitle={title}

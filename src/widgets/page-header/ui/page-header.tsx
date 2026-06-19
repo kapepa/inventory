@@ -15,9 +15,9 @@ interface PageHeaderProps {
 export const PageHeader = ({ title, subtitle, count, children, action, className }: PageHeaderProps) => {
   return (
     <div className={cn("flex flex-col pb-3", className)}>
-      <div className="flex gap-x-5 items-center">
+      <div className="flex gap-x-1 sm:gap-x-5 items-center">
         {action}
-        <div className="flex items-center text-xl md:text-3xl font-semibold gap-x-3 min-w-0 max-w-full" >
+        <div className="flex items-center text-lg sm:text-xl md:text-3xl font-semibold gap-x-1 sm:gap-x-3 min-w-0 max-w-full" >
           <h2>{title}</h2>
           {subtitle && <Subtitle subtitle={subtitle} />}
           {count !== undefined && <CountTotal fallbackCount={count} />}

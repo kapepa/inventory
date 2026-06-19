@@ -1,0 +1,20 @@
+{
+  "products-cells": {
+    "rental-cell": {
+      "with": "c",
+      "to": "до"
+    },
+    "condition-cell": {
+      "new": "Новое",
+      "used": "Б/у"
+    }
+  },
+  "products-wide": {
+    "product": "Товар",
+    "status": "Статус",
+    "rental": "Аренда",
+    "condition": "Состояние",
+    "price": "Цена",
+    "actions": "Действия"
+  }
+}

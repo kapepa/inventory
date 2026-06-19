@@ -22,6 +22,7 @@ export default getRequestConfig(async ({ locale }) => {
       "groups-page": (await import(`../shared/lib/i18n/locales/${locale}/groups-page.json`)).default,
       "parishes-id-page": (await import(`../shared/lib/i18n/locales/${locale}/parishes-id-page.json`)).default,
       "products-list": (await import(`../shared/lib/i18n/locales/${locale}/products-list.json`)).default,
+      "products": (await import(`../shared/lib/i18n/locales/${locale}/products.json`)).default,
     }
   };
 });
