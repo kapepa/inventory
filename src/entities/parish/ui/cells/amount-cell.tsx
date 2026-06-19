@@ -1,5 +1,4 @@
-import { cn, formatUAH, formatUSD, Skeleton } from "@/shared"
-import { HeaderCell } from "./header-cell";
+import { cn, formatUAH, formatUSD, MobileCellLabel, Skeleton } from "@/shared"
 
 interface AmountCellProps {
   label?: string,
@@ -13,7 +12,7 @@ export const AmountCell = ({ label, sumUAH, sumUSD, className }: AmountCellProps
   const USD = formatUSD(sumUSD)
   return (
     <div className={cn("", className)}>
-      {label && <HeaderCell className="block md:hidden">{label}</HeaderCell>}
+      {label && <MobileCellLabel className="block md:hidden">{label}</MobileCellLabel>}
       <div className={cn("flex flex-col items-center", className)}>
         <small suppressHydrationWarning className="text-xs text-sidebar-ring">{USD}</small>
         <span suppressHydrationWarning className="text-base text-chart-2">{UAH}</span>

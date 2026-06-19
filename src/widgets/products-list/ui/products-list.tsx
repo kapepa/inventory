@@ -1,11 +1,15 @@
 "use client"
 
-import { fetchProductsWide, ProductsShortStateMessage, ProductsWideBody, ProductWithRelationsWide, useInfiniteProducts } from "@/entities"
-import { cn, useIntersectionObserver } from "@/shared"
+import { fetchProductsWide, ProductsShortStateMessage, ProductsWideCard, ProductsWideCardSkeleton, ProductWithRelationsWide, useInfiniteProducts } from "@/entities"
+import { cn, ScrollArea, useIntersectionObserver } from "@/shared"
 import { useTranslations } from "next-intl"
 import { useEffect } from "react"
 
-const CARD_CLASS = "grid"
+const CARD_CLASS = cn(
+  "grid",
+  "grid-cols-2 lg:gap-6 auto-rows-auto",
+  "lg:grid-cols-[minmax(auto,12px)_minmax(auto,48px)_minmax(200px,400px)_minmax(100px,120px)_minmax(110px,150px)_minmax(40px,60px)_minmax(85px,100px)_1fr] lg:gap-8",
+)
 
 interface ProductsListProps {
   className?: string
@@ -32,15 +36,27 @@ export const ProductsList = ({ initialParishId, initialProducts, initialHasMore,
   )
 
   return (
-    <div className={cn("", className)}>
-      <div>
-        <ProductsWideBody />
-        {(hasMore || isLoading) && (
-          <div ref={targetRef} className="w-full h-16 flex items-center justify-center">
-            {/* {isLoading && <ProductShortCardSkeleton className={CARD_CLASS} />} */}
-          </div>
-        )}
-      </div>
+    <div className="flex-1 min-h-0 flex flex-col">
+      <ScrollArea className="flex-1 overflow-y-auto">
+        <div className={cn("flex flex-col gap-3 max-w-lg lg:max-w-full m-auto", className)}>
+          {
+            products.map((product) => (
+              <ProductsWideCard
+                key={product.id}
+                product={product}
+                onDeleteProduct={() => { console.log("on delete") }}
+                openProductModal={() => { }}
+                className={cn("", CARD_CLASS)}
+              />
+            ))
+          }
+          {(hasMore || isLoading) && (
+            <div ref={targetRef} className="w-full h-16 flex items-center justify-center">
+              <ProductsWideCardSkeleton className={cn("", CARD_CLASS)} />
+            </div>
+          )}
+        </div>
+      </ScrollArea>
     </div>
   )
 }

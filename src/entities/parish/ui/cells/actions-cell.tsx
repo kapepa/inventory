@@ -1,7 +1,6 @@
-import { cn, Skeleton, TrashButton } from "@/shared"
+import { cn, MobileCellLabel, Skeleton, TrashButton } from "@/shared"
 import { MouseEvent } from "react"
 import { ParishWithRelations } from "../../model/types/types"
-import { HeaderCell } from "./header-cell"
 
 interface ActionsCellProps {
   label?: string,
@@ -20,7 +19,7 @@ export const ActionsCell = ({ label, parish, isOwner, className, onDeleteParish 
 
   if (isOwner) return (
     <div className={cn("", className)}>
-      {label && <HeaderCell className="block md:hidden">{label}</HeaderCell>}
+      {label && <MobileCellLabel className="block md:hidden">{label}</MobileCellLabel>}
       <div className="flex justify-center">
         <TrashButton onClick={handlerDelte} className="size-11" />
       </div>

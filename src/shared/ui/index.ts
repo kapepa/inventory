@@ -27,6 +27,7 @@ export { FooterBar } from "./footer-bar"
 export { OverlayBody } from "./overlay-body"
 export { BackButton } from "./back-button"
 export { ErrorBlock } from "./error-block"
+export { MobileCellLabel } from "./mobile-cell-label"
 export {
   Tooltip,
   TooltipContent,

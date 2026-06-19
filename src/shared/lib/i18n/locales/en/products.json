@@ -1,0 +1,20 @@
+{
+  "products-cells": {
+    "rental-cell": {
+      "with": "with",
+      "to": "to"
+    },
+    "condition-cell": {
+      "new": "New",
+      "used": "Used"
+    }
+  },
+  "products-wide": {
+    "product": "Product",
+    "status": "Status",
+    "rental": "Rental",
+    "condition": "Condition",
+    "price": " Price",
+    "actions": "Actions"
+  }
+}

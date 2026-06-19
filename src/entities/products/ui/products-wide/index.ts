@@ -1,1 +1,1 @@
-export { ProductsWideBody } from "./products-wide-body"
+export { ProductsWideCard, ProductsWideCardSkeleton } from "./products-wide-card"

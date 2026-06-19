@@ -1,8 +1,7 @@
-import { cn, Skeleton } from "@/shared"
+import { cn, MobileCellLabel, Skeleton } from "@/shared"
 import { format } from 'date-fns';
 import { ru, enUS } from 'date-fns/locale';
 import { useLocale } from 'next-intl';
-import { HeaderCell } from "./header-cell";
 
 interface DateCellProps {
   label?: string,
@@ -17,7 +16,7 @@ export const DateCell = ({ label, created, delivery, className }: DateCellProps)
 
   return (
     <div className={cn("", className)}>
-      {label && <HeaderCell className="block md:hidden whitespace-nowrap truncate w-full text-center">{label}</HeaderCell>}
+      {label && <MobileCellLabel className="block md:hidden whitespace-nowrap truncate w-full text-center">{label}</MobileCellLabel>}
       <div className="flex flex-col items-center">
         <small className="text-xs text-sidebar-ring">{format(created, 'dd / MM', { locale: dateLocale })}</small>
         {delivery && <span className="text-base text-chart-2 whitespace-nowrap">{format(delivery, 'dd / MMM / yyyy', { locale: dateLocale })}</span>}

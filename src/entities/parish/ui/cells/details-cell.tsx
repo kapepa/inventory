@@ -1,6 +1,5 @@
-import { Button, cn, Popover, PopoverContent, PopoverTrigger, Skeleton } from "@/shared"
+import { Button, cn, MobileCellLabel, Popover, PopoverContent, PopoverTrigger, Skeleton } from "@/shared"
 import { Menu } from "lucide-react"
-import { HeaderCell } from "./header-cell"
 
 interface DetailsCellProps {
   label?: string,
@@ -15,7 +14,7 @@ export const DetailsCell = ({ label, title, description, className }: DetailsCel
       e.stopPropagation();
       e.preventDefault()
     }}>
-      {label && <HeaderCell className="block md:hidden">{label}</HeaderCell>}
+      {label && <MobileCellLabel className="block md:hidden">{label}</MobileCellLabel>}
       <Popover>
         <PopoverTrigger asChild>
           <Button asChild className="cursor-pointer size-11 rounded-full" variant="outline">

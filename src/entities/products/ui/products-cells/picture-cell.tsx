@@ -10,7 +10,7 @@ interface PictureCellProps {
 
 export const PictureCell = ({ url, alt = "product", className }: PictureCellProps) => {
   return (
-    <div className={cn("flex items-center justify-center", className)}>
+    <div className={cn("flex items-center justify-center m-auto", className)}>
       <Thumbnail source={url} alt={alt} className={className} size="md" />
     </div>
   )
