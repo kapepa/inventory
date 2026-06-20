@@ -1,8 +1,8 @@
 import { Price, ProductTranslation } from "@prisma/client";
 import { Product } from "@prisma/client";
-import { ProductWithRelations } from "@/entities";
+import { ProductWithRelationsShort } from "@/entities";
 
-export type { ProductWithRelations };
+export type { ProductWithRelationsShort };
 
 export type ProductTranslationType = Pick<ProductTranslation, "locale" | "title" | "specification">
 export type ProductPriceType = Pick<Price, "symbol" | "value">

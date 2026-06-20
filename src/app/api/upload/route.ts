@@ -1,6 +1,6 @@
 import { UploadImageError, UploadImageResponse } from '@/entities'
 import { uploadFile } from '@/entities/upload/api/upload-service'
-import { apiHandler } from '@/shared'
+import { apiHandler } from '@/shared/server'
 import { NextRequest, NextResponse } from 'next/server'
 
 export const POST = apiHandler(async (request: NextRequest): Promise<NextResponse<UploadImageError | UploadImageResponse>> => {

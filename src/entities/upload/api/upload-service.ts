@@ -1,5 +1,6 @@
 import { UploadImageResponse } from '../model'
-import { extractPublicId, validateFile } from '../lib'
+import { extractFromUrl, extractPublicId, validateFile } from '../lib'
+import { ImageSizes } from '@/shared'
 
 // Dynamic import for Cloudinary to avoid fs module in client bundles
 const getCloudinary = async () => {
@@ -64,27 +65,25 @@ export const uploadFile = async (file: File): Promise<UploadImageResponse> => {
   }
 }
 
-export const deleteFile = async (urlOrId: string): Promise<{ result: string }> => {
+export const deleteFile = async (urlOrId: string | ImageSizes): Promise<{ result: string }> => {
   try {
-    const publicId = urlOrId.startsWith('http') ? extractPublicId(urlOrId) : urlOrId;
-    const cloudinary = await getCloudinary()
-    if (!publicId) throw new Error('Invalid public_id: could not extract from URL');
+    const publicId = extractPublicId(urlOrId);
+    if (!publicId) throw new Error('Invalid public_id: could not extract');
 
-    // Delete an image by public_id
+    const cloudinary = await getCloudinary();
     const deleteResponse = await cloudinary.uploader.destroy(publicId, {
       resource_type: 'image',
-      invalidate: true, // инвалидирует CDN кеш
-    })
+      invalidate: true,
+    });
 
-    // deleteResponse.result will be ‘ok’ if successful, ‘not found’ if not found
     if (deleteResponse.result !== "ok" && deleteResponse.result !== "not found") {
-      throw new Error(`Failed to delete image: ${deleteResponse.result}`)
+      throw new Error(`Failed to delete image: ${deleteResponse.result}`);
     }
 
-    return deleteResponse
+    return deleteResponse;
   } catch (error) {
-    console.error('Cloudinary Error in deleteFile:', error)
-    throw error
+    console.error('Cloudinary Error in deleteFile:', error);
+    throw error;
   }
 }
 

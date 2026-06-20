@@ -39,7 +39,7 @@ export const PriceFields = memo(({ isPending }: PriceFieldsProps) => {
                   const raw = e.target.value
                     .replace(/[^\d.]/g, '')
                     .replace(/(\..*)\./g, '$1')
-                    .slice(0, 10)
+                    .slice(0, 9)
                   field.onChange(raw === '' ? undefined : Number(raw))
                 }}
                 disabled={isPending}
@@ -69,7 +69,7 @@ export const PriceFields = memo(({ isPending }: PriceFieldsProps) => {
                   const raw = e.target.value
                     .replace(/[^\d.]/g, '')
                     .replace(/(\..*)\./g, '$1')
-                    .slice(0, 10)
+                    .slice(0, 9)
                   field.onChange(raw === '' ? undefined : Number(raw))
                 }}
                 disabled={isPending}

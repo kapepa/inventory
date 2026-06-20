@@ -1,0 +1,1 @@
+export { createParish } from "./add-parish-service"

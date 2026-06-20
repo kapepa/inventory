@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { apiHandler, AppLocale, defaultLocale } from '@/shared';
-import { getCategories } from '@/entities/category/api/category-service';
+import { AppLocale, defaultLocale } from '@/shared';
+import { getCategories } from '@/entities/server';
 import { CategoryWithTranslations } from '@/entities/category/model/types';
+import { apiHandler } from '@/shared/server';
 
 export const GET = apiHandler(async (request: NextRequest): Promise<NextResponse<CategoryWithTranslations[] | { error: string }>> => {
   try {

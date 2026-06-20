@@ -1,9 +1,10 @@
 "use client"
 
 import { fetchProductsWide, ProductsShortStateMessage, ProductsWideCard, ProductsWideCardSkeleton, ProductWithRelationsWide, useInfiniteProducts } from "@/entities"
+import { useDeleteProduct, useViewProduct } from "@/features"
 import { cn, ScrollArea, useIntersectionObserver } from "@/shared"
 import { useTranslations } from "next-intl"
-import { useEffect } from "react"
+import { useCallback, useEffect } from "react"
 
 const CARD_CLASS = cn(
   "grid",
@@ -20,8 +21,14 @@ interface ProductsListProps {
 
 export const ProductsList = ({ initialParishId, initialProducts, initialHasMore, className }: ProductsListProps) => {
   const t = useTranslations('products-list');
-  const { products, isLoading, error, hasMore, loadMore } = useInfiniteProducts<ProductWithRelationsWide>({ parishId: initialParishId, initialProducts, initialHasMore, fetchFnAction: fetchProductsWide });
+  const { products, isLoading, error, hasMore, loadMore, removeProduct } = useInfiniteProducts<ProductWithRelationsWide>({ parishId: initialParishId, initialProducts, initialHasMore, fetchFnAction: fetchProductsWide });
   const { targetRef, isIntersecting } = useIntersectionObserver({ threshold: 0.5, rootMargin: "100px" })
+  const { productDetails } = useViewProduct()
+  const { confirmDeleteProduct } = useDeleteProduct()
+
+  const handlerDeleteProduct = useCallback((product: ProductWithRelationsWide) => {
+    confirmDeleteProduct(product, () => { removeProduct(product.id) });
+  }, [confirmDeleteProduct, removeProduct])
 
   useEffect(() => {
     if (isIntersecting && hasMore && !isLoading) {
@@ -44,8 +51,8 @@ export const ProductsList = ({ initialParishId, initialProducts, initialHasMore,
               <ProductsWideCard
                 key={product.id}
                 product={product}
-                onDeleteProduct={() => { console.log("on delete") }}
-                openProductModal={() => { }}
+                onDeleteProduct={handlerDeleteProduct}
+                openProductModal={productDetails}
                 className={cn("", CARD_CLASS)}
               />
             ))

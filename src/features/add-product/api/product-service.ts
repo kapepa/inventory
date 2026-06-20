@@ -1,4 +1,4 @@
-import { prisma } from "@/shared/lib/prisma";
+import { prisma } from "@/shared/server";
 import { ProductCreate, productCreateServerSchema, ProductWithRelations } from "../model";
 
 export const createProduct = async (body: ProductCreate): Promise<ProductWithRelations> => {

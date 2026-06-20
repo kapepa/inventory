@@ -3,7 +3,7 @@ import { getProductsShortByParishId } from "@/entities/products/api/product-serv
 import { AddParishButton } from "@/features";
 import { Container, AppLocale, PAGINATION_PARISHES_DEFAULTS, QUERY_PARAMS_KEYS, PAGINATION_PRODUCTS_DEFAULTS } from "@/shared";
 import { GroupsList, PageHeader } from "@/widgets";
-import { WrapperSheetGroupsRelations } from "@/widgets/groups-relations";
+import { GroupsRelations, WrapperSheetGroupsRelations } from "@/widgets/groups-relations";
 import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 
@@ -69,13 +69,23 @@ export default async function Groups({
             initialParishesId={parishId}
             className="h-full max-w-lg lg:w-full m-auto"
           />
-
-          <WrapperSheetGroupsRelations
-            initialHasMore={initialProducts?.hasMore}
-            initialProducts={initialProducts?.data}
-            initialParishesId={parishId}
-            initialParishTitle={parish?.translations?.[0]?.title || ""}
-          />
+          <div className="hidden lg:block h-full">
+            <GroupsRelations
+              initialHasMore={initialProducts?.hasMore}
+              initialProducts={initialProducts?.data}
+              initialParishesId={parishId}
+              initialParishTitle={parish?.translations?.[0]?.title || ""}
+              className="h-full"
+            />
+          </div>
+          <div className=" block lg:hidden h-full">
+            <WrapperSheetGroupsRelations
+              initialHasMore={initialProducts?.hasMore}
+              initialProducts={initialProducts?.data}
+              initialParishesId={parishId}
+              initialParishTitle={parish?.translations?.[0]?.title || ""}
+            />
+          </div>
         </div>
       </div>
     </Container >

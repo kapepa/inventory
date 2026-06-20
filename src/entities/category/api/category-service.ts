@@ -1,4 +1,4 @@
-import { prisma } from "@/shared/lib/prisma"
+import { prisma } from "@/shared/server"
 import { CategoryWithTranslations, GetCategoriesParams } from "../model/types"
 
 export const getCategories = async ({ locale }: GetCategoriesParams): Promise<CategoryWithTranslations[]> => {

@@ -1,7 +1,8 @@
 import { ParishWithRelations, ResponseParishes } from '@/entities';
-import { getParishes } from '@/entities/parish/api/parish-service';
-import { createParish } from '@/features/add-parish/api/add-parish-service';
-import { AppLocale, PAGINATION_PARISHES_DEFAULTS, apiHandler, defaultLocale, locales } from '@/shared';
+import { getParishes } from '@/entities/server';
+import { createParish } from '@/features/server';
+import { AppLocale, PAGINATION_PARISHES_DEFAULTS, defaultLocale, locales } from '@/shared';
+import { apiHandler } from '@/shared/server';
 import { NextRequest, NextResponse } from 'next/server';
 import { ZodError } from 'zod';
 

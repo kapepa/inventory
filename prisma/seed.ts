@@ -221,36 +221,36 @@ async function main() {
 
   const productsData = [
     // Monitors (category index 0)
-    { sn: 1001, name: 'Dell 27"', ruName: 'Монитор Dell 27"', ruSpec: '4K UHD, IPS матрица, 144Hz', enSpec: '4K UHD, IPS panel, 144Hz', category: categories[0], parish: parish1, user: john, priceUsd: 399.99 },
-    { sn: 1002, name: 'LG 24"', ruName: 'Монитор LG 24"', ruSpec: 'Full HD, VA матрица, 75Hz', enSpec: 'Full HD, VA panel, 75Hz', category: categories[0], parish: parish1, user: john, priceUsd: 179.99 },
-    { sn: 1003, name: 'Samsung 32"', ruName: 'Монитор Samsung 32"', ruSpec: '4K UHD, изогнутый, 165Hz', enSpec: '4K UHD, curved, 165Hz', category: categories[0], parish: parish1, user: john, priceUsd: 599.99 },
-    { sn: 1004, name: 'ASUS 24"', ruName: 'Монитор ASUS 24"', ruSpec: 'Full HD, IPS, 144Hz', enSpec: 'Full HD, IPS, 144Hz', category: categories[0], parish: parish1, user: john, priceUsd: 249.99 },
+    { sn: "1001", name: 'Dell 27"', ruName: 'Монитор Dell 27"', ruSpec: '4K UHD, IPS матрица, 144Hz', enSpec: '4K UHD, IPS panel, 144Hz', category: categories[0], parish: parish1, user: john, priceUsd: 399.99 },
+    { sn: "1002", name: 'LG 24"', ruName: 'Монитор LG 24"', ruSpec: 'Full HD, VA матрица, 75Hz', enSpec: 'Full HD, VA panel, 75Hz', category: categories[0], parish: parish1, user: john, priceUsd: 179.99 },
+    { sn: "1003", name: 'Samsung 32"', ruName: 'Монитор Samsung 32"', ruSpec: '4K UHD, изогнутый, 165Hz', enSpec: '4K UHD, curved, 165Hz', category: categories[0], parish: parish1, user: john, priceUsd: 599.99 },
+    { sn: "1004", name: 'ASUS 24"', ruName: 'Монитор ASUS 24"', ruSpec: 'Full HD, IPS, 144Hz', enSpec: 'Full HD, IPS, 144Hz', category: categories[0], parish: parish1, user: john, priceUsd: 249.99 },
 
     // Keyboards (category index 1)
-    { sn: 2001, name: 'Mechanical Keyboard', ruName: 'Механическая клавиатура', ruSpec: 'Механические переключатели, RGB', enSpec: 'Mechanical switches, RGB', category: categories[1], parish: parish2, user: jane, priceUsd: 149.99 },
-    { sn: 2002, name: 'Gaming Keyboard', ruName: 'Игровая клавиатура', ruSpec: 'Мембранная, RGB, макросы', enSpec: 'Membrane, RGB, macros', category: categories[1], parish: parish2, user: jane, priceUsd: 89.99 },
-    { sn: 2003, name: 'Wireless Keyboard', ruName: 'Беспроводная клавиатура', ruSpec: 'Bluetooth, тихая, компактная', enSpec: 'Bluetooth, quiet, compact', category: categories[1], parish: parish2, user: jane, priceUsd: 69.99 },
-    { sn: 2004, name: 'Ergonomic Keyboard', ruName: 'Эргономичная клавиатура', ruSpec: 'Разделенная, подставка для рук', enSpec: 'Split, wrist rest', category: categories[1], parish: parish2, user: jane, priceUsd: 129.99 },
+    { sn: "2001", name: 'Mechanical Keyboard', ruName: 'Механическая клавиатура', ruSpec: 'Механические переключатели, RGB', enSpec: 'Mechanical switches, RGB', category: categories[1], parish: parish2, user: jane, priceUsd: 149.99 },
+    { sn: "2002", name: 'Gaming Keyboard', ruName: 'Игровая клавиатура', ruSpec: 'Мембранная, RGB, макросы', enSpec: 'Membrane, RGB, macros', category: categories[1], parish: parish2, user: jane, priceUsd: 89.99 },
+    { sn: "2003", name: 'Wireless Keyboard', ruName: 'Беспроводная клавиатура', ruSpec: 'Bluetooth, тихая, компактная', enSpec: 'Bluetooth, quiet, compact', category: categories[1], parish: parish2, user: jane, priceUsd: 69.99 },
+    { sn: "2004", name: 'Ergonomic Keyboard', ruName: 'Эргономичная клавиатура', ruSpec: 'Разделенная, подставка для рук', enSpec: 'Split, wrist rest', category: categories[1], parish: parish2, user: jane, priceUsd: 129.99 },
 
     // Printers (category index 2)
-    { sn: 3001, name: 'HP LaserJet', ruName: 'Принтер HP LaserJet', ruSpec: 'Лазерный, двусторонняя печать', enSpec: 'Laser, duplex printing', category: categories[2], parish: parish3, user: admin, priceUsd: 299.99 },
-    { sn: 3002, name: 'Epson EcoTank', ruName: 'Принтер Epson EcoTank', ruSpec: 'Струйный, непрерывная подача чернил', enSpec: 'Inkjet, continuous ink supply', category: categories[2], parish: parish3, user: admin, priceUsd: 399.99 },
-    { sn: 3003, name: 'Canon PIXMA', ruName: 'Принтер Canon PIXMA', ruSpec: 'Струйный, фотопечать', enSpec: 'Inkjet, photo printing', category: categories[2], parish: parish3, user: admin, priceUsd: 199.99 },
-    { sn: 3004, name: 'Brother HL', ruName: 'Принтер Brother HL', ruSpec: 'Монохромный лазерный', enSpec: 'Monochrome laser', category: categories[2], parish: parish3, user: admin, priceUsd: 249.99 },
+    { sn: "3001", name: 'HP LaserJet', ruName: 'Принтер HP LaserJet', ruSpec: 'Лазерный, двусторонняя печать', enSpec: 'Laser, duplex printing', category: categories[2], parish: parish3, user: admin, priceUsd: 299.99 },
+    { sn: "3002", name: 'Epson EcoTank', ruName: 'Принтер Epson EcoTank', ruSpec: 'Струйный, непрерывная подача чернил', enSpec: 'Inkjet, continuous ink supply', category: categories[2], parish: parish3, user: admin, priceUsd: 399.99 },
+    { sn: "3003", name: 'Canon PIXMA', ruName: 'Принтер Canon PIXMA', ruSpec: 'Струйный, фотопечать', enSpec: 'Inkjet, photo printing', category: categories[2], parish: parish3, user: admin, priceUsd: 199.99 },
+    { sn: "3004", name: 'Brother HL', ruName: 'Принтер Brother HL', ruSpec: 'Монохромный лазерный', enSpec: 'Monochrome laser', category: categories[2], parish: parish3, user: admin, priceUsd: 249.99 },
 
     // Mice (category index 3)
-    { sn: 4001, name: 'Logitech MX Master', ruName: 'Мышь Logitech MX Master', ruSpec: 'Беспроводная, эргономичная', enSpec: 'Wireless, ergonomic', category: categories[3], parish: parish2, user: jane, priceUsd: 89.99 },
-    { sn: 4002, name: 'Gaming Mouse', ruName: 'Игровая мышь', ruSpec: 'RGB, 16000 DPI, 7 кнопок', enSpec: 'RGB, 16000 DPI, 7 buttons', category: categories[3], parish: parish2, user: jane, priceUsd: 59.99 },
-    { sn: 4003, name: 'Vertical Mouse', ruName: 'Вертикальная мышь', ruSpec: 'Эргономичная, Bluetooth', enSpec: 'Ergonomic, Bluetooth', category: categories[3], parish: parish2, user: jane, priceUsd: 49.99 },
+    { sn: "4001", name: 'Logitech MX Master', ruName: 'Мышь Logitech MX Master', ruSpec: 'Беспроводная, эргономичная', enSpec: 'Wireless, ergonomic', category: categories[3], parish: parish2, user: jane, priceUsd: 89.99 },
+    { sn: "4002", name: 'Gaming Mouse', ruName: 'Игровая мышь', ruSpec: 'RGB, 16000 DPI, 7 кнопок', enSpec: 'RGB, 16000 DPI, 7 buttons', category: categories[3], parish: parish2, user: jane, priceUsd: 59.99 },
+    { sn: "4003", name: 'Vertical Mouse', ruName: 'Вертикальная мышь', ruSpec: 'Эргономичная, Bluetooth', enSpec: 'Ergonomic, Bluetooth', category: categories[3], parish: parish2, user: jane, priceUsd: 49.99 },
 
     // Headphones (category index 4)
-    { sn: 5001, name: 'Sony WH-1000XM', ruName: 'Наушники Sony WH-1000XM', ruSpec: 'Беспроводные, шумоподавление', enSpec: 'Wireless, noise cancelling', category: categories[4], parish: parish1, user: john, priceUsd: 349.99 },
-    { sn: 5002, name: 'Gaming Headset', ruName: 'Игровая гарнитура', ruSpec: '7.1 surround, RGB, микрофон', enSpec: '7.1 surround, RGB, mic', category: categories[4], parish: parish1, user: john, priceUsd: 79.99 },
-    { sn: 5003, name: 'AirPods Pro', ruName: 'AirPods Pro', ruSpec: 'Беспроводные, активное шумоподавление', enSpec: 'Wireless, active noise cancelling', category: categories[4], parish: parish1, user: john, priceUsd: 249.99 },
+    { sn: "5001", name: 'Sony WH-1000XM', ruName: 'Наушники Sony WH-1000XM', ruSpec: 'Беспроводные, шумоподавление', enSpec: 'Wireless, noise cancelling', category: categories[4], parish: parish1, user: john, priceUsd: 349.99 },
+    { sn: "5002", name: 'Gaming Headset', ruName: 'Игровая гарнитура', ruSpec: '7.1 surround, RGB, микрофон', enSpec: '7.1 surround, RGB, mic', category: categories[4], parish: parish1, user: john, priceUsd: 79.99 },
+    { sn: "5003", name: 'AirPods Pro', ruName: 'AirPods Pro', ruSpec: 'Беспроводные, активное шумоподавление', enSpec: 'Wireless, active noise cancelling', category: categories[4], parish: parish1, user: john, priceUsd: 249.99 },
 
     // Webcams (category index 5)
-    { sn: 6001, name: 'Logitech C920', ruName: 'Веб-камера Logitech C920', ruSpec: 'Full HD, автофокус', enSpec: 'Full HD, autofocus', category: categories[5], parish: parish2, user: jane, priceUsd: 89.99 },
-    { sn: 6002, name: '4K Webcam', ruName: '4K Веб-камера', ruSpec: '4K UHD, широкий угол', enSpec: '4K UHD, wide angle', category: categories[5], parish: parish2, user: jane, priceUsd: 199.99 },
+    { sn: "6001", name: 'Logitech C920', ruName: 'Веб-камера Logitech C920', ruSpec: 'Full HD, автофокус', enSpec: 'Full HD, autofocus', category: categories[5], parish: parish2, user: jane, priceUsd: 89.99 },
+    { sn: "6002", name: '4K Webcam', ruName: '4K Веб-камера', ruSpec: '4K UHD, широкий угол', enSpec: '4K UHD, wide angle', category: categories[5], parish: parish2, user: jane, priceUsd: 199.99 },
   ];
 
   for (let i = 0; i < productsData.length; i++) {

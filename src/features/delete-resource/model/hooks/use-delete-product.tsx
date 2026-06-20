@@ -3,14 +3,16 @@ import { useTranslations } from "next-intl";
 import { useCallback } from "react";
 import { toast } from "sonner";
 import { DeleteConfirmModal } from "../../ui";
-import { ProductWithRelations } from "@/entities";
 import { requestDeleteProduct } from "../../api/product-api";
+import { ProductWithRelationsShort, ProductWithRelationsWide } from "@/entities";
 
-export const useDeleteProduct = () => {
+type ProductWithRelations = ProductWithRelationsShort | ProductWithRelationsWide
+
+export const useDeleteProduct = <T extends ProductWithRelations,>() => {
   const t = useTranslations('groups');
   const { openModal, closeModal } = useModalActions();
 
-  const confirmDeleteProduct = useCallback((product: ProductWithRelations, onSuccess?: () => void) => {
+  const confirmDeleteProduct = useCallback((product: T, onSuccess?: () => void) => {
     const title = product.translations[0]?.title || "";
 
     openModal(

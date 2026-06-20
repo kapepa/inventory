@@ -1,4 +1,4 @@
-import { prisma } from '@/shared/lib/prisma';
+import { prisma } from '@/shared/server';
 import { FetchProducts, ResponseProductsShortDTO, ResponseProductsWideDTO } from '../model';
 import { PAGINATION_PRODUCTS_DEFAULTS } from '@/shared';
 import { Product } from '@prisma/client';

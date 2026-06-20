@@ -1,0 +1,1 @@
+export { authorizeRequest } from "./auth-service"

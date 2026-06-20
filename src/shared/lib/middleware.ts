@@ -1,26 +1,26 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { authorizeRequest } from '@/features/server';
+import { MiddlewareUser } from '@/features';
 
-type Handler = (req: NextRequest, context?: any) => Promise<NextResponse>;
+type Handler = (req: NextRequest, user: MiddlewareUser, context?: any) => Promise<NextResponse>;
 
 export const apiHandler = (handler: Handler) => {
   return async (req: NextRequest, context?: any) => {
     try {
-      // Authentication check
-      const authHeader = req.headers.get('authorization');
+      // const authHeader = req.headers.get('authorization');
       // if (!authHeader) {
-      //   return NextResponse.json(
-      //     { error: 'Unauthorized' },
-      //     { status: 401 }
-      //   );
+      //   return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
       // }
+      const user = await authorizeRequest({ email: 'admin@example.com' })
 
-      // Rate limiting
-      // CORS headers
-      // Logging
-      console.log(`${req.method} ${req.url}`);
+      if (!user) return NextResponse.json(
+        { error: 'Unauthorized' },
+        { status: 401 }
+      )
+
 
       // Execute handler
-      return await handler(req, context);
+      return await handler(req, user, context);
     } catch (error) {
       console.error('API Error:', error);
       return NextResponse.json(
