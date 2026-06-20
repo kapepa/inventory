@@ -1,5 +1,5 @@
 import { AppLocale, PAGINATION_PARISHES_DEFAULTS } from '@/shared';
-import { prisma } from '@/shared/lib/prisma';
+import { prisma } from '@/shared/server';
 import { FetchParishes, ResponseParishes, ParishWithRelations, ParishWithProducts } from '../model';
 import { Prisma } from '@prisma/client';
 import { getLocale } from 'next-intl/server';

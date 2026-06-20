@@ -1,6 +1,7 @@
 import { ResponseProductsShortDTO } from "@/entities";
-import { getProductsShortByParishId } from "@/entities/products/api/product-service";
-import { apiHandler, AppLocale, defaultLocale, locales, PAGINATION_PRODUCTS_DEFAULTS } from "@/shared";
+import { getProductsShortByParishId } from "@/entities/server";
+import { AppLocale, defaultLocale, locales, PAGINATION_PRODUCTS_DEFAULTS } from "@/shared";
+import { apiHandler } from "@/shared/server";
 import { NextRequest, NextResponse } from "next/server";
 
 export const GET = apiHandler(async (request: NextRequest): Promise<NextResponse<ResponseProductsShortDTO | { error: string }>> => {

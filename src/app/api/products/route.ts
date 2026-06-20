@@ -1,8 +1,10 @@
-import { ResponseProductsShortDTO } from '@/entities';
-import { getProductsShortByParishId } from '@/entities/products/api/product-service';
-import { ProductCreate, ProductWithRelations } from '@/features';
-import { createProduct } from '@/features/add-product/api/product-service';
-import { apiHandler, AppLocale, defaultLocale, locales, PAGINATION_PRODUCTS_DEFAULTS } from '@/shared';
+import { extractPublicId, ResponseProductsShortDTO } from '@/entities';
+import { getProductsShortByParishId } from '@/entities/server';
+import { deleteFile } from '@/entities/server';
+import { MiddlewareUser, ProductWithRelations } from '@/features';
+import { createProduct } from '@/features/server';
+import { AppLocale, defaultLocale, locales, PAGINATION_PRODUCTS_DEFAULTS } from '@/shared';
+import { apiHandler } from '@/shared/server';
 import { NextRequest, NextResponse } from 'next/server';
 import { ZodError } from 'zod';
 
@@ -32,16 +34,26 @@ export const GET = apiHandler(async (request: NextRequest): Promise<NextResponse
   }
 });
 
-export const POST = apiHandler(async (request: NextRequest): Promise<NextResponse<ProductWithRelations | { error: string }>> => {
+export const POST = apiHandler(async (request: NextRequest, user: MiddlewareUser): Promise<NextResponse<ProductWithRelations | { error: string }>> => {
+  let photoToCleanup: string | null = null
   try {
-    const body: ProductCreate = await request.json();
+    const body = await request.json();
+    photoToCleanup = extractPublicId(body.photo);
+    body.userId = user?.id
     const newProduct = await createProduct(body);
 
     return NextResponse.json(newProduct, { status: 201 });
   } catch (error: any) {
-    if (error instanceof ZodError) {
+    if (photoToCleanup) {
+      try {
+        await deleteFile(photoToCleanup);
+      } catch (deleteError) {
+        console.error('Failed to clean up uploaded file in Cloudinary:', deleteError);
+      }
+    }
+    if (error instanceof ZodError || error?.name === 'ZodError') {
       return NextResponse.json(
-        { error: 'Invalid data format', details: error.format() },
+        { error: 'Invalid data format', details: error.format ? error.format() : error.issues },
         { status: 400 }
       );
     }

@@ -41,7 +41,8 @@ export const ImageUploadField = memo(({
     <div className={cn("space-y-2", className)}>
       <div
         className={cn(
-          "relative border-2 border-dashed rounded-lg transition-colors",
+          "relative border-2 border-dashed rounded-lg transition-colors h-full flex flex-co overflow-hiddenl",
+          "aspect-video w-full flex items-center justify-center",
           isDragging && !disabled && "border-primary bg-primary/5",
           !isDragging && "border-gray-300 dark:border-gray-700",
           disabled && "opacity-50 cursor-not-allowed",
@@ -63,8 +64,8 @@ export const ImageUploadField = memo(({
         />
 
         {preview ? (
-          <div className="relative aspect-video w-full overflow-hidden rounded-lg">
-            <img src={preview} alt="Preview" className="w-full h-full object-contain bg-gray-50 dark:bg-gray-900" />
+          <div className="relative w-full h-full rounded-lg">
+            <img src={preview} alt="Preview" className="w-full h-full object-cover bg-gray-50 dark:bg-gray-900" />
             {!disabled && (
               <Button
                 type="button"
@@ -81,7 +82,7 @@ export const ImageUploadField = memo(({
             )}
           </div>
         ) : (
-          <div className="flex flex-col items-center justify-center py-6 px-3 sm:py-12 sm:px-6 text-center">
+          <div className="flex flex-col items-center justify-center w-full h-full p-4 text-center">
             <div className="mb-4 rounded-full bg-gray-100 dark:bg-gray-800 p-4">
               {isDragging ? <ImageIcon className="h-8 w-8 text-primary" /> : <Upload className="h-8 w-8 text-gray-400" />}
             </div>

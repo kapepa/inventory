@@ -3,13 +3,13 @@
 import { CirclePlusButton, cn } from "@/shared";
 import { useTranslations } from "next-intl";
 import { useAddProduct } from "../model";
-import { ProductWithRelations } from "@/entities";
+import { ProductWithRelationsWide, ProductWithRelationsShort } from "@/entities";
 
 interface ProductCreateButtonProps {
   isAuthor?: boolean
   className?: string
   parishId: string | null
-  onSuccessAction: (product: ProductWithRelations) => void
+  onSuccessAction: (product: ProductWithRelationsWide | ProductWithRelationsShort) => void
 }
 
 export const ProductCreateButton = ({ parishId, className, isAuthor = true, onSuccessAction }: ProductCreateButtonProps) => {

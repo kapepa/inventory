@@ -14,13 +14,11 @@ interface WrapperSheetGroupsRelationsProps {
 }
 
 export const WrapperSheetGroupsRelations = memo((props: WrapperSheetGroupsRelationsProps) => {
-  const t = useTranslations('groups.wrapper-sheetG-groups-relations');
+  const t = useTranslations('groups.wrapper-sheet-groups-relations');
   const [activeParishId, setActiveParishId] = useActiveParishId(props.initialParishesId);
   const isDesktop = useMediaQuery("(min-width: 1024px)");
 
-  if (isDesktop) {
-    return <GroupsRelations {...props} className="h-full" />
-  }
+  if (isDesktop) return null
 
   return (
     <Sheet

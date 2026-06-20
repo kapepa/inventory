@@ -18,7 +18,7 @@ export const PhotoField = memo(({ isPending }: PhotoFieldProps) => {
       control={control}
       name="photo"
       render={({ field }) => (
-        <FormItem>
+        <FormItem className="pb-2">
           <FormLabel>{t('photo-url')}</FormLabel>
           <FormControl>
             <ImageUploadField
@@ -26,7 +26,7 @@ export const PhotoField = memo(({ isPending }: PhotoFieldProps) => {
               maxSizeMB={5}
               acceptedFormats={['image/jpeg', 'image/png', 'image/webp']}
               onChange={field.onChange}
-              className="w-full aspect-video h-auto sm:h-48"
+              className="w-full"
             />
           </FormControl>
           <div className="h-1 mt-0">

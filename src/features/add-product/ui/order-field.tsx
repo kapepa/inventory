@@ -34,7 +34,7 @@ export const OrderField = memo(({ isPending }: OrderFieldProps) => {
               {...field}
               value={field.value ?? ''}
               onChange={(e) => {
-                const raw = e.target.value.replace(/\D/g, '').slice(0, 10)
+                const raw = e.target.value.replace(/\D/g, '').slice(0, 9)
                 field.onChange(raw === '' ? undefined : Number(raw))
               }}
               disabled={isPending}

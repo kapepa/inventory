@@ -1,0 +1,1 @@
+export { getParishes, getParishById } from "./parish-service"

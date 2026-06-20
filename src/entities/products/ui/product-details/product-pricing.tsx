@@ -1,23 +1,22 @@
-import { cn, getProductPrimaryPrice } from "@/shared"
-import { ProductWithRelations } from "../../model"
+import { cn } from "@/shared"
+
 import { memo } from "react"
 
 interface ProductPricingProps {
   className?: string
-  prices: ProductWithRelations["prices"]
+  prices: { UAH: string | number | undefined, USD: string | number | undefined }
 }
 
-export const ProductPricing = memo(
-  ({ prices, className }: ProductPricingProps) => {
-    const { UAH, USD } = getProductPrimaryPrice(prices)
+export const ProductPricing = memo(({ prices, className }: ProductPricingProps) => {
+  const { UAH, USD } = prices
 
-    return (
-      <div className={cn("flex items-baseline gap-4", className)}>
-        <span className="text-3xl font-bold">{UAH}</span>
-        <small className="text-lg text-chart-2">{USD}</small>
-      </div>
-    )
-  }
+  return (
+    <div className={cn("flex items-baseline gap-1 sm:gap-4 flex-col sm:flex-row", className)}>
+      {UAH !== undefined && <span className="text-3xl font-bold">{UAH}</span>}
+      {USD !== undefined && <small className="text-lg text-chart-2">{USD}</small>}
+    </div>
+  )
+}
 )
 
 ProductPricing.displayName = "ProductPricing"

@@ -20,8 +20,8 @@ export const IdentifierCell = memo(({ title, serialNumber, className }: Identifi
           </TooltipText>
         </TooltipContent>
       </Tooltip>
-      <div className="flex items-start justify-center lg:justify-start gap-1 text-sm text-muted-foreground">
-        <span>SN</span> <span>{serialNumber}</span>
+      <div className="flex items-start justify-center lg:justify-start gap-1 text-sm text-muted-foreground min-w-0">
+        <span>SN</span> <span className="truncate">{serialNumber}</span>
       </div>
     </div>
   )

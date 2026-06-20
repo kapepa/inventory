@@ -12,12 +12,12 @@ import { ConditionField } from './condition-field'
 import { PhotoField } from './photo-field'
 import { PriceFields } from './price-fields'
 import { CategoryField } from './category-field'
-import { ProductWithRelations } from '@/entities'
+import { ProductWithRelationsWide, ProductWithRelationsShort } from '@/entities'
 
 interface ProductCreateFormProps {
   parishId: string
   onCancelAction: () => void
-  onSuccessAction: (product: ProductWithRelations) => void
+  onSuccessAction: (product: ProductWithRelationsWide | ProductWithRelationsShort) => void
 }
 
 export const ProductCreateForm = ({ parishId, onCancelAction, onSuccessAction }: ProductCreateFormProps) => {
@@ -34,7 +34,7 @@ export const ProductCreateForm = ({ parishId, onCancelAction, onSuccessAction }:
       <ScrollArea className="h-full flex-1 min-h-0">
         <OverlayBody>
           <Form {...form}>
-            <form id="add-product-form" onSubmit={onSubmit} className="space-y-6 pb-5">
+            <form id="add-product-form" onSubmit={onSubmit} className="flex flex-col gap-y-6 pb-5 ">
               <Tabs
                 defaultValue={locale}
                 className="w-full"
