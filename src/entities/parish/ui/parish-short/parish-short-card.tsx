@@ -32,7 +32,7 @@ export const ParishShortCard = memo(
       <button
         disabled={isActive}
         onClick={() => { selectParishesActions(parish.id) }}
-        className={cn("border rounded-md bg-card hover:shadow-md transition-all cursor-pointer w-full flex overflow-hidden")}
+        className={cn("border rounded-md bg-card hover:shadow-md transition-all cursor-pointer w-full flex overflow-hidden border-chart-1")}
       >
         <div className={cn("px-2 py-3 grow", className)}>
           <DetailsCell title={title} description={description} />
@@ -52,7 +52,7 @@ ParishShortCard.displayName = 'ParishShortCard';
 
 export const ParishShortCardSkeleton = memo(({ className }: { className?: string }) => {
   return (
-    <div className="border rounded-md bg-card w-full flex">
+    <div className="border rounded-md bg-card w-full flex border-chart-1">
       <div className={cn("grow px-2 py-3", className)}>
         <DetailsCellSkeleton />
         <CountCellSkeleton />

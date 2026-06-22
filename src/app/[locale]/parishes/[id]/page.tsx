@@ -1,5 +1,6 @@
-import { getParishById } from "@/entities/parish/api/parish-service";
-import { getProductsWideByParishId } from "@/entities/products/api/product-service";
+import { getParishById } from "@/entities/server";
+import { getProductsWideByParishId } from "@/entities/server";
+import { ProductsSearch } from "@/features";
 import { Container, AppLocale, PAGINATION_PARISHES_DEFAULTS } from "@/shared";
 import { PageHeader, ProductsList } from "@/widgets";
 import { Metadata } from "next";
@@ -41,6 +42,9 @@ export default async function ParishesId({
 
   return (
     <Container className="py-6 md:py-16 flex-1 flex flex-col min-h-0">
+      <ProductsSearch
+        className="pb-3"
+      />
       <PageHeader
         title={t("header-title")}
         subtitle={title}

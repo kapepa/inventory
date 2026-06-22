@@ -14,7 +14,8 @@ export const ProductImage = memo(
         source={source}
         alt={alt}
         aspectRatio="auto"
-        className={cn("w-full h-52 sm:h-64 object-cover", className)}
+        className={cn("w-full h-36 sm:h-64", className)}
+        objectFit="contain"
         priority
         sizes="(max-width: 480px) 100vw"
       />

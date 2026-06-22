@@ -8,7 +8,7 @@ interface ProductDetailsModalProps {
 }
 
 export const ProductDetailsModal = ({ product, onCancelAction }: ProductDetailsModalProps) => {
-  const t = useTranslations('groups.groups-relations.product-details-modal');
+  const t = useTranslations('view-product-details.product-details-modal');
 
   return (
     <ModalContents>

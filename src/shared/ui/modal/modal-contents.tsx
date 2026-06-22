@@ -1,8 +1,5 @@
 import { cn } from "@/shared/lib/utils";
-import { ButtonHTMLAttributes, memo, type ReactNode } from "react";
-import { Button, buttonVariants } from "../button";
-import { VariantProps } from "class-variance-authority";
-import { Loader } from "../loader";
+import { memo, type ReactNode } from "react";
 import { FooterBar } from "../footer-bar";
 import { OverlayBody } from "../overlay-body";
 
@@ -28,7 +25,7 @@ interface ModalHeaderProps {
 
 export const ModalHeader = memo(({ title, description, className }: ModalHeaderProps) => {
   return (
-    <div className={cn("flex flex-col gap-1.5 pb-2 px-6 pt-6 md:pb-4 border-b border-border", className)}>
+    <div className={cn("flex flex-col gap-1.5 pb-2 px-6 pt-4 sm:pt-6 md:pb-4 border-b border-border", className)}>
       <h2 className="text-xl font-semibold leading-none tracking-tight">
         {title}
       </h2>

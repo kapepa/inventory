@@ -2,6 +2,7 @@ import { AppLocale } from "@/shared";
 import { Category, CategoryTranslation, Price, Product, ProductTranslation, Rental, User } from "@prisma/client";
 
 export interface FetchProducts {
+  categoryId?: string,
   parishId?: string,
   search?: string,
   page?: number,

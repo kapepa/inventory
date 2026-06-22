@@ -7,15 +7,16 @@ interface PageHeaderProps {
   title: string
   count?: number
   subtitle?: string
-  action?: ReactNode
   className?: string
+  reverse?: boolean
+  action?: ReactNode
   children?: ReactNode
 }
 
-export const PageHeader = ({ title, subtitle, count, children, action, className }: PageHeaderProps) => {
+export const PageHeader = ({ title, subtitle, count, reverse, children, action, className }: PageHeaderProps) => {
   return (
     <div className={cn("flex flex-col pb-3", className)}>
-      <div className="flex gap-x-1 sm:gap-x-5 items-center">
+      <div className={cn("flex gap-x-1 sm:gap-x-5 items-center", reverse && "flex-row-reverse justify-end")}>
         {action}
         <div className="flex items-center text-lg sm:text-xl md:text-3xl font-semibold gap-x-1 sm:gap-x-3 min-w-0 max-w-full" >
           <h2>{title}</h2>

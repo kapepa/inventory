@@ -59,7 +59,7 @@ export const ProductsList = ({ initialParishId, initialProducts, initialHasMore,
           }
           {(hasMore || isLoading) && (
             <div ref={targetRef} className="w-full h-16 flex items-center justify-center">
-              <ProductsWideCardSkeleton className={cn("", CARD_CLASS)} />
+              {isLoading && <ProductsWideCardSkeleton className={cn("", CARD_CLASS)} />}
             </div>
           )}
         </div>

@@ -1,21 +1,41 @@
 import { prisma } from '@/shared/server';
 import { FetchProducts, ResponseProductsShortDTO, ResponseProductsWideDTO } from '../model';
 import { PAGINATION_PRODUCTS_DEFAULTS } from '@/shared';
-import { Product } from '@prisma/client';
+import { Prisma, Product } from '@prisma/client';
 
-export async function getProductsWideByParishId({
-  parishId,
-  page = PAGINATION_PRODUCTS_DEFAULTS.PAGE,
-  limit = PAGINATION_PRODUCTS_DEFAULTS.LIMIT,
-  locale
-}: FetchProducts,
-): Promise<ResponseProductsWideDTO> {
+const buildWhereClause = ({ parishId, categoryId, search, locale }: FetchProducts) => {
+  const where: Prisma.ProductWhereInput = {
+    parishId,
+  };
+
+  if (categoryId) {
+    where.categoryId = categoryId;
+  }
+
+  if (search) {
+    where.translations = {
+      some: {
+        locale,
+        specification: {
+          contains: search,
+          mode: 'insensitive',
+        },
+      },
+    };
+  }
+
+  return where;
+};
+
+export async function getProductsWideByParishId(params: FetchProducts): Promise<ResponseProductsWideDTO> {
+  const { page = PAGINATION_PRODUCTS_DEFAULTS.PAGE, limit = PAGINATION_PRODUCTS_DEFAULTS.LIMIT, locale } = params;
   try {
     const skip = (page - 1) * limit;
+    const where = buildWhereClause(params);
 
     const [data, total] = await Promise.all([
       prisma.product.findMany({
-        where: { parishId },
+        where,
         include: {
           translations: {
             where: { locale },
@@ -50,7 +70,7 @@ export async function getProductsWideByParishId({
         take: limit,
         orderBy: { createdAt: 'desc' },
       }),
-      prisma.product.count({ where: { parishId } }),
+      prisma.product.count({ where }),
     ]);
 
     return {

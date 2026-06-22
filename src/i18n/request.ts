@@ -23,6 +23,8 @@ export default getRequestConfig(async ({ locale }) => {
       "parishes-id-page": (await import(`../shared/lib/i18n/locales/${locale}/parishes-id-page.json`)).default,
       "products-list": (await import(`../shared/lib/i18n/locales/${locale}/products-list.json`)).default,
       "products": (await import(`../shared/lib/i18n/locales/${locale}/products.json`)).default,
+      "view-product-details": (await import(`../shared/lib/i18n/locales/${locale}/view-product-details.json`)).default,
+      "products-search": (await import(`../shared/lib/i18n/locales/${locale}/products-search.json`)).default,
     }
   };
 });
