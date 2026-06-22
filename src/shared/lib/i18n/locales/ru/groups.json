@@ -22,14 +22,6 @@
         "new": "Новое",
         "old": "Б/y"
       }
-    },
-    "product-details-modal": {
-      "product-details": "Сведения о товаре",
-      "ok": "Хорошо",
-      "serial-number": "Серийный номер",
-      "order": "Оставшиеся товары",
-      "status": "Статус",
-      "condition": "Cостояние"
     }
   },
   "sonner": {

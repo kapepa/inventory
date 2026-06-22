@@ -1,2 +1,2 @@
-export * from "./types";
-export * from "./api-params";
+export type { CategoryTranslationType, CategoryWithTranslations } from "./types";
+export type { GetCategoriesByParishIdParams, GetCategoriesParams, RequestCategoriesParams } from "./api-params";

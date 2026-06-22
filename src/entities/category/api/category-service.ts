@@ -1,19 +1,53 @@
 import { prisma } from "@/shared/server"
-import { CategoryWithTranslations, GetCategoriesParams } from "../model/types"
+import { CategoryWithTranslations, GetCategoriesByParishIdParams, GetCategoriesParams } from "../model/types"
 
 export const getCategories = async ({ locale }: GetCategoriesParams): Promise<CategoryWithTranslations[]> => {
-  const categories = await prisma.category.findMany({
-    include: {
-      translations: {
-        where: {
-          locale,
+  try {
+    const categories = await prisma.category.findMany({
+      include: {
+        translations: {
+          where: {
+            locale,
+          },
         },
       },
-    },
-    orderBy: {
-      createdAt: 'asc',
-    },
-  })
+      orderBy: {
+        createdAt: 'asc',
+      },
+    })
 
-  return categories
+    return categories
+  } catch (error) {
+    console.error('Prisma Error in getCategories:', error);
+    throw error;
+  }
+}
+
+export const getCategoriesByParishId = async ({ id, locale }: GetCategoriesByParishIdParams): Promise<CategoryWithTranslations[]> => {
+  try {
+    const categories = await prisma.category.findMany({
+      where: {
+        products: {
+          some: {
+            parishId: id,
+          }
+        }
+      },
+      include: {
+        translations: {
+          where: {
+            locale,
+          },
+        },
+      },
+      orderBy: {
+        createdAt: 'asc',
+      },
+    })
+
+    return categories
+  } catch (error) {
+    console.error('Prisma Error in getCategoriesByParishId:', error);
+    throw error;
+  }
 }

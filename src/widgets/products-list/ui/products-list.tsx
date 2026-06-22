@@ -2,7 +2,7 @@
 
 import { fetchProductsWide, ProductsShortStateMessage, ProductsWideCard, ProductsWideCardSkeleton, ProductWithRelationsWide, useInfiniteProducts } from "@/entities"
 import { useDeleteProduct, useViewProduct } from "@/features"
-import { cn, ScrollArea, useIntersectionObserver } from "@/shared"
+import { cn, QUERY_PARAMS_KEYS, ScrollArea, useIntersectionObserver, useQueryParam } from "@/shared"
 import { useTranslations } from "next-intl"
 import { useCallback, useEffect } from "react"
 
@@ -21,7 +21,11 @@ interface ProductsListProps {
 
 export const ProductsList = ({ initialParishId, initialProducts, initialHasMore, className }: ProductsListProps) => {
   const t = useTranslations('products-list');
-  const { products, isLoading, error, hasMore, loadMore, removeProduct } = useInfiniteProducts<ProductWithRelationsWide>({ parishId: initialParishId, initialProducts, initialHasMore, fetchFnAction: fetchProductsWide });
+  const [categoryId] = useQueryParam(QUERY_PARAMS_KEYS.CATEGORY);
+  const [specification] = useQueryParam(QUERY_PARAMS_KEYS.SPECIFICATION);
+  const { products, isLoading, error, hasMore, loadMore, removeProduct } = useInfiniteProducts<ProductWithRelationsWide>(
+    { categoryId, specification, parishId: initialParishId, initialProducts, initialHasMore, fetchFnAction: fetchProductsWide }
+  );
   const { targetRef, isIntersecting } = useIntersectionObserver({ threshold: 0.5, rootMargin: "100px" })
   const { productDetails } = useViewProduct()
   const { confirmDeleteProduct } = useDeleteProduct()
@@ -58,8 +62,8 @@ export const ProductsList = ({ initialParishId, initialProducts, initialHasMore,
             ))
           }
           {(hasMore || isLoading) && (
-            <div ref={targetRef} className="w-full h-16 flex items-center justify-center">
-              <ProductsWideCardSkeleton className={cn("", CARD_CLASS)} />
+            <div ref={targetRef} className="w-full h-auto flex items-center justify-center">
+              {isLoading && <ProductsWideCardSkeleton className={cn("", CARD_CLASS)} />}
             </div>
           )}
         </div>

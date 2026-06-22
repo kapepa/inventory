@@ -16,7 +16,9 @@ export const GET = apiHandler(async (request: NextRequest): Promise<NextResponse
       parishId: searchParams.get('parishId') || '',
       page: parseInt(searchParams.get('page') || `${PAGINATION_PRODUCTS_DEFAULTS.PAGE}`),
       limit: parseInt(searchParams.get('limit') || `${PAGINATION_PRODUCTS_DEFAULTS.LIMIT}`),
+      categoryId: searchParams.get('categoryId') || '',
       search: searchParams.get('search') || '',
+      specification: searchParams.get('specification') || '',
       locale: finalLocale
     })
 

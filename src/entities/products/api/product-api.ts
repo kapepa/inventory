@@ -2,14 +2,9 @@ import { axiosInstance } from "@/shared"
 import axios, { AxiosError } from "axios"
 import { FetchProductsParams, ResponseProductsShortDTO, ResponseProductsWideDTO } from "../model"
 
-const fetchProductsBase = async <T>(
-  endpoint: string,
-  { parishId, page, limit, search = "", signal }: FetchProductsParams
-): Promise<T> => {
+const fetchProductsBase = async <T>(endpoint: string, { search = "", signal, ...props }: FetchProductsParams): Promise<T> => {
   const queryParams = {
-    parishId,
-    page,
-    limit,
+    ...props,
     ...(search && { search }),
   }
 

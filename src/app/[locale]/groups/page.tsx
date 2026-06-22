@@ -1,5 +1,5 @@
-import { getParishes } from "@/entities/parish/api/parish-service";
-import { getProductsShortByParishId } from "@/entities/products/api/product-service";
+import { getParishes } from "@/entities/server";
+import { getProductsShortByParishId } from "@/entities/server";
 import { AddParishButton } from "@/features";
 import { Container, AppLocale, PAGINATION_PARISHES_DEFAULTS, QUERY_PARAMS_KEYS, PAGINATION_PRODUCTS_DEFAULTS } from "@/shared";
 import { GroupsList, PageHeader } from "@/widgets";

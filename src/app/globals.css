@@ -145,8 +145,10 @@
 
   body {
     @apply text-foreground;
-    /* min-width: 320px; */
-    scrollbar-gutter: stable;
+  }
+
+  body[data-scroll-locked] {
+    padding-right: 0 !important;
   }
 
   html {

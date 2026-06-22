@@ -22,14 +22,6 @@
         "new": "New",
         "old": "Used"
       }
-    },
-    "product-details-modal": {
-      "product-details": "Product Details",
-      "ok": "Ok",
-      "serial-number": "Serial number",
-      "order": "Remaining items",
-      "status": "Status",
-      "condition": "Condition"
     }
   },
   "sonner": {

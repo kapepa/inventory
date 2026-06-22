@@ -23,7 +23,7 @@ export const ProductsWideCard = memo(({ product, className, onDeleteProduct, ope
       type="button"
       onClick={() => openProductModal(product)}
       className={cn(
-        "border rounded-md bg-card hover:shadow-md transition-all cursor-pointer w-full",
+        "border rounded-md bg-card hover:shadow-md transition-all cursor-pointer w-full border-chart-1",
         "px-3 lg:px-6 py-2 lg:py-3 gap-1 ms:gap-2",
         className
       )}
@@ -46,7 +46,7 @@ export const ProductsWideCardSkeleton = memo(({ className }: { className?: strin
   return (
     <div
       className={cn(
-        "px-4 py-2 lg:px-6 lg:py-3 gap-2 border rounded-md bg-card hover:shadow-md transition-all",
+        "px-4 py-2 lg:px-6 lg:py-3 gap-2 border rounded-md bg-card hover:shadow-md transition-all border-chart-1 w-full",
         className)
       }
     >

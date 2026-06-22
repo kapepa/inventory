@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect, useCallback, useRef } from "react"
-import { FetchProductsParams } from "@/entities/products"
+import { FetchProductsParams, useProductsStore } from "@/entities/products"
 import { PAGINATION_PRODUCTS_DEFAULTS } from "@/shared"
 
 interface FetchResponse<T> {
@@ -11,7 +11,8 @@ interface FetchResponse<T> {
 
 interface UseInfiniteProducts<T> {
   parishId: string | null,
-  search?: string,
+  categoryId?: string,
+  specification?: string,
   initialProducts?: T[],
   initialHasMore?: boolean
   fetchFnAction: (params: FetchProductsParams) => Promise<FetchResponse<T>>
@@ -19,14 +20,14 @@ interface UseInfiniteProducts<T> {
 
 export const useInfiniteProducts = <T extends { id: string }>({
   parishId,
-  search = "",
+  categoryId = "",
+  specification = "",
   initialProducts = [],
   initialHasMore = false,
   fetchFnAction,
 }: UseInfiniteProducts<T>) => {
+  const { page, hasMore, setTotal, setPage, setHasMore, setFull } = useProductsStore()
   const [products, setProducts] = useState<T[]>(initialProducts)
-  const [page, setPage] = useState(2)
-  const [hasMore, setHasMore] = useState(initialHasMore)
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
@@ -37,12 +38,19 @@ export const useInfiniteProducts = <T extends { id: string }>({
   const effectiveProducts = (!isInitialized.current && products.length === 0) ? initialProducts : products
   const effectiveHasMore = (!isInitialized.current && products.length === 0) ? initialHasMore : hasMore
 
+  useEffect(() => {
+    setTotal(products.length)
+  }, [products.length, setTotal])
+
   // Sync initial data from server only once on mount
   useEffect(() => {
     if (!isInitialized.current && initialProducts.length > 0) {
       setProducts(initialProducts)
-      setPage(2)
-      setHasMore(initialHasMore)
+      setFull({
+        total: initialProducts.length,
+        page: 2,
+        hasMore: initialHasMore,
+      })
       isInitialized.current = true
     }
   }, [initialProducts, initialHasMore])
@@ -72,9 +80,10 @@ export const useInfiniteProducts = <T extends { id: string }>({
         const currentPage = isFirstPage ? 1 : page
         const response = await fetchFnAction({
           parishId,
+          specification,
           page: currentPage,
           limit: PAGINATION_PRODUCTS_DEFAULTS.LIMIT,
-          search: search,
+          categoryId: categoryId,
           signal,
         })
 
@@ -83,7 +92,7 @@ export const useInfiniteProducts = <T extends { id: string }>({
           setPage(2)
         } else {
           setProducts(prev => [...prev, ...response.data])
-          setPage(prev => prev + 1)
+          setPage(page + 1)
         }
 
         setHasMore(response.hasMore)
@@ -94,7 +103,7 @@ export const useInfiniteProducts = <T extends { id: string }>({
         setIsLoading(false)
       }
     },
-    [parishId, page, hasMore, search]
+    [parishId, page, hasMore, categoryId, specification, setPage, setHasMore, fetchFnAction]
   )
 
   useEffect(() => {
@@ -106,14 +115,13 @@ export const useInfiniteProducts = <T extends { id: string }>({
     const controller = new AbortController()
     fetchItems(true, controller.signal)
     return () => controller.abort()
-  }, [parishId, search, fetchItems])
+  }, [parishId, categoryId, specification, fetchItems])
 
   const loadMore = () => fetchItems(false);
 
   const clearProducts = useCallback(() => {
     setProducts([])
-    setPage(2)
-    setHasMore(false)
+    setFull({ total: 0, page: 1, hasMore: false })
     setError(null)
     isInitialized.current = false
   }, [])

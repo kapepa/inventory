@@ -16,5 +16,18 @@
     "condition": "Состояние",
     "price": "Цена",
     "actions": "Действия"
+  },
+  "product-details": {
+    "serial-number": "Серийный номер",
+    "order": "В заказе",
+    "status": "Статус",
+    "condition": "Cостояние",
+    "category": "Категория",
+    "rental": "Аренда",
+    "author": "Автор"
+  },
+  "product-rental": {
+    "with": "c",
+    "to": "до"
   }
 }

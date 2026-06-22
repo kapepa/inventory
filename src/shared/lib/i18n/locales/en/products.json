@@ -16,5 +16,18 @@
     "condition": "Condition",
     "price": " Price",
     "actions": "Actions"
+  },
+  "product-details": {
+    "serial-number": "Serial number",
+    "order": "In the order",
+    "status": "Status",
+    "condition": "Condition",
+    "category": "Сategory",
+    "rental": "Rental",
+    "author": "Author"
+  },
+  "product-rental": {
+    "with": "with",
+    "to": "to"
   }
 }

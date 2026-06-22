@@ -16,19 +16,19 @@ interface ProductInfoListProps {
 
 export const ProductInfoList = memo(
   ({ serialNumber, order, status, isNew, className, category }: ProductInfoListProps) => {
-    const t = useTranslations('groups.groups-relations.product-details-modal')
+    const t = useTranslations('products.product-details')
 
     return (
       <div className={cn("", className)}>
-        <div className="flex justify-between text-sm">
+        <div className="flex justify-between text-sm flex-col sm:flex-row items-center">
           <span className="text-chart-2">{t("serial-number")}</span>
-          <DotsDivider className="border-chart-2" />
-          <span className="font-semibold px-3 ">{serialNumber}</span>
+          <DotsDivider className="border-chart-2 hidden sm:block" />
+          <span className="font-semibold px-3 break-all">{serialNumber}</span>
         </div>
-        <div className="flex justify-between text-sm">
+        <div className="flex justify-between text-sm flex-col sm:flex-row items-center">
           <span className="text-chart-2 ">{t("order")}</span>
-          <DotsDivider className="border-chart-2" />
-          <span className="font-semibold px-3">{order}</span>
+          <DotsDivider className="border-chart-2 hidden sm:block" />
+          <span className="font-semibold px-3 break-all">{order}</span>
         </div>
         <div className="flex justify-between text-sm">
           <span className="text-chart-2">{t("status")}</span>
@@ -40,15 +40,10 @@ export const ProductInfoList = memo(
           <DotsDivider className="border-chart-2" />
           <ProductBadge type={isNew} />
         </div>
-        <div className="flex justify-between text-sm">
-          <span className="text-chart-2">{t("condition")}</span>
-          <DotsDivider className="border-chart-2" />
-          <ProductBadge type={isNew} />
-        </div>
         {category && <div className="flex justify-between text-sm">
-          <span className="text-chart-2">Cat</span>
+          <span className="text-chart-2">{t("category")}</span>
           <DotsDivider className="border-chart-2" />
-          <span className="font-semibold px-3">{category}</span>
+          <span className="font-semibold px-3 ">{category}</span>
         </div>}
       </div>
     )
