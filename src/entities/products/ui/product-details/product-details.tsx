@@ -1,10 +1,11 @@
-import { ProductWithRelationsWide, ProductWithRelationsShort, hasCategory, hasRental } from "../../model";
+import { ProductWithRelationsWide, ProductWithRelationsShort, hasCategory, hasRental, hasUser } from "../../model";
 import { ProductInfoList } from "./product-info-list";
 import { ProductPricing } from "./product-pricing";
 import { ProductHeader } from "./product-header";
 import { ProductImage } from "./product-image";
 import { getProductPrimaryPrice, ScrollArea } from "@/shared";
 import { ProductRental } from "./product-rental";
+import { ProductAuthor } from "./product-author";
 
 interface ProductDetailsProps {
   product: ProductWithRelationsWide | ProductWithRelationsShort
@@ -15,6 +16,7 @@ export const ProductDetails = ({ product }: ProductDetailsProps) => {
   const { UAH, USD } = getProductPrimaryPrice(product.prices)
   const category = hasCategory(product) ? product.category.translations[0].title : null
   const rental = hasRental(product) ? product.rental : null
+  const user = hasUser(product) ? product.user : null
 
   return (
     <div className="max-w-md mx-auto flex flex-col flex-1">
@@ -35,7 +37,8 @@ export const ProductDetails = ({ product }: ProductDetailsProps) => {
             category={category}
             className="space-y-2 mb-2"
           />
-          {rental && <ProductRental rental={{ endDate: rental.endDate, startDate: rental.startDate }} />}
+          {rental && <ProductRental className="mb-2" rental={{ endDate: rental.endDate, startDate: rental.startDate }} />}
+          {user && <ProductAuthor name={user.name} />}
         </ScrollArea>
       </div>
     </div>

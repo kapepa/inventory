@@ -2,5 +2,12 @@
   "labels": {
     "type": "Тип",
     "specification": "Спецификация"
+  },
+  "placeholder": {
+    "specification": "Поиск по спецификации",
+    "category": "Поиск по категориям"
+  },
+  "category-selector": {
+    "all": "Все категории"
   }
 }

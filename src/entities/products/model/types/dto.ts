@@ -2,6 +2,7 @@ import { ProductWithRelationsShort, ProductWithRelationsWide } from "./types";
 
 export interface ResponseProductsWideDTO {
   data: ProductWithRelationsWide[],
+  total: number,
   hasMore: boolean,
 }
 

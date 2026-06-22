@@ -23,7 +23,8 @@
     "status": "Статус",
     "condition": "Cостояние",
     "category": "Категория",
-    "rental": "Аренда"
+    "rental": "Аренда",
+    "author": "Автор"
   },
   "product-rental": {
     "with": "c",

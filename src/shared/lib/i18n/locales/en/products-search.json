@@ -2,5 +2,12 @@
   "labels": {
     "type": "Type",
     "specification": "Specification"
+  },
+  "placeholder": {
+    "specification": "Search by specifications",
+    "category": "Search by сategory"
+  },
+  "category-selector": {
+    "all": "All Categories"
   }
 }

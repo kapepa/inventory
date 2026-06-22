@@ -1,6 +1,6 @@
 import { AppLocale, PAGINATION_PARISHES_DEFAULTS } from '@/shared';
 import { prisma } from '@/shared/server';
-import { FetchParishes, ResponseParishes, ParishWithRelations, ParishWithProducts } from '../model';
+import { FetchParishes, ResponseParishes, ParishWithRelations, ParishWithProducts, FetchParishById } from '../model';
 import { Prisma } from '@prisma/client';
 import { getLocale } from 'next-intl/server';
 
@@ -73,12 +73,13 @@ export const getParishes = async ({
 };
 
 export const getParishById = async (
-  { id, locale: providedLocale }: { id: string, locale?: AppLocale }
+  params: FetchParishById
 ): Promise<ParishWithProducts | null> => {
-  const locale = providedLocale || (await getLocale()) as AppLocale;
+  const locale = params.locale || (await getLocale()) as AppLocale;
+
   try {
     const parish = await prisma.parish.findUnique({
-      where: { id },
+      where: { id: params.id },
       include: {
         translations: {
           where: { locale }

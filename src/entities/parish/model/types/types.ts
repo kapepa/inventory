@@ -27,3 +27,10 @@ export interface ResponseParishes {
   total: number;
   hasMore: boolean;
 }
+
+export interface FetchParishById {
+  id: string,
+  locale?: AppLocale,
+  categoryId?: string,
+  specification?: string
+}

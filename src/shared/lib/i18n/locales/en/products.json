@@ -23,7 +23,8 @@
     "status": "Status",
     "condition": "Condition",
     "category": "Сategory",
-    "rental": "Rental"
+    "rental": "Rental",
+    "author": "Author"
   },
   "product-rental": {
     "with": "with",

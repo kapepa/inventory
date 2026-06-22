@@ -1,1 +1,1 @@
-export { getCategories } from "./category-service"
+export { getCategories, getCategoriesByParishId } from "./category-service"

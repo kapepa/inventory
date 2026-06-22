@@ -3,7 +3,7 @@ import { FetchProducts, ResponseProductsShortDTO, ResponseProductsWideDTO } from
 import { PAGINATION_PRODUCTS_DEFAULTS } from '@/shared';
 import { Prisma, Product } from '@prisma/client';
 
-const buildWhereClause = ({ parishId, categoryId, search, locale }: FetchProducts) => {
+const buildWhereClause = ({ parishId, categoryId, specification, locale }: FetchProducts) => {
   const where: Prisma.ProductWhereInput = {
     parishId,
   };
@@ -12,12 +12,12 @@ const buildWhereClause = ({ parishId, categoryId, search, locale }: FetchProduct
     where.categoryId = categoryId;
   }
 
-  if (search) {
+  if (specification) {
     where.translations = {
       some: {
         locale,
         specification: {
-          contains: search,
+          contains: specification,
           mode: 'insensitive',
         },
       },
@@ -29,6 +29,7 @@ const buildWhereClause = ({ parishId, categoryId, search, locale }: FetchProduct
 
 export async function getProductsWideByParishId(params: FetchProducts): Promise<ResponseProductsWideDTO> {
   const { page = PAGINATION_PRODUCTS_DEFAULTS.PAGE, limit = PAGINATION_PRODUCTS_DEFAULTS.LIMIT, locale } = params;
+
   try {
     const skip = (page - 1) * limit;
     const where = buildWhereClause(params);
@@ -75,6 +76,7 @@ export async function getProductsWideByParishId(params: FetchProducts): Promise<
 
     return {
       data,
+      total,
       hasMore: skip + data.length < total,
     };
   } catch (error) {
