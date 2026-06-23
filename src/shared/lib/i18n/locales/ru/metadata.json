@@ -6,5 +6,9 @@
   "groups": {
     "title": "Группы — Inventory",
     "description": "Просмотр и управление вашими группами."
+  },
+  "parishes-id": {
+    "title": "Приходы — {title}",
+    "description": "Просмотр и управление товарами в приходе."
   }
 }

@@ -1,38 +1,43 @@
 import { create } from 'zustand';
-import { ParishWithRelations } from './types/types';
+import { devtools } from 'zustand/middleware';
+import { ParishWithRelations, ParishWithRelationsTotals } from './types';
+
+type ParishesType = ParishWithRelations | ParishWithRelationsTotals
 
 interface ParishesState {
-  parishes: ParishWithRelations[];
+  total: number;
   page: number;
   hasMore: boolean;
-  total: number;
-  setParishes: (parishes: ParishWithRelations[]) => void;
-  appendParishes: (newParishes: ParishWithRelations[]) => void;
-  addParish: (parish: ParishWithRelations) => void;
-  removeParish: (id: string) => void;
-  setPage: (page: number) => void;
+  activeParishe: ParishesType
+  setActiveParishe: (parishe: ParishesType) => void
   setHasMore: (hasMore: boolean) => void;
+  setPage: (page: number) => void;
   setTotal: (total: number) => void;
+  setFull: (props: { total: number; page: number; hasMore: boolean }) => void;
 }
 
-export const useParishesStore = create<ParishesState>((set) => ({
-  parishes: [],
-  page: 1,
-  hasMore: true,
-  total: 0,
-  setParishes: (parishes) => set({ parishes }),
-  appendParishes: (newParishes) => set((state) => ({
-    parishes: [...state.parishes, ...newParishes]
-  })),
-  addParish: (parish) => set((state) => ({
-    parishes: [parish, ...state.parishes],
-    total: state.total + 1
-  })),
-  removeParish: (id) => set((state) => ({
-    parishes: state.parishes.filter((p) => p.id !== id),
-    total: state.total - 1
-  })),
-  setPage: (page) => set({ page }),
-  setHasMore: (hasMore) => set({ hasMore }),
-  setTotal: (total) => set({ total }),
-}));
+export const useParishesStore = create<ParishesState>()(
+  devtools(
+    (set) => ({
+      total: 0,
+      page: 1,
+      hasMore: true,
+      setPage: (page) => set({ page }, false, 'setPage'),
+      setHasMore: (hasMore) => set({ hasMore }, false, 'setHasMore'),
+      setTotal: (total) => set({ total }, false, 'setTotal'),
+      setFull: (props) => set({ ...props }, false, 'setFull'),
+      setActiveParishe: (parishe) => set({ activeParishe: parishe })
+    }),
+    {
+      name: 'products-store',
+      enabled: process.env.NODE_ENV === 'development',
+      serialize: {
+        options: {
+          undefined: true,
+          function: false,
+          symbol: false,
+        }
+      }
+    }
+  )
+);

@@ -8,24 +8,18 @@ export interface FetchParishes {
   locale?: AppLocale
 }
 
-export interface ParishWithProducts extends Parish {
+export interface ParishWithRelations extends Parish {
   translations: ParishTranslation[];
   _count: { products: number };
 }
 
-export interface ParishWithRelations extends Parish {
+export interface ParishWithRelationsTotals extends Parish {
   translations: ParishTranslation[];
   _count: { products: number };
   totals: {
     usd: number;
     uah: number;
   };
-}
-
-export interface ResponseParishes {
-  data: ParishWithRelations[];
-  total: number;
-  hasMore: boolean;
 }
 
 export interface FetchParishById {

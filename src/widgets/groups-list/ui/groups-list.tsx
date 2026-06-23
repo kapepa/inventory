@@ -1,7 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { ParishShortCard, ParishShortCardSkeleton, ParishShortHeader, ParishWithRelations, useInfiniteParishes } from "@/entities";
+import { fetchParishes, ParishShortCard, ParishShortCardSkeleton, ParishShortHeader, ParishWithRelations, useInfiniteParishes, useParishesStore } from "@/entities";
 import { cn, QUERY_PARAMS_KEYS, ScrollArea, useActiveParishId, useIntersectionObserver, useQueryParam, useThrottle } from "@/shared";
 import { useCallback, useEffect } from "react";
 
@@ -26,8 +26,11 @@ export const GroupsList = ({
 }: GroupsListProps) => {
   const t = useTranslations('groups');
   const [search] = useQueryParam(QUERY_PARAMS_KEYS.PARISHES_SEARCH);
+  const { setActiveParishe } = useParishesStore()
   const [activeParishId, setActiveParishId] = useActiveParishId(initialParishesId);
-  const { parishes, isLoading, error, hasMore, loadMore } = useInfiniteParishes(search, initialParishes, initialHasMore)
+  const { parishes, isLoading, error, hasMore, loadMore } = useInfiniteParishes<ParishWithRelations>({
+    search, initialParishes, initialHasMore, fetchFnAction: fetchParishes
+  })
   const { targetRef, isIntersecting } = useIntersectionObserver({ threshold: 0.5, rootMargin: "100px" })
 
   const selectParishesActions = useCallback((id: string) => {
@@ -41,6 +44,13 @@ export const GroupsList = ({
       loadMore()
     }
   }, [isIntersecting, hasMore, isLoading, loadMore])
+
+  useEffect(() => {
+    if (activeParishId) {
+      const activeParish = parishes.find(p => p.id === activeParishId);
+      if (activeParish) setActiveParishe(activeParish);
+    }
+  }, [activeParishId, parishes, setActiveParishe])
 
   if (error) return <div className="text-destructive text-center py-4">{t("groups-list.errors.parishes")}</div>
 

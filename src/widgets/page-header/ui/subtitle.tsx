@@ -11,20 +11,21 @@ interface SubtitleProps {
 export const Subtitle = memo(({ subtitle, className }: SubtitleProps) => {
   return (
     <>
-      <span>/</span>
-      <Tooltip>
-        <TooltipTrigger asChild>
-          <h4 className={cn("truncate min-w-0", className)}>
-            {subtitle}
-          </h4>
-        </TooltipTrigger>
-        <TooltipContent className=" bg-chart-2 border-chart-2">
-          <TooltipText>
-            {subtitle}
-          </TooltipText>
-        </TooltipContent>
-      </Tooltip>
-
+      <span className="hidden lg:inline">/</span>
+      <div className="min-w-0 w-full lg:flex-1">
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <h4 className={cn("text-center lg:text-left lg:truncate", className)}>
+              {subtitle}
+            </h4>
+          </TooltipTrigger>
+          <TooltipContent className="bg-chart-2 border-chart-2">
+            <TooltipText>
+              {subtitle}
+            </TooltipText>
+          </TooltipContent>
+        </Tooltip>
+      </div >
     </>
   )
 })

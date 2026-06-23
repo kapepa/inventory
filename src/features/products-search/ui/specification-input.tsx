@@ -29,7 +29,7 @@ export const SpecificationInput = memo(({ label, className }: SpecificationInput
         clearInputAction={clearInput}
         isClient={isClient}
         name={QUERY_PARAMS_KEYS.SPECIFICATION}
-        className="bg-background border-chart-1"
+        className="bg-background border-chart-1  placeholder:font-normal"
         containerClassName="w-full max-w-80"
         type="text"
       />

@@ -10,6 +10,7 @@ interface AmountCellProps {
 export const AmountCell = ({ label, sumUAH, sumUSD, className }: AmountCellProps) => {
   const UAH = formatUAH(sumUAH);
   const USD = formatUSD(sumUSD)
+
   return (
     <div className={cn("", className)}>
       {label && <MobileCellLabel className="block md:hidden">{label}</MobileCellLabel>}

@@ -1,7 +1,8 @@
 import { prisma } from '@/shared/lib/prisma';
-import { parishCreateServerSchema, ParishWithRelations } from '../model';
+import { CreateParishParams, parishCreateServerSchema, } from '../model';
+import { ParishWithRelationsTotals } from '@/entities';
 
-export const createParish = async (data: any): Promise<ParishWithRelations> => {
+export const createParish = async (data: CreateParishParams): Promise<ParishWithRelationsTotals> => {
   const validated = parishCreateServerSchema.parse(data)
   try {
     const parish = await prisma.parish.create({

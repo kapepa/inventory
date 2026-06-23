@@ -1,26 +1,33 @@
 "use client"
 
 import { useState, useEffect, useCallback, useRef } from "react"
-import { ParishWithRelations, fetchParishes } from "@/entities/parish"
+import { FetchParishesParams } from "@/entities/parish"
 import { PAGINATION_PARISHES_DEFAULTS } from "@/shared"
 import { useParishesStore } from "../parish-store"
 
-export const useInfiniteParishes = (
-  search: string = "",
-  initialParishes: ParishWithRelations[] = [],
-  initialHasMore: boolean = true,
-  initialTotal: number = 0
-) => {
-  const {
-    parishes,
-    setParishes,
-    appendParishes,
-    setPage,
-    hasMore,
-    setHasMore,
-    setTotal
-  } = useParishesStore()
+interface FetchResponse<T> {
+  data: T[];
+  hasMore: boolean;
+  total: number,
+}
 
+interface UseInfiniteParishesProps<T> {
+  search: string,
+  initialParishes: T[],
+  initialHasMore: boolean,
+  initialTotal?: number,
+  fetchFnAction: (params: FetchParishesParams) => Promise<FetchResponse<T>>
+}
+
+export const useInfiniteParishes = <T extends { id: string }>({
+  search = "",
+  initialParishes = [],
+  initialHasMore = false,
+  initialTotal,
+  fetchFnAction,
+}: UseInfiniteParishesProps<T>) => {
+  const { page, hasMore, setTotal, setPage, setHasMore, setFull } = useParishesStore()
+  const [parishes, setParishes] = useState<T[]>(initialParishes)
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
@@ -31,33 +38,38 @@ export const useInfiniteParishes = (
   const effectiveParishes = (!isInitialized.current && parishes.length === 0) ? initialParishes : parishes
   const effectiveHasMore = (!isInitialized.current && parishes.length === 0) ? initialHasMore : hasMore
 
+  useEffect(() => {
+    setTotal(parishes.length)
+  }, [parishes.length, setTotal])
+
   // Sync initial data from server only once on mount
   useEffect(() => {
     if (!isInitialized.current) {
       if (initialParishes.length > 0 && parishes.length === 0) {
         setParishes(initialParishes)
-        setPage(2)
-        setHasMore(initialHasMore)
+        setFull({
+          total: initialParishes.length,
+          page: 2,
+          hasMore: initialHasMore,
+        })
       }
       // We always set `total`, even if `initialParishes` is empty
-      setTotal(initialTotal)
+      if (initialTotal !== undefined) setTotal(initialTotal)
       isInitialized.current = true
     }
-  }, [initialParishes, initialHasMore, initialTotal, setParishes, setPage, setHasMore, setTotal, parishes.length])
+  }, [initialParishes, initialHasMore, initialTotal, setFull, setParishes, setTotal, parishes.length])
 
   const fetchItems = useCallback(
     async (isFirstPage: boolean = false, signal?: AbortSignal) => {
-      // Use latest state from store to avoid stale closures
-      const currentState = useParishesStore.getState()
 
-      if (!isFirstPage && (isLoading || !currentState.hasMore)) return
+      if (!isFirstPage && (isLoading || hasMore)) return
 
       setIsLoading(true)
       setError(null)
 
       try {
-        const currentPage = isFirstPage ? 1 : currentState.page
-        const response = await fetchParishes({
+        const currentPage = isFirstPage ? 1 : page
+        const response = await fetchFnAction({
           page: currentPage,
           limit: PAGINATION_PARISHES_DEFAULTS.LIMIT,
           search: search,
@@ -69,8 +81,8 @@ export const useInfiniteParishes = (
           setPage(2)
           setTotal(response.total || response.data.length)
         } else {
-          appendParishes(response.data)
-          setPage(currentState.page + 1)
+          setParishes(prev => [...prev, ...response.data])
+          setPage(page + 1)
         }
 
         setHasMore(response.hasMore)
@@ -81,7 +93,7 @@ export const useInfiniteParishes = (
         setIsLoading(false)
       }
     },
-    [search, setParishes, appendParishes, setPage, setHasMore, setTotal]
+    [search, setParishes, setPage, setHasMore, setTotal]
   )
 
   useEffect(() => {

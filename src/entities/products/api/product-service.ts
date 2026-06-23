@@ -27,7 +27,7 @@ const buildWhereClause = ({ parishId, categoryId, specification, locale }: Fetch
   return where;
 };
 
-export async function getProductsWideByParishId(params: FetchProducts): Promise<ResponseProductsWideDTO> {
+export async function getProductsTotalByParishId(params: FetchProducts): Promise<ResponseProductsWideDTO> {
   const { page = PAGINATION_PRODUCTS_DEFAULTS.PAGE, limit = PAGINATION_PRODUCTS_DEFAULTS.LIMIT, locale } = params;
 
   try {

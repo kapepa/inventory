@@ -1,17 +1,10 @@
 import { AppLocale, PAGINATION_PARISHES_DEFAULTS } from '@/shared';
 import { prisma } from '@/shared/server';
-import { FetchParishes, ResponseParishes, ParishWithRelations, ParishWithProducts, FetchParishById } from '../model';
+import { FetchParishes, ResponseParishesDTO, ResponseParishesTotalsDTO, ParishWithRelationsTotals, ParishWithProducts, FetchParishById } from '../model';
 import { Prisma } from '@prisma/client';
 import { getLocale } from 'next-intl/server';
 
-export const getParishes = async ({
-  page = PAGINATION_PARISHES_DEFAULTS.PAGE,
-  limit = PAGINATION_PARISHES_DEFAULTS.LIMIT,
-  search = '',
-  locale: providedLocale
-}: FetchParishes): Promise<ResponseParishes> => {
-  const locale = providedLocale || (await getLocale()) as AppLocale;
-
+const buildWhereClause = ({ search = "" }: FetchParishes) => {
   const where: Prisma.ParishWhereInput = search.trim() ? {
     translations: {
       some: {
@@ -23,12 +16,18 @@ export const getParishes = async ({
     }
   } : {};
 
+  return where;
+};
+
+export const getParishesTotals = async (params: FetchParishes): Promise<ResponseParishesTotalsDTO> => {
+  const { page = PAGINATION_PARISHES_DEFAULTS.PAGE, limit = PAGINATION_PARISHES_DEFAULTS.LIMIT, locale } = params;
   try {
+    const skip = (page - 1) * limit;
+    const where = buildWhereClause(params);
+
     const [parishes, total] = await Promise.all([
       prisma.parish.findMany({
         where,
-        skip: (page - 1) * limit,
-        take: limit,
         include: {
           translations: {
             where: { locale }
@@ -45,12 +44,15 @@ export const getParishes = async ({
             }
           }
         },
-        orderBy: { createdAt: 'desc' }
+        skip,
+        take: limit,
+        orderBy: { createdAt: 'desc' },
       }),
       prisma.parish.count({ where })
     ]);
 
-    const data: ParishWithRelations[] = parishes.map((parish) => {
+
+    const data: ParishWithRelationsTotals[] = parishes.map((parish) => {
       const allPrices = parish.products.flatMap(product => product.prices);
       const totals = {
         usd: allPrices
@@ -66,6 +68,31 @@ export const getParishes = async ({
     });
 
     return { data, total, hasMore: page * limit < total };
+  } catch (error) {
+    console.error('Prisma Error in getParishesWide:', error);
+    throw error;
+  }
+}
+
+export const getParishes = async (params: FetchParishes): Promise<ResponseParishesDTO> => {
+  const { page = PAGINATION_PARISHES_DEFAULTS.PAGE, limit = PAGINATION_PARISHES_DEFAULTS.LIMIT, locale } = params;
+  try {
+    const [parishes, total] = await Promise.all([
+      prisma.parish.findMany({
+        skip: (page - 1) * limit,
+        take: limit,
+        include: {
+          translations: {
+            where: { locale }
+          },
+          _count: { select: { products: true } },
+        },
+        orderBy: { createdAt: 'desc' }
+      }),
+      prisma.parish.count()
+    ]);
+
+    return { data: parishes, total, hasMore: page * limit < total };
   } catch (error) {
     console.error('Prisma Error in getParishes:', error);
     throw error;
