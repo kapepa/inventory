@@ -25,12 +25,12 @@ export const PageHeader = ({ title, subtitle, count, reverse, children, action, 
       )}>
         {action}
         <div className={cn(
-          "flex items-center font-semibold min-w-0 flex-col lg:flex-row w-full overflow-hidden",
-          "text-lg md:text-3xl sm:text-xl gap-1 sm:gap-3"
+          "flex items-center font-semibold min-w-0 flex-col w-full overflow-hidden",
+          "text-lg md:text-3xl sm:text-xl gap-1 sm:gap-3 lg:flex-row"
         )}>
-          <h2 className="truncate text-center lg:text-left shrink-0">{title}</h2>
-          {subtitle && <Subtitle subtitle={subtitle} />}
+          <h2 className="truncate text-center lg:text-left ">{title}</h2>
           {count !== undefined && <CountTotal fallbackCount={count} storeType={storeType} />}
+          {subtitle && <Subtitle subtitle={subtitle} />}
         </div>
       </div>
       {children && (

@@ -6,5 +6,9 @@
   "groups": {
     "title": "Groups — Inventory",
     "description": "Manage and view your groups."
+  },
+  "parishes-id": {
+    "title": "Parishe — {title}",
+    "description": "Viewing and Managing Incoming Goods."
   }
 }

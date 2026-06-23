@@ -9,7 +9,7 @@ interface FetchResponse<T> {
   hasMore: boolean;
 }
 
-interface UseInfiniteProducts<T> {
+interface UseInfiniteProductsProps<T> {
   parishId: string | null,
   categoryId?: string,
   specification?: string,
@@ -25,7 +25,7 @@ export const useInfiniteProducts = <T extends { id: string }>({
   initialProducts = [],
   initialHasMore = false,
   fetchFnAction,
-}: UseInfiniteProducts<T>) => {
+}: UseInfiniteProductsProps<T>) => {
   const { page, hasMore, setTotal, setPage, setHasMore, setFull } = useProductsStore()
   const [products, setProducts] = useState<T[]>(initialProducts)
   const [isLoading, setIsLoading] = useState(false)
@@ -53,7 +53,7 @@ export const useInfiniteProducts = <T extends { id: string }>({
       })
       isInitialized.current = true
     }
-  }, [initialProducts, initialHasMore])
+  }, [initialProducts, initialHasMore, setFull, setProducts])
 
   const addProduct = useCallback((newProduct: T) => {
     setProducts((prev) => [newProduct, ...prev]);
@@ -71,7 +71,7 @@ export const useInfiniteProducts = <T extends { id: string }>({
         return
       }
 
-      if (!isFirstPage && (isLoading || !hasMore)) return
+      if (!isFirstPage && (isLoading || hasMore)) return
 
       setIsLoading(true)
       setError(null)

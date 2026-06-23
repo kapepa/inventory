@@ -1,10 +1,12 @@
 "use client"
 
 import { useCallback, useEffect } from "react"
-import { ParishWideCard, ParishWithRelations, useInfiniteParishes, ParishWideHeader, ParishWideCardSkeleton } from "@/entities"
+import { ParishWideCard, ParishWithRelationsTotals, useInfiniteParishes, ParishWideHeader, ParishWideCardSkeleton } from "@/entities"
 import { cn, QUERY_PARAMS_KEYS, useIntersectionObserver, useQueryParam } from "@/shared"
 import { useDeleteParish } from "@/features"
 import { useTranslations } from "next-intl"
+import { fetchParishesTotals } from "@/entities/parish/api/parish-api"
+
 
 export const PARISH_GRID_LAYOUT = cn(
   "items-center grid gap-4",
@@ -14,7 +16,7 @@ export const PARISH_GRID_LAYOUT = cn(
 
 interface ParishesListProps {
   className?: string,
-  initialParishes?: ParishWithRelations[],
+  initialParishes?: ParishWithRelationsTotals[],
   initialHasMore?: boolean,
   initialTotal?: number,
 }
@@ -27,7 +29,9 @@ export const ParishesList = ({
 }: ParishesListProps) => {
   const t = useTranslations('parishe');
   const [search] = useQueryParam(QUERY_PARAMS_KEYS.PARISHES_SEARCH);
-  const { parishes, isLoading, error, hasMore, loadMore } = useInfiniteParishes(search, initialParishes, initialHasMore, initialTotal)
+  const { parishes, isLoading, error, hasMore, loadMore } = useInfiniteParishes<ParishWithRelationsTotals>({
+    search, initialParishes, initialHasMore, initialTotal, fetchFnAction: fetchParishesTotals
+  })
   const { targetRef, isIntersecting } = useIntersectionObserver({ threshold: 0.5, rootMargin: "100px" })
   const { confirmDeleteParish } = useDeleteParish()
 
@@ -37,7 +41,7 @@ export const ParishesList = ({
     }
   }, [isIntersecting, hasMore, isLoading, loadMore])
 
-  const handlerDeleteParish = useCallback((parish: ParishWithRelations) => {
+  const handlerDeleteParish = useCallback((parish: ParishWithRelationsTotals) => {
     confirmDeleteParish(parish);
   }, [confirmDeleteParish])
 

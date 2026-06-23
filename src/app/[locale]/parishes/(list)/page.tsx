@@ -1,4 +1,4 @@
-import { getParishes } from "@/entities/server";
+import { getParishesTotals } from "@/entities/server";
 import { AddParishButton } from "@/features";
 import { Container, AppLocale, PAGINATION_PARISHES_DEFAULTS, QUERY_PARAMS_KEYS } from "@/shared";
 import { PageHeader, ParishesList } from "@/widgets";
@@ -30,7 +30,7 @@ export default async function Parishes({
   const resolvedSearchParams = await searchParams;
   const searchTerm = (resolvedSearchParams[QUERY_PARAMS_KEYS.PARISHES_SEARCH] as string) || "";
 
-  const initialData = await getParishes({
+  const initialData = await getParishesTotals({
     page: PAGINATION_PARISHES_DEFAULTS.PAGE,
     limit: PAGINATION_PARISHES_DEFAULTS.LIMIT,
     search: searchTerm,

@@ -1,1 +1,1 @@
-export { getParishes, getParishById } from "./parish-service"
+export { getParishes, getParishById, getParishesTotals } from "./parish-service"

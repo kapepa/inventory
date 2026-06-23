@@ -1,20 +1,19 @@
 import { cn, MobileCellLabel, Skeleton, TrashButton } from "@/shared"
 import { MouseEvent } from "react"
-import { ParishWithRelations } from "../../model/types/types"
+
 
 interface ActionsCellProps {
   label?: string,
-  parish: ParishWithRelations
   isOwner?: boolean,
   className?: string,
-  onDeleteParish?: (parish: ParishWithRelations) => void
+  onDeleteParish: () => void
 }
 
-export const ActionsCell = ({ label, parish, isOwner, className, onDeleteParish }: ActionsCellProps) => {
+export const ActionsCell = ({ label, isOwner, className, onDeleteParish }: ActionsCellProps) => {
   const handlerDelte = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     e.stopPropagation();
-    onDeleteParish?.(parish);
+    onDeleteParish();
   }
 
   if (isOwner) return (

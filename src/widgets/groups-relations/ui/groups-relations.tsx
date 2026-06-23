@@ -18,17 +18,15 @@ interface GroupsRelationsProps {
   initialParishTitle: string
 }
 
-export const GroupsRelations = memo(({ className, initialHasMore, initialProducts, initialParishesId, initialParishTitle }: GroupsRelationsProps) => {
+export const GroupsRelations = memo(({ className, initialHasMore, initialProducts, initialParishesId }: GroupsRelationsProps) => {
   const t = useTranslations('groups');
-  const { parishes } = useParishesStore();
+  const { activeParishe } = useParishesStore()
   const [activeParishId, setActiveParishId] = useActiveParishId(initialParishesId);
   const { products, isLoading, error, clearProducts, hasMore, loadMore, addProduct, removeProduct } = useInfiniteProducts<ProductWithRelationsShort>({ parishId: activeParishId, initialProducts, initialHasMore, fetchFnAction: fetchProductsShort });
   const { targetRef, isIntersecting } = useIntersectionObserver({ threshold: 0.5, rootMargin: "100px" })
   const { productDetails } = useViewProduct()
   const { confirmDeleteProduct } = useDeleteProduct()
-
-  const activeParish = parishes.find((p) => p.id === activeParishId);
-  const activeParishTitle = activeParish?.translations[0]?.title || initialParishTitle;
+  const activeParishTitle = activeParishe?.translations[0]?.title || "";
 
   const openProductModal = useCallback((product: ProductWithRelationsShort) => {
     productDetails(product)

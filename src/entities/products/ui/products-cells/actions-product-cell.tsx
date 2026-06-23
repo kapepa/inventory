@@ -4,17 +4,17 @@ import { cn, MobileCellLabel, Skeleton, TrashButton } from "@/shared"
 import { memo, MouseEvent, useCallback } from "react"
 
 interface ActionsProductCellProps {
-  label: string,
+  label?: string,
   isOwner?: boolean,
   className?: string,
-  onDeleteProduct?: () => void
+  onDeleteProduct: () => void
 }
 
 export const ActionsProductCell = memo(({ label, isOwner, onDeleteProduct, className }: ActionsProductCellProps) => {
   const handlerDelte = useCallback((e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     e.stopPropagation();
-    onDeleteProduct?.();
+    onDeleteProduct();
   }, [onDeleteProduct])
 
   if (isOwner) return (
