@@ -63,6 +63,7 @@ export default async function ParishesId({
         subtitle={title}
         count={products.total}
         action={<BackButton />}
+        storeType="products"
       >
         {description}
       </PageHeader>

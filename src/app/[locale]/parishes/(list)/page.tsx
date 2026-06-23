@@ -44,6 +44,7 @@ export default async function Parishes({
         title={t("header-title")}
         count={initialData.total}
         action={<AddParishButton />}
+        storeType="parishes"
       />
       <ParishesList
         initialParishes={initialData.data}

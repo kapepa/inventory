@@ -60,6 +60,7 @@ export default async function Groups({
         count={initialParishes.total}
         action={<AddParishButton />}
         className="shrink-0"
+        storeType="parishes"
       />
       <div className="w-full mx-auto pb-6 flex-1 min-h-0">
         <div className="grid grid-cols-1 lg:grid-cols-[2fr_4fr] gap-4 h-full">

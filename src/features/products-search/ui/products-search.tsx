@@ -16,9 +16,9 @@ export const ProductsSearch = memo(({ initialCategories, className }: ProductsSe
   const t = useTranslations('products-search.labels');
 
   return (
-    <div className={cn("grid grid-cols-2 items-center", className)}>
-      <CategorySelector label={t("type")} initialCategories={initialCategories} />
-      <SpecificationInput label={t("specification")} />
+    <div className={cn("grid grid-cols-1 lg:grid-cols-2 items-center gap-3", className)}>
+      <CategorySelector label={t("type")} initialCategories={initialCategories} className="flex-col lg:flex-row" />
+      <SpecificationInput label={t("specification")} className="flex-col lg:flex-row" />
     </div>
   )
 })
