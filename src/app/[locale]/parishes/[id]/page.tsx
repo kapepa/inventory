@@ -1,5 +1,5 @@
 import { getCategoriesByParishId, getParishById } from "@/entities/server";
-import { getProductsTotalByParishId } from "@/entities/server";
+import { getFilteredProductsWide } from "@/entities/server";
 import { ProductsSearch } from "@/features";
 import { Container, AppLocale, PAGINATION_PARISHES_DEFAULTS, BackButton, QUERY_PARAMS_KEYS } from "@/shared";
 import { PageHeader, ProductsList } from "@/widgets";
@@ -19,7 +19,7 @@ export async function generateMetadata({
   const parish = await getParishById({ id, locale: locale as AppLocale });
 
   return {
-    title: t('parishes-id.title', { title: parish?.translations[0].title }),
+    title: t('parishes-id.title', { title: parish?.translations[0].title || "" }),
     description: t('parishes-id.description'),
   };
 }
@@ -40,7 +40,7 @@ export default async function ParishesId({
 
   const [parish, products, categories] = await Promise.all([
     getParishById({ id, locale }),
-    getProductsTotalByParishId({
+    getFilteredProductsWide({
       locale,
       parishId: id,
       categoryId: categoryTerm,

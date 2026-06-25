@@ -1,5 +1,5 @@
 import { extractPublicId, ResponseProductsShortDTO } from '@/entities';
-import { getProductsShortByParishId } from '@/entities/server';
+import { getFilteredProductsShort } from '@/entities/server';
 import { deleteFile } from '@/entities/server';
 import { MiddlewareUser, ProductWithRelations } from '@/features';
 import { createProduct } from '@/features/server';
@@ -16,7 +16,7 @@ export const GET = apiHandler(async (request: NextRequest): Promise<NextResponse
 
     const finalLocale = (locales.includes(locale) ? locale : defaultLocale);
 
-    const response = await getProductsShortByParishId({
+    const response = await getFilteredProductsShort({
       parishId: searchParams.get('parishId') || '',
       page: parseInt(searchParams.get('page') || `${PAGINATION_PRODUCTS_DEFAULTS.PAGE}`),
       limit: parseInt(searchParams.get('limit') || `${PAGINATION_PRODUCTS_DEFAULTS.LIMIT}`),

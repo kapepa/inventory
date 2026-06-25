@@ -1,5 +1,5 @@
 import { getParishes } from "@/entities/server";
-import { getProductsShortByParishId } from "@/entities/server";
+import { getFilteredProductsShort } from "@/entities/server";
 import { AddParishButton } from "@/features";
 import { Container, AppLocale, PAGINATION_PARISHES_DEFAULTS, QUERY_PARAMS_KEYS, PAGINATION_PRODUCTS_DEFAULTS } from "@/shared";
 import { GroupsList, PageHeader } from "@/widgets";
@@ -42,7 +42,7 @@ export default async function Groups({
 
   let initialProducts = null;
   if (parishId) {
-    initialProducts = await getProductsShortByParishId({
+    initialProducts = await getFilteredProductsShort({
       parishId,
       page: PAGINATION_PRODUCTS_DEFAULTS.PAGE,
       limit: PAGINATION_PRODUCTS_DEFAULTS.LIMIT,

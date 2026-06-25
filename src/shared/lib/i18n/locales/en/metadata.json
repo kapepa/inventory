@@ -10,5 +10,9 @@
   "parishes-id": {
     "title": "Parishe — {title}",
     "description": "Viewing and Managing Incoming Goods."
+  },
+  "products": {
+    "title": "Products  — Inventory",
+    "description": "View and Manage Your Products."
   }
 }

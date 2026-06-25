@@ -22,7 +22,9 @@ export const GroupsRelations = memo(({ className, initialHasMore, initialProduct
   const t = useTranslations('groups');
   const { activeParishe } = useParishesStore()
   const [activeParishId, setActiveParishId] = useActiveParishId(initialParishesId);
-  const { products, isLoading, error, clearProducts, hasMore, loadMore, addProduct, removeProduct } = useInfiniteProducts<ProductWithRelationsShort>({ parishId: activeParishId, initialProducts, initialHasMore, fetchFnAction: fetchProductsShort });
+  const { products, isLoading, error, clearProducts, hasMore, loadMore, addProduct, removeProduct } = useInfiniteProducts<ProductWithRelationsShort>({
+    parishId: activeParishId, initialProducts, initialHasMore, fetchFnAction: fetchProductsShort
+  });
   const { targetRef, isIntersecting } = useIntersectionObserver({ threshold: 0.5, rootMargin: "100px" })
   const { productDetails } = useViewProduct()
   const { confirmDeleteProduct } = useDeleteProduct()

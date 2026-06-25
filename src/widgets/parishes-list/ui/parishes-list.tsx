@@ -64,7 +64,7 @@ export const ParishesList = ({
             />
           ))}
           {(hasMore || isLoading) && (
-            <div ref={targetRef} className="flex flex-col gap-3 mt-3">
+            <div ref={targetRef} className="flex flex-col gap-3">
               {isLoading && <ParishWideCardSkeleton className={PARISH_GRID_LAYOUT} />}
             </div>
           )}

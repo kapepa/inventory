@@ -2,14 +2,16 @@
 
 import { useState, useEffect, useCallback, useRef } from "react"
 import { FetchProductsParams, useProductsStore } from "@/entities/products"
-import { PAGINATION_PRODUCTS_DEFAULTS } from "@/shared"
+import { PAGINATION_PRODUCTS_DEFAULTS, useDebouncedCallback } from "@/shared"
 
 interface FetchResponse<T> {
   data: T[];
+  total: number
   hasMore: boolean;
 }
 
 interface UseInfiniteProductsProps<T> {
+  search?: string,
   parishId: string | null,
   categoryId?: string,
   specification?: string,
@@ -19,6 +21,7 @@ interface UseInfiniteProductsProps<T> {
 }
 
 export const useInfiniteProducts = <T extends { id: string }>({
+  search = "",
   parishId,
   categoryId = "",
   specification = "",
@@ -26,34 +29,29 @@ export const useInfiniteProducts = <T extends { id: string }>({
   initialHasMore = false,
   fetchFnAction,
 }: UseInfiniteProductsProps<T>) => {
-  const { page, hasMore, setTotal, setPage, setHasMore, setFull } = useProductsStore()
+  const { setTotal, setPage } = useProductsStore()
   const [products, setProducts] = useState<T[]>(initialProducts)
+  const [hasMore, setHasMore] = useState<boolean>(initialHasMore)
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
   const isFirstRender = useRef(true)
   const isInitialized = useRef(false)
-
-  // Avoid hydration flicker: use initialProducts if the store is still empty and we haven't initialized yet
-  const effectiveProducts = (!isInitialized.current && products.length === 0) ? initialProducts : products
-  const effectiveHasMore = (!isInitialized.current && products.length === 0) ? initialHasMore : hasMore
-
-  useEffect(() => {
-    setTotal(products.length)
-  }, [products.length, setTotal])
+  const isLoadingRef = useRef(false)
+  const isCurrentPage = useRef(1)
+  const hasMoreRef = useRef(initialHasMore)
 
   // Sync initial data from server only once on mount
   useEffect(() => {
     if (!isInitialized.current && initialProducts.length > 0) {
       setProducts(initialProducts)
-      setFull({
-        total: initialProducts.length,
-        page: 2,
-        hasMore: initialHasMore,
-      })
+      setHasMore(initialHasMore)
+      setPage(1)
+      setTotal(initialProducts.length)
       isInitialized.current = true
+      isCurrentPage.current = 2
     }
-  }, [initialProducts, initialHasMore, setFull, setProducts])
+  }, [initialProducts, initialHasMore, setPage, setProducts])
 
   const addProduct = useCallback((newProduct: T) => {
     setProducts((prev) => [newProduct, ...prev]);
@@ -65,45 +63,54 @@ export const useInfiniteProducts = <T extends { id: string }>({
 
   const fetchItems = useCallback(
     async (isFirstPage: boolean = false, signal?: AbortSignal) => {
-      if (!parishId) {
-        setProducts([])
-        setHasMore(false)
-        return
+      if (!isFirstPage && (isLoadingRef.current || !hasMoreRef.current)) return
+
+      if (isFirstPage) {
+        isCurrentPage.current = 1
+        hasMoreRef.current = true
       }
 
-      if (!isFirstPage && (isLoading || hasMore)) return
-
+      isLoadingRef.current = true
       setIsLoading(true)
       setError(null)
 
       try {
-        const currentPage = isFirstPage ? 1 : page
-        const response = await fetchFnAction({
-          parishId,
-          specification,
-          page: currentPage,
+        const page = isCurrentPage.current
+        const params: FetchProductsParams = {
+          page,
           limit: PAGINATION_PRODUCTS_DEFAULTS.LIMIT,
-          categoryId: categoryId,
           signal,
-        })
+        }
+
+        if (search) params.search = search
+        if (parishId) params.parishId = parishId
+        if (categoryId) params.categoryId = categoryId
+        if (specification) params.specification = specification
+        const response = await fetchFnAction(params)
 
         if (isFirstPage) {
           setProducts(response.data)
           setPage(2)
+          isCurrentPage.current = 2
         } else {
           setProducts(prev => [...prev, ...response.data])
+          isCurrentPage.current = page + 1
           setPage(page + 1)
         }
 
+        setTotal(response.total)
         setHasMore(response.hasMore)
+        hasMoreRef.current = response.hasMore
       } catch (err) {
         if (err instanceof Error && err.name === "AbortError") return
         setError(err instanceof Error ? err.message : "Failed to load products")
       } finally {
         setIsLoading(false)
+        isLoadingRef.current = false
       }
     },
-    [parishId, page, hasMore, categoryId, specification, setPage, setHasMore, fetchFnAction]
+    [search, parishId, categoryId, specification, setPage, setHasMore, fetchFnAction]
+    //The dependencies are already provided with debounced versions from, there is a delay from the input
   )
 
   useEffect(() => {
@@ -111,26 +118,29 @@ export const useInfiniteProducts = <T extends { id: string }>({
       isFirstRender.current = false
       return
     }
-
     const controller = new AbortController()
     fetchItems(true, controller.signal)
     return () => controller.abort()
-  }, [parishId, categoryId, specification, fetchItems])
+  }, [fetchItems])
 
-  const loadMore = () => fetchItems(false);
+  const loadMore = useDebouncedCallback(() => { fetchItems(false) }, 1000)
 
   const clearProducts = useCallback(() => {
     setProducts([])
-    setFull({ total: 0, page: 1, hasMore: false })
+    setPage(1)
     setError(null)
-    isInitialized.current = false
+    setHasMore(true)
+    setIsLoading(false)
+    isCurrentPage.current = 1
+    isLoadingRef.current = false
+    hasMoreRef.current = true
   }, [])
 
   return {
-    products: effectiveProducts,
+    products: (!isInitialized.current && products.length === 0) ? initialProducts : products,
+    hasMore: (!isInitialized.current && products.length === 0) ? initialHasMore : hasMore,
     isLoading,
     error,
-    hasMore: effectiveHasMore,
     loadMore,
     clearProducts,
     addProduct,

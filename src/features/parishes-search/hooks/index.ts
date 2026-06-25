@@ -1,1 +1,0 @@
-export { useParishesSearch } from "./use-parishes-search"

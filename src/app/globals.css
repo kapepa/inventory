@@ -181,13 +181,10 @@
   }
 }
 
-html {
-  min-width: 300px;
-  overflow-x: hidden;
-}
-
+html,
 body {
-  min-width: 320px;
+  min-width: 300px;
+  overflow: hidden;
 }
 
 .text-accent {

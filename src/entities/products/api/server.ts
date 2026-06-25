@@ -1,1 +1,1 @@
-export { getProductById, getProductsShortByParishId, getProductsTotalByParishId } from "./product-service"
+export { getProductById, getFilteredProductsShort, getFilteredProductsWide } from "./product-service"

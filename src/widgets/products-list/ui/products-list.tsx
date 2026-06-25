@@ -3,6 +3,7 @@
 import { fetchProductsWide, ProductsShortStateMessage, ProductsWideCard, ProductsWideCardSkeleton, ProductWithRelationsWide, useInfiniteProducts } from "@/entities"
 import { useDeleteProduct, useViewProduct } from "@/features"
 import { cn, QUERY_PARAMS_KEYS, ScrollArea, useIntersectionObserver, useQueryParam } from "@/shared"
+import { LoaderSpin } from "@/shared/ui/loader-spin"
 import { useTranslations } from "next-intl"
 import { useCallback, useEffect } from "react"
 
@@ -14,19 +15,20 @@ const CARD_CLASS = cn(
 
 interface ProductsListProps {
   className?: string
-  initialParishId: string
+  initialParishId: string | null
   initialProducts: ProductWithRelationsWide[]
   initialHasMore: boolean,
 }
 
 export const ProductsList = ({ initialParishId, initialProducts, initialHasMore, className }: ProductsListProps) => {
   const t = useTranslations('products-list');
+  const [search] = useQueryParam(QUERY_PARAMS_KEYS.PRODUCTS_SEARCH)
   const [categoryId] = useQueryParam(QUERY_PARAMS_KEYS.CATEGORY);
   const [specification] = useQueryParam(QUERY_PARAMS_KEYS.SPECIFICATION);
   const { products, isLoading, error, hasMore, loadMore, removeProduct } = useInfiniteProducts<ProductWithRelationsWide>(
-    { categoryId, specification, parishId: initialParishId, initialProducts, initialHasMore, fetchFnAction: fetchProductsWide }
+    { search, categoryId, specification, parishId: initialParishId, initialProducts, initialHasMore, fetchFnAction: fetchProductsWide }
   );
-  const { targetRef, isIntersecting } = useIntersectionObserver({ threshold: 0.5, rootMargin: "100px" })
+  const { targetRef, isIntersecting } = useIntersectionObserver({ threshold: 0.5, rootMargin: "10px" })
   const { productDetails } = useViewProduct()
   const { confirmDeleteProduct } = useDeleteProduct()
 
@@ -40,15 +42,21 @@ export const ProductsList = ({ initialParishId, initialProducts, initialHasMore,
     }
   }, [isIntersecting, hasMore, isLoading, loadMore])
 
-  if (error) return (
+  if (error && !isLoading) return (
     <ProductsShortStateMessage className="text-destructive">
       {t("errors.infinite-scroll-error")}
     </ProductsShortStateMessage>
   )
 
+  if (isLoading && products.length === 0 && !initialProducts.length) return (
+    <ProductsShortStateMessage className="flex flex-col h-full min-h-0">
+      <LoaderSpin className="h-16 w-16" />
+    </ProductsShortStateMessage>
+  )
+
   return (
     <div className="flex-1 min-h-0 flex flex-col">
-      <ScrollArea className="flex-1 overflow-y-auto">
+      <ScrollArea className="flex-1 min-h-0 ">
         <div className={cn("flex flex-col gap-3 max-w-lg lg:max-w-full m-auto", className)}>
           {
             products.map((product) => (
@@ -62,7 +70,7 @@ export const ProductsList = ({ initialParishId, initialProducts, initialHasMore,
             ))
           }
           {(hasMore || isLoading) && (
-            <div ref={targetRef} className="w-full h-auto flex items-center justify-center">
+            <div ref={targetRef} className="w-full h-auto flex items-center justify-center min-h-14">
               {isLoading && <ProductsWideCardSkeleton className={cn("", CARD_CLASS)} />}
             </div>
           )}

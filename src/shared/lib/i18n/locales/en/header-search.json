@@ -1,0 +1,14 @@
+{
+  "parishes-search": {
+    "popup-title": "Search",
+    "placeholder": "Search parishes..."
+  },
+  "products-search": {
+    "popup-title": "Search",
+    "placeholder": "Search products..."
+  },
+  "buttons": {
+    "close": "Close",
+    "clear": "Clear"
+  }
+}
