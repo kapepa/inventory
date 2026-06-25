@@ -17,14 +17,15 @@ export default getRequestConfig(async ({ locale }) => {
       metadata: (await import(`../shared/lib/i18n/locales/${locale}/metadata.json`)).default,
       "add-product": (await import(`../shared/lib/i18n/locales/${locale}/add-product.json`)).default,
       "add-parish": (await import(`../shared/lib/i18n/locales/${locale}/add-parish.json`)).default,
-      "parishes-search": (await import(`../shared/lib/i18n/locales/${locale}/parishes-search.json`)).default,
+      "header-search": (await import(`../shared/lib/i18n/locales/${locale}/header-search.json`)).default,
       "parishes-page": (await import(`../shared/lib/i18n/locales/${locale}/parishes-page.json`)).default,
       "groups-page": (await import(`../shared/lib/i18n/locales/${locale}/groups-page.json`)).default,
       "parishes-id-page": (await import(`../shared/lib/i18n/locales/${locale}/parishes-id-page.json`)).default,
       "products-list": (await import(`../shared/lib/i18n/locales/${locale}/products-list.json`)).default,
       "products": (await import(`../shared/lib/i18n/locales/${locale}/products.json`)).default,
       "view-product-details": (await import(`../shared/lib/i18n/locales/${locale}/view-product-details.json`)).default,
-      "products-search": (await import(`../shared/lib/i18n/locales/${locale}/products-search.json`)).default,
+      "products-explore": (await import(`../shared/lib/i18n/locales/${locale}/products-explore.json`)).default,
+      "products-page": (await import(`../shared/lib/i18n/locales/${locale}/products-page.json`)).default,
     }
   };
 });

@@ -2,6 +2,7 @@
 
 import { memo } from "react";
 import { StoreType, useTotalByStore } from "../lib";
+import { useMounted } from "@/shared";
 
 interface CountTotalProps {
   className?: string;
@@ -11,7 +12,8 @@ interface CountTotalProps {
 
 export const CountTotal = memo(({ fallbackCount, className, storeType }: CountTotalProps) => {
   const total = useTotalByStore(storeType);
-  const displayTotal = total > 0 ? total : (fallbackCount ?? 0)
+  const mounted = useMounted();
+  const displayTotal = mounted ? total : (fallbackCount ?? 0)
 
   if (displayTotal === undefined) return null;
 

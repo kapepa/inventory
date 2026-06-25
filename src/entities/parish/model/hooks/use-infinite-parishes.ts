@@ -63,12 +63,11 @@ export const useInfiniteParishes = <T extends { id: string }>({
     async (isFirstPage: boolean = false, signal?: AbortSignal) => {
 
       if (!isFirstPage && (isLoading || hasMore)) return
-
       setIsLoading(true)
       setError(null)
 
       try {
-        const currentPage = isFirstPage ? 1 : page
+        const currentPage = isFirstPage ? 0 : page
         const response = await fetchFnAction({
           page: currentPage,
           limit: PAGINATION_PARISHES_DEFAULTS.LIMIT,

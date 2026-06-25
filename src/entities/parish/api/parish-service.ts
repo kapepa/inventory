@@ -1,6 +1,6 @@
 import { AppLocale, PAGINATION_PARISHES_DEFAULTS } from '@/shared';
 import { prisma } from '@/shared/server';
-import { FetchParishes, ResponseParishesDTO, ResponseParishesTotalsDTO, ParishWithRelationsTotals, ParishWithProducts, FetchParishById } from '../model';
+import { FetchParishes, ResponseParishesDTO, ResponseParishesTotalsDTO, ParishWithRelationsTotals, ParishWithRelations, FetchParishById } from '../model';
 import { Prisma } from '@prisma/client';
 import { getLocale } from 'next-intl/server';
 
@@ -101,7 +101,7 @@ export const getParishes = async (params: FetchParishes): Promise<ResponseParish
 
 export const getParishById = async (
   params: FetchParishById
-): Promise<ParishWithProducts | null> => {
+): Promise<ParishWithRelations | null> => {
   const locale = params.locale || (await getLocale()) as AppLocale;
 
   try {

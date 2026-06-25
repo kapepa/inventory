@@ -4,10 +4,10 @@ import { cn, QUERY_PARAMS_KEYS, useSearchParam, SearchWithClear } from "@/shared
 import { memo } from "react";
 import { useTranslations } from "next-intl";
 
-export const SearchInput = memo(({ className }: { className: string }) => {
-  const t = useTranslations('parishes-search');
+export const ProductsInput = memo(({ className }: { className: string }) => {
+  const t = useTranslations('header-search.products-search');
   const { inputValue, setInputValue, isClient, clearInput } = useSearchParam({
-    queryKey: QUERY_PARAMS_KEYS.PARISHES_SEARCH,
+    queryKey: QUERY_PARAMS_KEYS.PRODUCTS_SEARCH,
     debounceMs: 1000,
   });
 
@@ -19,8 +19,10 @@ export const SearchInput = memo(({ className }: { className: string }) => {
       clearInputAction={clearInput}
       isClient={isClient}
       className={cn("bg-static border-t-2 ", className)}
-      name={QUERY_PARAMS_KEYS.PARISHES_SEARCH}
+      name={QUERY_PARAMS_KEYS.PRODUCTS_SEARCH}
       type="text"
     />
   );
 });
+
+ProductsInput.displayName = "ProductsInput"

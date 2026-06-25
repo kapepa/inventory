@@ -1,22 +1,27 @@
 import { ModalBody, ModalCancelButton, ModalContents, ModalFooter, ModalHeader } from "@/shared";
 import { useTranslations } from "next-intl";
-import { SearchInput } from "./search-input";
+import { ParishesInput } from "./parishes-input";
 
 interface ParishesSearchModalProps {
   onCancelAction: () => void
 }
 
 export const ParishesSearchModal = ({ onCancelAction }: ParishesSearchModalProps) => {
-  const t = useTranslations('parishes-search');
+  const t = useTranslations('header-search');
 
   return (
     <ModalContents>
-      <ModalHeader title={t('popup-title')} />
+      <ModalHeader title={t('parishes-search.popup-title')} />
       <ModalBody>
-        <SearchInput className="p-4 text-base md:p-5 md:text-xl" />
+        <ParishesInput className="p-4 text-base md:p-5 md:text-xl" />
       </ModalBody>
-      <ModalFooter>
-        <ModalCancelButton onCancelAction={onCancelAction}>{t("close")}</ModalCancelButton>
+      <ModalFooter className="flex justify-end">
+        <ModalCancelButton
+          className="max-w-1/2 min-w-20 flex-1"
+          onCancelAction={onCancelAction}
+        >
+          {t("buttons.close")}
+        </ModalCancelButton>
       </ModalFooter>
     </ModalContents>
   )

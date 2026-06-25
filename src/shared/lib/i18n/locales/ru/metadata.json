@@ -1,14 +1,18 @@
 {
   "parishe": {
     "title": "Приходы — Inventory",
-    "description": "Просмотр и управление списком ваших приходов."
+    "description": "Просмотр и управление списком приходов."
   },
   "groups": {
     "title": "Группы — Inventory",
-    "description": "Просмотр и управление вашими группами."
+    "description": "Просмотр и управление группами."
   },
   "parishes-id": {
     "title": "Приходы — {title}",
     "description": "Просмотр и управление товарами в приходе."
+  },
+  "products": {
+    "title": "Продукты — Inventory",
+    "description": "Просмотр и управление вашими продуктами."
   }
 }

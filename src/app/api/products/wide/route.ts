@@ -1,5 +1,5 @@
 import { ResponseProductsWideDTO } from "@/entities";
-import { getProductsTotalByParishId } from "@/entities/server";
+import { getFilteredProductsWide } from "@/entities/server";
 import { AppLocale, defaultLocale, locales, PAGINATION_PRODUCTS_DEFAULTS } from "@/shared";
 import { apiHandler } from "@/shared/server";
 import { NextRequest, NextResponse } from "next/server";
@@ -12,7 +12,7 @@ export const GET = apiHandler(async (request: NextRequest): Promise<NextResponse
 
     const finalLocale = (locales.includes(locale) ? locale : defaultLocale);
 
-    const response = await getProductsTotalByParishId({
+    const response = await getFilteredProductsWide({
       parishId: searchParams.get('parishId') || '',
       page: parseInt(searchParams.get('page') || `${PAGINATION_PRODUCTS_DEFAULTS.PAGE}`),
       limit: parseInt(searchParams.get('limit') || `${PAGINATION_PRODUCTS_DEFAULTS.LIMIT}`),

@@ -1,0 +1,14 @@
+{
+  "parishes-search": {
+    "popup-title": "Поиск",
+    "placeholder": "Поиск по приходам..."
+  },
+  "products-search": {
+    "popup-title": "Поиск",
+    "placeholder": "Поиск по продуктам..."
+  },
+  "buttons": {
+    "close": "Закрыть",
+    "clear": "Очистить"
+  }
+}

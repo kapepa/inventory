@@ -3,13 +3,21 @@ import { FetchProducts, ResponseProductsShortDTO, ResponseProductsWideDTO } from
 import { PAGINATION_PRODUCTS_DEFAULTS } from '@/shared';
 import { Prisma, Product } from '@prisma/client';
 
-const buildWhereClause = ({ parishId, categoryId, specification, locale }: FetchProducts) => {
-  const where: Prisma.ProductWhereInput = {
-    parishId,
-  };
+const buildWhereClause = ({ search, parishId, categoryId, specification, locale }: FetchProducts) => {
+  const where: Prisma.ProductWhereInput = {};
+  if (parishId) where.parishId = parishId;
+  if (categoryId) where.categoryId = categoryId;
 
-  if (categoryId) {
-    where.categoryId = categoryId;
+  if (search) {
+    where.translations = {
+      some: {
+        locale,
+        title: {
+          contains: search,
+          mode: 'insensitive',
+        },
+      },
+    };
   }
 
   if (specification) {
@@ -27,7 +35,7 @@ const buildWhereClause = ({ parishId, categoryId, specification, locale }: Fetch
   return where;
 };
 
-export async function getProductsTotalByParishId(params: FetchProducts): Promise<ResponseProductsWideDTO> {
+export async function getFilteredProductsWide(params: FetchProducts): Promise<ResponseProductsWideDTO> {
   const { page = PAGINATION_PRODUCTS_DEFAULTS.PAGE, limit = PAGINATION_PRODUCTS_DEFAULTS.LIMIT, locale } = params;
 
   try {
@@ -80,12 +88,12 @@ export async function getProductsTotalByParishId(params: FetchProducts): Promise
       hasMore: skip + data.length < total,
     };
   } catch (error) {
-    console.error('Prisma Error in getProductsWideByParishId:', error);
+    console.error('Prisma Error in getFilteredProductsWide:', error);
     throw error;
   }
 }
 
-export async function getProductsShortByParishId({
+export async function getFilteredProductsShort({
   parishId,
   page = PAGINATION_PRODUCTS_DEFAULTS.PAGE,
   limit = PAGINATION_PRODUCTS_DEFAULTS.LIMIT,
@@ -93,7 +101,7 @@ export async function getProductsShortByParishId({
 }: FetchProducts,
 ): Promise<ResponseProductsShortDTO> {
   try {
-    const skip = (page - 1) * limit;
+    const skip = page * limit;
 
     const [data, total] = await Promise.all([
       prisma.product.findMany({
@@ -119,7 +127,7 @@ export async function getProductsShortByParishId({
       hasMore: skip + data.length < total,
     };
   } catch (error) {
-    console.error('Prisma Error in getProductsShortByParishId:', error);
+    console.error('Prisma Error in getFilteredProductsShort:', error);
     throw error;
   }
 }

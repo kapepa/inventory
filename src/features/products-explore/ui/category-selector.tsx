@@ -12,7 +12,7 @@ interface CategorySelectorProps {
 }
 
 export const CategorySelector = memo(({ label, initialCategories, className }: CategorySelectorProps) => {
-  const t = useTranslations('products-search');
+  const t = useTranslations('products-explore');
   const { inputValue, setInputValue, isClient, clearInput } = useSearchParam({
     queryKey: QUERY_PARAMS_KEYS.CATEGORY,
     debounceMs: 1000,

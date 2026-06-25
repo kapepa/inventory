@@ -1,3 +1,5 @@
+"use client"
+
 import { cn, QUERY_PARAMS_KEYS, SearchWithClear, useSearchParam } from "@/shared"
 import { useTranslations } from "next-intl"
 import { memo } from "react"
@@ -8,7 +10,7 @@ interface SpecificationInputProps {
 }
 
 export const SpecificationInput = memo(({ label, className }: SpecificationInputProps) => {
-  const t = useTranslations('products-search.placeholder');
+  const t = useTranslations('products-explore.placeholder');
   const { inputValue, setInputValue, isClient, clearInput } = useSearchParam({
     queryKey: QUERY_PARAMS_KEYS.SPECIFICATION,
     debounceMs: 1000,
