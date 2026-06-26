@@ -4,7 +4,7 @@ import { Button, cn } from "@/shared";
 import { Search } from "lucide-react";
 import { ProductsInput } from "./products-input";
 import { memo } from "react";
-import { useParishesSearch, useProductsSearch } from "../hooks";
+import { useProductsSearch } from "../hooks";
 
 interface ProductsSearchProps {
   className?: string

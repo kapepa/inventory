@@ -1,6 +1,6 @@
 import { getCategoriesByParishId, getParishById } from "@/entities/server";
 import { getFilteredProductsWide } from "@/entities/server";
-import { ProductsSearch } from "@/features";
+import { ProductsExplore } from "@/features";
 import { Container, AppLocale, PAGINATION_PARISHES_DEFAULTS, BackButton, QUERY_PARAMS_KEYS } from "@/shared";
 import { PageHeader, ProductsList } from "@/widgets";
 import { Metadata } from "next";
@@ -57,7 +57,7 @@ export default async function ParishesId({
 
   return (
     <Container className="py-6 md:py-16 flex-1 flex flex-col min-h-0">
-      <ProductsSearch
+      <ProductsExplore
         initialCategories={categories}
         className="pb-3"
       />

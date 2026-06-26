@@ -10,7 +10,7 @@
   },
   "error-block": {
     "buttons": {
-      "back": "Back",
+      "retry": "Try again",
       "home": "Home"
     }
   }
