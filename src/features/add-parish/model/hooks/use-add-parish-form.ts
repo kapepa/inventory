@@ -5,21 +5,21 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { toast } from "sonner"
 import { useLocale, useTranslations } from "next-intl"
 import { useParishesStore } from "@/entities/parish/model/parish-store"
-import { AppLocale, STORAGE_KEYS } from "@/shared"
+import { AppLocale, ERROR_CODES, STORAGE_KEYS } from "@/shared"
 import { requestCreateParish } from "../../api"
 import { createParishFormSchema, ParishFormValues } from "../schemas"
 
 const ADD_PARISH_FORM_DATA = STORAGE_KEYS.ADD_PARISH_FORM_DATA
 
 export const useAddParishForm = (closeModalAction: () => void) => {
-  const t = useTranslations("add-parish.form.errors")
-  const tToast = useTranslations("add-parish.form.toast")
+  const t = useTranslations("add-parish.form.toast")
+  const tErrors = useTranslations("add-parish.form.errors")
   const locale = useLocale() as AppLocale
   const [isSubmitting, startSubmitTransition] = useTransition()
-  const { addParish } = useParishesStore()
+  const { addNewParish } = useParishesStore()
 
   const form = useForm<ParishFormValues>({
-    resolver: zodResolver(createParishFormSchema(t)),
+    resolver: zodResolver(createParishFormSchema(tErrors)),
     mode: "onChange",
     defaultValues: {
       deliveryDate: new Date(),
@@ -35,10 +35,10 @@ export const useAddParishForm = (closeModalAction: () => void) => {
     const savedData = sessionStorage.getItem(ADD_PARISH_FORM_DATA);
     if (savedData) {
       try {
-        const parsedData = JSON.parse(savedData);
+        const { deliveryDate, ...props } = JSON.parse(savedData);
         form.reset({
-          ...form.getValues(),
-          ...parsedData,
+          ...props,
+          deliveryDate: new Date(deliveryDate),
         });
       } catch (e) {
         console.error("Failed to parse saved form data", e);
@@ -61,21 +61,32 @@ export const useAddParishForm = (closeModalAction: () => void) => {
           const newParish = await requestCreateParish({ data: values })
           const formattedParish = {
             ...newParish,
-            translations: newParish.translations.filter((t: any) => t.locale === locale)
+            translations: newParish.translations.filter((t) => t.locale === locale)
           }
 
-          addParish(formattedParish)
+          addNewParish(formattedParish)
           sessionStorage.removeItem(ADD_PARISH_FORM_DATA);
 
-          toast(tToast("create-parish-success"))
+          toast(t("create-parish-success"))
           closeModalAction()
         } catch (error) {
-          console.error(error)
-          toast(tToast("create-parish-error"))
+          if (error instanceof Error && error.message === ERROR_CODES.PARISH_ALREADY_EXISTS) {
+            form.setError('translations.ru.title', {
+              type: 'manual',
+              message: tErrors('err-parish-already-exists')
+            }, { shouldFocus: true });
+            form.setError('translations.en.title', {
+              type: 'manual',
+              message: tErrors('err-parish-already-exists')
+            }, { shouldFocus: true });
+            toast(t('parish-already-exists'));
+          } else {
+            toast(t("create-parish-error"))
+          }
         }
       })
     },
-    [startSubmitTransition, closeModalAction, t, addParish, locale]
+    [startSubmitTransition, closeModalAction, t, addNewParish, locale]
   )
 
   const handleSubmit = useMemo(

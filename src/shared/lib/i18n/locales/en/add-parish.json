@@ -17,6 +17,7 @@
       "err-title-min": "At least 3 chars",
       "err-description-min": "At least 3 chars",
       "err-date": "Delivery date required",
+      "err-parish-already-exists": "Parish already exists",
       "delivery-date-required": "Date required"
     },
     "placeholders": {
@@ -33,7 +34,8 @@
     "toast": {
       "translate-error": "Automatic translation is currently unavailable",
       "create-parish-success": "The parish was successfully established",
-      "create-parish-error": "Something went wrong during creation"
+      "create-parish-error": "Something went wrong during creation",
+      "parish-already-exists": "A parish with that name already exists"
     }
   },
   "parishes-created-btn": {
