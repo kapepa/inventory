@@ -1,6 +1,6 @@
 import { ParishWithRelationsTotals, ResponseParishesDTO } from '@/entities';
 import { getParishes } from '@/entities/server';
-import { createParish } from '@/features/server';
+import { createParish, ParishAlreadyExistsError } from '@/features/server';
 import { AppLocale, PAGINATION_PARISHES_DEFAULTS, defaultLocale, locales } from '@/shared';
 import { apiHandler } from '@/shared/server';
 import { NextRequest, NextResponse } from 'next/server';
@@ -49,6 +49,14 @@ export const POST = apiHandler(async (request: NextRequest): Promise<NextRespons
         { status: 400 }
       )
     }
+
+    if (error instanceof ParishAlreadyExistsError) {
+      return NextResponse.json(
+        { error: error.message },
+        { status: 409 }
+      );
+    }
+
     console.error('Create parish error:', error);
     return NextResponse.json(
       { error: error.message || 'Failed to create parish' },

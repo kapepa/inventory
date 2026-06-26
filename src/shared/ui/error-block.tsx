@@ -36,7 +36,7 @@ export const ErrorBlock = ({ error, className, description, reset, title }: Erro
       <div className="flex gap-4">
         {reset && (
           <Button onClick={() => reset()} variant="default" className="cursor-pointer py-4 px-5">
-            {t("error-block.buttons.back")}
+            {t("error-block.buttons.retry")}
           </Button>
         )}
         <Button onClick={() => router.push(ROUTES.PARISHES)} variant="outline" className="cursor-pointer py-4 px-5">

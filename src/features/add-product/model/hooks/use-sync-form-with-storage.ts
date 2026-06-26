@@ -20,7 +20,6 @@ export const useSyncFormWithStorage = (
         if (parsedData.parishId === parishId) {
           form.reset({
             ...parsedData,
-            categoryId: "",
             parishId, // Always use the current parishId
           }, { keepDefaultValues: true })
         } else {

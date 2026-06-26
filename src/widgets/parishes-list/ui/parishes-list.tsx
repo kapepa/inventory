@@ -1,12 +1,11 @@
 "use client"
 
 import { useCallback, useEffect } from "react"
-import { ParishWideCard, ParishWithRelationsTotals, useInfiniteParishes, ParishWideHeader, ParishWideCardSkeleton } from "@/entities"
+import { ParishWideCard, ParishWithRelationsTotals, useInfiniteParishes, ParishWideHeader, ParishWideCardSkeleton, useParishesStore, ParishWithRelations, isTotalsParish } from "@/entities"
 import { cn, QUERY_PARAMS_KEYS, useIntersectionObserver, useQueryParam } from "@/shared"
 import { useDeleteParish } from "@/features"
 import { useTranslations } from "next-intl"
 import { fetchParishesTotals } from "@/entities/parish/api/parish-api"
-
 
 export const PARISH_GRID_LAYOUT = cn(
   "items-center grid gap-4",
@@ -18,19 +17,18 @@ interface ParishesListProps {
   className?: string,
   initialParishes?: ParishWithRelationsTotals[],
   initialHasMore?: boolean,
-  initialTotal?: number,
 }
 
 export const ParishesList = ({
   className,
   initialParishes = [],
   initialHasMore = true,
-  initialTotal = 0,
 }: ParishesListProps) => {
   const t = useTranslations('parishe');
   const [search] = useQueryParam(QUERY_PARAMS_KEYS.PARISHES_SEARCH);
-  const { parishes, isLoading, error, hasMore, loadMore } = useInfiniteParishes<ParishWithRelationsTotals>({
-    search, initialParishes, initialHasMore, initialTotal, fetchFnAction: fetchParishesTotals
+  const { newParishe, addNewParish } = useParishesStore()
+  const { parishes, isLoading, error, hasMore, loadMore, addParishes, removeParishes } = useInfiniteParishes<ParishWithRelationsTotals>({
+    search, initialParishes, initialHasMore, fetchFnAction: fetchParishesTotals
   })
   const { targetRef, isIntersecting } = useIntersectionObserver({ threshold: 0.5, rootMargin: "100px" })
   const { confirmDeleteParish } = useDeleteParish()
@@ -41,8 +39,15 @@ export const ParishesList = ({
     }
   }, [isIntersecting, hasMore, isLoading, loadMore])
 
+  useEffect(() => {
+    if (newParishe && isTotalsParish(newParishe)) {
+      addParishes(newParishe)
+      addNewParish(null)
+    }
+  }, [newParishe, addParishes, addNewParish])
+
   const handlerDeleteParish = useCallback((parish: ParishWithRelationsTotals) => {
-    confirmDeleteParish(parish);
+    confirmDeleteParish(parish, () => removeParishes(parish.id));
   }, [confirmDeleteParish])
 
   if (error) return <div className="text-destructive text-center py-4">{t("parishes-list.error")}</div>

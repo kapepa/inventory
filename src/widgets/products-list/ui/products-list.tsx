@@ -28,7 +28,7 @@ export const ProductsList = ({ initialParishId, initialProducts, initialHasMore,
   const { products, isLoading, error, hasMore, loadMore, removeProduct } = useInfiniteProducts<ProductWithRelationsWide>(
     { search, categoryId, specification, parishId: initialParishId, initialProducts, initialHasMore, fetchFnAction: fetchProductsWide }
   );
-  const { targetRef, isIntersecting } = useIntersectionObserver({ threshold: 0.5, rootMargin: "10px" })
+  const { targetRef, isIntersecting } = useIntersectionObserver({ threshold: 0.5, rootMargin: "100px" })
   const { productDetails } = useViewProduct()
   const { confirmDeleteProduct } = useDeleteProduct()
 
