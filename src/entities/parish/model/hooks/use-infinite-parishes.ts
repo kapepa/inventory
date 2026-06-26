@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback, useRef } from "react"
 import { FetchParishesParams } from "@/entities/parish"
-import { PAGINATION_PARISHES_DEFAULTS } from "@/shared"
+import { PAGINATION_PARISHES_DEFAULTS, useDebouncedCallback } from "@/shared"
 import { useParishesStore } from "../parish-store"
 
 interface FetchResponse<T> {
@@ -15,7 +15,6 @@ interface UseInfiniteParishesProps<T> {
   search: string,
   initialParishes: T[],
   initialHasMore: boolean,
-  initialTotal?: number,
   fetchFnAction: (params: FetchParishesParams) => Promise<FetchResponse<T>>
 }
 
@@ -23,76 +22,93 @@ export const useInfiniteParishes = <T extends { id: string }>({
   search = "",
   initialParishes = [],
   initialHasMore = false,
-  initialTotal,
   fetchFnAction,
 }: UseInfiniteParishesProps<T>) => {
-  const { page, hasMore, setTotal, setPage, setHasMore, setFull } = useParishesStore()
+  const { setTotal, setPage } = useParishesStore()
   const [parishes, setParishes] = useState<T[]>(initialParishes)
+  const [hasMore, setHasMore] = useState<boolean>(initialHasMore)
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
   const isFirstRender = useRef(true)
   const isInitialized = useRef(false)
-
-  // Avoid hydration flicker: use initialParishes if the store is still empty and we haven't initialized yet
-  const effectiveParishes = (!isInitialized.current && parishes.length === 0) ? initialParishes : parishes
-  const effectiveHasMore = (!isInitialized.current && parishes.length === 0) ? initialHasMore : hasMore
-
-  useEffect(() => {
-    setTotal(parishes.length)
-  }, [parishes.length, setTotal])
+  const isLoadingRef = useRef(false)
+  const isCurrentPage = useRef(1)
+  const hasMoreRef = useRef(initialHasMore)
 
   // Sync initial data from server only once on mount
   useEffect(() => {
-    if (!isInitialized.current) {
-      if (initialParishes.length > 0 && parishes.length === 0) {
-        setParishes(initialParishes)
-        setFull({
-          total: initialParishes.length,
-          page: 2,
-          hasMore: initialHasMore,
-        })
-      }
-      // We always set `total`, even if `initialParishes` is empty
-      if (initialTotal !== undefined) setTotal(initialTotal)
+    if (!isInitialized.current && initialParishes.length > 0) {
+      setPage(1)
+      setTotal(initialParishes.length)
       isInitialized.current = true
+      isCurrentPage.current = 2
     }
-  }, [initialParishes, initialHasMore, initialTotal, setFull, setParishes, setTotal, parishes.length])
+  }, [initialParishes.length, setPage, setTotal])
+
+  const addParishes = useCallback((parishe: T) => {
+    setParishes((prev) => [parishe, ...prev]);
+    queueMicrotask(() => {
+      const currentTotal = useParishesStore.getState().total;
+      useParishesStore.getState().setTotal(currentTotal + 1);
+    });
+  }, []);
+
+  const removeParishes = useCallback((id: string) => {
+    setParishes((prev) => {
+      const next = prev.filter((parishe) => parishe.id !== id);
+      queueMicrotask(() => { useParishesStore.getState().setTotal(next.length) })
+      return next;
+    });
+  }, []);
 
   const fetchItems = useCallback(
     async (isFirstPage: boolean = false, signal?: AbortSignal) => {
+      if (!isFirstPage && (isLoadingRef.current || !hasMoreRef.current)) return
 
-      if (!isFirstPage && (isLoading || hasMore)) return
+      if (isFirstPage) {
+        isCurrentPage.current = 1
+        hasMoreRef.current = true
+      }
+
+      isLoadingRef.current = true
       setIsLoading(true)
       setError(null)
 
       try {
-        const currentPage = isFirstPage ? 0 : page
-        const response = await fetchFnAction({
-          page: currentPage,
+        const page = isCurrentPage.current
+        const params: FetchParishesParams = {
+          page,
           limit: PAGINATION_PARISHES_DEFAULTS.LIMIT,
-          search: search,
           signal,
-        })
+        }
+
+        if (search) params.search = search
+        const response = await fetchFnAction(params)
 
         if (isFirstPage) {
           setParishes(response.data)
           setPage(2)
-          setTotal(response.total || response.data.length)
+          isCurrentPage.current = 2
         } else {
           setParishes(prev => [...prev, ...response.data])
+          isCurrentPage.current = page + 1
           setPage(page + 1)
         }
 
+        setTotal(response.total)
         setHasMore(response.hasMore)
+        hasMoreRef.current = response.hasMore
       } catch (err) {
         if (err instanceof Error && err.name === "AbortError") return
         setError(err instanceof Error ? err.message : "Failed to load parishes")
       } finally {
         setIsLoading(false)
+        isLoadingRef.current = false
       }
     },
-    [search, setParishes, setPage, setHasMore, setTotal]
+    [search, setParishes, setPage, setHasMore, setTotal, fetchFnAction]
+    //The dependencies are already provided with debounced versions from, there is a delay from the input
   )
 
   useEffect(() => {
@@ -100,19 +116,32 @@ export const useInfiniteParishes = <T extends { id: string }>({
       isFirstRender.current = false
       return
     }
-
     const controller = new AbortController()
     fetchItems(true, controller.signal)
     return () => controller.abort()
-  }, [search, fetchItems])
+  }, [fetchItems])
 
-  const loadMore = () => fetchItems(false)
+  const loadMore = useDebouncedCallback(() => { fetchItems(false) }, 1000)
+
+  const clearParishes = useCallback(() => {
+    setParishes([])
+    setPage(1)
+    setError(null)
+    setHasMore(true)
+    setIsLoading(false)
+    isCurrentPage.current = 1
+    isLoadingRef.current = false
+    hasMoreRef.current = true
+  }, [])
 
   return {
-    parishes: effectiveParishes,
+    parishes: (!isInitialized.current && parishes.length === 0) ? initialParishes : parishes,
+    hasMore: (!isInitialized.current && parishes.length === 0) ? initialHasMore : hasMore,
     isLoading,
     error,
-    hasMore: effectiveHasMore,
     loadMore,
+    addParishes,
+    removeParishes,
+    clearParishes
   }
 }

@@ -21,13 +21,6 @@ export const useProductsStore = create<ProductsState>()(
     {
       name: 'products-store',
       enabled: process.env.NODE_ENV === 'development',
-      serialize: {
-        options: {
-          undefined: true,
-          function: false,
-          symbol: false,
-        }
-      }
     }
   )
 );
