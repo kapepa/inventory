@@ -21,3 +21,5 @@ export interface ProductWithRelationsWide extends ProductWithRelationsShort {
   user: Pick<User, "id" | "name"> | null
   rental: Pick<Rental, "startDate" | "endDate"> | null
 }
+
+export type ProductWithRelations = ProductWithRelationsShort | ProductWithRelationsWide

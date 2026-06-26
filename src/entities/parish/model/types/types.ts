@@ -28,3 +28,5 @@ export interface FetchParishById {
   categoryId?: string,
   specification?: string
 }
+
+export type ParishesType = ParishWithRelations | ParishWithRelationsTotals
