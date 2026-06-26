@@ -17,7 +17,7 @@ export const requestCreateParish = async ({ data, signal }: CreateParishParams):
     return response.data
   } catch (error) {
     if (error instanceof AxiosError) {
-      throw new Error(error.response?.data?.message || "Something went wrong")
+      throw new Error(error.response?.data?.error || "Something went wrong")
     }
     throw error
   }

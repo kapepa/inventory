@@ -8,5 +8,6 @@ export interface ResponseProductsWideDTO {
 
 export interface ResponseProductsShortDTO {
   data: ProductWithRelationsShort[],
+  total: number,
   hasMore: boolean,
 }

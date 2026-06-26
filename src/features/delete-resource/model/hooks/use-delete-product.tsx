@@ -4,9 +4,7 @@ import { useCallback } from "react";
 import { toast } from "sonner";
 import { DeleteConfirmModal } from "../../ui";
 import { requestDeleteProduct } from "../../api/product-api";
-import { ProductWithRelationsShort, ProductWithRelationsWide } from "@/entities";
-
-type ProductWithRelations = ProductWithRelationsShort | ProductWithRelationsWide
+import { ProductWithRelations } from "@/entities";
 
 export const useDeleteProduct = <T extends ProductWithRelations,>() => {
   const t = useTranslations('groups');

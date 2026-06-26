@@ -44,21 +44,27 @@ export const useInfiniteProducts = <T extends { id: string }>({
   // Sync initial data from server only once on mount
   useEffect(() => {
     if (!isInitialized.current && initialProducts.length > 0) {
-      setProducts(initialProducts)
-      setHasMore(initialHasMore)
       setPage(1)
       setTotal(initialProducts.length)
       isInitialized.current = true
       isCurrentPage.current = 2
     }
-  }, [initialProducts, initialHasMore, setPage, setProducts])
+  }, [initialProducts.length, setPage, setTotal])
 
   const addProduct = useCallback((newProduct: T) => {
     setProducts((prev) => [newProduct, ...prev]);
+    queueMicrotask(() => {
+      const currentTotal = useProductsStore.getState().total;
+      useProductsStore.getState().setTotal(currentTotal + 1);
+    });
   }, []);
 
   const removeProduct = useCallback((id: string) => {
-    setProducts((prev) => prev.filter((product) => product.id !== id));
+    setProducts((prev) => {
+      const next = prev.filter((parishe) => parishe.id !== id);
+      queueMicrotask(() => useProductsStore.getState().setTotal(next.length))
+      return next;
+    });
   }, []);
 
   const fetchItems = useCallback(
@@ -109,7 +115,7 @@ export const useInfiniteProducts = <T extends { id: string }>({
         isLoadingRef.current = false
       }
     },
-    [search, parishId, categoryId, specification, setPage, setHasMore, fetchFnAction]
+    [search, parishId, categoryId, specification, setProducts, setPage, setHasMore, fetchFnAction]
     //The dependencies are already provided with debounced versions from, there is a delay from the input
   )
 

@@ -1,0 +1,3 @@
+export const ERROR_CODES = {
+  PARISH_ALREADY_EXISTS: 'PARISH_ALREADY_EXISTS',
+} as const;

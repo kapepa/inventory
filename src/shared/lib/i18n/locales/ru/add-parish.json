@@ -17,6 +17,7 @@
       "err-title-min": "От 3 символов",
       "err-description-min": "От 3 символов",
       "err-date": "Укажите дату",
+      "err-parish-already-exists": "Приход уже существует",
       "delivery-date-required": "Дата обязательна"
     },
     "placeholders": {
@@ -33,7 +34,8 @@
     "toast": {
       "translate-error": "Автоматический перевод в настоящее время недоступен",
       "create-parish-success": "Приход был успешно создан",
-      "create-parish-error": "При создании произошла ошибка"
+      "create-parish-error": "При создании произошла ошибка",
+      "parish-already-exists": "Приход с таким названием уже существует"
     }
   },
   "parishes-created-btn": {
