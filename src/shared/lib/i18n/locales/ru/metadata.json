@@ -14,5 +14,9 @@
   "products": {
     "title": "Продукты — Inventory",
     "description": "Просмотр и управление вашими продуктами."
+  },
+  "categories": {
+    "title": "Категории  — Inventory",
+    "description": "Просмотр и управление категориями."
   }
 }

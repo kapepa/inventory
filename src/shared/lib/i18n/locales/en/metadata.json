@@ -14,5 +14,9 @@
   "products": {
     "title": "Products  — Inventory",
     "description": "View and Manage Your Products."
+  },
+  "categories": {
+    "title": "Categories  — Inventory",
+    "description": "View and Manage Your Categories."
   }
 }
