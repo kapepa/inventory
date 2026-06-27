@@ -3,8 +3,9 @@
 import { useEffect, useState } from 'react'
 import { requestCategories } from '../../api'
 import { CategoryWithTranslations } from '../types'
+import { AppLocale } from '@/shared'
 
-export const useCategories = (locale: string = 'en') => {
+export const useCategories = (locale: AppLocale) => {
   const [categories, setCategories] = useState<CategoryWithTranslations[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<Error | null>(null)
@@ -13,7 +14,7 @@ export const useCategories = (locale: string = 'en') => {
     const loadCategories = async () => {
       try {
         setIsLoading(true)
-        const data = await requestCategories()
+        const data = await requestCategories({ locale })
         setCategories(data)
         setError(null)
       } catch (err) {

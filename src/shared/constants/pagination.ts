@@ -10,3 +10,8 @@ export const PAGINATION_PRODUCTS_DEFAULTS = {
   PARISHES_LIMIT: 15,
 } as const;
 
+export const PAGINATION_CATEGORIES_DEFAULTS = {
+  PAGE: 1,
+  LIMIT: 15,
+  PARISHES_LIMIT: 15,
+} as const;
