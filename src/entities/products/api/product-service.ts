@@ -101,7 +101,7 @@ export async function getFilteredProductsShort({
 }: FetchProducts,
 ): Promise<ResponseProductsShortDTO> {
   try {
-    const skip = page * limit;
+    const skip = (page - 1) * limit;
 
     const [data, total] = await Promise.all([
       prisma.product.findMany({
@@ -125,6 +125,7 @@ export async function getFilteredProductsShort({
     return {
       data,
       hasMore: skip + data.length < total,
+      total
     };
   } catch (error) {
     console.error('Prisma Error in getFilteredProductsShort:', error);
