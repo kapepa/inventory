@@ -26,7 +26,7 @@ export const Sidebar = memo(
           <label
             htmlFor={htmlFor}
             className={cn(
-              "block rounded-full p-2 sm:p-4 shadow-lg transition-all top-1/2 -translate-y-1/2 z-40 border-2 bg-background",
+              "block rounded-full p-2 sm:p-4 shadow-lg transition-all top-1/2 -translate-y-1/2 z-40 border-2 bg-background opacity-50 hover:opacity-100",
               styles.sidebarLabel
             )}
           >

@@ -14,7 +14,7 @@ export const IdentifierCell = memo(({ title, serialNumber, className }: Identifi
         <TooltipTrigger asChild>
           <h5 className="truncate text-start font-normal underline decoration-ring decoration-2"> {title} </h5>
         </TooltipTrigger>
-        <TooltipContent className={cn("bg-chart-2", "border-chart-2")}>
+        <TooltipContent align="start" className={cn("bg-chart-2", "border-chart-2")}>
           <TooltipText>
             {title}
           </TooltipText>

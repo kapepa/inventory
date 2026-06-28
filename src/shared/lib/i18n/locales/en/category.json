@@ -1,0 +1,19 @@
+{
+  "header": {
+    "name": "Category Name",
+    "quantity": "Quantity",
+    "date": "Created",
+    "delete": "Delete"
+  },
+  "cells": {
+    "label": {
+      "quantity": "Quantity",
+      "date": "Created",
+      "actions": "Delete"
+    },
+    "quantity": {
+      "product": "product",
+      "products": "products"
+    }
+  }
+}

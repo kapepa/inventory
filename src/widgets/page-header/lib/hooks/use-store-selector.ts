@@ -11,6 +11,6 @@ export const useTotalByStore = (storeType?: StoreType) => {
     case 'products':
       return productsTotal;
     default:
-      return 0;
+      return null;
   }
 };
