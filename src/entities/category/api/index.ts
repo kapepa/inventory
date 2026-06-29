@@ -1,1 +1,1 @@
-export { requestCategories } from "./category-api"
+export { requestCategories, requestCategoriesWithProductCount } from "./category-api"

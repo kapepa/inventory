@@ -1,5 +1,5 @@
 import { axiosInstance } from "@/shared"
-import { CategoriesProductCountParams, CategoryWithTranslations, RequestCategoriesParams } from "../model/types"
+import { RequestCategoriesProductsCountParams, CategoryWithTranslations, RequestCategoriesParams, GetCategoriesWithProductCountDTO } from "../model/types"
 import axios, { AxiosError } from "axios"
 
 const fetchCategoriesBase = async <T>(
@@ -32,5 +32,5 @@ const fetchCategoriesBase = async <T>(
 export const requestCategories = (params: RequestCategoriesParams) =>
   fetchCategoriesBase<CategoryWithTranslations[]>("/categories", params)
 
-export const requestCategoriesWithProductCount = (params: CategoriesProductCountParams) =>
-  fetchCategoriesBase<CategoryWithTranslations[]>("/categories/products-count", params)
+export const requestCategoriesWithProductCount = (params: RequestCategoriesProductsCountParams) =>
+  fetchCategoriesBase<GetCategoriesWithProductCountDTO>("/categories/products-count", params)

@@ -2,27 +2,28 @@
 
 import { Button, cn } from "@/shared";
 import { Search } from "lucide-react";
-import { ProductsInput } from "./products-input";
+import { ParishesInput } from "./parishes-input";
 import { memo } from "react";
-import { useProductsSearch } from "../hooks";
+import { useParishesSearch } from "../../hooks";
 
-interface ProductsSearchProps {
+
+interface ParishesSearchProps {
   className?: string
 }
 
-export const ProductsSearch = memo(
-  (props: ProductsSearchProps) => {
-    const { openProductsSearch } = useProductsSearch()
+export const ParishesSearch = memo(
+  (props: ParishesSearchProps) => {
+    const { openParishesSearch } = useParishesSearch()
 
     return (
       <>
         <div className={cn("hidden lg:flex items-center grow", props.className)}>
-          <ProductsInput
+          <ParishesInput
             className="w-xs"
           />
         </div>
         <div className="flex lg:hidden items-center justify-end md:justify-center grow">
-          <Button variant="link" className="rounded-s-sm cursor-pointer" onClick={openProductsSearch}>
+          <Button variant="link" className="rounded-s-sm cursor-pointer" onClick={openParishesSearch}>
             <Search className="size-7 sm:size-9 text-accent" />
           </Button>
         </div>
@@ -31,4 +32,4 @@ export const ProductsSearch = memo(
   }
 )
 
-ProductsSearch.displayName = "ProductsSearch"
+ParishesSearch.displayName = "ParishesSearch"

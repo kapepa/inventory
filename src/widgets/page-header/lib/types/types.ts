@@ -1,1 +1,1 @@
-export type StoreType = 'parishes' | 'products';
+export type StoreType = 'parishes' | 'products' | 'categories';

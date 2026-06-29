@@ -2,8 +2,7 @@
 
 import { fetchProductsWide, ProductsShortStateMessage, ProductsWideCard, ProductsWideCardSkeleton, ProductWithRelationsWide, useInfiniteProducts } from "@/entities"
 import { useDeleteProduct, useViewProduct } from "@/features"
-import { cn, QUERY_PARAMS_KEYS, ScrollArea, useIntersectionObserver, useQueryParam } from "@/shared"
-import { LoaderSpin } from "@/shared/ui/loader-spin"
+import { cn, QUERY_PARAMS_KEYS, ScrollArea, useIntersectionObserver, useQueryParam, LoaderSpin } from "@/shared"
 import { useTranslations } from "next-intl"
 import { useCallback, useEffect } from "react"
 

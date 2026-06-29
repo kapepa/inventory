@@ -1,6 +1,21 @@
 import { prisma } from "@/shared/server"
 import { CategoryWithTranslations, FetchCategories, GetCategoriesByParishIdParams, GetCategoriesParams, GetCategoriesWithProductCountDTO } from "../model/types"
 import { PAGINATION_CATEGORIES_DEFAULTS } from "@/shared"
+import { Prisma } from "@prisma/client";
+
+const buildWhereClause = ({ search = "" }: FetchCategories) => {
+  const where: Prisma.CategoryWhereInput = search.trim() ? {
+    translations: {
+      some: {
+        OR: [
+          { title: { contains: search.trim(), mode: 'insensitive' } },
+        ]
+      }
+    }
+  } : {};
+
+  return where;
+};
 
 export const getCategories = async ({ locale }: GetCategoriesParams): Promise<CategoryWithTranslations[]> => {
   try {
@@ -57,9 +72,11 @@ export const getCategoriesWithProductCount = async (params: FetchCategories): Pr
   const { page = PAGINATION_CATEGORIES_DEFAULTS.PAGE, limit = PAGINATION_CATEGORIES_DEFAULTS.LIMIT, locale } = params;
   try {
     const skip = (page - 1) * limit;
+    const where = buildWhereClause(params);
 
     const [categories, total] = await Promise.all([
       prisma.category.findMany({
+        where,
         include: {
           translations: {
             where: {
@@ -76,7 +93,7 @@ export const getCategoriesWithProductCount = async (params: FetchCategories): Pr
         take: limit,
         orderBy: { createdAt: 'desc' },
       }),
-      prisma.category.count()
+      prisma.category.count({ where })
     ])
 
     return { data: categories, total, hasMore: page * limit < total };
