@@ -1,11 +1,15 @@
 {
   "parishes-search": {
     "popup-title": "Search",
-    "placeholder": "Search parishes..."
+    "placeholder": "Search by parishes..."
   },
   "products-search": {
     "popup-title": "Search",
-    "placeholder": "Search products..."
+    "placeholder": "Search by products..."
+  },
+  "categories-search": {
+    "popup-title": "Search",
+    "placeholder": "Search by category..."
   },
   "buttons": {
     "close": "Close",

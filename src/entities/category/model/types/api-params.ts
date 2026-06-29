@@ -13,6 +13,6 @@ export interface GetCategoriesByParishIdParams extends GetCategoriesParams {
   id: string
 }
 
-export interface CategoriesProductCountParams extends FetchCategories {
+export interface RequestCategoriesProductsCountParams extends FetchCategories {
   signal?: AbortSignal,
 }

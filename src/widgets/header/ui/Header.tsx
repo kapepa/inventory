@@ -1,10 +1,10 @@
-import { LiveDatetime, ParishesSearch, ProductsSearch } from "@/features";
+import { CategoriesSearch, LiveDatetime, ParishesSearch, ProductsSearch } from "@/features";
 import { cn, Logo } from "@/shared";
 import { Container } from "@/shared/ui/container";
 import { memo } from "react";
 
 interface HeaderProps {
-  showSearch?: "parishes" | "products";
+  showSearch?: 'parishes' | 'products' | 'categories';
   className?: string;
 }
 
@@ -18,6 +18,7 @@ export const Header = memo(
           <Logo />
           {showSearch === "parishes" && <ParishesSearch />}
           {showSearch === "products" && <ProductsSearch />}
+          {showSearch === "categories" && <CategoriesSearch />}
           <LiveDatetime
             className="hidden md:block"
           />

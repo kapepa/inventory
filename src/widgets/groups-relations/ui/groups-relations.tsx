@@ -1,10 +1,8 @@
 "use client"
 
-import { useParishesStore } from "@/entities/parish"
-import { fetchProductsShort, ProductShortCard, ProductShortCardSkeleton, ProductsShortBody, ProductsShortStateMessage, ProductWithRelationsShort, useInfiniteProducts } from "@/entities/products"
+import { useParishesStore, fetchProductsShort, ProductShortCard, ProductShortCardSkeleton, ProductsShortBody, ProductsShortStateMessage, ProductWithRelationsShort, useInfiniteProducts } from "@/entities"
 import { ProductCreateButton, useDeleteProduct, useViewProduct } from "@/features"
-import { cn, useActiveParishId, useIntersectionObserver } from "@/shared"
-import { LoaderSpin } from "@/shared/ui/loader-spin"
+import { cn, useActiveParishId, useIntersectionObserver, LoaderSpin } from "@/shared"
 import { useTranslations } from "next-intl"
 import { memo, useCallback, useEffect } from "react"
 

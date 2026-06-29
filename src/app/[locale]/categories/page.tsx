@@ -1,5 +1,5 @@
 import { getCategoriesWithProductCount } from "@/entities/server";
-import { Container, AppLocale, PAGINATION_CATEGORIES_DEFAULTS } from "@/shared";
+import { Container, AppLocale, PAGINATION_CATEGORIES_DEFAULTS, QUERY_PARAMS_KEYS } from "@/shared";
 import { CategoriesList, PageHeader } from "@/widgets";
 import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
@@ -20,12 +20,17 @@ export async function generateMetadata({
 
 export default async function Categories({
   params,
+  searchParams,
 }: {
   params: Promise<{ locale: string }>,
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>
 }) {
   const locale = (await params).locale as AppLocale;
+  const resolvedSearchParams = await searchParams;
+  const categoryTerm = (resolvedSearchParams[QUERY_PARAMS_KEYS.CATEGORIES_SEARCH] as string) || "";
+
   const categories = await getCategoriesWithProductCount({
+    search: categoryTerm,
     page: PAGINATION_CATEGORIES_DEFAULTS.PAGE,
     limit: PAGINATION_CATEGORIES_DEFAULTS.LIMIT,
     locale,
@@ -39,7 +44,7 @@ export default async function Categories({
         title={t("header-title")}
         count={categories.total}
         action={<div>asdas</div>}
-      // storeType="products"
+        storeType="categories"
       />
       <CategoriesList
         initialHasMore={categories.hasMore}

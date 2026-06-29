@@ -7,6 +7,10 @@
     "popup-title": "Поиск",
     "placeholder": "Поиск по продуктам..."
   },
+  "categories-search": {
+    "popup-title": "Поиск",
+    "placeholder": "Поиск по категориям..."
+  },
   "buttons": {
     "close": "Закрыть",
     "clear": "Очистить"

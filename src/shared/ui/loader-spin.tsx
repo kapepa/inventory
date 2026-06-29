@@ -10,3 +10,5 @@ export const LoaderSpin = ({ className, ...props }: LoaderSpinProps) => {
     <Loader2 aria-label="loader-spiner" className={cn("animate-spin text-accent", className)} {...props} />
   )
 }
+
+LoaderSpin.displayName = "LoaderSpin"
