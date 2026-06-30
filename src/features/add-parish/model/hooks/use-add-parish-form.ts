@@ -12,9 +12,9 @@ import { createParishFormSchema, ParishFormValues } from "../schemas"
 const ADD_PARISH_FORM_DATA = STORAGE_KEYS.ADD_PARISH_FORM_DATA
 
 export const useAddParishForm = (closeModalAction: () => void) => {
+  const locale = useLocale() as AppLocale
   const t = useTranslations("add-parish.form.toast")
   const tErrors = useTranslations("add-parish.form.errors")
-  const locale = useLocale() as AppLocale
   const [isSubmitting, startSubmitTransition] = useTransition()
   const { addNewParish } = useParishesStore()
 
@@ -63,8 +63,8 @@ export const useAddParishForm = (closeModalAction: () => void) => {
             ...newParish,
             translations: newParish.translations.filter((t) => t.locale === locale)
           }
-
           addNewParish(formattedParish)
+
           sessionStorage.removeItem(ADD_PARISH_FORM_DATA);
 
           toast(t("create-parish-success"))

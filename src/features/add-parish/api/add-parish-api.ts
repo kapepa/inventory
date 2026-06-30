@@ -1,7 +1,7 @@
 import { axiosInstance } from "@/shared"
 import { CreateParishParams } from "../model"
 import { AxiosError } from "axios"
-import { ParishWithRelationsTotals } from "@/entities"
+import { CategoryWithProductCount, ParishWithRelationsTotals } from "@/entities"
 
 export const requestCreateParish = async ({ data, signal }: CreateParishParams): Promise<ParishWithRelationsTotals> => {
   const payload = {
@@ -17,7 +17,7 @@ export const requestCreateParish = async ({ data, signal }: CreateParishParams):
     return response.data
   } catch (error) {
     if (error instanceof AxiosError) {
-      throw new Error(error.response?.data?.error || "Something went wrong")
+      throw new Error(error.response?.data?.error || "Something went wrong requestCreateParish")
     }
     throw error
   }

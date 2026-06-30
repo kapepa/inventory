@@ -14,7 +14,6 @@ import {
   TranslateWrapperInput,
   oppositeLocale,
 } from "@/shared"
-import { TranslatableFieldName } from "../model"
 
 interface TitleFieldProps {
   locale: AppLocale
