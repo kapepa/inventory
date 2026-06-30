@@ -1,8 +1,9 @@
 "use client"
 
 import { useInfiniteCategories, requestCategoriesWithProductCount, CategoryCard, CategoryCardSkeleton, CategoryHeader, CategoryShortStateMessage, CategoryWithProductCount, useCategoriesStore, isCategoryWithProductCount } from "@/entities";
+import { useDeleteCategory } from "@/features";
 import { cn, QUERY_PARAMS_KEYS, ScrollArea, useIntersectionObserver, useQueryParam, LoaderSpin } from "@/shared";
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 
 interface CategoriesListProps {
   className?: string
@@ -15,10 +16,15 @@ const CARD_CLASS = "grid grid-cols-[1fr_1fr] lg:grid-cols-[8fr_1fr_2fr_1fr] item
 export const CategoriesList = ({ className, initialHasMore, initialCategories }: CategoriesListProps) => {
   const [search] = useQueryParam(QUERY_PARAMS_KEYS.CATEGORIES_SEARCH)
   const { newCategory, addNewCategory } = useCategoriesStore()
-  const { categories, isLoading, hasMore, loadMore, addCategory } = useInfiniteCategories(
+  const { categories, isLoading, hasMore, loadMore, addCategory, removeCategory } = useInfiniteCategories(
     { search, initialHasMore, initialCategories, fetchFnAction: requestCategoriesWithProductCount }
   )
   const { targetRef, isIntersecting } = useIntersectionObserver({ threshold: 0.5, rootMargin: "100px" })
+  const { confirmDeleteCategory } = useDeleteCategory()
+
+  const handlerDeleteProduct = useCallback((category: CategoryWithProductCount) => {
+    confirmDeleteCategory(category, () => { removeCategory(category.id) });
+  }, [, removeCategory])
 
   useEffect(() => {
     if (isIntersecting && hasMore && !isLoading) {
@@ -48,7 +54,9 @@ export const CategoriesList = ({ className, initialHasMore, initialCategories }:
             <CategoryCard
               key={category.id}
               category={category}
-              className={cn("", CARD_CLASS)} />
+              className={cn("", CARD_CLASS)}
+              onDeleteCategory={handlerDeleteProduct}
+            />
           ))}
           {(hasMore || isLoading) && (
             <div ref={targetRef} className="w-full h-auto flex items-center justify-center min-h-14">

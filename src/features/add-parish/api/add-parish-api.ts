@@ -1,7 +1,7 @@
 import { axiosInstance } from "@/shared"
 import { CreateParishParams } from "../model"
 import { AxiosError } from "axios"
-import { CategoryWithProductCount, ParishWithRelationsTotals } from "@/entities"
+import { ParishWithRelationsTotals } from "@/entities"
 
 export const requestCreateParish = async ({ data, signal }: CreateParishParams): Promise<ParishWithRelationsTotals> => {
   const payload = {

@@ -5,14 +5,14 @@ interface ActionsCellProps {
   label?: string,
   isOwner?: boolean,
   className?: string,
-  onDeleteParish: () => void
+  onDeleteCategory: () => void
 }
 
-export const ActionsCell = ({ label, isOwner, className, onDeleteParish }: ActionsCellProps) => {
+export const ActionsCell = ({ label, isOwner, className, onDeleteCategory }: ActionsCellProps) => {
   const handlerDelte = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     e.stopPropagation();
-    onDeleteParish();
+    onDeleteCategory();
   }
 
   if (isOwner) return (

@@ -1,5 +1,3 @@
-"use client"
-
 import { cn, Link, ROUTES } from "@/shared"
 import { CategoryWithProductCount } from "../model"
 import { QuantityCell, TitleCell, DateCell, ActionsCell, TitleCellSkeleton, QuantityCellSkeleton, DateCellSkeleton, ActionsCellSkeleton } from "./cells"
@@ -8,9 +6,10 @@ import { useTranslations } from "next-intl"
 interface CategoryCardProps {
   className?: string,
   category: CategoryWithProductCount
+  onDeleteCategory: (category: CategoryWithProductCount) => void
 }
 
-export const CategoryCard = ({ category, className }: CategoryCardProps) => {
+export const CategoryCard = ({ category, className, onDeleteCategory }: CategoryCardProps) => {
   const { title } = category.translations[0];
   const t = useTranslations('category.cells.label');
 
@@ -22,7 +21,7 @@ export const CategoryCard = ({ category, className }: CategoryCardProps) => {
       <TitleCell className="flex-1 min-w-0 col-span-2 lg:col-span-1" title={title} />
       <QuantityCell label={t("quantity")} count={category._count.products} />
       <DateCell label={t("date")} created={category.createdAt} />
-      <ActionsCell label={t("actions")} isOwner={true} onDeleteParish={() => { }} />
+      <ActionsCell label={t("actions")} isOwner={true} onDeleteCategory={() => { onDeleteCategory(category) }} />
     </Link>
   )
 }

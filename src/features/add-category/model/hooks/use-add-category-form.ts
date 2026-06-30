@@ -70,7 +70,7 @@ export const useAddCategoryForm = (closeModalAction: () => void) => {
             form.setError('translations.ru.title', {
               type: 'manual',
               message: tErrors('err-category-already-exists')
-            });
+            }, { shouldFocus: true });
             toast(t('category-already-exists'));
           } else {
             toast(t("create-category-error"))
@@ -78,7 +78,7 @@ export const useAddCategoryForm = (closeModalAction: () => void) => {
         }
       })
     },
-    [startSubmitTransition, closeModalAction, t, addNewCategory, form, tErrors]
+    [startSubmitTransition, closeModalAction, t, addNewCategory, form, tErrors, locale]
   )
 
   const handleSubmit = useMemo(

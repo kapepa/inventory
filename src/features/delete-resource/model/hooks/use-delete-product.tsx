@@ -19,12 +19,13 @@ export const useDeleteProduct = <T extends ProductWithRelations,>() => {
         onConfirmAction={async () => {
           try {
             await requestDeleteProduct({ id: product.id });
-            toast.success(t("sonner.delete-product"));
+            toast.success(t("sonner.delete-product-success"));
             if (onSuccess) onSuccess();
-            closeModal();
           } catch (error) {
             console.error(error);
-            toast.error(t("modal.delete-error"));
+            toast.error(t("sonner.delete-error-product"));
+          } finally {
+            closeModal();
           }
         }}
         onCancelAction={closeModal}

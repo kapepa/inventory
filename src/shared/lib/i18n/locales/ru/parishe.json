@@ -14,11 +14,11 @@
     }
   },
   "sonner": {
-    "delete-parish": "Приход удален успешно"
+    "delete-parish-success": "Приход удален успешно",
+    "delete-error-parish": "При удалении произошла ошибка"
   },
   "modal": {
     "delete-confirm": "Вы уверены, что хотите удалить приход",
-    "delete-error": "При удалении произошла ошибка",
     "buttons": {
       "cancel": "Отмена",
       "delete": "Удалить"

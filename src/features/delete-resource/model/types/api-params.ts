@@ -1,9 +1,8 @@
-export interface DeleteParishesParams {
+interface BaseDeleteParams {
   id: string,
   signal?: AbortSignal,
 }
 
-export interface DeleteProductParams {
-  id: string,
-  signal?: AbortSignal,
-}
+export interface DeleteParishesParams extends BaseDeleteParams { }
+export interface DeleteProductParams extends BaseDeleteParams { }
+export interface DeleteCategoryParams extends BaseDeleteParams { }
