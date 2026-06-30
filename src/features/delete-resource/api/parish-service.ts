@@ -7,7 +7,7 @@ export const deleteParish = async (id: string): Promise<DeleteParishResult> => {
       where: { id },
     });
   } catch (error) {
-    console.error('Prisma Error in createParish:', error);
+    console.error('Prisma Error in deleteParish:', error);
     throw error;
   }
 };

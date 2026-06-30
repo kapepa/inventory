@@ -1,4 +1,4 @@
-export type { CategoryTranslationType, CategoryWithTranslations, CategoryWithProductCount, FetchCategories } from "./types";
+export type { CategoryTranslationType, CategoryWithTranslations, CategoryWithProductCount, FetchCategories, FetchCategoryById } from "./types";
 export type { GetCategoriesByParishIdParams, GetCategoriesParams, RequestCategoriesParams, RequestCategoriesProductsCountParams } from "./api-params";
 export type { GetCategoriesWithProductCountDTO } from "./dto"
 export { isCategoryWithProductCount } from "./gurad"

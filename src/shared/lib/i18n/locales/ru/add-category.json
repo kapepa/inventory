@@ -14,7 +14,8 @@
       "create": "Создать"
     },
     "errors": {
-      "err-title-min": "От 3 символов"
+      "err-title-min": "От 3 символов",
+      "err-category-already-exists": "Категория уже существует"
     },
     "placeholders": {
       "title": "Введите название категории"

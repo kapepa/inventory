@@ -15,5 +15,10 @@
       "product": "product",
       "products": "products"
     }
+  },
+  "sonner": {
+    "delete-category-success": "Category deleted successfully",
+    "delete-error-category": "An error occurred during deletion",
+    "cannot-delete-with-products": "В этой категории есть еще продукты"
   }
 }

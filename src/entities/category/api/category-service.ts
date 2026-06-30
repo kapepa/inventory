@@ -1,7 +1,8 @@
 import { prisma } from "@/shared/server"
-import { CategoryWithTranslations, FetchCategories, GetCategoriesByParishIdParams, GetCategoriesParams, GetCategoriesWithProductCountDTO } from "../model/types"
-import { PAGINATION_CATEGORIES_DEFAULTS } from "@/shared"
+import { CategoryWithProductCount, CategoryWithTranslations, FetchCategories, FetchCategoryById, GetCategoriesByParishIdParams, GetCategoriesParams, GetCategoriesWithProductCountDTO } from "../model/types"
+import { AppLocale, PAGINATION_CATEGORIES_DEFAULTS } from "@/shared"
 import { Prisma } from "@prisma/client";
+import { getLocale } from "next-intl/server";
 
 const buildWhereClause = ({ search = "" }: FetchCategories) => {
   const where: Prisma.CategoryWhereInput = search.trim() ? {
@@ -102,3 +103,25 @@ export const getCategoriesWithProductCount = async (params: FetchCategories): Pr
     throw error;
   }
 };
+
+export const getCategoryhById = async (params: FetchCategoryById): Promise<CategoryWithProductCount | null> => {
+  const locale = params.locale || (await getLocale()) as AppLocale;
+
+  try {
+    const category = await prisma.category.findUnique({
+      where: { id: params.id },
+      include: {
+        translations: {
+          where: { locale }
+        },
+        _count: { select: { products: true } },
+      }
+    });
+
+    if (!category) return null;
+    return category
+  } catch (error) {
+    console.error('Prisma Error in getCategoryhById:', error);
+    throw error;
+  }
+}

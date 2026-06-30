@@ -1,1 +1,1 @@
-export { getCategories, getCategoriesByParishId, getCategoriesWithProductCount } from "./category-service"
+export { getCategories, getCategoriesByParishId, getCategoriesWithProductCount, getCategoryhById } from "./category-service"

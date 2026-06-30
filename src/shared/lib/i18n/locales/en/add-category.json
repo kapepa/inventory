@@ -14,7 +14,8 @@
       "create": "Create"
     },
     "errors": {
-      "err-title-min": "At least 3 chars"
+      "err-title-min": "At least 3 chars",
+      "err-category-already-exists": "The category already exists"
     },
     "placeholders": {
       "title": "Enter a category name"

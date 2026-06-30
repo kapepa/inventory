@@ -3,7 +3,8 @@ import { AppLocale, defaultLocale } from '@/shared';
 import { getCategories } from '@/entities/server';
 import { CategoryWithProductCount, CategoryWithTranslations } from '@/entities';
 import { apiHandler } from '@/shared/server';
-import { createCategory } from '@/features/server';
+import { CategoryAlreadyExistsError, createCategory } from '@/features/server';
+import { ZodError } from 'zod';
 
 export const GET = apiHandler(async (request: NextRequest): Promise<NextResponse<CategoryWithTranslations[] | { error: string }>> => {
   try {
@@ -29,6 +30,20 @@ export const POST = apiHandler(async (request: NextRequest): Promise<NextRespons
 
     return NextResponse.json(category)
   } catch (error) {
+    if (error instanceof ZodError) {
+      return NextResponse.json(
+        { error: 'Invalid data format', details: error.format() },
+        { status: 400 }
+      )
+    }
+
+    if (error instanceof CategoryAlreadyExistsError) {
+      return NextResponse.json(
+        { error: error.message },
+        { status: 409 }
+      );
+    }
+
     console.error('Failed to fetch categories:', error)
     return NextResponse.json(
       { error: 'Failed to fetch categories' },

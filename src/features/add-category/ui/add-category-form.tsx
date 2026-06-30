@@ -31,7 +31,7 @@ export const AddCategoryForm = ({ onCancelAction }: AddCategoryFormProps) => {
     <>
       <ModalBody>
         <Form {...form}>
-          <form id="add-parish-form" onSubmit={onSubmit}>
+          <form id="add-сategory-form" onSubmit={onSubmit}>
             <div className="grid w-full pb-5 gap-5 md:gap-7 md:pb-7">
               <Tabs
                 defaultValue={locale}
@@ -72,7 +72,7 @@ export const AddCategoryForm = ({ onCancelAction }: AddCategoryFormProps) => {
           {t("buttons.cancel")}
         </ModalCancelButton>
         <ModalActionButton
-          form="add-parish-form"
+          form="add-сategory-form"
           type="submit"
           variant="simply-accent"
           isLoading={isSubmitting}

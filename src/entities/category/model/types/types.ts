@@ -19,3 +19,8 @@ export interface CategoryWithProductCount extends CategoryWithTranslations {
     products: number;
   };
 }
+
+export interface FetchCategoryById {
+  id: string,
+  locale?: AppLocale,
+}

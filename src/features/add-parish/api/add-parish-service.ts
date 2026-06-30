@@ -13,7 +13,7 @@ export const createParish = async (data: ParishFormValues): Promise<ParishWithRe
         translations: {
           some: {
             title: {
-              in: titles
+              in: titles,
             }
           }
         }

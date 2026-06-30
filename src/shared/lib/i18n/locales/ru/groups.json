@@ -25,11 +25,11 @@
     }
   },
   "sonner": {
-    "delete-product": "Товар удален успешно"
+    "delete-product-success": "Товар удален успешно",
+    "delete-error-product": "При удалении произошла ошибка"
   },
   "modal": {
     "delete-confirm": "Вы уверены, что хотите удалить этот товар?",
-    "delete-error": "При удалении произошла ошибка",
     "buttons": {
       "cancel": "Отменить",
       "delete": "Удалить"

@@ -21,12 +21,13 @@ export const useDeleteParish = <T extends ParishesType,>() => {
         onConfirmAction={async () => {
           try {
             await requestDeleteParish({ id: parish.id });
-            toast.success(t("sonner.delete-parish"));
+            toast.success(t("sonner.delete-parish-success"));
             if (onSuccess) onSuccess()
-            closeModal();
           } catch (error) {
             console.error(error);
-            toast.error(t("modal.delete-error"));
+            toast.error(t("sonner.delete-error-parish"));
+          } finally {
+            closeModal();
           }
         }}
         onCancelAction={closeModal}
