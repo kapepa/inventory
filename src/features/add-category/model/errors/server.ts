@@ -1,0 +1,1 @@
+export { CategoryAlreadyExistsError } from "./errors"

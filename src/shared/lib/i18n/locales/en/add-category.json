@@ -1,0 +1,33 @@
+{
+  "buttons": {
+    "create": "Create a category"
+  },
+  "form": {
+    "title": "Create a category",
+    "russian": "Russian",
+    "english": "English",
+    "fields": {
+      "title": "Category Name"
+    },
+    "buttons": {
+      "cancel": "Cancel",
+      "create": "Create"
+    },
+    "errors": {
+      "err-title-min": "At least 3 chars"
+    },
+    "placeholders": {
+      "title": "Enter a category name"
+    },
+    "hints": {
+      "translate": {
+        "title": "Translate the title of the category from"
+      }
+    },
+    "toast": {
+      "category-already-exists": "The category already exists",
+      "create-category-error": "Error creating a category",
+      "create-category-success": "The category was successfully created"
+    }
+  }
+}

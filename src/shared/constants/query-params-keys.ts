@@ -3,6 +3,7 @@ export const QUERY_PARAMS_KEYS = {
   PRODUCTS_SEARCH: 'products-search',
   CATEGORIES_SEARCH: 'categories-search',
   ADD_PARISH: 'add-parish',
+  ADD_CATEGORY: "add-category",
   ACTIVE_PARISH: 'parish',
   CATEGORY: 'categoryId',
   SPECIFICATION: 'specification'
