@@ -1,6 +1,6 @@
 "use client"
 
-import { useInfiniteCategories, requestCategoriesWithProductCount, CategoryCard, CategoryCardSkeleton, CategoryHeader, CategoryShortStateMessage, CategoryWithProductCount } from "@/entities";
+import { useInfiniteCategories, requestCategoriesWithProductCount, CategoryCard, CategoryCardSkeleton, CategoryHeader, CategoryShortStateMessage, CategoryWithProductCount, useCategoriesStore, isCategoryWithProductCount } from "@/entities";
 import { cn, QUERY_PARAMS_KEYS, ScrollArea, useIntersectionObserver, useQueryParam, LoaderSpin } from "@/shared";
 import { useEffect } from "react";
 
@@ -14,7 +14,8 @@ const CARD_CLASS = "grid grid-cols-[1fr_1fr] lg:grid-cols-[8fr_1fr_2fr_1fr] item
 
 export const CategoriesList = ({ className, initialHasMore, initialCategories }: CategoriesListProps) => {
   const [search] = useQueryParam(QUERY_PARAMS_KEYS.CATEGORIES_SEARCH)
-  const { categories, isLoading, hasMore, loadMore } = useInfiniteCategories(
+  const { newCategory, addNewCategory } = useCategoriesStore()
+  const { categories, isLoading, hasMore, loadMore, addCategory } = useInfiniteCategories(
     { search, initialHasMore, initialCategories, fetchFnAction: requestCategoriesWithProductCount }
   )
   const { targetRef, isIntersecting } = useIntersectionObserver({ threshold: 0.5, rootMargin: "100px" })
@@ -24,6 +25,13 @@ export const CategoriesList = ({ className, initialHasMore, initialCategories }:
       loadMore()
     }
   }, [isIntersecting, hasMore, isLoading, loadMore])
+
+  useEffect(() => {
+    if (newCategory && isCategoryWithProductCount(newCategory)) {
+      addCategory(newCategory)
+      addNewCategory(null)
+    }
+  }, [newCategory, addCategory, addNewCategory])
 
   if (isLoading && categories.length === 0 && !initialCategories.length) return (
     <CategoryShortStateMessage className="flex flex-col h-full min-h-0">

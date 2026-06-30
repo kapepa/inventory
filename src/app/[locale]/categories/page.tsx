@@ -1,4 +1,5 @@
 import { getCategoriesWithProductCount } from "@/entities/server";
+import { AddCategoryButton } from "@/features/add-category/ui";
 import { Container, AppLocale, PAGINATION_CATEGORIES_DEFAULTS, QUERY_PARAMS_KEYS } from "@/shared";
 import { CategoriesList, PageHeader } from "@/widgets";
 import { Metadata } from "next";
@@ -43,7 +44,7 @@ export default async function Categories({
       <PageHeader
         title={t("header-title")}
         count={categories.total}
-        action={<div>asdas</div>}
+        action={<AddCategoryButton />}
         storeType="categories"
       />
       <CategoriesList
