@@ -1,0 +1,33 @@
+{
+  "buttons": {
+    "create": "Создать категорию"
+  },
+  "form": {
+    "title": "Создать категорию",
+    "russian": "Русский",
+    "english": "Английский",
+    "fields": {
+      "title": "Название категории"
+    },
+    "buttons": {
+      "cancel": "Отмена",
+      "create": "Создать"
+    },
+    "errors": {
+      "err-title-min": "От 3 символов"
+    },
+    "placeholders": {
+      "title": "Введите название категории"
+    },
+    "hints": {
+      "translate": {
+        "title": "Перевести название категории с"
+      }
+    },
+    "toast": {
+      "category-already-exists": "Эта категория уже существует",
+      "create-category-error": "Ошибка при создании категории",
+      "create-category-success": "Категория была успешно создана"
+    }
+  }
+}

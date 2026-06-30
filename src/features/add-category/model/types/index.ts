@@ -1,0 +1,1 @@
+export type { CreateCategoryParams } from "./api-params" 
