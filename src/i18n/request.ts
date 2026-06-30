@@ -28,6 +28,7 @@ export default getRequestConfig(async ({ locale }) => {
       "products-page": (await import(`../shared/lib/i18n/locales/${locale}/products-page.json`)).default,
       "categories-page": (await import(`../shared/lib/i18n/locales/${locale}/categories-page.json`)).default,
       "category": (await import(`../shared/lib/i18n/locales/${locale}/category.json`)).default,
+      "add-category": (await import(`../shared/lib/i18n/locales/${locale}/add-category`)).default,
     }
   };
 });
