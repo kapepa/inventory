@@ -1,3 +1,4 @@
+import { FetchProductsParams } from "@/entities/products";
 import { AppLocale } from "@/shared";
 import { Category, CategoryTranslation } from "@prisma/client";
 
@@ -7,6 +8,8 @@ export interface FetchCategories {
   search?: string
   locale?: AppLocale
 }
+
+export interface FetchCategoryProductsParams extends FetchProductsParams { }
 
 export type CategoryTranslationType = Pick<CategoryTranslation, "locale" | "title">;
 

@@ -1,6 +1,8 @@
 import { axiosInstance } from "@/shared"
 import { RequestCategoriesProductsCountParams, CategoryWithTranslations, RequestCategoriesParams, GetCategoriesWithProductCountDTO } from "../model/types"
 import axios, { AxiosError } from "axios"
+import { RequestCategoryProductsParams } from "../model/types/api-params"
+import { ResponseProductsWideDTO } from "@/entities/products"
 
 const fetchCategoriesBase = async <T>(
   endpoint: string,
@@ -34,3 +36,6 @@ export const requestCategories = (params: RequestCategoriesParams) =>
 
 export const requestCategoriesWithProductCount = (params: RequestCategoriesProductsCountParams) =>
   fetchCategoriesBase<GetCategoriesWithProductCountDTO>("/categories/products-count", params)
+
+export const requestCategoryProducts = ({ categoryId, ...params }: RequestCategoryProductsParams) =>
+  fetchCategoriesBase<ResponseProductsWideDTO>(`/categories/${categoryId}/products`, params)
