@@ -1,3 +1,7 @@
 {
-  "header-title": "Categories"
+  "header-title": "Categories",
+  "errors": {
+    "title": "Failed to load categories",
+    "description": "Something went wrong while loading the categories list"
+  }
 }

@@ -12,11 +12,15 @@
     "description": "Viewing and Managing Incoming Goods."
   },
   "products": {
-    "title": "Products  — Inventory",
+    "title": "Products — Inventory",
     "description": "View and Manage Your Products."
   },
   "categories": {
-    "title": "Categories  — Inventory",
+    "title": "Categories — Inventory",
     "description": "View and Manage Your Categories."
+  },
+  "categories-id": {
+    "title": "Category — {title}",
+    "description": "Browse and Search by Product Category."
   }
 }

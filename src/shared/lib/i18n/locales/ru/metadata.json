@@ -18,5 +18,9 @@
   "categories": {
     "title": "Категории  — Inventory",
     "description": "Просмотр и управление категориями."
+  },
+  "categories-id": {
+    "title": "Категория  — {title}",
+    "description": "Просмотр и поиск по категориям товаров."
   }
 }
