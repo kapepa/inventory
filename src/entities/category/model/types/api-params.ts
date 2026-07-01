@@ -1,4 +1,4 @@
-import { FetchCategories } from "./types";
+import { FetchCategories, FetchCategoryProductsParams } from "./types";
 
 export interface RequestCategoriesParams {
   signal?: AbortSignal,
@@ -14,5 +14,9 @@ export interface GetCategoriesByParishIdParams extends GetCategoriesParams {
 }
 
 export interface RequestCategoriesProductsCountParams extends FetchCategories {
+  signal?: AbortSignal,
+}
+
+export interface RequestCategoryProductsParams extends FetchCategoryProductsParams {
   signal?: AbortSignal,
 }

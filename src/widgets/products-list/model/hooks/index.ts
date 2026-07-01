@@ -1,0 +1,1 @@
+export { useFetchProductsAction } from "./use-fetch-products-action"

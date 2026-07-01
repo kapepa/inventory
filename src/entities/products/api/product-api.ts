@@ -31,3 +31,4 @@ export const fetchProductsShort = (params: FetchProductsParams) =>
 
 export const fetchProductsWide = (params: FetchProductsParams) =>
   fetchProductsBase<ResponseProductsWideDTO>("/products/wide", params)
+

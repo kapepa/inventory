@@ -1,10 +1,11 @@
 "use client"
 
-import { fetchProductsWide, ProductsShortStateMessage, ProductsWideCard, ProductsWideCardSkeleton, ProductWithRelationsWide, useInfiniteProducts } from "@/entities"
+import { ProductsShortStateMessage, ProductsWideCard, ProductsWideCardSkeleton, ProductWithRelationsWide, useInfiniteProducts } from "@/entities"
 import { useDeleteProduct, useViewProduct } from "@/features"
 import { cn, QUERY_PARAMS_KEYS, ScrollArea, useIntersectionObserver, useQueryParam, LoaderSpin } from "@/shared"
 import { useTranslations } from "next-intl"
 import { useCallback, useEffect } from "react"
+import { ProductsActionMode, useFetchProductsAction } from "../model"
 
 const CARD_CLASS = cn(
   "grid",
@@ -14,18 +15,21 @@ const CARD_CLASS = cn(
 
 interface ProductsListProps {
   className?: string
+  initialcategoryId?: string
   initialParishId: string | null
   initialProducts: ProductWithRelationsWide[]
   initialHasMore: boolean,
+  mode?: ProductsActionMode
 }
 
-export const ProductsList = ({ initialParishId, initialProducts, initialHasMore, className }: ProductsListProps) => {
+export const ProductsList = ({ initialParishId, initialProducts, initialHasMore, initialcategoryId, className, mode }: ProductsListProps) => {
   const t = useTranslations('products-list');
   const [search] = useQueryParam(QUERY_PARAMS_KEYS.PRODUCTS_SEARCH)
   const [categoryId] = useQueryParam(QUERY_PARAMS_KEYS.CATEGORY);
   const [specification] = useQueryParam(QUERY_PARAMS_KEYS.SPECIFICATION);
+  const fetchFnAction = useFetchProductsAction({ mode, categoryId: initialcategoryId || categoryId || undefined });
   const { products, isLoading, error, hasMore, loadMore, removeProduct } = useInfiniteProducts<ProductWithRelationsWide>(
-    { search, categoryId, specification, parishId: initialParishId, initialProducts, initialHasMore, fetchFnAction: fetchProductsWide }
+    { search, categoryId, specification, parishId: initialParishId, initialProducts, initialHasMore, fetchFnAction: fetchFnAction }
   );
   const { targetRef, isIntersecting } = useIntersectionObserver({ threshold: 0.5, rootMargin: "100px" })
   const { productDetails } = useViewProduct()
