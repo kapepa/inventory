@@ -3,13 +3,13 @@
 import { ErrorBlock } from '@/shared';
 import { useTranslations } from 'next-intl';
 
-interface ErrorUsersEProps {
+interface AboutUsErrorProps {
   error: Error & { digest?: string };
   reset: () => void;
 }
 
-export default function UsersError({ error, reset }: ErrorUsersEProps) {
-  const t = useTranslations("users-page.errors");
+export default function AboutUsError({ error, reset }: AboutUsErrorProps) {
+  const t = useTranslations("about-us.errors");
 
   return (
     <ErrorBlock

@@ -1,7 +1,7 @@
 'use client'
 
 import { cn, NavLink, ROUTES, usePathname } from "@/shared"
-import { Building2, ClipboardList, GroupIcon, Settings, TextAlignStart, UsersRound } from "lucide-react";
+import { BadgeInfo, Building2, ClipboardList, GroupIcon, Settings, TextAlignStart, UsersRound } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { memo, useMemo } from "react";
 
@@ -20,6 +20,7 @@ const SidebarNavInner = memo(
       { href: ROUTES.PRODUCTS, label: t('nav.products'), icon: TextAlignStart },
       { href: ROUTES.CATEGORIES, label: t('nav.categories'), icon: ClipboardList },
       { href: ROUTES.USERS, label: t('nav.users'), icon: UsersRound },
+      { href: ROUTES.ABOUT_US, label: t('nav.about-us'), icon: BadgeInfo },
       { href: ROUTES.SETTINGS, label: t('nav.settings'), icon: Settings },
     ], [t]);
 

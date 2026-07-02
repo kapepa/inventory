@@ -1,5 +1,5 @@
 import { getCategoriesWithProductCount } from "@/entities/server";
-import { AddCategoryButton } from "@/features/add-category/ui";
+import { AddCategoryButton } from "@/features";
 import { Container, AppLocale, PAGINATION_CATEGORIES_DEFAULTS, QUERY_PARAMS_KEYS } from "@/shared";
 import { CategoriesList, PageHeader } from "@/widgets";
 import { Metadata } from "next";

@@ -2,15 +2,15 @@
 
 import { AppLocale } from "@/shared"
 import { memo, useCallback } from "react"
-import { TranslatableFieldName } from "../model"
+import { CategoryTranslatableFieldName } from "../model"
 import { TitleField } from "./title-field"
 
 interface TranslationFieldsProps {
   locale: AppLocale
   isPending?: boolean
   autoFocus?: boolean
-  translatingFieldName?: TranslatableFieldName | null
-  handleTranslateAction: (fieldName: TranslatableFieldName, locale: AppLocale) => void
+  translatingFieldName?: CategoryTranslatableFieldName | null
+  handleTranslateAction: (fieldName: CategoryTranslatableFieldName, locale: AppLocale) => void
 }
 
 export const TranslationFields = memo(({

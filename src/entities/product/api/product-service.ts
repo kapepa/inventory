@@ -1,5 +1,5 @@
 import { prisma } from '@/shared/server';
-import { FetchProducts, ResponseProductsShortDTO, ResponseProductsWideDTO } from '../model';
+import { FetchProducts, ProductStatusCounts, ResponseProductsShortDTO, ResponseProductsWideDTO } from '../model';
 import { PAGINATION_PRODUCTS_DEFAULTS } from '@/shared';
 import { Prisma, Product } from '@prisma/client';
 
@@ -140,6 +140,32 @@ export async function getProductById({ id }: { id: string }): Promise<Product | 
     });
   } catch (error) {
     console.error('Prisma Error in getProductById:', error);
+    throw error;
+  }
+}
+
+export async function getProductStatusCounts(): Promise<ProductStatusCounts> {
+  try {
+    const counts = await prisma.product.groupBy({
+      by: ['status'],
+      _count: { id: true },
+    });
+
+    const result: ProductStatusCounts = {
+      FREE: 0,
+      BUSY: 0,
+      REPAIR: 0,
+      total: 0,
+    };
+
+    counts.forEach(({ status, _count }) => {
+      result[status] = _count.id;
+      result.total += _count.id;
+    });
+
+    return result;
+  } catch (error) {
+    console.error('Prisma Error in getProductStatusCounts:', error);
     throw error;
   }
 }

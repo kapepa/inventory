@@ -1,4 +1,4 @@
-import { ProductWithRelationsShort, ProductWithRelationsWide } from "./types";
+import { ProductStatusCounts, ProductWithRelationsShort, ProductWithRelationsWide } from "./types";
 
 export interface ResponseProductsWideDTO {
   data: ProductWithRelationsWide[],

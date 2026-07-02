@@ -26,5 +26,9 @@
   "users": {
     "title": "Users — Inventory",
     "description": "View the list of users."
+  },
+  "about-us": {
+    "title": "About Us — Inventory",
+    "description": "View information about the company."
   }
 }

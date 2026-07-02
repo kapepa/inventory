@@ -33,6 +33,9 @@ export default getRequestConfig(async ({ locale }) => {
       "users-page": (await import(`../shared/lib/i18n/locales/${locale}/users-page.json`)).default,
       "users-list": (await import(`../shared/lib/i18n/locales/${locale}/users-list.json`)).default,
       "user": (await import(`../shared/lib/i18n/locales/${locale}/user.json`)).default,
+      "about-us": (await import(`../shared/lib/i18n/locales/${locale}/about-us.json`)).default,
+      "category-chart": (await import(`../shared/lib/i18n/locales/${locale}/category-chart.json`)).default,
+      "house-map": (await import(`../shared/lib/i18n/locales/${locale}/house-map.json`)).default,
     }
   };
 });
