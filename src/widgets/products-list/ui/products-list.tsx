@@ -1,6 +1,6 @@
 "use client"
 
-import { ProductsShortStateMessage, ProductsWideCard, ProductsWideCardSkeleton, ProductWithRelationsWide, useInfiniteProducts } from "@/entities"
+import { ProductsStateMessage, ProductsWideCard, ProductsWideCardSkeleton, ProductWithRelationsWide, useInfiniteProducts } from "@/entities"
 import { useDeleteProduct, useViewProduct } from "@/features"
 import { cn, QUERY_PARAMS_KEYS, ScrollArea, useIntersectionObserver, useQueryParam, LoaderSpin } from "@/shared"
 import { useTranslations } from "next-intl"
@@ -46,15 +46,15 @@ export const ProductsList = ({ initialParishId, initialProducts, initialHasMore,
   }, [isIntersecting, hasMore, isLoading, loadMore])
 
   if (error && !isLoading) return (
-    <ProductsShortStateMessage className="text-destructive">
+    <ProductsStateMessage className="text-destructive">
       {t("errors.infinite-scroll-error")}
-    </ProductsShortStateMessage>
+    </ProductsStateMessage>
   )
 
   if (isLoading && products.length === 0 && !initialProducts.length) return (
-    <ProductsShortStateMessage className="flex flex-col h-full min-h-0">
+    <ProductsStateMessage className="flex flex-col h-full min-h-0">
       <LoaderSpin className="h-16 w-16" />
-    </ProductsShortStateMessage>
+    </ProductsStateMessage>
   )
 
   return (

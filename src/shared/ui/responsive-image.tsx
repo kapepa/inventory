@@ -5,7 +5,6 @@ import { BREAKPOINTS, cn, ImageSource, isMultipleSources, isSingleSource, Multip
 import { ImageIcon } from "lucide-react"
 import { Skeleton } from "@/shared/ui/skeleton"
 import { memo, useState } from "react"
-import { useTranslations } from "next-intl"
 
 // Maps aspect ratio variants to Tailwind classes
 const aspectRatioMap = {
@@ -24,12 +23,12 @@ export const ResponsiveImage = memo(
     objectFit = "cover",
     priority = false,
     fallback,
+    unstyled = false,
     sizes = `(max-width: 480px) 100vw, (max-width: 768px) 80vw, (max-width: 1200px) 50vw, (max-width: 1920px) 33vw, 25vw`
   }: ResponsiveImageProps) => {
     // Track loading and error states
     const [isLoading, setIsLoading] = useState(true)
     const [hasError, setHasError] = useState(false)
-    const t = useTranslations('responsive-image')
 
     const normalizedSource: ImageSource | null = (() => {
       if (!source) return null;
@@ -137,14 +136,19 @@ export const ResponsiveImage = memo(
       imageUrl = multipleSource.url || multipleSource.small || '';
     }
 
-    return (
-      <div className={cn(
+    const wrapperClasses = unstyled
+      ? "relative w-full h-full" : cn(
         "relative overflow-hidden bg-muted rounded-lg",
         aspectRatio !== "auto" && aspectRatioMap[aspectRatio],
         className
-      )}>
+      );
+
+    const showSkeletonLoader = !unstyled && isLoading && !hasError;
+
+    return (
+      <div className={wrapperClasses}>
         {/* Show skeleton while loading */}
-        {isLoading && !hasError && (
+        {showSkeletonLoader && (
           <Skeleton className="w-full h-full absolute inset-0 z-10" />
         )}
 

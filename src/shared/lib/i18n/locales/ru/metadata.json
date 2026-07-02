@@ -16,11 +16,15 @@
     "description": "Просмотр и управление вашими продуктами."
   },
   "categories": {
-    "title": "Категории  — Inventory",
+    "title": "Категории — Inventory",
     "description": "Просмотр и управление категориями."
   },
   "categories-id": {
     "title": "Категория  — {title}",
     "description": "Просмотр и поиск по категориям товаров."
+  },
+  "users": {
+    "title": "Пользователи — Inventory",
+    "description": "Просмотр списка пользователей."
   }
 }

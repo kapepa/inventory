@@ -22,5 +22,9 @@
   "categories-id": {
     "title": "Category — {title}",
     "description": "Browse and Search by Product Category."
+  },
+  "users": {
+    "title": "Users — Inventory",
+    "description": "View the list of users."
   }
 }

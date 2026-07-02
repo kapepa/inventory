@@ -1,4 +1,4 @@
-import { FetchProductsParams } from "@/entities/products";
+import { FetchProductsParams } from "@/entities/product";
 import { AppLocale } from "@/shared";
 import { Category, CategoryTranslation } from "@prisma/client";
 

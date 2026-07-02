@@ -27,6 +27,7 @@ export interface ResponsiveImageProps {
   priority?: boolean;
   fallback?: ReactNode;
   sizes?: string;  // Custom sizes attribute for Next.js Image
+  unstyled?: boolean;
 }
 
 export interface ImageSizes {

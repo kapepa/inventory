@@ -30,6 +30,9 @@ export default getRequestConfig(async ({ locale }) => {
       "category": (await import(`../shared/lib/i18n/locales/${locale}/category.json`)).default,
       "add-category": (await import(`../shared/lib/i18n/locales/${locale}/add-category.json`)).default,
       "categories-id-page": (await import(`../shared/lib/i18n/locales/${locale}/categories-id-page.json`)).default,
+      "users-page": (await import(`../shared/lib/i18n/locales/${locale}/users-page.json`)).default,
+      "users-list": (await import(`../shared/lib/i18n/locales/${locale}/users-list.json`)).default,
+      "user": (await import(`../shared/lib/i18n/locales/${locale}/user.json`)).default,
     }
   };
 });

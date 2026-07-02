@@ -1,6 +1,6 @@
 "use client"
 
-import { useParishesStore, fetchProductsShort, ProductShortCard, ProductShortCardSkeleton, ProductsShortBody, ProductsShortStateMessage, ProductWithRelationsShort, useInfiniteProducts } from "@/entities"
+import { useParishesStore, fetchProductsShort, ProductShortCard, ProductShortCardSkeleton, ProductsShortBody, ProductsStateMessage, ProductWithRelationsShort, useInfiniteProducts } from "@/entities"
 import { ProductCreateButton, useDeleteProduct, useViewProduct } from "@/features"
 import { cn, useActiveParishId, useIntersectionObserver, LoaderSpin } from "@/shared"
 import { useTranslations } from "next-intl"
@@ -43,21 +43,21 @@ export const GroupsRelations = memo(({ className, initialHasMore, initialProduct
   }, [isIntersecting, hasMore, isLoading, loadMore])
 
   if (!activeParishId) return (
-    <ProductsShortStateMessage className="text-muted-foreground">
+    <ProductsStateMessage className="text-muted-foreground">
       {t("groups-relations.parishes-not-selected")}
-    </ProductsShortStateMessage>
+    </ProductsStateMessage>
   )
 
   if (error) return (
-    <ProductsShortStateMessage className="text-destructive">
+    <ProductsStateMessage className="text-destructive">
       {t("groups-relations.parishes-error")}
-    </ProductsShortStateMessage>
+    </ProductsStateMessage>
   )
 
   if (isLoading && products.length === 0) return (
-    <ProductsShortStateMessage className="flex flex-col h-full min-h-0">
+    <ProductsStateMessage className="flex flex-col h-full min-h-0">
       <LoaderSpin className="h-16 w-16" />
-    </ProductsShortStateMessage>
+    </ProductsStateMessage>
   )
 
   return (
