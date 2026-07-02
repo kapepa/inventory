@@ -1,0 +1,7 @@
+{
+  "busy": "Busy",
+  "free": "Free",
+  "repair": "Repair",
+  "total": "Total",
+  "details": "The products are now available to our customers! There are a total of {total} items in our product lineup."
+}
