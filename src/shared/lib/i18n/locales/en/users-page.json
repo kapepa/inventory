@@ -1,3 +1,7 @@
 {
-  "header-title": "Users"
+  "header-title": "Users",
+  "errors": {
+    "title": "Error Loading Users",
+    "description": "An error occurred while loading users. Please try again."
+  }
 }
