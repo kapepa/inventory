@@ -26,5 +26,9 @@
   "users": {
     "title": "Пользователи — Inventory",
     "description": "Просмотр списка пользователей."
+  },
+  "about-us": {
+    "title": "О нас — Inventory",
+    "description": "Просмотр информации о компании."
   }
 }

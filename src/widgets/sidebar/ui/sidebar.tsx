@@ -15,7 +15,7 @@ export const Sidebar = memo(
 
         <aside className={cn("shadow-right-lg px-10 sm:px-16 z-30 bg-background", styles.sidebar)}>
           <div className="flex flex-col justify-center items-center h-full overflow-hidden">
-            <div className="pb-20 flex flex-col gap-y-10">
+            <div className="pb-10 md:pb-20 flex flex-col gap-y-6 md:gap-y-10">
               <LanguageSwitcher />
               <SidebarUser />
             </div>
