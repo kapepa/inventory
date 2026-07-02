@@ -4,13 +4,14 @@ import { cn } from "@/shared"
 import { UserPublic } from "../../model"
 import { EmailUserCell, ImageUserCell, ImageUserCellSkeleton, NameUserCell, NameUserCellSkeleton, EmailUserCellSkeleton } from "../user-cells"
 import { useTranslations } from "next-intl"
+import { memo } from "react"
 
 interface UserCardProps {
   className?: string,
   user: UserPublic,
 }
 
-export const UserCard = ({ className, user }: UserCardProps) => {
+export const UserCard = memo(({ className, user }: UserCardProps) => {
   const t = useTranslations('user.user-card');
   return (
     <div
@@ -27,11 +28,11 @@ export const UserCard = ({ className, user }: UserCardProps) => {
       </div>
     </div>
   )
-}
+})
 
 UserCard.displayName = "UserCard"
 
-export const UserCardSkeleton = ({ className }: { className?: string }) => {
+export const UserCardSkeleton = memo(({ className }: { className?: string }) => {
   return (
     <div
       className={cn(
@@ -48,5 +49,6 @@ export const UserCardSkeleton = ({ className }: { className?: string }) => {
     </div>
   )
 }
+)
 
 UserCardSkeleton.displayName = "UserCardSkeleton"
