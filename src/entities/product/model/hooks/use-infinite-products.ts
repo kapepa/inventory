@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect, useCallback, useRef } from "react"
-import { FetchProductsParams, useProductsStore } from "@/entities/products"
+import { FetchProductsParams, useProductsStore } from "@/entities/product"
 import { PAGINATION_PRODUCTS_DEFAULTS, useDebouncedCallback } from "@/shared"
 
 interface FetchResponse<T> {

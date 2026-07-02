@@ -2,7 +2,7 @@
 
 import { useActiveParishId, Sheet, SheetContent, SheetHeader, SheetTitle, SheetFooter, SheetClose, ModalCancelButton, useMediaQuery } from "@/shared";
 import { GroupsRelations } from "./groups-relations";
-import { ProductWithRelationsShort } from "@/entities/products";
+import { ProductWithRelationsShort } from "@/entities/product";
 import { memo } from "react";
 import { useTranslations } from "next-intl";
 

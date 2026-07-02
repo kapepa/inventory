@@ -1,12 +1,12 @@
 import { cn } from "@/shared"
 import { ReactNode } from "react"
 
-interface ProductsShortStateMessageProps {
+interface ProductsStateMessageProps {
   className?: string,
   children: ReactNode
 }
 
-export const ProductsShortStateMessage = ({ children, className }: ProductsShortStateMessageProps) => {
+export const ProductsStateMessage = ({ children, className }: ProductsStateMessageProps) => {
   return (
     <div className={cn("flex items-center justify-center py-8 text-muted-foreground", className)}>
       {children}
@@ -14,4 +14,4 @@ export const ProductsShortStateMessage = ({ children, className }: ProductsShort
   )
 }
 
-ProductsShortStateMessage.displayName = "ProductsShortStateMessage"
+ProductsStateMessage.displayName = "ProductsStateMessage"

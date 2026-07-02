@@ -11,6 +11,10 @@
     "popup-title": "Search",
     "placeholder": "Search by category..."
   },
+  "users-search": {
+    "popup-title": "Search",
+    "placeholder": "Search by users..."
+  },
   "buttons": {
     "close": "Close",
     "clear": "Clear"

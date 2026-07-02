@@ -11,6 +11,10 @@
     "popup-title": "Поиск",
     "placeholder": "Поиск по категориям..."
   },
+  "users-search": {
+    "popup-title": "Поиск",
+    "placeholder": "Поиск по пользователям..."
+  },
   "buttons": {
     "close": "Закрыть",
     "clear": "Очистить"
