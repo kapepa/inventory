@@ -3,18 +3,18 @@
 import { useMemo, useState, useTransition } from "react"
 import { FieldPath, UseFormReturn } from "react-hook-form"
 import { AppLocale, oppositeLocale, useThrottle, useTranslate } from "@/shared"
-import { CategoryFormValues, TranslatableFieldName } from "../schemas"
+import { CategoryFormValues, CategoryTranslatableFieldName } from "../schemas"
 
 
 export const useAddCategoryTranslation = (form: UseFormReturn<CategoryFormValues>) => {
   const { translate, isLoading: isTranslatingApi } = useTranslate()
   const [isTranslatingTransition, startTranslateTransition] = useTransition()
-  const [translatingField, setTranslatingField] = useState<{ name: TranslatableFieldName, locale: AppLocale } | null>(null)
+  const [translatingField, setTranslatingField] = useState<{ name: CategoryTranslatableFieldName, locale: AppLocale } | null>(null)
 
   const isTranslating = isTranslatingApi || isTranslatingTransition
 
   const handleTranslateAction = useThrottle(
-    (fieldName: TranslatableFieldName, targetLocale: AppLocale) => {
+    (fieldName: CategoryTranslatableFieldName, targetLocale: AppLocale) => {
       const otherLocale = oppositeLocale[targetLocale]
       const sourceValue = form.getValues(`translations.${otherLocale}.${fieldName}`)
 

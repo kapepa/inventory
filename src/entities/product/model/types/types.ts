@@ -1,5 +1,5 @@
 import { AppLocale } from "@/shared";
-import { Category, CategoryTranslation, Price, Product, ProductTranslation, Rental, User } from "@prisma/client";
+import { Category, CategoryTranslation, Price, Product, ProductStatus, ProductTranslation, Rental, User } from "@prisma/client";
 
 export interface FetchProducts {
   specification?: string,
@@ -23,3 +23,9 @@ export interface ProductWithRelationsWide extends ProductWithRelationsShort {
 }
 
 export type ProductWithRelations = ProductWithRelationsShort | ProductWithRelationsWide
+
+export type ProductStatusKey = keyof typeof ProductStatus;
+
+export interface ProductStatusCounts extends Record<ProductStatusKey, number> {
+  total: number;
+}

@@ -16,7 +16,7 @@ export const createCategoryFormSchema = (t: TranslationFunction) => z.object({
 });
 
 export type CategoryFormSchema = ReturnType<typeof createCategoryFormSchema>
-export type TranslatableFieldName = 'title'
+export type CategoryTranslatableFieldName = 'title'
 export type CategoryFormValues = z.infer<CategoryFormSchema>
 export type CategoryhCreateServerValues = z.infer<typeof categoryCreateServerSchema>
 
