@@ -44,7 +44,7 @@ export default async function Users({
       <PageHeader
         title={t("header-title")}
         count={users.total}
-      // storeType="products"
+        storeType="users"
       />
       <UsersList
         initialUsers={users.data}

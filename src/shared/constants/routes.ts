@@ -4,5 +4,6 @@ export const ROUTES = {
   PRODUCTS: '/products',
   CATEGORIES: '/categories',
   USERS: '/users',
-  SETTINGS: '/settings'
+  SETTINGS: '/settings',
+  ABOUT_US: '/about-us',
 } as const;
