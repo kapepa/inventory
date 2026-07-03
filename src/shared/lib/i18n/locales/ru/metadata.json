@@ -1,5 +1,5 @@
 {
-  "parishe": {
+  "parishes": {
     "title": "Приходы — Inventory",
     "description": "Просмотр и управление списком приходов."
   },
@@ -30,5 +30,9 @@
   "about-us": {
     "title": "О нас — Inventory",
     "description": "Просмотр информации о компании."
+  },
+  "auth": {
+    "title": "Авторизация — Inventory",
+    "description": "Регистрация и вход в систему."
   }
 }
