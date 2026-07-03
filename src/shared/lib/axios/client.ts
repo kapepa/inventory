@@ -2,7 +2,6 @@
 
 import { STORAGE_KEYS } from '@/shared/constants';
 import axios, { AxiosInstance, InternalAxiosRequestConfig, AxiosError } from 'axios';
-// import { getSession } from 'next-auth/react';
 
 class AxiosClient {
   private static instance: AxiosClient;
@@ -15,7 +14,7 @@ class AxiosClient {
       headers: {
         'Content-Type': 'application/json',
       },
-      withCredentials: true, // Для cookies
+      withCredentials: true, // Important for sending cookies with auth_token
     });
 
     this.setupInterceptors();
@@ -29,29 +28,16 @@ class AxiosClient {
   }
 
   private setupInterceptors() {
-    this.client.interceptors.request.use(
-      async (config) => {
-        const locale = localStorage.getItem(STORAGE_KEYS.LOCALE) || 'ru';
-        config.headers['Accept-Language'] = locale;
-        return config;
-      }
-    );
     // Request interceptor
     this.client.interceptors.request.use(
       async (config: InternalAxiosRequestConfig) => {
-        // Добавляем токен авторизации
-        // const session = await getSession();
-        // if (session?.accessToken) {
-        //   config.headers.Authorization = `Bearer ${session.accessToken}`;
-        // }
-
-        // Добавляем язык
-        const locale = localStorage.getItem('locale') || 'ru';
+        // Load the language from localStorage
+        const locale = localStorage.getItem(STORAGE_KEYS.LOCALE) || 'ru';
         config.headers['Accept-Language'] = locale;
 
-        // Логирование запросов (dev)
+        // Request logging (dev)
         if (process.env.NODE_ENV === 'development') {
-          // console.log(`[Axios Request] ${config.method?.toUpperCase()} ${config.url}`, config.data);
+          console.log(`[Axios Request] ${config.method?.toUpperCase()} ${config.url}`);
         }
 
         return config;
@@ -62,44 +48,28 @@ class AxiosClient {
     // Response interceptor
     this.client.interceptors.response.use(
       (response) => {
-        // if (process.env.NODE_ENV === 'development') {
-        //   console.log(`[Axios Response] ${response.config.url}`, response.data);
-        // }
+        if (process.env.NODE_ENV === 'development') {
+          console.log(`[Axios Response] ${response.config.url}`, response.status);
+        }
         return response;
       },
       async (error: AxiosError) => {
-        const originalRequest = error.config as any;
-
-        // 401
-        if (error.response?.status === 401 && !originalRequest._retry) {
-          originalRequest._retry = true;
-
-          try {
-            // Попытка обновить токен
-            const { data } = await axios.post('/api/auth/refresh-token');
-            // const session = await getSession();
-
-            // if (session) {
-            //   session.accessToken = data.accessToken;
-            //   originalRequest.headers.Authorization = `Bearer ${data.accessToken}`;
-            //   return this.client(originalRequest);
-            // }
-          } catch (refreshError) {
-            // Перенаправление на логин
-            if (typeof window !== 'undefined') {
-              window.location.href = '/login';
-            }
-            return Promise.reject(refreshError);
+        // 401 - Unauthorized
+        if (error.response?.status === 401) {
+          // Redirect to the login page if not on the auth page
+          if (typeof window !== 'undefined' && !window.location.pathname.includes('/auth')) {
+            const locale = localStorage.getItem(STORAGE_KEYS.LOCALE) || 'ru';
+            window.location.href = `/${locale}/auth`;
           }
         }
 
-        // Обработка ошибок валидации
+        // Handling validation errors
         if (error.response?.status === 422) {
           const validationErrors = error.response.data as any;
           throw new ValidationError(validationErrors);
         }
 
-        // Обработка ошибок сети - просто логируем и отклоняем
+        // Handling network errors
         if (!error.response && error.code !== 'ERR_CANCELED') {
           console.error('Network error:', error.message);
         }
@@ -114,7 +84,7 @@ class AxiosClient {
   }
 }
 
-// Кастомная ошибка валидации
+// Custom validation error
 export class ValidationError extends Error {
   constructor(public errors: any) {
     super('Validation Error');

@@ -2,5 +2,6 @@ export const STORAGE_KEYS = {
   LOCALE: 'inventory-locale',
   ADD_PARISH_FORM_DATA: 'add-parish-form-data',
   ADD_PRODUCT_FORM_DATA: 'add-product-form-data',
-  ADD_CATEGORY_FORM_DATA: 'add-category-form-data'
+  ADD_CATEGORY_FORM_DATA: 'add-category-form-data',
+  AUTH_TAB_STORAGE_KEY: 'auth-tab-storage-key',
 } as const

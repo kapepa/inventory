@@ -7,6 +7,11 @@ export default {
       fontFamily: {
         sans: ['var(--font-inter)', 'sans-serif'],
       },
+      colors: {
+        'accent-custom': 'var(--accent-color)',
+        'static-custom': 'var(--static-color)',
+        'warning-custom': 'var(--color-warning)',
+      },
     },
   },
   plugins: [],
