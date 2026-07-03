@@ -8,7 +8,7 @@ interface ParishesWideHeaderProps {
 
 export const ParishWideHeader = memo(
   ({ className }: ParishesWideHeaderProps) => {
-    const t = useTranslations('parishe.list.header');
+    const t = useTranslations('parish.list.header');
 
     return (
 

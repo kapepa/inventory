@@ -9,7 +9,7 @@ import { useCallback } from "react";
 import { requestDeleteParish } from "../../api";
 
 export const useDeleteParish = <T extends ParishesType,>() => {
-  const t = useTranslations('parishe');
+  const t = useTranslations('parish');
   const { openModal, closeModal } = useModalActions();
 
   const confirmDeleteParish = useCallback((parish: T, onSuccess?: () => void) => {

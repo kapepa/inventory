@@ -8,7 +8,7 @@ interface CountCellProps {
 }
 
 export const CountCell = ({ label, count, className }: CountCellProps) => {
-  const t = useTranslations('parishe.list.cell');
+  const t = useTranslations('parish.list.cell');
   return (
     <div className={cn("", className)}>
       {label && <MobileCellLabel className="block md:hidden">{label}</MobileCellLabel>}
