@@ -11,7 +11,7 @@ export default getRequestConfig(async ({ locale }) => {
     messages: {
       ...(await import(`../shared/lib/i18n/locales/${locale}/common.json`)).default,
       groups: (await import(`../shared/lib/i18n/locales/${locale}/groups.json`)).default,
-      parishe: (await import(`../shared/lib/i18n/locales/${locale}/parishe.json`)).default,
+      parish: (await import(`../shared/lib/i18n/locales/${locale}/parish.json`)).default,
       sidebar: (await import(`../shared/lib/i18n/locales/${locale}/sidebar.json`)).default,
       header: (await import(`../shared/lib/i18n/locales/${locale}/header.json`)).default,
       metadata: (await import(`../shared/lib/i18n/locales/${locale}/metadata.json`)).default,
@@ -36,6 +36,8 @@ export default getRequestConfig(async ({ locale }) => {
       "about-us": (await import(`../shared/lib/i18n/locales/${locale}/about-us.json`)).default,
       "category-chart": (await import(`../shared/lib/i18n/locales/${locale}/category-chart.json`)).default,
       "house-map": (await import(`../shared/lib/i18n/locales/${locale}/house-map.json`)).default,
+      "auth-gate": (await import(`../shared/lib/i18n/locales/${locale}/auth-gate.json`)).default,
+      "auth": (await import(`../shared/lib/i18n/locales/${locale}/auth-gate.json`)).default,
     }
   };
 });

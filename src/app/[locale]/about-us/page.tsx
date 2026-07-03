@@ -4,7 +4,6 @@ import { CategoryChart, PageHeader, WarehouseMapDynamic } from "@/widgets";
 import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 
-
 export async function generateMetadata({
   params,
 }: {

@@ -23,7 +23,7 @@ export const DeleteConfirmModal = ({
   onConfirmAction,
   onCancelAction
 }: DeleteConfirmModalProps) => {
-  const t = useTranslations('parishe.modal');
+  const t = useTranslations('parish.modal');
   const [isPending, startTransition] = useTransition();
 
   const handleConfirm = () => {

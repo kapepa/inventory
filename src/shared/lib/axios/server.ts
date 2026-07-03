@@ -1,5 +1,4 @@
 import axios, { AxiosInstance, InternalAxiosRequestConfig } from 'axios';
-// import { cookies } from 'next/headers';
 
 class AxiosServer {
   private static instance: AxiosServer;
@@ -26,41 +25,19 @@ class AxiosServer {
 
   private setupInterceptors() {
     this.client.interceptors.request.use(
-      async (config: InternalAxiosRequestConfig) => {
-        // Получаем токен из cookies на сервере
-        // const cookieStore = cookies();
-        // const token = cookieStore.get('access_token');
-
-        // if (token?.value) {
-        //   config.headers.Authorization = `Bearer ${token.value}`;
-        // }
-
-        // // Получаем язык из cookies
-        // const locale = cookieStore.get('locale')?.value || 'ru';
-        // config.headers['Accept-Language'] = locale;
-
-        return config;
-      },
+      async (config: InternalAxiosRequestConfig) => config,
       (error) => Promise.reject(error)
     );
 
-    // Response interceptor для сервера
+    // Response interceptor for the server
     this.client.interceptors.response.use(
       (response) => response,
       async (error) => {
-        // Логирование ошибок на сервере
         console.error('[Server Axios Error]', {
           url: error.config?.url,
           status: error.response?.status,
           message: error.message,
         });
-
-        // Обработка 401 на сервере
-        if (error.response?.status === 401) {
-          // Перенаправление на страницу логина
-          const { redirect } = await import('next/navigation');
-          redirect('/login');
-        }
 
         return Promise.reject(error);
       }

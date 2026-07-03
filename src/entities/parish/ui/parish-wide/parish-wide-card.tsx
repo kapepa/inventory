@@ -14,7 +14,7 @@ interface ParishWideCardProps {
 
 export const ParishWideCard = memo(
   ({ parish, onDeleteParish, className }: ParishWideCardProps) => {
-    const t = useTranslations('parishe.list.header');
+    const t = useTranslations('parish.list.header');
     const { title, description } = parish.translations[0]
 
     return (

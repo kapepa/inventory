@@ -1,15 +1,16 @@
 import { CategoriesSearch, LiveDatetime, ParishesSearch, ProductsSearch, UsersSearch } from "@/features";
-import { cn, Logo } from "@/shared";
+import { cn, LanguageSwitcher, Logo } from "@/shared";
 import { Container } from "@/shared/ui/container";
 import { memo } from "react";
 
 interface HeaderProps {
+  language?: boolean
   showSearch?: 'parishes' | 'products' | 'categories' | 'users';
   className?: string;
 }
 
 export const Header = memo(
-  ({ className, showSearch }: HeaderProps) => {
+  ({ language = false, showSearch, className }: HeaderProps) => {
     return (
       <header className={cn("border-b shadow-lg sticky z-10 bg-background", className)}>
         <Container
@@ -20,6 +21,7 @@ export const Header = memo(
           {showSearch === "products" && <ProductsSearch />}
           {showSearch === "categories" && <CategoriesSearch />}
           {showSearch === "users" && <UsersSearch />}
+          {language && <LanguageSwitcher />}
           <LiveDatetime
             className="hidden md:block"
           />

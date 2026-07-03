@@ -8,3 +8,4 @@ export * from "./categories-list";
 export * from "./users-list";
 export * from "./category-chart";
 export * from "./map";
+export * from "./auth-gate"
