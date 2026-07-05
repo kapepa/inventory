@@ -1,1 +1,1 @@
-export { authorizeRequest } from "./auth-service"
+export { authorizeRequest, getSessionUser, authRegister } from "./auth-service"
