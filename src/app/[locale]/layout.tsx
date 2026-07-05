@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation';
 import { Inter } from "next/font/google";
 import { Providers } from './providers';
 import { routing, ModalRoot, Toaster } from '@/shared';
-
+import { getSessionUser } from '@/features/server';
 
 const inter = Inter({
   subsets: ['cyrillic', 'latin'],
@@ -31,11 +31,12 @@ export default async function LocaleLayout({
   setRequestLocale(locale);
 
   const messages = await getMessages({ locale });
+  const user = await getSessionUser();
 
   return (
     <html lang={locale} className={`${inter.className} h-full antialiased`}>
       <body className='bg-static'>
-        <Providers locale={locale} messages={messages}>
+        <Providers locale={locale} messages={messages} initialUser={user}>
           <div className="min-w-75">
             {children}
           </div>
