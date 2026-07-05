@@ -1,7 +1,7 @@
 import { extractPublicId, ResponseProductsShortDTO } from '@/entities';
 import { getFilteredProductsShort } from '@/entities/server';
 import { deleteFile } from '@/entities/server';
-import { MiddlewareUser, ProductCreate } from '@/features';
+import { AuthenticatedUser, ProductCreate } from '@/features';
 import { createProduct } from '@/features/server';
 import { AppLocale, defaultLocale, locales, PAGINATION_PRODUCTS_DEFAULTS } from '@/shared';
 import { apiHandler } from '@/shared/server';
@@ -34,7 +34,7 @@ export const GET = apiHandler(async (request: NextRequest): Promise<NextResponse
   }
 });
 
-export const POST = apiHandler(async (request: NextRequest, user: MiddlewareUser): Promise<NextResponse<ProductCreate | { error: string }>> => {
+export const POST = apiHandler(async (request: NextRequest, user: AuthenticatedUser): Promise<NextResponse<ProductCreate | { error: string }>> => {
   let photoToCleanup: string | null = null
   try {
     const body = await request.json();

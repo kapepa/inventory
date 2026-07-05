@@ -1,10 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { apiHandler } from '@/shared/lib/middleware';
 import { deleteParish } from '@/features/server';
-import { MiddlewareUser } from '@/features';
+import { AuthenticatedUser } from '@/features';
 import { getParishById } from '@/entities/server';
 
-export const DELETE = apiHandler(async (_: NextRequest, user: MiddlewareUser, { params }: { params: Promise<{ id: string }> }) => {
+export const DELETE = apiHandler(async (_: NextRequest, user: AuthenticatedUser, { params }: { params: Promise<{ id: string }> }) => {
   const { id } = await params;
   try {
     if (user?.role !== "ADMIN") return NextResponse.json(
