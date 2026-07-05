@@ -12,9 +12,9 @@ export const AuthGate = () => {
   const [activeTab, setActiveTab] = useState<AuthTab>("login")
 
   return (
-    <div className="w-full max-w-md mx-auto p-6 bg-card rounded-lg shadow-lg" suppressHydrationWarning>
+    <div className="w-full max-w-md mx-auto bg-card rounded-lg shadow-lg" suppressHydrationWarning>
       <Tabs value={activeTab} onValueChange={(v) => setActiveTab(v as AuthTab)}>
-        <TabsList className="grid w-full grid-cols-2 mb-6">
+        <TabsList className="grid w-full grid-cols-2 p-6">
           <TabsTrigger
             value="login"
             className={cn(

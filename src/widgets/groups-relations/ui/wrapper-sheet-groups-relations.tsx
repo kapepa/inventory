@@ -1,6 +1,6 @@
 "use client"
 
-import { useActiveParishId, Sheet, SheetContent, SheetHeader, SheetTitle, SheetFooter, SheetClose, ModalCancelButton, useMediaQuery } from "@/shared";
+import { useActiveParishId, Sheet, SheetContent, SheetHeader, SheetTitle, SheetFooter, SheetClose, CancelButton, useMediaQuery } from "@/shared";
 import { GroupsRelations } from "./groups-relations";
 import { ProductWithRelationsShort } from "@/entities/product";
 import { memo } from "react";
@@ -36,7 +36,7 @@ export const WrapperSheetGroupsRelations = memo((props: WrapperSheetGroupsRelati
         <GroupsRelations {...props} className="h-full" />
         <SheetFooter className="bg-accent">
           <SheetClose asChild>
-            <ModalCancelButton>{t("close")}</ModalCancelButton>
+            <CancelButton>{t("close")}</CancelButton>
           </SheetClose>
         </SheetFooter>
       </SheetContent>
