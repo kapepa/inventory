@@ -1,65 +1,36 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { prisma } from '@/shared/lib/prisma';
-import { comparePassword, signToken, setAuthCookie } from '@/shared/lib/auth';
+import { setAuthCookie } from '@/shared/lib/auth';
+import { ZodError } from 'zod';
+import { InvalidCredentialsError } from '@/features/server';
+import { authLogout } from '@/features/auth/api/auth-service';
+import { AuthSignIn } from '@/features';
 
 export async function POST(request: NextRequest) {
   try {
-    const body = await request.json();
-    const { email, password } = body;
+    const body: AuthSignIn = await request.json();
+    const token = await authLogout(body)
 
-    // Валидация
-    if (!email || !password) {
-      return NextResponse.json(
-        { error: 'Email and password are required' },
-        { status: 400 }
-      );
-    }
-
-    // Поиск пользователя
-    const user = await prisma.user.findUnique({
-      where: { email },
-    });
-
-    if (!user) {
-      return NextResponse.json(
-        { error: 'Invalid email or password' },
-        { status: 401 }
-      );
-    }
-
-    // Проверка пароля
-    const isPasswordValid = await comparePassword(password, user.password);
-
-    if (!isPasswordValid) {
-      return NextResponse.json(
-        { error: 'Invalid email or password' },
-        { status: 401 }
-      );
-    }
-
-    // Генерация JWT токена
-    const token = signToken({
-      userId: user.id,
-      email: user.email,
-      role: user.role,
-    });
-
-    // Создание ответа с cookie
     const response = NextResponse.json(
-      {
-        message: 'Login successful',
-        user: {
-          id: user.id,
-          name: user.name,
-          email: user.email,
-          role: user.role,
-        },
-      },
+      { message: 'Login successful' },
       { status: 200 }
     );
 
     return setAuthCookie(response, token);
   } catch (error) {
+    if (error instanceof ZodError) {
+      return NextResponse.json(
+        { error: 'Invalid data format', details: error.format() },
+        { status: 400 }
+      )
+    }
+
+    if (error instanceof InvalidCredentialsError) {
+      return NextResponse.json(
+        { error: error.message },
+        { status: 409 }
+      );
+    }
+
     console.error('Login error:', error);
     return NextResponse.json(
       { error: 'Internal server error' },
