@@ -4,15 +4,16 @@ import { VariantProps } from "class-variance-authority";
 import { cn } from "../lib";
 import { Loader } from "lucide-react";
 
-interface ModalCancelButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+interface CancelButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode;
   className?: string;
   onCancelAction?: () => void;
 }
 
-export const ModalCancelButton = ({ children, className, onCancelAction, ...props }: ModalCancelButtonProps) => {
+export const CancelButton = ({ children, className, onCancelAction, ...props }: CancelButtonProps) => {
   return (
     <Button
+      type="button"
       variant="simply-transparency"
       className={cn("px-5 md:px-7 py-5 rounded-full uppercase", className)}
       onClick={onCancelAction}
@@ -23,15 +24,17 @@ export const ModalCancelButton = ({ children, className, onCancelAction, ...prop
   );
 };
 
-interface ModalActionButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  variant: Extract<VariantProps<typeof buttonVariants>['variant'], "simply-accent" | "simply-destructive">;
+CancelButton.displayName = "CancelButton";
+
+interface SubmitButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+  variant: Extract<VariantProps<typeof buttonVariants>['variant'], "simply-accent" | "simply-destructive" | "default">;
   children: ReactNode;
   className?: string;
   onConfirmAction?: () => void;
   isLoading?: boolean;
 }
 
-export const ModalActionButton = ({ variant, children, className, onConfirmAction, isLoading, ...props }: ModalActionButtonProps) => {
+export const SubmitButton = ({ variant, children, className, onConfirmAction, isLoading, ...props }: SubmitButtonProps) => {
   return (
     <Button
       variant={variant}
@@ -58,3 +61,5 @@ export const ModalActionButton = ({ variant, children, className, onConfirmActio
     </Button>
   );
 };
+
+SubmitButton.displayName = "SubmitButton";

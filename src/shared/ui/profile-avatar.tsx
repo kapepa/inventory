@@ -1,3 +1,5 @@
+"use client"
+
 import { getFirstLetter } from "../lib/get-first-letter"
 import { getRandomColor } from "../lib/get-random-color"
 import { cn } from "../lib/utils"
@@ -5,7 +7,7 @@ import { ResponsiveImage } from "./responsive-image"
 
 interface ProfileAvatarProps {
   url?: string | null,
-  name: string,
+  name?: string,
   className?: string,
   size?: number
 }
@@ -25,14 +27,14 @@ export const ProfileAvatar = ({ url, name, className }: ProfileAvatarProps) => {
     )
   }
 
-  const getLetter = getFirstLetter(name)
   const getColor = getRandomColor(name)
+  const getLetter = getFirstLetter(name)
 
   return (
-    <div className={cn("rounded-full h-full w-full bg-chart-2 flex items-center justify-center text-3xl", getColor, className)}>
+    <div className={cn("rounded-full h-full w-full bg-chart-2 flex items-center justify-center text-3xl", getColor, className)} suppressHydrationWarning>
       <span className="text-white" >{getLetter}</span>
     </div>
   )
 }
 
-ProfileAvatar
+ProfileAvatar.displayName = "ProfileAvatar"
