@@ -1,8 +1,8 @@
 import { axiosInstance } from "@/shared"
 import axios, { AxiosError } from "axios"
-import { CreateProductParams, ProductWithRelations } from "../model"
+import { CreateProductParams, ProductCreate } from "../model"
 
-export const requestСreateProduct = async ({ signal, data }: CreateProductParams): Promise<ProductWithRelations> => {
+export const requestСreateProduct = async ({ signal, data }: CreateProductParams): Promise<ProductCreate> => {
   try {
     const response = await axiosInstance.post(`/products`, data, { signal })
 

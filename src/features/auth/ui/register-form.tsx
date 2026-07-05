@@ -1,68 +1,127 @@
 "use client";
 
-import { Button, Input } from "@/shared";
-import { useRegisterForm } from "../model/hooks/use-register-form";
+import { CancelButton, Form, FormControl, FormField, FormItem, FormLabel, FormMessage, Input, SubmitButton, VALIDATION_LIMITS } from "@/shared";
+import { useRegisterForm } from "../model/hooks";
+import { useTranslations } from "next-intl";
 
 export const RegisterForm = () => {
-  const { form, onSubmit, isSubmitting } = useRegisterForm()
+  const t = useTranslations("auth.form")
+  const { form, onSubmit, isSubmitting, onReset } = useRegisterForm()
 
   return (
-    <form onSubmit={onSubmit} className="space-y-4">
-      <div className="space-y-2">
-        <label htmlFor="name" className="text-sm font-medium">
-          Имя
-        </label>
-        <Input
-          id="name"
-          type="text"
-          placeholder="Ваше имя"
-          // {...register("name")}
-          disabled={isSubmitting}
-        />
-      </div>
+    <Form {...form}>
+      <form onSubmit={onSubmit} className="space-y-4">
+        <div className="flex flex-col gap-y-6 pb-3 px-6">
+          <FormField
+            name="name"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>{t('labels.name')}</FormLabel>
+                <FormControl>
+                  <Input
+                    type="text"
+                    placeholder={t('placeholders.name')}
+                    {...field}
+                    value={field.value ?? ''}
+                    // We allow +1 character so that Zod can detect when the limit is exceeded and display an error
+                    maxLength={VALIDATION_LIMITS.NAME_MAX_LENGTH + 1}
+                    disabled={isSubmitting}
+                  />
+                </FormControl>
+                <div className="h-1 mt-0">
+                  <FormMessage />
+                </div>
+              </FormItem>
+            )}
+          />
 
-      <div className="space-y-2">
-        <label htmlFor="email" className="text-sm font-medium">
-          Email
-        </label>
-        <Input
-          id="email"
-          type="email"
-          placeholder="your@email.com"
-          // {...register("email")}
-          disabled={isSubmitting}
-        />
-      </div>
+          <FormField
+            name="email"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>{t('labels.email')}</FormLabel>
+                <FormControl>
+                  <Input
+                    type="email"
+                    placeholder={t('placeholders.email')}
+                    {...field}
+                    value={field.value ?? ''}
+                    // We allow +1 character so that Zod can detect when the limit is exceeded and display an error
+                    maxLength={VALIDATION_LIMITS.EMAIL_MAX_LENGTH + 1}
+                    disabled={isSubmitting}
+                  />
+                </FormControl>
+                <div className="h-1 mt-0">
+                  <FormMessage />
+                </div>
+              </FormItem>
+            )}
+          />
 
-      <div className="space-y-2">
-        <label htmlFor="password" className="text-sm font-medium">
-          Пароль
-        </label>
-        <Input
-          id="password"
-          type="password"
-          placeholder="••••••••"
-          // {...register("password")}
-          disabled={isSubmitting}
-        />
-      </div>
+          <FormField
+            name="password"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>{t('labels.password')}</FormLabel>
+                <FormControl>
+                  <Input
+                    type="password"
+                    placeholder={t('placeholders.password')}
+                    {...field}
+                    value={field.value ?? ''}
+                    // We allow +1 character so that Zod can detect when the limit is exceeded and display an error
+                    maxLength={VALIDATION_LIMITS.PASSWORD_MAX_LENGTH + 1}
+                    disabled={isSubmitting}
+                  />
+                </FormControl>
+                <div className="h-1 mt-0">
+                  <FormMessage />
+                </div>
+              </FormItem>
+            )}
+          />
 
-      <div className="space-y-2">
-        <label htmlFor="confirmPassword" className="text-sm font-medium">
-          Подтвердите пароль
-        </label>
-        <Input
-          id="confirmPassword"
-          type="password"
-          placeholder="••••••••"
-          // {...register("confirmPassword")}
-          disabled={isSubmitting}
-        />
-      </div>
-
-      <Button type="submit" className="w-full" disabled={isSubmitting}>
-        {isSubmitting ? "Регистрация..." : "Зарегистрироваться"}
-      </Button>
-    </form>
+          <FormField
+            name="confirmPassword"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>{t('labels.confirm-password')}</FormLabel>
+                <FormControl>
+                  <Input
+                    type="password"
+                    placeholder={t('placeholders.confirm-password')}
+                    {...field}
+                    value={field.value ?? ''}
+                    // We allow +1 character so that Zod can detect when the limit is exceeded and display an error
+                    maxLength={VALIDATION_LIMITS.PASSWORD_MAX_LENGTH + 1}
+                    disabled={isSubmitting}
+                  />
+                </FormControl>
+                <div className="h-1 mt-0">
+                  <FormMessage />
+                </div>
+              </FormItem>
+            )}
+          />
+        </div>
+        <div className="bg-accent px-6 py-3 flex justify-end gap-x-2">
+          <CancelButton
+            type="button"
+            onClick={onReset}
+            disabled={isSubmitting}
+          >
+            {t("buttons.reset")}
+          </CancelButton>
+          <SubmitButton
+            type="submit"
+            variant="simply-accent"
+            isLoading={isSubmitting}
+            disabled={isSubmitting}
+          >
+            {t("buttons.sign-up")}
+          </SubmitButton>
+        </div>
+      </form>
+    </Form>
   );
 };

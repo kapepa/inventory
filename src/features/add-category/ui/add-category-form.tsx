@@ -2,9 +2,9 @@
 
 import { useLocale, useTranslations } from "next-intl"
 import {
-  ModalActionButton,
+  SubmitButton,
   ModalBody,
-  ModalCancelButton,
+  CancelButton,
   ModalFooter,
   Form,
   AppLocale,
@@ -64,14 +64,14 @@ export const AddCategoryForm = ({ onCancelAction }: AddCategoryFormProps) => {
         </Form>
       </ModalBody>
       <ModalFooter>
-        <ModalCancelButton
+        <CancelButton
           type="button"
           onCancelAction={onCancelAction}
           disabled={isPending}
         >
           {t("buttons.cancel")}
-        </ModalCancelButton>
-        <ModalActionButton
+        </CancelButton>
+        <SubmitButton
           form="add-сategory-form"
           type="submit"
           variant="simply-accent"
@@ -79,7 +79,7 @@ export const AddCategoryForm = ({ onCancelAction }: AddCategoryFormProps) => {
           disabled={isPending}
         >
           {t("buttons.create")}
-        </ModalActionButton>
+        </SubmitButton>
       </ModalFooter>
     </>
   )

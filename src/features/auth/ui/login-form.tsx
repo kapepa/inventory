@@ -1,43 +1,80 @@
 "use client";
 
-import { Button, Form, Input } from "@/shared";
+import { CancelButton, Form, FormControl, FormField, FormItem, FormLabel, FormMessage, Input, SubmitButton, VALIDATION_LIMITS } from "@/shared";
 import { useLoginForm } from "../model/hooks";
+import { useTranslations } from "next-intl";
 
 export const LoginForm = () => {
-  const { form, onSubmit, isSubmitting } = useLoginForm()
+  const t = useTranslations("auth.form")
+  const { form, onSubmit, isSubmitting, onReset } = useLoginForm()
 
   return (
     <Form {...form}>
       <form onSubmit={onSubmit} className="space-y-4">
-        <div className="space-y-2">
-          <label htmlFor="email" className="text-sm font-medium">
-            Email
-          </label>
-          <Input
-            id="email"
-            type="email"
-            placeholder="your@email.com"
-            // {...register("email")}
-            disabled={isSubmitting}
+        <div className="flex flex-col gap-y-6 pb-3 px-6">
+          <FormField
+            name="email"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>{t('labels.email')}</FormLabel>
+                <FormControl>
+                  <Input
+                    type="email"
+                    placeholder={t('placeholders.email')}
+                    {...field}
+                    value={field.value ?? ''}
+                    // We allow +1 character so that Zod can detect when the limit is exceeded and display an error
+                    maxLength={VALIDATION_LIMITS.EMAIL_MAX_LENGTH + 1}
+                    disabled={isSubmitting}
+                  />
+                </FormControl>
+                <div className="h-1 mt-0">
+                  <FormMessage />
+                </div>
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            name="password"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>{t('labels.password')}</FormLabel>
+                <FormControl>
+                  <Input
+                    type="password"
+                    placeholder={t('placeholders.password')}
+                    {...field}
+                    value={field.value ?? ''}
+                    // We allow +1 character so that Zod can detect when the limit is exceeded and display an error
+                    maxLength={VALIDATION_LIMITS.PASSWORD_MAX_LENGTH + 1}
+                    disabled={isSubmitting}
+                  />
+                </FormControl>
+                <div className="h-1 mt-0">
+                  <FormMessage />
+                </div>
+              </FormItem>
+            )}
           />
         </div>
-
-        <div className="space-y-2">
-          <label htmlFor="password" className="text-sm font-medium">
-            Пароль
-          </label>
-          <Input
-            id="password"
-            type="password"
-            placeholder="••••••••"
-            // {...register("password")}
+        <div className="bg-accent px-6 py-3 flex justify-end gap-x-2">
+          <CancelButton
+            type="button"
+            onClick={onReset}
             disabled={isSubmitting}
-          />
+          >
+            {t("buttons.reset")}
+          </CancelButton>
+          <SubmitButton
+            type="submit"
+            variant="simply-accent"
+            isLoading={isSubmitting}
+            disabled={isSubmitting}
+          >
+            {t("buttons.sign-in")}
+          </SubmitButton>
         </div>
-
-        <Button type="submit" className="w-full" disabled={isSubmitting}>
-          {isSubmitting ? "Вход..." : "Войти"}
-        </Button>
       </form>
     </Form>
   );

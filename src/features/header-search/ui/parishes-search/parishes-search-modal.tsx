@@ -1,4 +1,4 @@
-import { ModalBody, ModalCancelButton, ModalContents, ModalFooter, ModalHeader } from "@/shared";
+import { ModalBody, CancelButton, ModalContents, ModalFooter, ModalHeader } from "@/shared";
 import { useTranslations } from "next-intl";
 import { ParishesInput } from "./parishes-input";
 
@@ -16,12 +16,12 @@ export const ParishesSearchModal = ({ onCancelAction }: ParishesSearchModalProps
         <ParishesInput className="p-4 text-base md:p-5 md:text-xl" />
       </ModalBody>
       <ModalFooter className="flex justify-end">
-        <ModalCancelButton
+        <CancelButton
           className="max-w-1/2 min-w-20 flex-1"
           onCancelAction={onCancelAction}
         >
           {t("buttons.close")}
-        </ModalCancelButton>
+        </CancelButton>
       </ModalFooter>
     </ModalContents>
   )

@@ -1,9 +1,10 @@
 import { axiosInstance } from "@/shared";
 import { AxiosError } from "axios";
+import { AuthSignInParmas, AuthSignUpParmas } from "../model";
 
-export const requestAuthLogin = async (email: string, password: string) => {
+export const requestAuthLogin = async ({ signal, data }: AuthSignInParmas) => {
   try {
-    const response = await axiosInstance.post('/auth/login', { email, password });
+    const response = await axiosInstance.post('/auth/login', data, { signal });
     return response.data;
   } catch (error) {
     if (error instanceof AxiosError) {
@@ -13,9 +14,9 @@ export const requestAuthLogin = async (email: string, password: string) => {
   }
 }
 
-export const requestAuthRegister = async (name: string, email: string, password: string) => {
+export const requestAuthRegister = async ({ signal, data }: AuthSignUpParmas) => {
   try {
-    const response = await axiosInstance.post('/auth/register', { name, email, password });
+    const response = await axiosInstance.post('/auth/register', data, { signal });
     return response.data;
   } catch (error) {
     if (error instanceof AxiosError) {
@@ -25,9 +26,9 @@ export const requestAuthRegister = async (name: string, email: string, password:
   }
 }
 
-export const requestAuthLogout = async () => {
+export const requestAuthLogout = async (signal?: AbortSignal) => {
   try {
-    const response = await axiosInstance.post('/auth/logout');
+    const response = await axiosInstance.post('/auth/logout', { signal });
     return response.data;
   } catch (error) {
     if (error instanceof AxiosError) {

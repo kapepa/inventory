@@ -30,7 +30,7 @@ export default async function middleware(request: NextRequest) {
       );
     }
 
-    const payload = verifyToken(token);
+    const payload = await verifyToken(token);
     if (!payload) {
       return NextResponse.json(
         { error: 'Invalid token' },
@@ -51,7 +51,7 @@ export default async function middleware(request: NextRequest) {
 
   if (!isPublicRoute) {
     const token = getAuthToken(request);
-    if (!token || !verifyToken(token)) {
+    if (!token || !(await verifyToken(token))) {
       // Redirect to the login page
       const locale = pathname.split('/')[1] || 'en';
       return NextResponse.redirect(new URL(`/${locale}/auth`, request.url));
@@ -63,7 +63,7 @@ export default async function middleware(request: NextRequest) {
   if (isAdminRoute) {
     const token = getAuthToken(request);
     if (token) {
-      const payload = verifyToken(token);
+      const payload = await verifyToken(token);
       if (payload?.role !== 'ADMIN') {
         return NextResponse.redirect(new URL('/', request.url));
       }

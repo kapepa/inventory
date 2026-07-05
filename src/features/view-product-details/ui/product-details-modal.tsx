@@ -1,5 +1,5 @@
 import { ProductDetails, ProductWithRelationsWide, ProductWithRelationsShort } from "@/entities";
-import { ModalActionButton, ModalBody, ModalContents, ModalFooter, ModalHeader } from "@/shared"
+import { SubmitButton, ModalBody, ModalContents, ModalFooter, ModalHeader } from "@/shared"
 import { useTranslations } from "next-intl";
 
 interface ProductDetailsModalProps {
@@ -17,12 +17,12 @@ export const ProductDetailsModal = ({ product, onCancelAction }: ProductDetailsM
         <ProductDetails product={product} />
       </ModalBody>
       <ModalFooter>
-        <ModalActionButton
+        <SubmitButton
           variant="simply-accent"
           onConfirmAction={onCancelAction}
         >
           {t("ok")}
-        </ModalActionButton>
+        </SubmitButton>
       </ModalFooter>
     </ModalContents>
   )

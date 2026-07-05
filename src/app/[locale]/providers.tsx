@@ -1,5 +1,6 @@
 'use client';
 
+import { AuthenticatedUser, AuthProvider } from '@/features';
 import { TooltipProvider, ModalProvider, QueryParamProvider } from '@/shared';
 import { NextIntlClientProvider, AbstractIntlMessages } from 'next-intl';
 import { ReactNode, useMemo } from 'react';
@@ -8,14 +9,17 @@ interface ProvidersProps {
   children: ReactNode;
   locale: string;
   messages: AbstractIntlMessages;
+  initialUser: AuthenticatedUser | null;
 }
 
-export function Providers({ children, locale, messages }: ProvidersProps) {
+export function Providers({ children, locale, messages, initialUser }: ProvidersProps) {
   const content = useMemo(() => (
     <QueryParamProvider>
       <ModalProvider>
         <TooltipProvider>
-          {children}
+          <AuthProvider initialUser={initialUser}>
+            {children}
+          </AuthProvider>
         </TooltipProvider>
       </ModalProvider>
     </QueryParamProvider>

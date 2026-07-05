@@ -1,9 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { authorizeRequest } from '@/features/server';
-import { MiddlewareUser } from '@/features';
+import { AuthenticatedUser } from '@/features';
 import { getAuthToken, verifyToken } from './auth';
 
-type Handler = (req: NextRequest, user: MiddlewareUser, context?: any) => Promise<NextResponse>;
+type Handler = (req: NextRequest, user: AuthenticatedUser, context?: any) => Promise<NextResponse>;
 
 export const apiHandler = (handler: Handler) => {
   return async (req: NextRequest, context?: any) => {
@@ -19,7 +19,7 @@ export const apiHandler = (handler: Handler) => {
       }
 
       // Verify the token
-      const payload = verifyToken(token);
+      const payload = await verifyToken(token);
 
       if (!payload) {
         return NextResponse.json(

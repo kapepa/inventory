@@ -3,11 +3,11 @@ import { AppLocale, defaultLocale, locales, PAGINATION_PRODUCTS_DEFAULTS } from 
 import { getFilteredProductsWide } from '@/entities/server';
 import { ResponseProductsWideDTO } from '@/entities';
 import { apiHandler } from '@/shared/server';
-import { MiddlewareUser } from '@/features';
+import { AuthenticatedUser } from '@/features';
 
 export const GET = apiHandler(async (
   request: NextRequest,
-  _: MiddlewareUser,
+  _: AuthenticatedUser,
   { params }: { params: Promise<{ id: string }> }
 ): Promise<NextResponse<ResponseProductsWideDTO | { error: string }>> => {
   try {
