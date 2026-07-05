@@ -1,7 +1,7 @@
 "use client"
 
 import { useProductTranslation, useProductCreateForm } from '../model'
-import { AppLocale, FooterBar, Form, ModalActionButton, ModalCancelButton, OverlayBody, ScrollArea, Tabs, TabsContent } from '@/shared'
+import { AppLocale, FooterBar, Form, SubmitButton, CancelButton, OverlayBody, ScrollArea, Tabs, TabsContent } from '@/shared'
 import { useLocale, useTranslations } from 'next-intl'
 import { TranslationFields } from './translation-fields'
 import { TranslationTabsHeader } from './translation-tabs-header'
@@ -34,7 +34,7 @@ export const ProductCreateForm = ({ parishId, onCancelAction, onSuccessAction }:
       <ScrollArea className="h-full flex-1 min-h-0">
         <OverlayBody>
           <Form {...form}>
-            <form id="add-product-form" onSubmit={onSubmit} className="flex flex-col gap-y-6 pb-5 ">
+            <form id="add-product-form" onSubmit={onSubmit} className="flex flex-col gap-y-6 pb-5">
               <Tabs
                 defaultValue={locale}
                 className="w-full"
@@ -76,22 +76,22 @@ export const ProductCreateForm = ({ parishId, onCancelAction, onSuccessAction }:
         </OverlayBody>
       </ScrollArea>
       <FooterBar>
-        <ModalCancelButton
+        <CancelButton
           type="button"
           onCancelAction={onCancelAction}
           disabled={isPending}
           className='hidden sm:flex'
         >
           {t("buttons.cancel")}
-        </ModalCancelButton>
-        <ModalCancelButton
+        </CancelButton>
+        <CancelButton
           type="button"
           onClick={() => form.reset()}
           disabled={isPending}
         >
           {t("buttons.reset")}
-        </ModalCancelButton>
-        <ModalActionButton
+        </CancelButton>
+        <SubmitButton
           form="add-product-form"
           type="submit"
           variant="simply-accent"
@@ -99,7 +99,7 @@ export const ProductCreateForm = ({ parishId, onCancelAction, onSuccessAction }:
           disabled={isPending}
         >
           {t("buttons.create")}
-        </ModalActionButton>
+        </SubmitButton>
       </FooterBar>
     </>
   )

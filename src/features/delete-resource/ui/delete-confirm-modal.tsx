@@ -6,8 +6,8 @@ import {
   ModalHeader,
   ModalBody,
   ModalFooter,
-  ModalCancelButton,
-  ModalActionButton
+  CancelButton,
+  SubmitButton
 } from "@/shared";
 import { Trash } from "lucide-react";
 import { useTransition } from "react";
@@ -41,10 +41,10 @@ export const DeleteConfirmModal = ({
         </p>
       </ModalBody>
       <ModalFooter>
-        <ModalCancelButton onCancelAction={onCancelAction} disabled={isPending}>
+        <CancelButton onCancelAction={onCancelAction} disabled={isPending}>
           {t("buttons.cancel")}
-        </ModalCancelButton>
-        <ModalActionButton
+        </CancelButton>
+        <SubmitButton
           variant="simply-destructive"
           isLoading={isPending}
           onConfirmAction={handleConfirm}
@@ -53,7 +53,7 @@ export const DeleteConfirmModal = ({
             <Trash />
             <span>{t("buttons.delete")}</span>
           </div>
-        </ModalActionButton>
+        </SubmitButton>
       </ModalFooter>
     </ModalContents>
   );
