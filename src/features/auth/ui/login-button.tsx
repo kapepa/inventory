@@ -1,9 +1,9 @@
 "use client"
 
-import { Button, cn, DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuTrigger, ROUTES, useRouter } from "@/shared"
+import { Button, cn, DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuTrigger, ROUTES, useRouter, useUnmountCallback } from "@/shared"
 import { Settings } from "lucide-react"
 import { useTranslations } from "next-intl";
-import { useCallback, useTransition } from "react";
+import { useCallback, useEffect, useRef, useTransition } from "react";
 import { requestAuthLogout } from "../api";
 import { useAuthStore } from "../model";
 import { toast } from "sonner";
@@ -16,21 +16,23 @@ export const LoginButton = ({ className }: LoginButtonProps) => {
   const router = useRouter();
   const t = useTranslations('auth.login-button');
   const [isPending, startTransition] = useTransition();
-  const { logout } = useAuthStore();
+  const { setCallback } = useUnmountCallback()
 
   const handleLogout = useCallback(() => {
     startTransition(async () => {
       try {
         await requestAuthLogout();
-        logout();
         router.push(ROUTES.AUTH);
-        toast.success(t("toast.logout-success"));
+        setCallback(() => {
+          toast.success(t("toast.logout-success"))
+          useAuthStore.getState().logout()
+        })
       } catch (error) {
         console.error('Logout error:', error);
         toast.error(t("toast.logout-error"));
       }
     });
-  }, [logout, router])
+  }, [t, router])
 
   return (
     <DropdownMenu>
@@ -60,3 +62,5 @@ export const LoginButton = ({ className }: LoginButtonProps) => {
     </DropdownMenu>
   )
 }
+
+LoginButton.displayName = "LoginButton"

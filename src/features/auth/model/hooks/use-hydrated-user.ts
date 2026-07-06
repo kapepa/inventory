@@ -7,5 +7,5 @@ export const useHydratedUser = () => {
   const user = useAuthStore(state => state.user)
   const mounte = useMounted()
 
-  return mounte ? user : initialUser;
+  return !!user || mounte ? user : initialUser;
 }

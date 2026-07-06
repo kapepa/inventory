@@ -4,14 +4,14 @@ import { useForm } from "react-hook-form"
 import { toast } from "sonner";
 import { registerFormSchema, RegisterFormValues } from "../schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useAuthStore } from "../auth-store";
 import { requestAuthRegister } from "../../api";
+import { ERROR_CODES, useUnmountCallback } from "@/shared";
 
 export const useRegisterForm = () => {
   const tToast = useTranslations("auth.form.toast")
   const tErrors = useTranslations("auth.form.errors")
   const [isSubmitting, startSubmitTransition] = useTransition()
-  const { setUser } = useAuthStore();
+  const { setCallback } = useUnmountCallback()
 
   const form = useForm<RegisterFormValues>({
     resolver: zodResolver(registerFormSchema(tErrors)),
@@ -31,13 +31,23 @@ export const useRegisterForm = () => {
     (values: RegisterFormValues) => {
       startSubmitTransition(async () => {
         try {
-          const { } = await requestAuthRegister({ data: values })
+          await requestAuthRegister({ data: values })
 
-          toast.success(tToast("auth-register-success"))
-          onReset()
+          setCallback(() => {
+            toast.success(tToast("auth-register-success"))
+            onReset()
+          })
         } catch (error) {
-          console.error(error)
-          toast.error(tToast("auth-register--error"))
+          if (error instanceof Error && error.message === ERROR_CODES.USER_ALREADY_EXISTS_ERROR) {
+            form.setError('email', {
+              type: 'manual',
+              message: tErrors('email-already-exists')
+            }, { shouldFocus: true });
+            toast.error(tToast('auth-user-already_exists'));
+          } else {
+            console.error(error)
+            toast.error(tToast("auth-register-error"))
+          }
         }
       })
     },

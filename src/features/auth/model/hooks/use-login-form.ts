@@ -6,14 +6,16 @@ import { loginFormSchema, LoginFormValues, } from "../schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useAuthStore } from "../auth-store";
 import { requestAuthLogin } from "../../api";
-import { ROUTES, useRouter } from "@/shared";
+import { ERROR_CODES, ROUTES, useRouter, useUnmountCallback } from "@/shared";
+import { useVerifiedEmail } from "./use-verified-email";
 
 export const useLoginForm = () => {
+  const router = useRouter()
   const tToast = useTranslations("auth.form.toast")
   const tErrors = useTranslations("auth.form.errors")
   const [isSubmitting, startSubmitTransition] = useTransition()
-  const router = useRouter()
-  const { setUser } = useAuthStore();
+  const { setCallback } = useUnmountCallback()
+  const { confirmVerifiedEmail } = useVerifiedEmail()
 
   const form = useForm<LoginFormValues>({
     resolver: zodResolver(loginFormSchema(tErrors)),
@@ -25,27 +27,43 @@ export const useLoginForm = () => {
     },
   })
 
+  const onReset = useCallback(() => {
+    form.reset(undefined, { keepDefaultValues: true });
+  }, [form]);
+
   const onSubmit = useCallback(
     (values: LoginFormValues) => {
       startSubmitTransition(async () => {
         try {
-          const { } = await requestAuthLogin({ data: values })
-
-          toast.success(tToast("auth-login-success"))
-          form.reset()
+          const user = await requestAuthLogin({ data: values })
+          useAuthStore.setState({ user })
           router.push(ROUTES.PARISHES)
+          setCallback(() => {
+            toast.success(tToast("auth-login-success"))
+          })
         } catch (error) {
-          console.error(error)
-          toast.error(tToast("auth-login-error"))
+          if (error instanceof Error && error.message === ERROR_CODES.INVALID_CREDENTIALS_ERROR) {
+            form.setError('email', {
+              type: 'manual',
+              message: tErrors('email-invalid-credentials')
+            }, { shouldFocus: true });
+            form.setError('password', {
+              type: 'manual',
+              message: tErrors('passwords-invalid-credentials')
+            }, { shouldFocus: true });
+            toast.error(tToast('auth-invalid-credentials'));
+          } else if (error instanceof Error && error.message === ERROR_CODES.EMAIL_NOT_VERIFIED) {
+            confirmVerifiedEmail(values.email)
+            toast.error(tToast('auth-email-not-verified'));
+          } else {
+            console.error(error)
+            toast.error(tToast("auth-login-error"))
+          }
         }
       })
     },
     [tToast, form]
   )
-
-  const onReset = useCallback(() => {
-    form.reset(undefined, { keepDefaultValues: true });
-  }, [form]);
 
   const handleSubmit = useMemo(() => form.handleSubmit(onSubmit), [form, onSubmit])
 
