@@ -1,19 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { setAuthCookie } from '@/shared/lib/auth';
 import { ZodError } from 'zod';
-import { InvalidCredentialsError } from '@/features/server';
-import { authLogout } from '@/features/auth/api/auth-service';
+import { authLogin, EmailNotVerifiedError, InvalidCredentialsError } from '@/features/server';
 import { AuthSignIn } from '@/features';
 
 export async function POST(request: NextRequest) {
   try {
     const body: AuthSignIn = await request.json();
-    const token = await authLogout(body)
-
-    const response = NextResponse.json(
-      { message: 'Login successful' },
-      { status: 200 }
-    );
+    const { token, user } = await authLogin(body)
+    const response = NextResponse.json(user);
 
     return setAuthCookie(response, token);
   } catch (error) {
@@ -25,6 +20,13 @@ export async function POST(request: NextRequest) {
     }
 
     if (error instanceof InvalidCredentialsError) {
+      return NextResponse.json(
+        { error: error.message },
+        { status: 409 }
+      );
+    }
+
+    if (error instanceof EmailNotVerifiedError) {
       return NextResponse.json(
         { error: error.message },
         { status: 409 }

@@ -1,22 +1,17 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { signToken, setAuthCookie } from '@/shared';
 import { ZodError } from 'zod';
-import { UserAlreadyExistsError } from '@/features/server';
-import { authRegister } from '@/features/auth/api/auth-service';
+import { authRegister, UserAlreadyExistsError } from '@/features/server';
+import { createVerificationCode } from '@/entities/server';
 import { AuthSignUp } from '@/features';
 
 export async function POST(request: NextRequest) {
   try {
     const body: AuthSignUp = await request.json();
-    const profile = await authRegister(body)
-    const token = await signToken({ userId: profile.id, email: profile.email, role: profile.role });
+    const user = await authRegister(body);
+    const verify = await createVerificationCode({ userId: user.id, email: user.email });
 
-    const response = NextResponse.json(
-      { message: 'User registered successfully', user: profile },
-      { status: 201 }
-    );
 
-    return setAuthCookie(response, token);
+    return "";
   } catch (error) {
     if (error instanceof ZodError) {
       return NextResponse.json(
