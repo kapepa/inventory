@@ -1,0 +1,5 @@
+export const VERIFICATION_CONFIG = {
+  TOKEN_BYTES: 32,
+  CODE_LENGTH: 4,
+  EXPIRATION_MINUTES: 60,
+} as const;
