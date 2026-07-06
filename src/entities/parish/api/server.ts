@@ -1,1 +1,0 @@
-export { getParishes, getParishById, getParishesTotals } from "./parish-service"
