@@ -13,3 +13,10 @@ export class InvalidCredentialsError extends Error {
     this.name = 'InvalidCredentialsError';
   }
 }
+
+export class EmailNotVerifiedError extends Error {
+  constructor() {
+    super(ERROR_CODES.EMAIL_NOT_VERIFIED);
+    this.name = 'EmailNotVerifiedError';
+  }
+}
