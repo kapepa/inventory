@@ -25,18 +25,36 @@ enum ProductStatus {
 
 // ========== USERS ==========
 model User {
-  id        String       @id @default(uuid())
-  name      String
-  email     String       @unique
-  password  String
-  role      Role         @default(USER)
-  createdAt DateTime     @default(now()) @map("created_at")
-  updatedAt DateTime     @updatedAt @map("updated_at")
-  imageUrl  String?      @map("image_url")
-  parishes  UserParish[]
-  products  Product[]
+  id                String             @id @default(uuid())
+  name              String
+  email             String             @unique
+  password          String
+  role              Role               @default(USER)
+  verifiedAt        DateTime?          @map("verified_at")
+  verificationCodes VerificationCode[]
+  createdAt         DateTime           @default(now()) @map("created_at")
+  updatedAt         DateTime           @updatedAt @map("updated_at")
+  imageUrl          String?            @map("image_url")
+  parishes          UserParish[]
+  products          Product[]
 
   @@map("users")
+}
+
+model VerificationCode {
+  id        String    @id @default(uuid())
+  token     String    @unique
+  email     String
+  code      String
+  userId    String?   @map("user_id")
+  user      User?     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expiresAt DateTime  @map("expires_at")
+  createdAt DateTime  @default(now()) @map("created_at")
+  usedAt    DateTime? @map("used_at")
+
+  @@index([email])
+  @@index([token])
+  @@map("verification_codes")
 }
 
 // ========== PARISHES ==========

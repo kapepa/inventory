@@ -1,10 +1,10 @@
 import { axiosInstance } from "@/shared";
 import { AxiosError } from "axios";
-import { AuthSignInParmas, AuthSignUpParmas } from "../model";
+import { AuthenticatedUser, AuthSignInParmas, AuthSignUpParmas } from "../model";
 
-export const requestAuthLogin = async ({ signal, data }: AuthSignInParmas) => {
+export const requestAuthLogin = async ({ signal, data }: AuthSignInParmas): Promise<AuthenticatedUser> => {
   try {
-    const response = await axiosInstance.post('/auth/login', data, { signal });
+    const response = await axiosInstance.post<AuthenticatedUser>('/auth/login', data, { signal });
     return response.data;
   } catch (error) {
     if (error instanceof AxiosError) {

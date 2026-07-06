@@ -125,3 +125,5 @@ export const RegisterForm = () => {
     </Form>
   );
 };
+
+RegisterForm.displayName = "RegisterForm"

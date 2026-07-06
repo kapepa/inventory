@@ -79,3 +79,5 @@ export const LoginForm = () => {
     </Form>
   );
 };
+
+LoginForm.displayName = "LoginForm"

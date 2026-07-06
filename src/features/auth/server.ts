@@ -1,2 +1,2 @@
-export * from "./api/server"
+export * from "./lib/server"
 export * from "./model/server"

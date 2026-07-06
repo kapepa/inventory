@@ -1,14 +1,17 @@
 import { prisma } from "@/shared/lib/prisma";
 import { AuthSignIn, AuthSignUp, AuthenticatedUser } from "../model/types";
 import { loginFormServerSchema, registerFormServerSchema } from "../model/schemas";
-import { InvalidCredentialsError, UserAlreadyExistsError } from "../server";
+import { EmailNotVerifiedError, InvalidCredentialsError, UserAlreadyExistsError } from "../server";
 import { comparePassword, COOKIE_KEYS, hashPassword, signToken, verifyToken } from "@/shared";
 import { cookies } from "next/headers";
 
 export const authorizeRequest = async ({ id, email }: { id?: string, email?: string }): Promise<AuthenticatedUser | null> => {
   try {
     return await prisma.user.findFirst({
-      where: { OR: [{ id }, { email }] },
+      where: {
+        OR: [{ id }, { email }],
+        verifiedAt: { not: null }
+      },
       select: {
         id: true,
         name: true,
@@ -59,26 +62,40 @@ export const authRegister = async (body: AuthSignUp): Promise<AuthenticatedUser>
   }
 }
 
-export const authLogout = async (body: AuthSignIn): Promise<string> => {
+export const authLogin = async (body: AuthSignIn): Promise<{ user: AuthenticatedUser, token: string }> => {
   const validated = loginFormServerSchema.parse(body)
   try {
     const existingUser = await prisma.user.findUnique({
       where: { email: validated.email },
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        role: true,
+        password: true,
+        imageUrl: true,
+        verifiedAt: true,
+      }
     });
     if (!existingUser) throw new InvalidCredentialsError()
 
-    const isPasswordValid = await comparePassword(validated.password, existingUser.password);
-    if (!isPasswordValid) throw new InvalidCredentialsError()
+    const { password, verifiedAt, ...user } = existingUser;
+    const isPasswordValid = await comparePassword(validated.password, password);
+    if (!isPasswordValid) throw new InvalidCredentialsError();
+    if (!verifiedAt) throw new EmailNotVerifiedError();
 
     const token = await signToken({
-      userId: existingUser.id,
-      email: existingUser.email,
-      role: existingUser.role,
+      userId: user.id,
+      email: user.email,
+      role: user.role,
     });
 
-    return token
+    return { user, token }
   } catch (error) {
     if (error instanceof InvalidCredentialsError) {
+      throw error;
+    }
+    if (error instanceof EmailNotVerifiedError) {
       throw error;
     }
     console.log('Prisma Error in authLogout:', error);
@@ -97,7 +114,9 @@ export const getSessionUser = async function (): Promise<AuthenticatedUser | nul
     if (!payload) return null;
 
     const user = await prisma.user.findUnique({
-      where: { id: payload.userId },
+      where: {
+        id: payload.userId,
+      },
       select: {
         id: true,
         name: true,
