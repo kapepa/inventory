@@ -1,14 +1,15 @@
-import { useModalActions } from "@/shared";
+import { ERROR_CODES, useModalActions, useRouter, useUnmountCallback } from "@/shared";
 import { useTranslations } from "next-intl";
 import { useCallback } from "react";
 import { toast } from "sonner";
-import { CategoryWithProductCount } from "@/entities";
 import { EmailNotVerifiedModal } from "../../ui";
-
+import { requestResendVerification } from "../../api";
 
 export const useVerifiedEmail = () => {
   const t = useTranslations('auth.use-verified-email');
+  const router = useRouter()
   const { openModal, closeModal } = useModalActions();
+  const { setCallback } = useUnmountCallback()
 
   const confirmVerifiedEmail = useCallback((email: string) => {
 
@@ -17,11 +18,18 @@ export const useVerifiedEmail = () => {
         email={email}
         onConfirmAction={async () => {
           try {
-            // to do api request
-            toast.success(t("toasts.verified-email-success"));
+            const verificationLink = await requestResendVerification({ data: { email } })
+            router.push(verificationLink)
+            setCallback(() => {
+              toast.success(t("toasts.verified-email-success"));
+            })
           } catch (error) {
-            toast.error(t("toasts.verified-email-error"));
-            console.error(error);
+            if (error instanceof Error && error.message === ERROR_CODES.EMAIL_NOT_FOUND) {
+              toast.error(t('toasts.verified-email-not-exist'));
+            } else {
+              toast.error(t("toasts.verified-email-error"));
+              console.error(error);
+            }
           } finally {
             closeModal();
           }

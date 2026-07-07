@@ -1,3 +1,5 @@
+"use client"
+
 import { useTranslations } from "next-intl";
 import { useCallback, useMemo, useTransition } from "react";
 import { useForm } from "react-hook-form"
@@ -5,19 +7,22 @@ import { toast } from "sonner";
 import { registerFormSchema, RegisterFormValues } from "../schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { requestAuthRegister } from "../../api";
-import { ERROR_CODES, useUnmountCallback } from "@/shared";
+import { ERROR_CODES, useRouter, useUnmountCallback } from "@/shared";
+import { useVerifiedEmail } from "./use-verified-email";
 
 export const useRegisterForm = () => {
+  const router = useRouter()
   const tToast = useTranslations("auth.form.toast")
   const tErrors = useTranslations("auth.form.errors")
   const [isSubmitting, startSubmitTransition] = useTransition()
   const { setCallback } = useUnmountCallback()
+  const { confirmVerifiedEmail } = useVerifiedEmail()
 
   const form = useForm<RegisterFormValues>({
     resolver: zodResolver(registerFormSchema(tErrors)),
     defaultValues: {
-      name: "Karma",
-      email: "karma@gmail.com",
+      name: "lok204",
+      email: "lok204@ukr.net",
       password: "123456A!",
       confirmPassword: "123456A!",
     },
@@ -31,8 +36,8 @@ export const useRegisterForm = () => {
     (values: RegisterFormValues) => {
       startSubmitTransition(async () => {
         try {
-          await requestAuthRegister({ data: values })
-
+          const verificationLink = await requestAuthRegister({ data: values })
+          router.push(verificationLink)
           setCallback(() => {
             toast.success(tToast("auth-register-success"))
             onReset()
@@ -44,6 +49,9 @@ export const useRegisterForm = () => {
               message: tErrors('email-already-exists')
             }, { shouldFocus: true });
             toast.error(tToast('auth-user-already_exists'));
+          } else if (error instanceof Error && error.message === ERROR_CODES.EMAIL_NOT_VERIFIED) {
+            confirmVerifiedEmail(values.email)
+            toast.error(tToast('auth-email-not-verified'));
           } else {
             console.error(error)
             toast.error(tToast("auth-register-error"))

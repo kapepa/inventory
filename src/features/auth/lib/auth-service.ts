@@ -1,7 +1,7 @@
 import { prisma } from "@/shared/lib/prisma";
-import { AuthSignIn, AuthSignUp, AuthenticatedUser } from "../model/types";
-import { loginFormServerSchema, registerFormServerSchema } from "../model/schemas";
-import { EmailNotVerifiedError, InvalidCredentialsError, UserAlreadyExistsError } from "../server";
+import { AuthSignIn, AuthSignUp, AuthenticatedUser, ResendVerification } from "../model/types";
+import { loginFormServerSchema, registerFormServerSchema, resendVerificationServerSchema } from "../model/schemas";
+import { EmailNotFoundError, EmailNotVerifiedError, InvalidCredentialsError, UserAlreadyExistsError } from "../server";
 import { comparePassword, COOKIE_KEYS, hashPassword, signToken, verifyToken } from "@/shared";
 import { cookies } from "next/headers";
 
@@ -33,10 +33,11 @@ export const authRegister = async (body: AuthSignUp): Promise<AuthenticatedUser>
       where: { email: validated.email },
     });
 
+    if (existingUser && existingUser.verifiedAt === null) throw new EmailNotVerifiedError();
     if (existingUser) throw new UserAlreadyExistsError()
 
     const hashedPassword = await hashPassword(validated.password);
-    const profile = await prisma.user.create({
+    const user = await prisma.user.create({
       data: {
         name: validated.name,
         email: validated.email,
@@ -51,12 +52,14 @@ export const authRegister = async (body: AuthSignUp): Promise<AuthenticatedUser>
       },
     });
 
-    return profile
+    return user
   } catch (error) {
     if (error instanceof UserAlreadyExistsError) {
       throw error;
     }
-
+    if (error instanceof EmailNotVerifiedError) {
+      throw error;
+    }
     console.log('Prisma Error in authRegister:', error);
     throw error;
   }
@@ -103,7 +106,7 @@ export const authLogin = async (body: AuthSignIn): Promise<{ user: Authenticated
   }
 }
 
-export const getSessionUser = async function (): Promise<AuthenticatedUser | null> {
+export const getSessionUser = async (): Promise<AuthenticatedUser | null> => {
   try {
     const cookieStore = await cookies();
     const token = cookieStore.get(COOKIE_KEYS.AUTH_TOKEN)?.value;
@@ -131,5 +134,32 @@ export const getSessionUser = async function (): Promise<AuthenticatedUser | nul
   } catch (error) {
     console.error('Get session user error:', error);
     return null;
+  }
+}
+
+export const resendVerification = async (body: ResendVerification): Promise<AuthenticatedUser> => {
+  const validated = resendVerificationServerSchema.parse(body)
+  try {
+    const existingUser = await prisma.user.findFirst({
+      where: { email: validated.email, verifiedAt: null },
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        role: true,
+        imageUrl: true,
+      },
+    });
+
+    if (!existingUser) throw new EmailNotFoundError()
+
+    return existingUser
+  } catch (error) {
+    if (error instanceof EmailNotFoundError) {
+      throw error;
+    }
+
+    console.log('Prisma Error in resendVerification:', error);
+    throw error;
   }
 }

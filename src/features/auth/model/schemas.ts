@@ -87,3 +87,6 @@ export const loginFormServerSchema = z.object({
 });
 
 export type LoginServerValues = z.infer<typeof loginFormServerSchema>;
+
+export const resendVerificationServerSchema = loginFormServerSchema.pick({ email: true });
+export type ResendVerificationServerValues = z.infer<typeof resendVerificationServerSchema>;

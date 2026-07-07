@@ -20,3 +20,10 @@ export class EmailNotVerifiedError extends Error {
     this.name = 'EmailNotVerifiedError';
   }
 }
+
+export class EmailNotFoundError extends Error {
+  constructor() {
+    super(ERROR_CODES.EMAIL_NOT_FOUND);
+    this.name = 'EmailNotFoundError';
+  }
+}

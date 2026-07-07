@@ -1,1 +1,1 @@
-export { UserAlreadyExistsError, InvalidCredentialsError, EmailNotVerifiedError } from "./errors"
+export { UserAlreadyExistsError, InvalidCredentialsError, EmailNotVerifiedError, EmailNotFoundError } from "./errors"

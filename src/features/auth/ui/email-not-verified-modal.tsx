@@ -33,7 +33,7 @@ export const EmailNotVerifiedModal = ({
 
   return (
     <ModalContents>
-      <ModalHeader title={`${t("header-title")}?`} />
+      <ModalHeader title={`${t("header-title")}`} />
       <ModalBody>
         <p className="text-base text-muted-foreground">
           <strong>{t("notification", { email })}</strong>
