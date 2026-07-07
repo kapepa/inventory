@@ -1,6 +1,6 @@
 import { axiosInstance } from "@/shared";
 import { AxiosError } from "axios";
-import { AuthenticatedUser, AuthSignInParmas, AuthSignUpParmas } from "../model";
+import { AuthenticatedUser, AuthSignInParmas, AuthSignUpParmas, ResendVerificationParmas } from "../model";
 
 export const requestAuthLogin = async ({ signal, data }: AuthSignInParmas): Promise<AuthenticatedUser> => {
   try {
@@ -14,7 +14,7 @@ export const requestAuthLogin = async ({ signal, data }: AuthSignInParmas): Prom
   }
 }
 
-export const requestAuthRegister = async ({ signal, data }: AuthSignUpParmas) => {
+export const requestAuthRegister = async ({ signal, data }: AuthSignUpParmas): Promise<string> => {
   try {
     const response = await axiosInstance.post('/auth/register', data, { signal });
     return response.data;
@@ -33,6 +33,18 @@ export const requestAuthLogout = async (signal?: AbortSignal) => {
   } catch (error) {
     if (error instanceof AxiosError) {
       throw new Error(error.response?.data?.error || "Something went wrong requestAuthLogout")
+    }
+    throw error
+  }
+}
+
+export const requestResendVerification = async ({ signal, data }: ResendVerificationParmas): Promise<string> => {
+  try {
+    const response = await axiosInstance.post('/auth/resend-verification', data, { signal });
+    return response.data;
+  } catch (error) {
+    if (error instanceof AxiosError) {
+      throw new Error(error.response?.data?.error || "Something went wrong requestResendVerification")
     }
     throw error
   }

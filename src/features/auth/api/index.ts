@@ -1,1 +1,1 @@
-export { requestAuthLogin, requestAuthLogout, requestAuthRegister } from "./auth-api"
+export { requestAuthLogin, requestAuthLogout, requestAuthRegister, requestResendVerification } from "./auth-api"

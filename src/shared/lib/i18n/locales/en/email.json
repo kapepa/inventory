@@ -1,0 +1,18 @@
+{
+  "send-verification-email": {
+    "subject": "Подтвердите ваш email - Inventory",
+    "text": "Hi, {name}! Please confirm your email by clicking the link {link}."
+  },
+  "verification-email-template": {
+    "subject": "Email Verification",
+    "greeting": "Hello, {name}!",
+    "thank-you": "Thank you for registering with Inventory.",
+    "instruction": "Click the button below or use the code to verify your email:",
+    "confirm-button": "Verify Email",
+    "code-label": "Verification code",
+    "manual-link": "Or copy this link to your browser:",
+    "expires-in": "Link valid for {time} hour(s)",
+    "ignore": "If you didn't register, please ignore this email.",
+    "footer": "© 2026 Inventory System. All rights reserved."
+  }
+}
