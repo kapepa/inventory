@@ -7,5 +7,6 @@ export const QUERY_PARAMS_KEYS = {
   ADD_CATEGORY: "add-category",
   ACTIVE_PARISH: 'parish',
   CATEGORY: 'categoryId',
-  SPECIFICATION: 'specification'
+  SPECIFICATION: 'specification',
+  VERIFY_TOKEN: 'token'
 } as const
