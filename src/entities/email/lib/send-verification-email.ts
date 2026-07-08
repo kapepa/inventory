@@ -1,4 +1,4 @@
-import { ROUTES } from '@/shared';
+import { QUERY_PARAMS_KEYS, ROUTES } from '@/shared';
 import { sendEmail } from './send';
 import { verificationEmailTemplate } from './templates/server';
 import { getTranslations } from 'next-intl/server';
@@ -8,7 +8,7 @@ type SendVerificationEmailOutput = { verificationLink: string }
 
 export async function sendVerificationEmail({ email, name, code, token, locale }: SendVerificationEmailInput): Promise<SendVerificationEmailOutput> {
   const t = await getTranslations({ locale, namespace: 'email.send-verification-email' });
-  const verificationLink = `${process.env.APP_URL}${ROUTES.VERIFY}?token=${token}`;
+  const verificationLink = `${process.env.APP_URL}${ROUTES.VERIFY}?${QUERY_PARAMS_KEYS.VERIFY_TOKEN}=${token}`;
 
   const html = await verificationEmailTemplate({
     name,
