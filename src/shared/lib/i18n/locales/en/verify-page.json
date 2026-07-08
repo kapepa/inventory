@@ -1,0 +1,7 @@
+{
+  "header-title": "Email Confirmation",
+  "errors": {
+    "title": "Verification Failed",
+    "description": "Something went wrong while verifying your email"
+  }
+}
