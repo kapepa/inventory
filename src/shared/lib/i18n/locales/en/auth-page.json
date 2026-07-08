@@ -1,0 +1,6 @@
+{
+  "errors": {
+    "title": "Authentication Error",
+    "description": "Something went wrong during authentication"
+  }
+}

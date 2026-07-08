@@ -37,6 +37,7 @@ export default getRequestConfig(async ({ locale }) => {
       "category-chart": (await import(`../shared/lib/i18n/locales/${locale}/category-chart.json`)).default,
       "house-map": (await import(`../shared/lib/i18n/locales/${locale}/house-map.json`)).default,
       "auth-gate": (await import(`../shared/lib/i18n/locales/${locale}/auth-gate.json`)).default,
+      "auth-page": (await import(`../shared/lib/i18n/locales/${locale}/auth-page.json`)).default,
       "auth": (await import(`../shared/lib/i18n/locales/${locale}/auth.json`)).default,
       "email": (await import(`../shared/lib/i18n/locales/${locale}/email.json`)).default,
     }
