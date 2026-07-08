@@ -6,4 +6,5 @@ export * from "./delete-resource"
 export * from "./view-product-details"
 export * from "./add-product"
 export * from "./add-category";
-export * from "./products-explore"
+export * from "./products-explore";
+export * from "./verify-email"
