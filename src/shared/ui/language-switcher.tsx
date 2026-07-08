@@ -9,14 +9,16 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import { memo, useEffect } from "react";
 import { STORAGE_KEYS } from "../constants";
 import { useLocale } from "next-intl";
+import { useSearchParams } from "next/navigation";
 
 interface LanguageSwitcherProps {
   className?: string
   locale: AppLocale
   pathname: string
+  searchParams: string
 }
 
-const LanguageSwitcherInner = memo(({ className, locale, pathname }: LanguageSwitcherProps) => {
+const LanguageSwitcherInner = memo(({ className, locale, pathname, searchParams }: LanguageSwitcherProps) => {
   const router = useRouter();
 
   useEffect(() => {
@@ -27,7 +29,8 @@ const LanguageSwitcherInner = memo(({ className, locale, pathname }: LanguageSwi
 
   const handleChange = (newLocale: AppLocale) => {
     localStorage.setItem(STORAGE_KEYS.LOCALE, newLocale);
-    router.replace(pathname, { locale: newLocale });
+    const pathnameWithQuery = searchParams ? `${pathname}?${searchParams}` : pathname;
+    router.replace(pathnameWithQuery, { locale: newLocale });
   };
 
   return (
@@ -67,9 +70,10 @@ const LanguageSwitcherInner = memo(({ className, locale, pathname }: LanguageSwi
   );
 });
 
-export const LanguageSwitcher = ({ className }: Omit<LanguageSwitcherProps, 'locale' | 'pathname'>) => {
+export const LanguageSwitcher = ({ className }: Omit<LanguageSwitcherProps, 'locale' | 'pathname' | 'searchParams'>) => {
   const locale = useLocale() as AppLocale;
   const pathname = usePathname();
+  const searchParams = useSearchParams().toString();
 
-  return <LanguageSwitcherInner className={className} locale={locale} pathname={pathname} />;
+  return <LanguageSwitcherInner className={className} locale={locale} pathname={pathname} searchParams={searchParams} />;
 };
