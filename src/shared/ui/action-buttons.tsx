@@ -27,7 +27,7 @@ export const CancelButton = ({ children, className, onCancelAction, ...props }: 
 CancelButton.displayName = "CancelButton";
 
 interface SubmitButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  variant: Extract<VariantProps<typeof buttonVariants>['variant'], "simply-accent" | "simply-destructive" | "default">;
+  variant: Extract<VariantProps<typeof buttonVariants>['variant'], "simply-accent" | "simply-destructive" | "default" | "striking-accent">;
   children: ReactNode;
   className?: string;
   onConfirmAction?: () => void;
@@ -55,7 +55,7 @@ export const SubmitButton = ({ variant, children, className, onConfirmAction, is
 
       {isLoading && (
         <span className="absolute inset-0 flex items-center justify-center">
-          <Loader className="h-5 w-5" />
+          <Loader className="h-5 w-5 animate-spin" />
         </span>
       )}
     </Button>

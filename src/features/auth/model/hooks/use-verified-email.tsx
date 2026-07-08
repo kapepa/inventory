@@ -1,43 +1,64 @@
-import { ERROR_CODES, useModalActions, useRouter, useUnmountCallback } from "@/shared";
+"use client"
+
+import { ERROR_CODES, useModalActions, useRouter } from "@/shared";
 import { useTranslations } from "next-intl";
-import { useCallback } from "react";
+import { useCallback, useTransition } from "react";
 import { toast } from "sonner";
 import { EmailNotVerifiedModal } from "../../ui";
 import { requestResendVerification } from "../../api";
 
-export const useVerifiedEmail = () => {
+interface EmailNotVerifiedModalWrapperProps {
+  email: string; onCloseAction: () => void;
+}
+
+export const EmailNotVerifiedModalWrapper = ({
+  email, onCloseAction
+}: EmailNotVerifiedModalWrapperProps) => {
+  const [isPending, startTransition] = useTransition();
   const t = useTranslations('auth.use-verified-email');
-  const router = useRouter()
+  const router = useRouter();
+
+  const handleConfirm = () => {
+    startTransition(async () => {
+      try {
+        const verificationLink = await requestResendVerification({ data: { email } })
+        router.push(verificationLink)
+        toast.success(t("toasts.verified-email-success"));
+      } catch (error) {
+        if (error instanceof Error && error.message === ERROR_CODES.EMAIL_NOT_FOUND) {
+          toast.error(t('toasts.verified-email-not-exist'));
+        } else {
+          toast.error(t("toasts.verified-email-error"));
+          console.error(error);
+        }
+      } finally {
+        onCloseAction();
+      }
+    });
+  };
+
+  return (
+    <EmailNotVerifiedModal
+      email={email}
+      isLoading={isPending}
+      onConfirmAction={handleConfirm}
+      onCancelAction={onCloseAction}
+    />
+  );
+};
+
+
+export const useVerifiedEmail = () => {
   const { openModal, closeModal } = useModalActions();
-  const { setCallback } = useUnmountCallback()
 
   const confirmVerifiedEmail = useCallback((email: string) => {
-
     openModal(
-      <EmailNotVerifiedModal
+      <EmailNotVerifiedModalWrapper
         email={email}
-        onConfirmAction={async () => {
-          try {
-            const verificationLink = await requestResendVerification({ data: { email } })
-            router.push(verificationLink)
-            setCallback(() => {
-              toast.success(t("toasts.verified-email-success"));
-            })
-          } catch (error) {
-            if (error instanceof Error && error.message === ERROR_CODES.EMAIL_NOT_FOUND) {
-              toast.error(t('toasts.verified-email-not-exist'));
-            } else {
-              toast.error(t("toasts.verified-email-error"));
-              console.error(error);
-            }
-          } finally {
-            closeModal();
-          }
-        }}
-        onCancelAction={closeModal}
+        onCloseAction={closeModal}
       />
     )
-  }, [closeModal, openModal, t]);
+  }, [closeModal, openModal]);
 
   return { confirmVerifiedEmail };
 };

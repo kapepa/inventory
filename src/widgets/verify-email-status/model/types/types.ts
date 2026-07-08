@@ -1,0 +1,1 @@
+export type StatusVerifyEmail = 'valid' | 'expired' | 'invalid';

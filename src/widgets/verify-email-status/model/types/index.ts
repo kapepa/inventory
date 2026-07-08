@@ -1,0 +1,1 @@
+export type { StatusVerifyEmail } from "./types"

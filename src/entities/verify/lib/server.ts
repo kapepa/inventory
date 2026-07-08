@@ -1,1 +1,1 @@
-export { createVerificationCode } from "./create-verification-code"
+export { createVerificationCode, validateVerificationToken } from "./create-verification-code"

@@ -1,0 +1,16 @@
+{
+  "verify-valid-view": {
+    "title": "Enter verification code",
+    "description": "A verification code has been sent to {email}. Enter it below to complete verification."
+  },
+  "verify-invalid-view": {
+    "title": "Invalid link",
+    "description": "This email verification link is invalid or has already been used.",
+    "back-to-auth": "Back to sign in"
+  },
+  "verify-expired-view": {
+    "title": "Link expired",
+    "description": "The verification link for {email} has expired. Request a new verification code.",
+    "resend-button": "Send new code"
+  }
+}

@@ -40,6 +40,8 @@ export default getRequestConfig(async ({ locale }) => {
       "auth-page": (await import(`../shared/lib/i18n/locales/${locale}/auth-page.json`)).default,
       "auth": (await import(`../shared/lib/i18n/locales/${locale}/auth.json`)).default,
       "email": (await import(`../shared/lib/i18n/locales/${locale}/email.json`)).default,
+      "verify-page": (await import(`../shared/lib/i18n/locales/${locale}/verify-page.json`)).default,
+      "verify-email": (await import(`../shared/lib/i18n/locales/${locale}/verify-email.json`)).default,
     }
   };
 });

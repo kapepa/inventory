@@ -3,12 +3,12 @@
 import { ErrorBlock } from '@/shared';
 import { useTranslations } from 'next-intl';
 
-interface ErrorGroupsProps {
+interface ErrorParishesIdProps {
   error: Error & { digest?: string };
   reset: () => void;
 }
 
-export default function ParishesIdError({ error }: ErrorGroupsProps) {
+export default function ParishesIdError({ error }: ErrorParishesIdProps) {
   const t = useTranslations("parishes-id-page.errors");
 
   return (

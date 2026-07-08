@@ -9,27 +9,21 @@ import {
   CancelButton,
   SubmitButton
 } from "@/shared";
-import { useTransition } from "react";
 
 interface EmailNotVerifiedModalProps {
   email: string
+  isLoading: boolean,
   onConfirmAction: () => Promise<void> | void;
   onCancelAction: () => void;
 }
 
 export const EmailNotVerifiedModal = ({
   email,
+  isLoading,
   onConfirmAction,
   onCancelAction
 }: EmailNotVerifiedModalProps) => {
   const t = useTranslations('auth.email-not-verified-modal');
-  const [isPending, startTransition] = useTransition();
-
-  const handleConfirm = () => {
-    startTransition(async () => {
-      await onConfirmAction();
-    });
-  };
 
   return (
     <ModalContents>
@@ -40,13 +34,13 @@ export const EmailNotVerifiedModal = ({
         </p>
       </ModalBody>
       <ModalFooter>
-        <CancelButton onCancelAction={onCancelAction} disabled={isPending}>
+        <CancelButton onCancelAction={onCancelAction} disabled={isLoading}>
           {t("buttons.cancel")}
         </CancelButton>
         <SubmitButton
           variant="simply-accent"
-          isLoading={isPending}
-          onConfirmAction={handleConfirm}
+          isLoading={isLoading}
+          onConfirmAction={onConfirmAction}
         >
           <span>{t("buttons.confirm")}</span>
         </SubmitButton>
