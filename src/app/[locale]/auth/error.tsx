@@ -3,12 +3,12 @@
 import { ErrorBlock } from '@/shared';
 import { useTranslations } from 'next-intl';
 
-interface ErrorParishesProps {
+interface ErrorAuthProps {
   error: Error & { digest?: string };
   reset: () => void;
 }
 
-export default function AuthError({ error, reset }: ErrorParishesProps) {
+export default function AuthError({ error, reset }: ErrorAuthProps) {
   const t = useTranslations("auth-page.errors");
 
   return (
