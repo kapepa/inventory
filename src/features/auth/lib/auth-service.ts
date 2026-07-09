@@ -137,7 +137,7 @@ export const getSessionUser = async (): Promise<AuthenticatedUser | null> => {
   }
 }
 
-export const resendVerification = async (body: ResendVerification): Promise<AuthenticatedUser> => {
+export const validateEmailForResend = async (body: ResendVerification): Promise<AuthenticatedUser> => {
   const validated = resendVerificationServerSchema.parse(body)
   try {
     const existingUser = await prisma.user.findFirst({
@@ -159,7 +159,19 @@ export const resendVerification = async (body: ResendVerification): Promise<Auth
       throw error;
     }
 
-    console.log('Prisma Error in resendVerification:', error);
+    console.log('Prisma Error in validateEmailForResend:', error);
+    throw error;
+  }
+}
+
+export const activateUserByEmail = async (email: string) => {
+  try {
+    await prisma.user.update({
+      where: { email },
+      data: { verifiedAt: new Date() },
+    });
+  } catch (error) {
+    console.log('Prisma Error in activateUserByEmail:', error);
     throw error;
   }
 }

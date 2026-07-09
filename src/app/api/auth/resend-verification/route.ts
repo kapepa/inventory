@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { ZodError } from 'zod';
-import { EmailNotFoundError, resendVerification } from '@/features/server';
+import { EmailNotFoundError, validateEmailForResend } from '@/features/server';
 import { createVerificationCode, sendVerificationEmail } from '@/entities/server';
 import { AuthSignUp } from '@/features';
 import { AppLocale, defaultLocale } from '@/shared';
@@ -11,7 +11,7 @@ export async function POST(request: NextRequest): Promise<NextResponse<string | 
     const locale = (rawLocale.split(',')[0].split('-')[0].trim().toLowerCase()) as AppLocale;
 
     const body: AuthSignUp = await request.json();
-    const user = await resendVerification(body);
+    const user = await validateEmailForResend(body);
     const verify = await createVerificationCode({ userId: user.id, email: user.email });
     const { verificationLink } = await sendVerificationEmail({
       locale,

@@ -24,8 +24,8 @@ export const useLoginForm = () => {
     mode: "onChange",
     reValidateMode: "onChange",
     defaultValues: {
-      email: "karma@gmail.com",
-      password: "123456A!",
+      email: "",
+      password: "",
     },
   })
 
