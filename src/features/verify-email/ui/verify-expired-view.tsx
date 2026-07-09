@@ -2,7 +2,6 @@
 
 import { SubmitButton } from "@/shared";
 import { useTranslations } from "next-intl";
-import { useCallback, useTransition } from "react";
 import { VerifyCard } from "./verify-card";
 import { useVerifiedEmail } from "@/features/auth";
 
