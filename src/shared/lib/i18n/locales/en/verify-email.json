@@ -12,5 +12,36 @@
     "title": "Link expired",
     "description": "The verification link for {email} has expired. Request a new verification code.",
     "resend-button": "Send new code"
+  },
+  "verify-code-form": {
+    "placeholders": {
+      "code": "0000"
+    },
+    "labels": {
+      "code": "Verification code"
+    },
+    "buttons": {
+      "reset": "Clear",
+      "send": "Verify"
+    }
+  },
+  "use-code-form": {
+    "toast": {
+      "verify-code-success": "Email verified successfully!",
+      "verify-code-invalid": "Invalid verification code",
+      "verify-code-error": "Verification failed. Please try again later."
+    },
+    "errors": {
+      "email-invalid": "Enter a valid email",
+      "email-required": "Email is required",
+      "email-max": "Email is too long",
+      "token-required": "Token is required",
+      "token-min": "Token cannot be empty",
+      "token-max": "Token is too long",
+      "code-required": "Verification code is required",
+      "code-length": "Code must be 4 digits",
+      "code-digits": "Code must contain only digits",
+      "code-invalid": "Invalid verification code"
+    }
   }
 }

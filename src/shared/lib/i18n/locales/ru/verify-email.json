@@ -12,5 +12,36 @@
     "title": "Ссылка устарела",
     "description": "Срок действия ссылки для {email} истек. Запросите новый код подтверждения.",
     "resend-button": "Отправить новый код"
+  },
+  "verify-code-form": {
+    "placeholders": {
+      "code": "0000"
+    },
+    "labels": {
+      "code": "Код подтверждения"
+    },
+    "buttons": {
+      "reset": "Очистить",
+      "send": "Подтвердить"
+    }
+  },
+  "use-code-form": {
+    "toast": {
+      "verify-code-success": "Email успешно подтвержден!",
+      "verify-code-invalid": "Неверный код подтверждения",
+      "verify-code-error": "Ошибка подтверждения. Попробуйте позже."
+    },
+    "errors": {
+      "email-invalid": "Введите корректный email",
+      "email-required": "Email обязателен",
+      "email-max": "Email слишком длинный",
+      "token-required": "Токен обязателен",
+      "token-min": "Токен не может быть пустым",
+      "token-max": "Токен слишком длинный",
+      "code-required": "Введите код подтверждения",
+      "code-length": "Код должен содержать 4 цифры",
+      "code-digits": "Код должен содержать только цифры",
+      "code-invalid": "Неверный код подтверждения"
+    }
   }
 }
