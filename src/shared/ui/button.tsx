@@ -22,7 +22,8 @@ const buttonVariants = cva(
         "simply-transparency": "no-underline hover:bg-background focus:outline-none active:bg-transparent cursor-pointer text-background hover:text-chart-2 shadow-none shadow-black/20 hover:shadow-xl hover:shadow-black/30",
         "simply-accent": "no-underline bg-background focus:outline-none cursor-pointer text-background hover:text-chart-2 shadow-lg shadow-black/20 hover:shadow-xl hover:shadow-black/30 text-accent",
         "simply-destructive": "no-underline bg-background focus:outline-none cursor-pointer text-background shadow-lg shadow-black/20 hover:shadow-xl hover:shadow-black/30 text-destructive",
-        "striking-accent": "bg-accent text-primary-foreground hover:bg-accent/80 cursor-pointer transition-colors hover:shadow-sm hover:shadow-black/20"
+        "accent-ghost": "bg-background  focus:outline-none cursor-pointer text-background shadow-lg shadow-black/20 hover:shadow-xl hover:shadow-black/30 text-accent",
+        "striking-accent": "bg-accent text-primary-foreground hover:bg-accent/80 cursor-pointer transition-colors shadow-lg shadow-black/20 hover:shadow-xl hover:shadow-black/30"
       },
       size: {
         default:

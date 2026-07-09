@@ -5,16 +5,17 @@ import { cn } from "../lib";
 import { Loader } from "lucide-react";
 
 interface CancelButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+  variant?: Extract<VariantProps<typeof buttonVariants>['variant'], "simply-accent" | "simply-destructive" | "default" | "striking-accent" | "accent-ghost">;
   children: ReactNode;
   className?: string;
   onCancelAction?: () => void;
 }
 
-export const CancelButton = ({ children, className, onCancelAction, ...props }: CancelButtonProps) => {
+export const CancelButton = ({ children, className, variant, onCancelAction, ...props }: CancelButtonProps) => {
   return (
     <Button
       type="button"
-      variant="simply-transparency"
+      variant={variant || "simply-transparency"}
       className={cn("px-5 md:px-7 py-5 rounded-full uppercase", className)}
       onClick={onCancelAction}
       {...props}
