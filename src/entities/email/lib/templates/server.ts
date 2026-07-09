@@ -1,1 +1,2 @@
-export { verificationEmailTemplate } from "./verification"
+export { verificationEmailTemplate } from "./verification-email"
+export { confirmationEmailTemplate } from "./confirmation-email"

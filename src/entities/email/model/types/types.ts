@@ -20,10 +20,22 @@ export interface VerificationEmailData {
   locale: AppLocale;
 }
 
+export interface ConfirmationEmailData {
+  name: string;
+  email: string;
+  locale: AppLocale;
+}
+
 export interface SendVerificationEmailInput {
   email: string;
   name: string;
   code: string;
   token: string;
+  locale: AppLocale;
+}
+
+export interface SendConfirmationEmailInput {
+  email: string;
+  name: string;
   locale: AppLocale;
 }

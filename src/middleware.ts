@@ -6,7 +6,7 @@ import { getAuthToken, verifyToken } from './shared/lib/auth';
 const intlMiddleware = createIntlMiddleware(routing);
 
 // Public routes accessible without authorization
-const publicRoutes = ['/auth', '/verify', '/api/auth/login', '/api/auth/register', '/api/verify', '/api/auth/resend-verification'];
+const publicRoutes = ['/auth', '/verify', '/api/auth/login', '/api/auth/register', '/api/verify', '/api/auth/resend-verification', "/api/auth/verify-email"];
 
 // Routes for admins only
 const adminRoutes = ['/admin'];

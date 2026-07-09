@@ -1,6 +1,6 @@
 {
   "send-verification-email": {
-    "subject": "Подтвердите ваш email - Inventory",
+    "subject": "Confirm Your Email Address — Inventory",
     "text": "Hi, {name}! Please confirm your email by clicking the link {link}."
   },
   "verification-email-template": {
@@ -13,6 +13,19 @@
     "manual-link": "Or copy this link to your browser:",
     "expires-in": "Link valid for {time} hour(s)",
     "ignore": "If you didn't register, please ignore this email.",
-    "footer": "© 2026 Inventory System. All rights reserved."
+    "footer": "© 2026 Inventory. All rights reserved."
+  },
+  "send-confirmation-email": {
+    "subject": "Your email address has been confirmed — Inventory",
+    "text": "Hi, {name}! Please confirm your email by clicking the link {link}."
+  },
+  "confirmation-email-template": {
+    "subject": "Email Successfully Verified",
+    "greeting": "Hello, {name}!",
+    "success-message": "Your email address has been successfully verified.",
+    "access-message": "You can now sign in and start using all features.",
+    "go-to-app": "Go to App",
+    "security-note": "If you did not verify this email, please contact support.",
+    "footer": "© 2026 Inventory. All rights reserved."
   }
 }

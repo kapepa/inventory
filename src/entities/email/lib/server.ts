@@ -1,3 +1,4 @@
 export * from "./templates/server"
-export { sendEmail, } from "./send"
+export { sendEmail } from "./send"
 export { sendVerificationEmail } from "./send-verification-email"
+export { sendConfirmationEmail } from "./send-confirmation-email"

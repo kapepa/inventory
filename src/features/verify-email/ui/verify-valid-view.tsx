@@ -2,6 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import { VerifyCard } from "./verify-card";
+import { VerifyCodeForm } from "./verify-code-form";
 
 interface VerifyValidViewProps {
   token: string,
@@ -17,6 +18,10 @@ export const VerifyValidView = ({ token, email }: VerifyValidViewProps) => {
         <h2 className="text-2xl">{t("title")}</h2>
         <p className="text-muted-foreground">{t("description", { email })}</p>
       </div>
+      <VerifyCodeForm
+        email={email}
+        token={token}
+      />
     </VerifyCard>
   )
 }

@@ -1,1 +1,1 @@
-export { createVerificationCode, validateVerificationToken } from "./create-verification-code"
+export { createVerificationCode, validateVerificationToken, deleteVerificationCodesByEmail } from "./create-verification-code"
