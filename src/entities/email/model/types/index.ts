@@ -1,1 +1,1 @@
-export type { EmailOptions, VerificationEmailData, SendVerificationEmailInput } from "./types"
+export type { EmailOptions, VerificationEmailData, SendVerificationEmailInput, SendConfirmationEmailInput, ConfirmationEmailData } from "./types"
