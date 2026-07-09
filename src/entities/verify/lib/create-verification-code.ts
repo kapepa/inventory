@@ -6,8 +6,9 @@ import { TokenExpiredError, TokenNotFoundError } from "../server";
 
 export const createVerificationCode = async ({ email, userId }: VerificationCodeInput): Promise<VerificationCodeOutput> => {
   try {
-    const token = crypto.randomBytes(VERIFICATION_CONFIG.TOKEN_BYTES).toString('base64url');
+    await deleteVerificationCodesByEmail(email)
 
+    const token = crypto.randomBytes(VERIFICATION_CONFIG.TOKEN_BYTES).toString('base64url');
     const codeMin = Math.pow(10, VERIFICATION_CONFIG.CODE_LENGTH - 1);
     const codeMax = Math.pow(10, VERIFICATION_CONFIG.CODE_LENGTH) - codeMin;
     const code = Math.floor(codeMin + Math.random() * codeMax).toString();
@@ -58,3 +59,14 @@ export const validateVerificationToken = async (token: string): Promise<{ email:
     throw error;
   }
 }
+
+export const deleteVerificationCodesByEmail = async (email: string): Promise<void> => {
+  try {
+    await prisma.verificationCode.deleteMany({
+      where: { email },
+    });
+  } catch (error) {
+    console.error('Prisma Error in deleteVerificationCodesByEmail:', error);
+    throw error;
+  }
+};

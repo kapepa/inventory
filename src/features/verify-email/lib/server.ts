@@ -1,0 +1,1 @@
+export { validateVerificationCode } from "./validate-verification-code"
