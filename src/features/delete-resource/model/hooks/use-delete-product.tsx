@@ -1,12 +1,62 @@
-import { useModalActions } from "@/shared";
+"use client"
+
+import { AdminAccessRequiredError, ProductNotFoundError, useModalActions } from "@/shared";
 import { useTranslations } from "next-intl";
-import { useCallback } from "react";
+import { useCallback, useTransition } from "react";
 import { toast } from "sonner";
 import { DeleteConfirmModal } from "../../ui";
 import { requestDeleteProduct } from "../../api/product-api";
 import { ProductWithRelations } from "@/entities";
 
-export const useDeleteProduct = <T extends ProductWithRelations,>() => {
+interface DeleteProductModalWrapperProps {
+  title: string;
+  productId: string;
+  onCloseAction: () => void;
+  onSuccess?: () => void;
+}
+
+export const DeleteProductModalWrapper = ({
+  title,
+  productId,
+  onCloseAction,
+  onSuccess,
+}: DeleteProductModalWrapperProps) => {
+  const [isPending, startTransition] = useTransition();
+  const t = useTranslations('groups');
+  const tErrors = useTranslations('errors');
+
+  const handleConfirm = () => {
+    startTransition(async () => {
+      try {
+        await requestDeleteProduct({ id: productId });
+        toast.success(t("sonner.delete-product-success"));
+        onSuccess?.();
+      } catch (error) {
+        if (error instanceof AdminAccessRequiredError) {
+          toast.error(tErrors('admin-access-required'));
+        } else if (error instanceof ProductNotFoundError) {
+          toast.error(t("sonner.delete-product-not-found"));
+        } else {
+          console.error(error);
+          toast.error(t("sonner.delete-error-product"));
+        }
+      } finally {
+        onCloseAction();
+      }
+    });
+  };
+
+  return (
+    <DeleteConfirmModal
+      title={title}
+      isLoading={isPending}
+      onConfirmAction={handleConfirm}
+      onCancelAction={onCloseAction}
+    />
+  );
+};
+
+export const useDeleteProduct = <T extends ProductWithRelations>() => {
   const t = useTranslations('groups');
   const { openModal, closeModal } = useModalActions();
 
@@ -14,21 +64,11 @@ export const useDeleteProduct = <T extends ProductWithRelations,>() => {
     const title = product.translations[0]?.title || "";
 
     openModal(
-      <DeleteConfirmModal
+      <DeleteProductModalWrapper
         title={title}
-        onConfirmAction={async () => {
-          try {
-            await requestDeleteProduct({ id: product.id });
-            toast.success(t("sonner.delete-product-success"));
-            if (onSuccess) onSuccess();
-          } catch (error) {
-            console.error(error);
-            toast.error(t("sonner.delete-error-product"));
-          } finally {
-            closeModal();
-          }
-        }}
-        onCancelAction={closeModal}
+        productId={product.id}
+        onCloseAction={closeModal}
+        onSuccess={onSuccess}
       />
     );
   }, [closeModal, openModal, t]);

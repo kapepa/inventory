@@ -1,14 +1,62 @@
 "use client"
 
-import { useModalActions } from "@/shared";
+import { AdminAccessRequiredError, ParishNotFoundError, useModalActions } from "@/shared";
 import { ParishesType } from "@/entities";
 import { DeleteConfirmModal } from "../../ui/delete-confirm-modal";
 import { toast } from "sonner";
 import { useTranslations } from "next-intl";
-import { useCallback } from "react";
+import { useCallback, useTransition } from "react";
 import { requestDeleteParish } from "../../api";
 
-export const useDeleteParish = <T extends ParishesType,>() => {
+interface DeleteParishModalWrapperProps {
+  title: string;
+  parishId: string;
+  onCloseAction: () => void;
+  onSuccess?: () => void;
+}
+
+export const DeleteParishModalWrapper = ({
+  title,
+  parishId,
+  onCloseAction,
+  onSuccess,
+}: DeleteParishModalWrapperProps) => {
+  const [isPending, startTransition] = useTransition();
+  const t = useTranslations('parish');
+  const tErrors = useTranslations('errors');
+
+  const handleConfirm = () => {
+    startTransition(async () => {
+      try {
+        await requestDeleteParish({ id: parishId });
+        toast.success(t("sonner.delete-parish-success"));
+        onSuccess?.();
+      } catch (error) {
+        if (error instanceof AdminAccessRequiredError) {
+          toast.error(tErrors('admin-access-required'));
+        } else if (error instanceof ParishNotFoundError) {
+          toast.error(t("sonner.delete-parish-not-found"));
+        } else {
+          console.log(error);
+          toast.error(t("sonner.delete-error-parish"));
+        }
+      } finally {
+        onCloseAction();
+      }
+    });
+  };
+
+  return (
+    <DeleteConfirmModal
+      title={title}
+      isLoading={isPending}
+      onConfirmAction={handleConfirm}
+      onCancelAction={onCloseAction}
+    />
+  );
+};
+
+export const useDeleteParish = <T extends ParishesType>() => {
   const t = useTranslations('parish');
   const { openModal, closeModal } = useModalActions();
 
@@ -16,21 +64,11 @@ export const useDeleteParish = <T extends ParishesType,>() => {
     const title = parish.translations[0]?.title || "";
 
     openModal(
-      <DeleteConfirmModal
+      <DeleteParishModalWrapper
         title={title}
-        onConfirmAction={async () => {
-          try {
-            await requestDeleteParish({ id: parish.id });
-            toast.success(t("sonner.delete-parish-success"));
-            if (onSuccess) onSuccess()
-          } catch (error) {
-            console.error(error);
-            toast.error(t("sonner.delete-error-parish"));
-          } finally {
-            closeModal();
-          }
-        }}
-        onCancelAction={closeModal}
+        parishId={parish.id}
+        onCloseAction={closeModal}
+        onSuccess={onSuccess}
       />
     );
   }, [closeModal, openModal, t]);
