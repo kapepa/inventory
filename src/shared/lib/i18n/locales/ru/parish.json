@@ -15,7 +15,8 @@
   },
   "sonner": {
     "delete-parish-success": "Приход удален успешно",
-    "delete-error-parish": "При удалении произошла ошибка"
+    "delete-error-parish": "При удалении произошла ошибка",
+    "delete-parish-not-found": "Приход не найден"
   },
   "modal": {
     "delete-confirm": "Вы уверены, что хотите удалить приход",

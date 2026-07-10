@@ -1,5 +1,5 @@
-import { axiosInstance } from "@/shared";
-import { AxiosError } from "axios";
+import { AdminAccessRequiredError, axiosInstance, ProductNotFoundError } from "@/shared";
+import axios, { AxiosError } from "axios";
 import { DeleteProductResult, DeleteProductParams } from "../model/types";
 
 export const requestDeleteProduct = async ({ id, signal }: DeleteProductParams): Promise<DeleteProductResult> => {
@@ -7,10 +7,23 @@ export const requestDeleteProduct = async ({ id, signal }: DeleteProductParams):
     const response = await axiosInstance.delete<DeleteProductResult>(`/products/${id}`, { signal });
     return response.data
   } catch (error) {
-    if (error instanceof AxiosError) {
-      const message = error.response?.data?.error || error.response?.data?.message || "Failed to delete product";
-      throw new Error(message);
+    if (axios.isCancel(error)) {
+      throw new Error("Request cancelled")
     }
-    throw new Error("Failed to delete product")
+
+    if (error instanceof AxiosError) {
+      if (error.response?.status === 403) {
+        throw new AdminAccessRequiredError();
+      }
+
+      if (error.response?.status === 404) {
+        throw new ProductNotFoundError();
+      }
+
+      const errorMessage = error.response?.data?.error || "Failed to delete product"
+      throw new Error(errorMessage)
+    }
+
+    throw error
   }
 }

@@ -1,13 +1,64 @@
-import { useModalActions } from "@/shared";
+"use client"
+
+import { AdminAccessRequiredError, CategoryHasProductsError, CategoryNotFoundError, useModalActions } from "@/shared";
 import { useTranslations } from "next-intl";
-import { useCallback } from "react";
+import { useCallback, useTransition } from "react";
 import { toast } from "sonner";
 import { DeleteConfirmModal } from "../../ui";
 import { requestDeleteCategory } from "../../api/category-api";
 import { CategoryWithProductCount } from "@/entities";
-import { CategoryHasProductsError } from "../server";
 
-export const useDeleteCategory = <T extends CategoryWithProductCount,>() => {
+interface DeleteCategoryModalWrapperProps {
+  title: string;
+  categoryId: string;
+  onCloseAction: () => void;
+  onSuccess?: () => void;
+}
+
+export const DeleteCategoryModalWrapper = ({
+  title,
+  categoryId,
+  onCloseAction,
+  onSuccess,
+}: DeleteCategoryModalWrapperProps) => {
+  const [isPending, startTransition] = useTransition();
+  const t = useTranslations('category');
+  const tErrors = useTranslations('errors');
+
+  const handleConfirm = () => {
+    startTransition(async () => {
+      try {
+        await requestDeleteCategory({ id: categoryId });
+        toast.success(t("sonner.delete-category-success"));
+        onSuccess?.();
+      } catch (error) {
+        if (error instanceof AdminAccessRequiredError) {
+          toast.error(tErrors('admin-access-required'));
+        } else if (error instanceof CategoryNotFoundError) {
+          toast.error(t("sonner.delete-error-category-not-found"));
+        } else if (error instanceof CategoryHasProductsError) {
+          toast.error(t("sonner.cannot-delete-with-products"));
+        } else {
+          toast.error(t("sonner.delete-error-category"));
+          console.error(error);
+        }
+      } finally {
+        onCloseAction();
+      }
+    });
+  };
+
+  return (
+    <DeleteConfirmModal
+      title={title}
+      isLoading={isPending}
+      onConfirmAction={handleConfirm}
+      onCancelAction={onCloseAction}
+    />
+  );
+};
+
+export const useDeleteCategory = <T extends CategoryWithProductCount>() => {
   const t = useTranslations('category');
   const { openModal, closeModal } = useModalActions();
 
@@ -20,25 +71,11 @@ export const useDeleteCategory = <T extends CategoryWithProductCount,>() => {
     }
 
     openModal(
-      <DeleteConfirmModal
+      <DeleteCategoryModalWrapper
         title={title}
-        onConfirmAction={async () => {
-          try {
-            await requestDeleteCategory({ id: category.id });
-            toast.success(t("sonner.delete-category-success"));
-            if (onSuccess) onSuccess();
-          } catch (error) {
-            if (error instanceof CategoryHasProductsError) {
-              toast.error(t("sonner.cannot-delete-with-products"));
-            } else {
-              toast.error(t("sonner.delete-error-category"));
-            }
-            console.error(error);
-          } finally {
-            closeModal();
-          }
-        }}
-        onCancelAction={closeModal}
+        categoryId={category.id}
+        onCloseAction={closeModal}
+        onSuccess={onSuccess}
       />
     );
   }, [closeModal, openModal, t]);

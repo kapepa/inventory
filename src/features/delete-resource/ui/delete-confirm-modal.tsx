@@ -14,23 +14,18 @@ import { useTransition } from "react";
 
 interface DeleteConfirmModalProps {
   title: string;
+  isLoading: boolean,
   onConfirmAction: () => Promise<void> | void;
   onCancelAction: () => void;
 }
 
 export const DeleteConfirmModal = ({
   title,
+  isLoading,
   onConfirmAction,
   onCancelAction
 }: DeleteConfirmModalProps) => {
   const t = useTranslations('parish.modal');
-  const [isPending, startTransition] = useTransition();
-
-  const handleConfirm = () => {
-    startTransition(async () => {
-      await onConfirmAction();
-    });
-  };
 
   return (
     <ModalContents>
@@ -41,13 +36,13 @@ export const DeleteConfirmModal = ({
         </p>
       </ModalBody>
       <ModalFooter>
-        <CancelButton onCancelAction={onCancelAction} disabled={isPending}>
+        <CancelButton onCancelAction={onCancelAction} disabled={isLoading}>
           {t("buttons.cancel")}
         </CancelButton>
         <SubmitButton
           variant="simply-destructive"
-          isLoading={isPending}
-          onConfirmAction={handleConfirm}
+          isLoading={isLoading}
+          onConfirmAction={onConfirmAction}
         >
           <div className="flex gap-x-2">
             <Trash />

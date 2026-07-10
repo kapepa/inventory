@@ -6,3 +6,10 @@ export class CategoryHasProductsError extends Error {
     this.name = 'CategoryHasProductsError';
   }
 }
+
+export class CategoryNotFoundError extends Error {
+  constructor() {
+    super(ERROR_CODES.CATEGORY_NOT_FOUND_ERROR);
+    this.name = 'CategoryNotFoundError';
+  }
+}

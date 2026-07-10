@@ -63,6 +63,11 @@ class AxiosClient {
           }
         }
 
+        if (error.response?.status === 403) {
+          const message = (error.response?.data as any)?.error || 'Access denied';
+          console.warn('403 Forbidden:', message);
+        }
+
         // Handling validation errors
         if (error.response?.status === 422) {
           const validationErrors = error.response.data as any;

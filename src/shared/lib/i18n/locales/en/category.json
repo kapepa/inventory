@@ -19,6 +19,7 @@
   "sonner": {
     "delete-category-success": "Category deleted successfully",
     "delete-error-category": "An error occurred during deletion",
+    "delete-error-category-not-found": "Category not found",
     "cannot-delete-with-products": "В этой категории есть еще продукты"
   }
 }
