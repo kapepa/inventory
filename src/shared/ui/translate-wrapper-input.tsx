@@ -30,7 +30,7 @@ export const TranslateWrapperInput = ({ children, floatTitle, className, onClick
       <div className={cn("absolute top-0 right-0", className)}>
         <Tooltip>
           <TooltipTrigger asChild>
-            <Button variant="ghost" className="cursor-pointer" onClick={handlerClick} disabled={disabled || isLoading}>
+            <Button variant="ghost" className="cursor-pointer h-10" onClick={handlerClick} disabled={disabled || isLoading}>
               {isLoading ? (
                 <Loader className="text-accent" strokeWidth={3} />
               ) : (

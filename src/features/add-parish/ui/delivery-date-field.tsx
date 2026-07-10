@@ -45,7 +45,7 @@ export const DeliveryDateField = memo(
                   <Button
                     variant={"outline"}
                     className={cn(
-                      "w-full pl-3 text-left font-normal",
+                      "w-full pl-3 text-left font-normal h-8 md:h-10",
                       !field.value && "text-muted-foreground"
                     )}
                     disabled={isPending}
