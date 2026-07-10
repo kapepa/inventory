@@ -1,32 +1,39 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { apiHandler } from '@/shared/lib/middleware';
-import { CategoryHasProductsError, deleteCategory } from '@/features/server';
+import { deleteCategory } from '@/features/server';
 import { AuthenticatedUser } from '@/features';
-import { getCategoryhById } from '@/entities/server';
+import { AdminAccessRequiredError, CategoryHasProductsError, CategoryNotFoundError, getCategoryhById } from '@/entities/server';
 
 export const DELETE = apiHandler(async (_: NextRequest, user: AuthenticatedUser, { params }: { params: Promise<{ id: string }> }) => {
   const { id } = await params;
   try {
-    if (user?.role !== "ADMIN") return NextResponse.json(
-      { error: 'Forbidden: Admin access required' },
-      { status: 403 }
-    )
+    if (user?.role !== "ADMIN") throw new AdminAccessRequiredError()
 
     const existingParish = await getCategoryhById({ id })
-    if (!existingParish) return NextResponse.json(
-      { error: 'Parish not found' },
-      { status: 404 }
-    );
-    if (existingParish._count.products >= 1) {
-      throw new CategoryHasProductsError()
-    }
+    if (!existingParish) throw new CategoryNotFoundError()
+    if (existingParish._count.products >= 1) throw new CategoryHasProductsError()
 
     await deleteCategory(id);
     return NextResponse.json({ success: true });
   } catch (error) {
+
+    if (error instanceof AdminAccessRequiredError) {
+      return NextResponse.json(
+        { error: error.message },
+        { status: 403 }
+      );
+    }
+
+    if (error instanceof CategoryNotFoundError) {
+      return NextResponse.json(
+        { error: error.message },
+        { status: 404 }
+      );
+    }
+
     if (error instanceof CategoryHasProductsError) {
       return NextResponse.json(
-        { error: 'Cannot delete category with existing products' },
+        { error: error.message },
         { status: 409 }
       );
     }
