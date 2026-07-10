@@ -13,5 +13,8 @@
       "retry": "Try again",
       "home": "Home"
     }
+  },
+  "errors": {
+    "admin-access-required": "Administrator privileges are required"
   }
 }

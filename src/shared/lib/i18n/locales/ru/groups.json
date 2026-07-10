@@ -26,7 +26,8 @@
   },
   "sonner": {
     "delete-product-success": "Товар удален успешно",
-    "delete-error-product": "При удалении произошла ошибка"
+    "delete-error-product": "При удалении произошла ошибка",
+    "delete-product-not-found": "Товар не найден"
   },
   "modal": {
     "delete-confirm": "Вы уверены, что хотите удалить этот товар?",
