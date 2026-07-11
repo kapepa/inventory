@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { apiHandler } from '@/shared/lib/middleware';
 import { deleteParish } from '@/features/server';
 import { AuthenticatedUser } from '@/features';
-import { AdminAccessRequiredError, getParishById, ParishNotFoundError } from '@/entities/server';
+import { AdminAccessRequiredError, getParishById, ParishHasProductsError, ParishNotFoundError } from '@/entities/server';
 
 export const DELETE = apiHandler(async (_: NextRequest, user: AuthenticatedUser, { params }: { params: Promise<{ id: string }> }) => {
   const { id } = await params;
@@ -11,6 +11,7 @@ export const DELETE = apiHandler(async (_: NextRequest, user: AuthenticatedUser,
 
     const existingParish = await getParishById({ id })
     if (!existingParish) throw new ParishNotFoundError()
+    if (existingParish._count.products > 0) throw new ParishHasProductsError()
 
     await deleteParish(id);
     return NextResponse.json({ success: true });
@@ -27,6 +28,13 @@ export const DELETE = apiHandler(async (_: NextRequest, user: AuthenticatedUser,
       return NextResponse.json(
         { error: error.message },
         { status: 404 }
+      );
+    }
+
+    if (error instanceof ParishHasProductsError) {
+      return NextResponse.json(
+        { error: error.message },
+        { status: 409 }
       );
     }
 

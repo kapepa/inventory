@@ -10,6 +10,7 @@ import {
   FormControl,
   FormMessage,
   Input,
+  VALIDATION_LIMITS,
 } from "@/shared"
 
 interface OrderFieldProps {
@@ -30,13 +31,14 @@ export const OrderField = memo(({ isPending }: OrderFieldProps) => {
           <FormControl>
             <Input
               type="number"
-              placeholder={t('order-placeholder')}
+              placeholder={t('placeholders.order')}
               {...field}
               value={field.value ?? ''}
               onChange={(e) => {
                 const raw = e.target.value.replace(/\D/g, '').slice(0, 9)
                 field.onChange(raw === '' ? undefined : Number(raw))
               }}
+              maxLength={VALIDATION_LIMITS.ORDER_MAX_PRODUCT + 1}
               disabled={isPending}
             />
           </FormControl>

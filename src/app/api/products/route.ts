@@ -1,8 +1,8 @@
-import { extractPublicId, ResponseProductsShortDTO } from '@/entities';
+import { ProductWithRelationsShort, ResponseProductsShortDTO } from '@/entities';
 import { getFilteredProductsShort } from '@/entities/server';
 import { deleteFile } from '@/entities/server';
-import { AuthenticatedUser, ProductCreate } from '@/features';
-import { createProduct } from '@/features/server';
+import { AuthenticatedUser } from '@/features';
+import { createProduct, ProductAlreadyExistsError } from '@/features/server';
 import { AppLocale, defaultLocale, locales, PAGINATION_PRODUCTS_DEFAULTS } from '@/shared';
 import { apiHandler } from '@/shared/server';
 import { NextRequest, NextResponse } from 'next/server';
@@ -34,16 +34,16 @@ export const GET = apiHandler(async (request: NextRequest): Promise<NextResponse
   }
 });
 
-export const POST = apiHandler(async (request: NextRequest, user: AuthenticatedUser): Promise<NextResponse<ProductCreate | { error: string }>> => {
+export const POST = apiHandler(async (request: NextRequest, user: AuthenticatedUser): Promise<NextResponse<ProductWithRelationsShort | { error: string }>> => {
   let photoToCleanup: string | null = null
   try {
     const body = await request.json();
-    photoToCleanup = extractPublicId(body.photo);
+    photoToCleanup = body.photo;
     body.userId = user?.id
     const newProduct = await createProduct(body);
 
     return NextResponse.json(newProduct, { status: 201 });
-  } catch (error: any) {
+  } catch (error) {
     if (photoToCleanup) {
       try {
         await deleteFile(photoToCleanup);
@@ -51,18 +51,18 @@ export const POST = apiHandler(async (request: NextRequest, user: AuthenticatedU
         console.error('Failed to clean up uploaded file in Cloudinary:', deleteError);
       }
     }
-    if (error instanceof ZodError || error?.name === 'ZodError') {
+
+    if (error instanceof ZodError) {
       return NextResponse.json(
-        { error: 'Invalid data format', details: error.format ? error.format() : error.issues },
+        { error: 'Invalid data format', details: error.format() },
         { status: 400 }
       );
     }
 
-    // If this is a Prisma uniqueness error (for example, a serial number like this already exists)
-    if (error.code === 'P2002') {
+    if (error instanceof ProductAlreadyExistsError) {
       return NextResponse.json(
-        { error: 'Product with this serial number already exists' },
-        { status: 409 } // 409 Conflict
+        { error: error.message },
+        { status: 409 }
       );
     }
 

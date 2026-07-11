@@ -39,7 +39,7 @@ export const ParishShortCard = memo(
           <CountCell count={parish._count.products} />
           <DateCell created={parish.createdAt} delivery={parish.deliveryDate} />
         </div>
-        <div className="w-12 md:w-14">
+        <div className="hidden sm:block w-12 md:w-14">
           <ActiveChevron isActive={isActive} />
         </div>
       </button>

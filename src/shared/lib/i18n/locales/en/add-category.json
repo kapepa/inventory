@@ -10,11 +10,12 @@
       "title": "Category Name"
     },
     "buttons": {
-      "cancel": "Cancel",
-      "create": "Create"
+      "create": "Create",
+      "reset": "Clear"
     },
     "errors": {
       "err-title-min": "At least 3 chars",
+      "err-title-max": "Maximum 100 chars",
       "err-category-already-exists": "The category already exists"
     },
     "placeholders": {

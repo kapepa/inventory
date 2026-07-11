@@ -23,7 +23,7 @@ interface AddParishFormProps {
 export const AddParishForm = ({ onCancelAction }: AddParishFormProps) => {
   const currentLocale = useLocale() as AppLocale
   const t = useTranslations("add-parish.form")
-  const { form, isSubmitting, onSubmit } = useAddParishForm(onCancelAction)
+  const { form, isSubmitting, onReset, onSubmit } = useAddParishForm(onCancelAction)
   const { isTranslating, translatingField, handleTranslateAction } = useAddParishTranslation(form)
 
   const isPending = isSubmitting || isTranslating
@@ -73,10 +73,10 @@ export const AddParishForm = ({ onCancelAction }: AddParishFormProps) => {
       <ModalFooter>
         <CancelButton
           type="button"
-          onCancelAction={onCancelAction}
+          onCancelAction={onReset}
           disabled={isPending}
         >
-          {t("buttons.cancel")}
+          {t("buttons.reset")}
         </CancelButton>
         <SubmitButton
           form="add-parish-form"

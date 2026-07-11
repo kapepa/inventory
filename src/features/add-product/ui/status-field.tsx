@@ -43,7 +43,7 @@ export const StatusField = memo(({ isPending }: StatusFieldProps) => {
                 disabled={isPending}
               >
                 <SelectTrigger className="w-full">
-                  <SelectValue placeholder={t('status-placeholder')} />
+                  <SelectValue placeholder={t('placeholders.status')} />
                 </SelectTrigger>
                 <SelectContent className="w-full">
                   <SelectItem value={ProductStatus.FREE}>{t('status-free')}</SelectItem>

@@ -1,6 +1,6 @@
-import { axiosInstance } from "@/shared"
+import { axiosInstance, ParishAlreadyExistsError } from "@/shared"
 import { CreateParishParams } from "../model"
-import { AxiosError } from "axios"
+import axios, { AxiosError } from "axios"
 import { ParishWithRelationsTotals } from "@/entities"
 
 export const requestCreateParish = async ({ data, signal }: CreateParishParams): Promise<ParishWithRelationsTotals> => {
@@ -16,9 +16,19 @@ export const requestCreateParish = async ({ data, signal }: CreateParishParams):
     )
     return response.data
   } catch (error) {
-    if (error instanceof AxiosError) {
-      throw new Error(error.response?.data?.error || "Something went wrong requestCreateParish")
+    if (axios.isCancel(error)) {
+      throw new Error("Request cancelled")
     }
+
+    if (error instanceof AxiosError) {
+      if (error.response?.status === 409) {
+        throw new ParishAlreadyExistsError();
+      }
+
+      const errorMessage = error.response?.data?.error || "Something went wrong create parish"
+      throw new Error(errorMessage)
+    }
+
     throw error
   }
 }

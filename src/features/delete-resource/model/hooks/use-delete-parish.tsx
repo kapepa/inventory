@@ -1,6 +1,6 @@
 "use client"
 
-import { AdminAccessRequiredError, ParishNotFoundError, useModalActions } from "@/shared";
+import { AdminAccessRequiredError, ParishHasProductsError, ParishNotFoundError, useModalActions } from "@/shared";
 import { ParishesType } from "@/entities";
 import { DeleteConfirmModal } from "../../ui/delete-confirm-modal";
 import { toast } from "sonner";
@@ -36,6 +36,8 @@ export const DeleteParishModalWrapper = ({
           toast.error(tErrors('admin-access-required'));
         } else if (error instanceof ParishNotFoundError) {
           toast.error(t("sonner.delete-parish-not-found"));
+        } else if (error instanceof ParishHasProductsError) {
+          toast.error(t("sonner.delete-parish-has-products"));
         } else {
           console.log(error);
           toast.error(t("sonner.delete-error-parish"));

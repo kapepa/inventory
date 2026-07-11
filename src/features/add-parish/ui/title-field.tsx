@@ -13,6 +13,7 @@ import {
   AppLocale,
   TranslateWrapperInput,
   oppositeLocale,
+  VALIDATION_LIMITS,
 } from "@/shared"
 
 interface TitleFieldProps {
@@ -53,7 +54,7 @@ export const TitleField = memo(({
               <Input
                 className="pr-10"
                 placeholder={t("placeholders.title")}
-                maxLength={100}
+                maxLength={VALIDATION_LIMITS.TITLE_MAX_PARISH + 1}
                 {...field}
                 disabled={isPending}
                 autoFocus={autoFocus}

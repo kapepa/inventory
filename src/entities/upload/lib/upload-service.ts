@@ -1,5 +1,5 @@
 import { UploadImageResponse } from '../model'
-import { extractFromUrl, extractPublicId, validateFile } from '../lib'
+import { extractPublicId, validateFile } from '../lib'
 import { ImageSizes } from '@/shared'
 
 // Dynamic import for Cloudinary to avoid fs module in client bundles
@@ -67,6 +67,8 @@ export const uploadFile = async (file: File): Promise<UploadImageResponse> => {
 
 export const deleteFile = async (urlOrId: string | ImageSizes): Promise<{ result: string }> => {
   try {
+    console.log("deleteFiledeleteFiledeleteFiledeleteFile", urlOrId)
+    //urlOrId = inventory-products/j6fyrlgbaqvv2lutnmm6
     const publicId = extractPublicId(urlOrId);
     if (!publicId) throw new Error('Invalid public_id: could not extract');
 

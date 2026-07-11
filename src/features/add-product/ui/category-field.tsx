@@ -48,7 +48,7 @@ export const CategoryField = memo(({ className, isPending }: CategoryFieldProps)
             >
               <FormControl>
                 <SelectTrigger className="w-full">
-                  <SelectValue placeholder={t('category-placeholder')} />
+                  <SelectValue placeholder={t('placeholders.category')} />
                 </SelectTrigger>
               </FormControl>
               <SelectContent position="popper" sideOffset={5}>

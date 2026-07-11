@@ -22,7 +22,7 @@ interface AddCategoryFormProps {
 export const AddCategoryForm = ({ onCancelAction }: AddCategoryFormProps) => {
   const locale = useLocale() as AppLocale
   const t = useTranslations("add-category.form")
-  const { form, isSubmitting, onSubmit } = useAddCategoryForm(onCancelAction)
+  const { form, isSubmitting, onReset, onSubmit } = useAddCategoryForm(onCancelAction)
   const { isTranslating, translatingField, handleTranslateAction } = useAddCategoryTranslation(form)
 
   const isPending = isSubmitting || isTranslating
@@ -66,10 +66,10 @@ export const AddCategoryForm = ({ onCancelAction }: AddCategoryFormProps) => {
       <ModalFooter>
         <CancelButton
           type="button"
-          onCancelAction={onCancelAction}
+          onCancelAction={onReset}
           disabled={isPending}
         >
-          {t("buttons.cancel")}
+          {t("buttons.reset")}
         </CancelButton>
         <SubmitButton
           form="add-сategory-form"

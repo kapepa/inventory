@@ -1,10 +1,11 @@
-import { axiosInstance } from "@/shared"
+import { axiosInstance, ProductAlreadyExistsError } from "@/shared"
 import axios, { AxiosError } from "axios"
-import { CreateProductParams, ProductCreate } from "../model"
+import { CreateProductParams } from "../model"
+import { ProductWithRelationsShort } from "@/entities"
 
-export const requestСreateProduct = async ({ signal, data }: CreateProductParams): Promise<ProductCreate> => {
+export const requestСreateProduct = async ({ signal, data }: CreateProductParams): Promise<ProductWithRelationsShort> => {
   try {
-    const response = await axiosInstance.post(`/products`, data, { signal })
+    const response = await axiosInstance.post<ProductWithRelationsShort>(`/products`, data, { signal })
 
     return response.data
   } catch (error) {
@@ -13,9 +14,15 @@ export const requestСreateProduct = async ({ signal, data }: CreateProductParam
     }
 
     if (error instanceof AxiosError) {
-      throw new Error(error.response?.data?.message || "Failed to create product")
+
+      if (error.response?.status === 409) {
+        throw new ProductAlreadyExistsError();
+      }
+
+      const errorMessage = error.response?.data?.error || "Failed to create product"
+      throw new Error(errorMessage)
     }
 
-    throw new Error("Failed to create product")
+    throw error
   }
 }

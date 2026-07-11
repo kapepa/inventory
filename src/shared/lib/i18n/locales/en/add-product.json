@@ -11,15 +11,10 @@
     "russian": "Russian",
     "english": "English",
     "title": "Product title",
-    "title-placeholder": "Enter product title",
     "serial-number": "Serial number",
-    "serial-number-placeholder": "Enter serial number",
     "specification": "Specification",
-    "specification-placeholder": "Enter product specification",
     "order": "Quantity in order",
-    "order-placeholder": "Enter the quantity in your order",
     "status": "Status",
-    "status-placeholder": "Select product status",
     "status-free": "Free",
     "status-busy": "Busy",
     "status-repair": "Under repair",
@@ -27,11 +22,19 @@
     "condition-new": "New",
     "condition-used": "Used",
     "category": "Category",
-    "category-placeholder": "Select category",
     "photo-url": "Photo URL",
-    "photo-url-placeholder": "Paste photo link",
     "price-uah": "Price (UAH)",
     "price-usd": "Price (USD)",
+    "placeholders": {
+      "title": "Enter product title",
+      "serial-number": "Enter serial number",
+      "specification": "Enter product specification",
+      "order": "Enter the quantity in your order",
+      "status": "Select product status",
+      "category": "Select category",
+      "photo-url": "Paste photo link",
+      "price": "0.00"
+    },
     "hints": {
       "translate": {
         "title": "Translate the product name",
@@ -40,25 +43,34 @@
     },
     "buttons": {
       "cancel": "Cancel",
-      "reset": "Reset",
+      "reset": "Clear",
       "create": "Create"
     },
     "errors": {
-      "title-required": "Enter the product name",
-      "specification-required": "Enter the technical specifications",
-      "serial-number-required": "Serial number is required",
-      "serial-number-min": "Min 3 characters",
-      "order-must-required": "Specify the quantity",
-      "order-must-integer": "Order must be integer",
-      "order-must-positive": "Order must be positive",
-      "upload-image": "Upload image",
-      "invalid-category": "Select a category",
-      "price-must-number": "Price must be a number",
-      "price-must-positive": "The price should be > 0"
+      "err-title-min": "At least 2 characters",
+      "err-title-max": "No more than 100 characters",
+      "err-title-exists": "That name is already taken",
+      "err-specification-min": "At least 3 characters",
+      "err-specification-max": "No more than 400 characters",
+      "err-serial-required": "Enter the serial number ",
+      "err-serial-min": "At least 3 characters",
+      "err-serial-max": "No more than 50 characters",
+      "err-order-required": "Quantity is required",
+      "err-order-integer": "Must be an integer",
+      "err-order-positive": "Must be positive",
+      "err-order-max": "No more than 999,999,999",
+      "err-image-upload": "Upload an image",
+      "err-category-invalid": "Select a category",
+      "err-parish-invalid": "Select a parish",
+      "err-price-required": "Price is required",
+      "err-price-nonnegative": "Price cannot be negative",
+      "err-price-positive": "Price must be a number",
+      "err-price-max": "No more than 999,999,999"
     },
     "toast": {
       "create-product-success": "Product created successfully",
-      "create-product-error": "Failed to create product"
+      "create-product-error": "Failed to create product",
+      "title-already-exists": "That name is already taken"
     }
   }
 }

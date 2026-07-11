@@ -24,7 +24,7 @@ export const ProductCreateForm = ({ parishId, onCancelAction, onSuccessAction }:
   const t = useTranslations("add-product.create-form")
   const locale = useLocale() as AppLocale
 
-  const { form, isSubmitting, onSubmit } = useProductCreateForm(parishId, onCancelAction, onSuccessAction)
+  const { form, isSubmitting, onReset, onSubmit } = useProductCreateForm(parishId, onCancelAction, onSuccessAction)
   const { isTranslating, translatingField, handleTranslateAction } = useProductTranslation(form)
 
   const isPending = isSubmitting || isTranslating
@@ -78,15 +78,7 @@ export const ProductCreateForm = ({ parishId, onCancelAction, onSuccessAction }:
       <FooterBar>
         <CancelButton
           type="button"
-          onCancelAction={onCancelAction}
-          disabled={isPending}
-          className='hidden sm:flex'
-        >
-          {t("buttons.cancel")}
-        </CancelButton>
-        <CancelButton
-          type="button"
-          onClick={() => form.reset()}
+          onClick={onReset}
           disabled={isPending}
         >
           {t("buttons.reset")}

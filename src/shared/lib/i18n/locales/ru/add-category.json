@@ -10,11 +10,12 @@
       "title": "Название категории"
     },
     "buttons": {
-      "cancel": "Отмена",
-      "create": "Создать"
+      "create": "Создать",
+      "reset": "Очистить"
     },
     "errors": {
       "err-title-min": "От 3 символов",
+      "err-title-max": "Не более 100 символов",
       "err-category-already-exists": "Категория уже существует"
     },
     "placeholders": {

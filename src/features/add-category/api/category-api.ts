@@ -1,6 +1,6 @@
-import { axiosInstance } from "@/shared"
+import { axiosInstance, CategoryAlreadyExistsError } from "@/shared"
 import { CreateCategoryParams } from "../model"
-import { AxiosError } from "axios"
+import axios, { AxiosError } from "axios"
 import { CategoryWithProductCount } from "@/entities"
 
 export const requestCreateCategory = async ({ data, signal }: CreateCategoryParams): Promise<CategoryWithProductCount> => {
@@ -16,8 +16,17 @@ export const requestCreateCategory = async ({ data, signal }: CreateCategoryPara
     )
     return response.data
   } catch (error) {
+    if (axios.isCancel(error)) {
+      throw new Error("Request cancelled")
+    }
+
     if (error instanceof AxiosError) {
-      throw new Error(error.response?.data?.error || "Something went wrong requestCreateCategory")
+      if (error.response?.status === 409) {
+        throw new CategoryAlreadyExistsError();
+      }
+
+      const errorMessage = error.response?.data?.error || "Something went wrong requestCreateCategory"
+      throw new Error(errorMessage)
     }
     throw error
   }

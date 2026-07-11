@@ -1,5 +1,5 @@
 import { UploadImageError, UploadImageResponse } from '@/entities'
-import { uploadFile } from '@/entities/upload/api/upload-service'
+import { uploadFile } from '@/entities/server'
 import { apiHandler } from '@/shared/server'
 import { NextRequest, NextResponse } from 'next/server'
 

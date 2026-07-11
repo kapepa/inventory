@@ -5,7 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { toast } from "sonner"
 import { useLocale, useTranslations } from "next-intl"
 import { useParishesStore } from "@/entities/parish/model/parish-store"
-import { AppLocale, ERROR_CODES, STORAGE_KEYS } from "@/shared"
+import { AppLocale, ParishAlreadyExistsError, STORAGE_KEYS } from "@/shared"
 import { requestCreateParish } from "../../api"
 import { createParishFormSchema, ParishFormValues } from "../schemas"
 
@@ -39,7 +39,7 @@ export const useAddParishForm = (closeModalAction: () => void) => {
         form.reset({
           ...props,
           deliveryDate: new Date(deliveryDate),
-        });
+        }, { keepDefaultValues: true });
       } catch (e) {
         console.error("Failed to parse saved form data", e);
       }
@@ -54,6 +54,11 @@ export const useAddParishForm = (closeModalAction: () => void) => {
     return () => subscription.unsubscribe();
   }, [form]);
 
+  const onReset = useCallback(() => {
+    form.reset(undefined, { keepDefaultValues: true });
+    sessionStorage.removeItem(ADD_PARISH_FORM_DATA);
+  }, [form]);
+
   const onSubmit = useCallback(
     (values: ParishFormValues) => {
       startSubmitTransition(async () => {
@@ -64,13 +69,12 @@ export const useAddParishForm = (closeModalAction: () => void) => {
             translations: newParish.translations.filter((t) => t.locale === locale)
           }
           addNewParish(formattedParish)
-
-          sessionStorage.removeItem(ADD_PARISH_FORM_DATA);
+          onReset()
 
           toast(t("create-parish-success"))
           closeModalAction()
         } catch (error) {
-          if (error instanceof Error && error.message === ERROR_CODES.PARISH_ALREADY_EXISTS) {
+          if (error instanceof ParishAlreadyExistsError) {
             form.setError('translations.ru.title', {
               type: 'manual',
               message: tErrors('err-parish-already-exists')
@@ -81,6 +85,7 @@ export const useAddParishForm = (closeModalAction: () => void) => {
             }, { shouldFocus: true });
             toast(t('parish-already-exists'));
           } else {
+            console.error(error)
             toast(t("create-parish-error"))
           }
         }
@@ -98,8 +103,9 @@ export const useAddParishForm = (closeModalAction: () => void) => {
     () => ({
       form,
       isSubmitting,
+      onReset,
       onSubmit: handleSubmit,
     }),
-    [form, isSubmitting, handleSubmit]
+    [form, onReset, isSubmitting, handleSubmit]
   )
 }
