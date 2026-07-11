@@ -24,7 +24,7 @@ export const ParishShortHeader =
 
     return (
       <div className={cn(
-        "px-2 py-3 border rounded-md bg-card grid grid-cols-[1fr_1fr_2fr] items-center text-sm font-bold text-muted-foreground", className
+        "px-2 py-3 border rounded-md bg-card items-center text-sm font-bold text-muted-foreground pr-0 sm:pr-12 md:pr-14", className
       )}>
         {listOfHint.map(({ text, icon: Icon }) => (
           <div key={text} className="flex justify-center">
@@ -38,7 +38,6 @@ export const ParishShortHeader =
                 </TooltipText>
               </TooltipContent>
             </Tooltip>
-            <div className="w-12 md:w-14"></div>
           </div>
         ))}
       </div>

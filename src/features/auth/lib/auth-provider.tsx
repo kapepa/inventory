@@ -14,10 +14,12 @@ export function AuthProvider({ children, initialUser }: AuthProviderProps) {
   const initialized = useRef(false);
 
   if (!initialized.current) {
-    useAuthStore.setState({
-      user: initialUser,
-      isLoading: false,
-      isAuthenticated: !!initialUser
+    queueMicrotask(() => {
+      useAuthStore.setState({
+        user: initialUser,
+        isLoading: false,
+        isAuthenticated: !!initialUser
+      });
     });
     initialized.current = true;
   }
