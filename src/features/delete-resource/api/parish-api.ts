@@ -1,4 +1,4 @@
-import { AdminAccessRequiredError, axiosInstance, ParishNotFoundError } from "@/shared"
+import { AdminAccessRequiredError, axiosInstance, ParishHasProductsError, ParishNotFoundError } from "@/shared"
 import { DeleteParishesParams, DeleteParishResult } from "../model/types"
 import axios, { AxiosError } from "axios"
 
@@ -21,6 +21,10 @@ export const requestDeleteParish = async ({ id, signal }: DeleteParishesParams):
 
       if (error.response?.status === 404) {
         throw new ParishNotFoundError();
+      }
+
+      if (error.response?.status === 409) {
+        throw new ParishHasProductsError();
       }
 
       const errorMessage = error.response?.data?.error || "Failed to delete parish"

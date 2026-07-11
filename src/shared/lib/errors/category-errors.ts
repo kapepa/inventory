@@ -13,3 +13,10 @@ export class CategoryNotFoundError extends Error {
     this.name = 'CategoryNotFoundError';
   }
 }
+
+export class CategoryAlreadyExistsError extends Error {
+  constructor() {
+    super(ERROR_CODES.CATEGORY_ALREADY_EXISTS);
+    this.name = 'CategoryAlreadyExistsError';
+  }
+}
