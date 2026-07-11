@@ -10,6 +10,7 @@ import {
   FormControl,
   FormMessage,
   Input,
+  VALIDATION_LIMITS,
 } from "@/shared"
 
 interface PriceFieldsProps {
@@ -32,7 +33,7 @@ export const PriceFields = memo(({ isPending }: PriceFieldsProps) => {
               <Input
                 type="number"
                 step="0.01"
-                placeholder="0.00"
+                placeholder={t("placeholders.price")}
                 {...field}
                 value={field.value ?? ''}
                 onChange={(e) => {
@@ -42,6 +43,7 @@ export const PriceFields = memo(({ isPending }: PriceFieldsProps) => {
                     .slice(0, 9)
                   field.onChange(raw === '' ? undefined : Number(raw))
                 }}
+                maxLength={VALIDATION_LIMITS.PRICE_MAX_VALUE}
                 disabled={isPending}
               />
             </FormControl>
@@ -72,6 +74,7 @@ export const PriceFields = memo(({ isPending }: PriceFieldsProps) => {
                     .slice(0, 9)
                   field.onChange(raw === '' ? undefined : Number(raw))
                 }}
+                maxLength={VALIDATION_LIMITS.PRICE_MAX_VALUE}
                 disabled={isPending}
               />
             </FormControl>

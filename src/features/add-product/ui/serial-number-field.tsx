@@ -10,6 +10,7 @@ import {
   FormControl,
   FormMessage,
   Input,
+  VALIDATION_LIMITS,
 } from "@/shared"
 
 interface SerialNumberFieldProps {
@@ -29,10 +30,10 @@ export const SerialNumberField = memo(({ isPending }: SerialNumberFieldProps) =>
           <FormLabel>{t('serial-number')}</FormLabel>
           <FormControl>
             <Input
-              placeholder={t('serial-number-placeholder')}
+              placeholder={t('placeholders.serial-number')}
               {...field}
               value={field.value ?? ''}
-              maxLength={50}
+              maxLength={VALIDATION_LIMITS.SERIAL_NUM_MAX_PRODUCT + 1}
               disabled={isPending}
             />
           </FormControl>

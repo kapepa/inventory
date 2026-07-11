@@ -13,6 +13,7 @@ import {
   AppLocale,
   TranslateWrapperInput,
   oppositeLocale,
+  VALIDATION_LIMITS,
 } from "@/shared"
 
 interface DescriptionFieldProps {
@@ -51,7 +52,7 @@ export const DescriptionField = memo(({
               <Textarea
                 placeholder={t("placeholders.description")}
                 className="resize-none min-h-25 max-h-60 overflow-y-autopr-10 break-all pr-10"
-                maxLength={400}
+                maxLength={VALIDATION_LIMITS.DESC_MAX_PARISH + 1}
                 {...field}
                 disabled={isPending}
               />

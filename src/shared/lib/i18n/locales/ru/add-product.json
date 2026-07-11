@@ -11,15 +11,10 @@
     "russian": "Русский",
     "english": "Английский",
     "title": "Название товара",
-    "title-placeholder": "Введите название товара",
     "serial-number": "Серийный номер",
-    "serial-number-placeholder": "Введите серийный номер",
     "specification": "Характеристики",
-    "specification-placeholder": "Введите характеристики товара",
     "order": "Количество в заказе",
-    "order-placeholder": "Введите количество в заказе",
     "status": "Статус",
-    "status-placeholder": "Выберите статус товара",
     "status-free": "Свободен",
     "status-busy": "Занят",
     "status-repair": "В ремонте",
@@ -27,11 +22,19 @@
     "condition-new": "Новый",
     "condition-used": "Б/у",
     "category": "Категория",
-    "category-placeholder": "Выберите категорию",
     "photo-url": "URL фото",
-    "photo-url-placeholder": "Вставьте ссылку на фото",
     "price-uah": "Цена (грн)",
     "price-usd": "Цена ($)",
+    "placeholders": {
+      "title": "Введите название товара",
+      "serial-number": "Введите серийный номер",
+      "specification": "Введите характеристики товара",
+      "order": "Введите количество в заказе",
+      "status": "Выберите статус товара",
+      "category": "Выберите категорию",
+      "photo-url": "Вставьте ссылку на фото",
+      "price": "0.00"
+    },
     "hints": {
       "translate": {
         "title": "Перевести название продукта",
@@ -40,25 +43,34 @@
     },
     "buttons": {
       "cancel": "Отменить",
-      "reset": "Сбросить",
+      "reset": "Очистить",
       "create": "Создать"
     },
     "errors": {
-      "title-required": "Введите название продукта",
-      "specification-required": "Введите технические характеристики",
-      "serial-number-required": "Необходимо указать серийный номер",
-      "serial-number-min": "Не менее 3 символов",
-      "order-must-required": "Укажите количество",
-      "order-must-integer": "Значение должно быть целым числом",
-      "order-must-positive": "Должно быть положительным",
-      "upload-image": "Загрузить изображение",
-      "invalid-category": "Выберите категорию",
-      "price-must-number": "Цена должна быть числом",
-      "price-must-positive": "Цена должна быть > 0"
+      "err-title-min": "Не менее 2 символов",
+      "err-title-max": "Не более 100 символов",
+      "err-title-exists": "Это имя уже занято",
+      "err-specification-min": "Не менее 3 символов",
+      "err-specification-max": "Не более 400 символов",
+      "err-serial-required": "Введите серийный номер",
+      "err-serial-min": "Не менее 3 символов",
+      "err-serial-max": "Не более 50 символов",
+      "err-order-required": "Укажите количество",
+      "err-order-integer": "Значение должно быть целым числом",
+      "err-order-positive": "Должно быть положительным",
+      "err-order-max": "Не более 999,999,999 символов",
+      "err-image-upload": "Загрузить изображение",
+      "err-category-invalid": "Выберите категорию",
+      "err-parish-invalid": "Выберите приход",
+      "err-price-required": "Необходимо указать цену",
+      "err-price-nonnegative": "Цена не может быть отрицательной",
+      "err-price-positive": "Цена должна быть числом",
+      "err-price-max": "Не более 999,999,999 символов"
     },
     "toast": {
       "create-product-success": "Продукт успешно создан",
-      "create-product-error": "Не удалось создать продукт"
+      "create-product-error": "Не удалось создать продукт",
+      "title-already-exists": "Это имя уже занято"
     }
   }
 }

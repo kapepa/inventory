@@ -20,9 +20,7 @@ export const createParish = async (data: ParishFormValues): Promise<ParishWithRe
       }
     });
 
-    if (existingParish) {
-      throw new ParishAlreadyExistsError();
-    }
+    if (existingParish) throw new ParishAlreadyExistsError();
 
     const parish = await prisma.parish.create({
       data: {
@@ -45,6 +43,7 @@ export const createParish = async (data: ParishFormValues): Promise<ParishWithRe
     if (error instanceof ParishAlreadyExistsError) {
       throw error;
     }
+
     console.log('Prisma Error in createParish:', error);
     throw error;
   }

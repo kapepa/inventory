@@ -15,8 +15,8 @@ export const ProductCreateModal = ({ parishId, onCancelAction, onSuccessAction }
   const t = useTranslations('add-product.modal.header');
 
   return (
-    <ModalContents>
-      <ModalHeader title={t("create")} />
+    <ModalContents className='h-[90vh] p-0 flex flex-col gap-0 overflow-hidden'>
+      <ModalHeader title={t("create")} className='shrink-0' />
       <ProductCreateForm
         parishId={parishId}
         onCancelAction={onCancelAction}

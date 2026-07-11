@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { toast } from "sonner"
 import { useTranslations } from "next-intl"
-import { formatResponsiveImage, STORAGE_KEYS } from "@/shared"
+import { formatResponsiveImage, ProductAlreadyExistsError, STORAGE_KEYS } from "@/shared"
 import { ProductCreateFormValues, productCreateFormSchema } from "../schemas"
 import { ProductStatus } from "@prisma/client"
 import { ProductWithRelations, useUpload } from "@/entities"
@@ -46,6 +46,11 @@ export const useProductCreateForm = (parishId: string, closeModalAction: () => v
 
   useSyncFormWithStorage(form, parishId)
 
+  const onReset = useCallback(() => {
+    form.reset(undefined, { keepDefaultValues: true });
+    sessionStorage.removeItem(ADD_PRODUCT_FORM_DATA);
+  }, [form]);
+
   const onSubmit = useCallback(
     (values: ProductCreateFormValues) => {
       startSubmitTransition(async () => {
@@ -62,7 +67,7 @@ export const useProductCreateForm = (parishId: string, closeModalAction: () => v
 
           // Transform form data to DTO
           const productData: ProductCreate = {
-            userId: "", //You must set your user ID after registering
+            userId: "",
             serialNumber: values.serialNumber,
             order: values.order,
             status: values.status,
@@ -91,8 +96,20 @@ export const useProductCreateForm = (parishId: string, closeModalAction: () => v
             sessionStorage.removeItem(ADD_PRODUCT_FORM_DATA)
           }, 100)
         } catch (error) {
-          console.error(error)
-          toast.error(t("toast.create-product-error"))
+          if (error instanceof ProductAlreadyExistsError) {
+            form.setError('translations.ru.title', {
+              type: 'manual',
+              message: tErrors('err-title-exists')
+            }, { shouldFocus: true });
+            form.setError('translations.en.title', {
+              type: 'manual',
+              message: tErrors('err-title-exists')
+            }, { shouldFocus: true });
+            toast(t('toast.title-already-exists'));
+          } else {
+            console.error(error)
+            toast.error(t("toast.create-product-error"))
+          }
         }
       })
     },
@@ -105,8 +122,9 @@ export const useProductCreateForm = (parishId: string, closeModalAction: () => v
     () => ({
       form,
       isSubmitting,
+      onReset,
       onSubmit: handleSubmit,
     }),
-    [form, isSubmitting, handleSubmit]
+    [form, isSubmitting, onReset, handleSubmit]
   )
 }

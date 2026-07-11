@@ -10,12 +10,14 @@
     },
     "buttons": {
       "create": "Создать",
-      "cancel": "Отмена"
+      "reset": "Очистить"
     },
     "errors": {
       "name-required": "Название прихода обязательно",
       "err-title-min": "От 3 символов",
+      "err-title-max": "Не более 100 символов",
       "err-description-min": "От 3 символов",
+      "err-description-max": "Не более 400 символов",
       "err-date": "Укажите дату",
       "err-parish-already-exists": "Приход уже существует",
       "delivery-date-required": "Дата обязательна"

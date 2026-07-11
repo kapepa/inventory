@@ -6,7 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { toast } from "sonner"
 import { useLocale, useTranslations } from "next-intl"
 import { useCategoriesStore } from "@/entities/category"
-import { AppLocale, ERROR_CODES, STORAGE_KEYS } from "@/shared"
+import { AppLocale, CategoryAlreadyExistsError, ERROR_CODES, STORAGE_KEYS } from "@/shared"
 import { requestCreateCategory } from "../../api"
 import { createCategoryFormSchema, CategoryFormValues } from "../schemas"
 
@@ -36,12 +36,12 @@ export const useAddCategoryForm = (closeModalAction: () => void) => {
     if (savedData) {
       try {
         const parsed = JSON.parse(savedData);
-        form.reset(parsed);
+        form.reset(parsed, { keepDefaultValues: true });
       } catch (e) {
         console.error("Failed to parse saved form data", e);
       }
     }
-  }, [form]);
+  }, []);
 
   // Save to sessionStorage
   useEffect(() => {
@@ -49,6 +49,11 @@ export const useAddCategoryForm = (closeModalAction: () => void) => {
       sessionStorage.setItem(ADD_CATEGORY_FORM_DATA, JSON.stringify(values));
     });
     return () => subscription.unsubscribe();
+  }, [form]);
+
+  const onReset = useCallback(() => {
+    form.reset(undefined, { keepDefaultValues: true });
+    sessionStorage.removeItem(ADD_CATEGORY_FORM_DATA);
   }, [form]);
 
   const onSubmit = useCallback(
@@ -61,12 +66,11 @@ export const useAddCategoryForm = (closeModalAction: () => void) => {
             translations: newCategory.translations.filter((t) => t.locale === locale)
           }
           addNewCategory(formattedCategory)
-          sessionStorage.removeItem(ADD_CATEGORY_FORM_DATA);
-
+          onReset()
           toast(t("create-category-success"))
           closeModalAction()
         } catch (error) {
-          if (error instanceof Error && error.message === ERROR_CODES.CATEGORY_ALREADY_EXISTS) {
+          if (error instanceof CategoryAlreadyExistsError) {
             form.setError('translations.ru.title', {
               type: 'manual',
               message: tErrors('err-category-already-exists')
@@ -90,6 +94,7 @@ export const useAddCategoryForm = (closeModalAction: () => void) => {
     () => ({
       form,
       isSubmitting,
+      onReset,
       onSubmit: handleSubmit,
     }),
     [form, isSubmitting, handleSubmit]
