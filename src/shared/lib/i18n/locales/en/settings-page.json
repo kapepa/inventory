@@ -1,0 +1,7 @@
+{
+  "header-title": "Settings",
+  "errors": {
+    "title": "Failed to load settings",
+    "description": "Something went wrong while loading the settings page"
+  }
+}

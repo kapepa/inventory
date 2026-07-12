@@ -7,4 +7,7 @@ export * from "./view-product-details"
 export * from "./add-product"
 export * from "./add-category";
 export * from "./products-explore";
-export * from "./verify-email"
+export * from "./verify-email";
+export * from "./change-password";
+export * from "./upload-avatar";
+export * from "./change-user-role";
