@@ -8,4 +8,5 @@ export const ROUTES = {
   ABOUT_US: '/about-us',
   AUTH: '/auth',
   VERIFY: '/verify',
+  NOT_FOUND: '/not-found',
 } as const;
