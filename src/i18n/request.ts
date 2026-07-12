@@ -42,6 +42,7 @@ export default getRequestConfig(async ({ locale }) => {
       "email": (await import(`../shared/lib/i18n/locales/${locale}/email.json`)).default,
       "verify-page": (await import(`../shared/lib/i18n/locales/${locale}/verify-page.json`)).default,
       "verify-email": (await import(`../shared/lib/i18n/locales/${locale}/verify-email.json`)).default,
+      "not-found": (await import(`../shared/lib/i18n/locales/${locale}/not-found.json`)).default,
     }
   };
 });

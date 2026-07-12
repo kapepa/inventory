@@ -30,6 +30,7 @@ export { ErrorBlock } from "./error-block"
 export { MobileCellLabel } from "./mobile-cell-label"
 export { SearchWithClear } from "./search-with-clear"
 export { LoaderSpin } from "./loader-spin"
+export { NotFoundActions } from "./not-found-actions"
 export {
   Tooltip,
   TooltipContent,

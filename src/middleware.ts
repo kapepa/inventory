@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import createIntlMiddleware from 'next-intl/middleware';
 import { routing } from './shared/lib/i18n/routing';
 import { getAuthToken, verifyToken } from './shared/lib/auth';
+import { defaultLocale } from './shared';
 
 const intlMiddleware = createIntlMiddleware(routing);
 
@@ -13,6 +14,9 @@ const adminRoutes = ['/admin'];
 
 export default async function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
+
+  const localeMatch = pathname.match(/^\/(en|ru)\//);
+  const locale = localeMatch ? localeMatch[1] : defaultLocale;
 
   // Check if this is an API route
   if (pathname.startsWith('/api')) {
@@ -43,6 +47,8 @@ export default async function middleware(request: NextRequest) {
 
   // We use the intl middleware for all other routes
   const response = intlMiddleware(request);
+
+  response.headers.set('x-locale', locale)
 
   // Checking Secure Pages
   const isPublicRoute = publicRoutes.some(route =>
