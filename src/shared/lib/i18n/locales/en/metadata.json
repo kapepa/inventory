@@ -38,5 +38,9 @@
   "verify": {
     "title": "Email Address Verification — Inventory",
     "description": "Email Address Confirmation to Complete Registration."
+  },
+  "settings": {
+    "title": "Settings — Inventory",
+    "description": "Manage your profile and application settings."
   }
 }
