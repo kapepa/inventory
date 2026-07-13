@@ -16,9 +16,10 @@ interface GroupsRelationsProps {
   initialParishTitle: string
 }
 
-export const GroupsRelations = memo(({ className, initialHasMore, initialProducts, initialParishesId }: GroupsRelationsProps) => {
+export const GroupsRelations = memo(({ className, initialHasMore, initialProducts, initialParishesId, initialParishTitle }: GroupsRelationsProps) => {
   const t = useTranslations('groups');
   const { activeParishe } = useParishesStore()
+  const storeActiveParisheTitle = activeParishe?.translations[0]?.title
   const [activeParishId, setActiveParishId] = useActiveParishId(initialParishesId);
   const { products, isLoading, error, clearProducts, hasMore, loadMore, addProduct, removeProduct } = useInfiniteProducts<ProductWithRelationsShort>({
     parishId: activeParishId, initialProducts, initialHasMore, fetchFnAction: fetchProductsShort
@@ -26,7 +27,7 @@ export const GroupsRelations = memo(({ className, initialHasMore, initialProduct
   const { targetRef, isIntersecting } = useIntersectionObserver({ threshold: 0.5, rootMargin: "100px" })
   const { productDetails } = useViewProduct()
   const { confirmDeleteProduct } = useDeleteProduct()
-  const activeParishTitle = activeParishe?.translations[0]?.title || "";
+  const activeParishTitle = storeActiveParisheTitle ? storeActiveParisheTitle : initialParishTitle;
 
   const openProductModal = useCallback((product: ProductWithRelationsShort) => {
     productDetails(product)
