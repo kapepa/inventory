@@ -38,3 +38,10 @@ export interface ImageSizes {
   original: string
   url: string
 }
+
+export interface ImageUploadFieldRef {
+  clear: () => void
+  click: () => void
+  getPreview: () => string | null
+  getError: () => string | null
+}

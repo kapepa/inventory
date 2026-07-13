@@ -2,19 +2,22 @@
 
 import { useTranslations } from "next-intl"
 import { useState, useCallback, useRef } from "react"
+import { toast } from "sonner"
 
 interface UseImageUploadProps {
   maxSizeMB: number
-  acceptedFormats: string[]
+  acceptedFormats: readonly string[]
   disabled: boolean
   onChange?: (file: File | null) => void
+  checkError?: (err: string | null) => void
 }
 
 export const useImageUpload = ({
   maxSizeMB,
   acceptedFormats,
   disabled,
-  onChange
+  onChange,
+  checkError,
 }: UseImageUploadProps) => {
   const t = useTranslations("image-upload-field")
   const fileInputRef = useRef<HTMLInputElement>(null)
@@ -25,12 +28,19 @@ export const useImageUpload = ({
   const validateFile = useCallback((file: File): string | null => {
     if (!acceptedFormats.includes(file.type)) {
       const formats = acceptedFormats.map(f => f.split('/')[1]).join(', ')
-      return t('invalid-format', { formats })
+      const errorMessage = t('invalid-format', { formats })
+      toast.error(errorMessage)
+      checkError?.(errorMessage);
+      return errorMessage
     }
     const sizeMB = file.size / (1024 * 1024)
     if (sizeMB > maxSizeMB) {
-      return t('file-too-large', { maxSizeMB })
+      const errorMessage = t('file-too-large', { maxSizeMB })
+      toast.error(errorMessage)
+      checkError?.(errorMessage);
+      return errorMessage
     }
+    checkError?.(null);
     return null
   }, [acceptedFormats, maxSizeMB, t])
 
@@ -38,6 +48,7 @@ export const useImageUpload = ({
     if (!file) {
       setPreview(null)
       setError(null)
+      checkError?.(null);
       onChange?.(null)
       return
     }
@@ -51,6 +62,7 @@ export const useImageUpload = ({
     }
 
     setError(null)
+    checkError?.(null);
     const reader = new FileReader()
     reader.onloadend = () => setPreview(reader.result as string)
     reader.readAsDataURL(file)
@@ -84,6 +96,7 @@ export const useImageUpload = ({
     handleRemove: () => {
       setPreview(null)
       setError(null)
+      checkError?.(null)
       onChange?.(null)
       if (fileInputRef.current) fileInputRef.current.value = ''
     },
