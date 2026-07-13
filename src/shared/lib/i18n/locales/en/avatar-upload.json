@@ -1,0 +1,7 @@
+{
+  "descriptions": "Upload your avatar",
+  "buttons": {
+    "reset": "Clear",
+    "send": "Install"
+  }
+}

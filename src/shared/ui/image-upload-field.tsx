@@ -1,27 +1,31 @@
 "use client"
 
-import { memo } from "react"
+import { forwardRef, memo, useImperativeHandle } from "react"
 import { Upload, X, ImageIcon } from "lucide-react"
 import { Button } from "./button"
 import { cn } from "../lib/utils"
 import { useImageUpload } from "../lib"
 import { useTranslations } from "next-intl"
+import { ImageUploadFieldRef } from "../types"
+import { UPLOAD_LIMITS } from "../constants"
 
 interface ImageUploadFieldProps {
   disabled?: boolean
   maxSizeMB?: number
-  acceptedFormats?: string[]
+  acceptedFormats?: readonly string[]
   className?: string
   onChange?: (file: File | null) => void
+  checkError?: (err: string | null) => void
 }
 
-export const ImageUploadField = memo(({
+export const ImageUploadField = memo(forwardRef<ImageUploadFieldRef, ImageUploadFieldProps>(({
   disabled = false,
-  maxSizeMB = 5,
-  acceptedFormats = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'],
+  maxSizeMB = UPLOAD_LIMITS.IMAGE_MAX_SIZE_MB,
+  acceptedFormats = UPLOAD_LIMITS.ALLOWED_TYPES,
   className,
-  onChange
-}: ImageUploadFieldProps) => {
+  onChange,
+  checkError,
+}: ImageUploadFieldProps, ref) => {
   const t = useTranslations("image-upload-field")
   const {
     preview,
@@ -34,8 +38,16 @@ export const ImageUploadField = memo(({
     handleDragOver,
     handleDrop,
     handleRemove,
-    handleClick
-  } = useImageUpload({ maxSizeMB, acceptedFormats, disabled, onChange })
+    handleClick,
+  } = useImageUpload({ maxSizeMB, acceptedFormats, disabled, onChange, checkError })
+
+  useImperativeHandle(ref, () => ({
+    clear: handleRemove,
+    click: handleClick,
+    getPreview: () => preview,
+    getError: () => error,
+  }), [handleRemove, handleClick, preview, error])
+
 
   return (
     <div className={cn("space-y-2", className)}>
@@ -99,6 +111,6 @@ export const ImageUploadField = memo(({
       {error && <p className="text-sm text-red-500 dark:text-red-400">{error}</p>}
     </div>
   )
-})
+}))
 
 ImageUploadField.displayName = "ImageUploadField"

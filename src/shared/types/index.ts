@@ -1,1 +1,1 @@
-export type { ImageSource, MultipleImageSources, ResponsiveImageProps, SingleImageSource, ImageSizes } from "./image" 
+export type { ImageSource, MultipleImageSources, ResponsiveImageProps, SingleImageSource, ImageSizes, ImageUploadFieldRef } from "./image" 

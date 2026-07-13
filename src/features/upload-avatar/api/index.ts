@@ -1,0 +1,1 @@
+export { requestUploadAvatar } from "./avatar-api"

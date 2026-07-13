@@ -1,17 +1,25 @@
 "use client"
 
-import { memo } from "react"
+import { forwardRef, memo, useImperativeHandle, useRef } from "react"
 import { useFormContext } from "react-hook-form"
 import { useTranslations } from "next-intl"
-import { FormField, FormItem, FormLabel, FormControl, FormMessage, ImageUploadField } from "@/shared"
+import { FormField, FormItem, FormLabel, FormControl, FormMessage, ImageUploadField, UPLOAD_LIMITS, ImageUploadFieldRef } from "@/shared"
+import { PhotoFieldRef } from "../model"
 
 interface PhotoFieldProps {
   isPending?: boolean
 }
 
-export const PhotoField = memo(({ isPending }: PhotoFieldProps) => {
+export const PhotoField = memo(forwardRef<PhotoFieldRef, PhotoFieldProps>(({ isPending }: PhotoFieldProps, ref) => {
   const t = useTranslations("add-product.create-form")
   const { control } = useFormContext()
+  const uploadRef = useRef<ImageUploadFieldRef>(null)
+
+  useImperativeHandle(ref, () => ({
+    clearImage: () => {
+      uploadRef.current?.clear()
+    }
+  }), [])
 
   return (
     <FormField
@@ -22,9 +30,9 @@ export const PhotoField = memo(({ isPending }: PhotoFieldProps) => {
           <FormLabel>{t('photo-url')}</FormLabel>
           <FormControl>
             <ImageUploadField
+              ref={uploadRef}
               disabled={isPending}
-              maxSizeMB={5}
-              acceptedFormats={['image/jpeg', 'image/png', 'image/webp']}
+              maxSizeMB={UPLOAD_LIMITS.IMAGE_MAX_SIZE_MB}
               onChange={field.onChange}
               className="w-full"
             />
@@ -36,6 +44,6 @@ export const PhotoField = memo(({ isPending }: PhotoFieldProps) => {
       )}
     />
   )
-})
+}))
 
 PhotoField.displayName = "PhotoField"
