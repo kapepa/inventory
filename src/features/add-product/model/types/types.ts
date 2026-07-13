@@ -8,3 +8,7 @@ export interface ProductCreate extends Omit<Product, 'id' | 'createdAt' | 'updat
   translations: ProductTranslationType[]
   prices: ProductPriceType[]
 }
+
+export interface PhotoFieldRef {
+  clearImage: () => void
+}

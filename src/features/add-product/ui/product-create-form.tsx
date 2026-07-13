@@ -1,6 +1,6 @@
 "use client"
 
-import { useProductTranslation, useProductCreateForm } from '../model'
+import { useProductTranslation, useProductCreateForm, PhotoFieldRef } from '../model'
 import { AppLocale, FooterBar, Form, SubmitButton, CancelButton, OverlayBody, ScrollArea, Tabs, TabsContent } from '@/shared'
 import { useLocale, useTranslations } from 'next-intl'
 import { TranslationFields } from './translation-fields'
@@ -13,6 +13,7 @@ import { PhotoField } from './photo-field'
 import { PriceFields } from './price-fields'
 import { CategoryField } from './category-field'
 import { ProductWithRelationsWide, ProductWithRelationsShort } from '@/entities'
+import { useCallback, useRef } from 'react'
 
 interface ProductCreateFormProps {
   parishId: string
@@ -23,11 +24,17 @@ interface ProductCreateFormProps {
 export const ProductCreateForm = ({ parishId, onCancelAction, onSuccessAction }: ProductCreateFormProps) => {
   const t = useTranslations("add-product.create-form")
   const locale = useLocale() as AppLocale
+  const photoFieldRef = useRef<PhotoFieldRef>(null)
 
   const { form, isSubmitting, onReset, onSubmit } = useProductCreateForm(parishId, onCancelAction, onSuccessAction)
   const { isTranslating, translatingField, handleTranslateAction } = useProductTranslation(form)
 
   const isPending = isSubmitting || isTranslating
+
+  const handleReset = useCallback(() => {
+    photoFieldRef.current?.clearImage()
+    onReset()
+  }, [onReset])
 
   return (
     <>
@@ -69,7 +76,7 @@ export const ProductCreateForm = ({ parishId, onCancelAction, onSuccessAction }:
                 <ConditionField isPending={isPending} />
                 <CategoryField isPending={isPending} className="col-span-2 sm:col-span-1" />
               </div>
-              <PhotoField isPending={isPending} />
+              <PhotoField ref={photoFieldRef} isPending={isPending} />
               <PriceFields isPending={isPending} />
             </form >
           </Form>
@@ -78,7 +85,7 @@ export const ProductCreateForm = ({ parishId, onCancelAction, onSuccessAction }:
       <FooterBar>
         <CancelButton
           type="button"
-          onClick={onReset}
+          onClick={handleReset}
           disabled={isPending}
         >
           {t("buttons.reset")}
