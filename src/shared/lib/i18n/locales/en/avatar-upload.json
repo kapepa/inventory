@@ -3,5 +3,10 @@
   "buttons": {
     "reset": "Clear",
     "send": "Install"
+  },
+  "toast": {
+    "success-updated": "The avatar has been successfully updated",
+    "error-only-own-avatar-updated": "You can only update your own avatar",
+    "error-general-avatar-updated": "An error occurred during updated avatar"
   }
 }

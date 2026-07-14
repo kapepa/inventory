@@ -9,7 +9,7 @@ export const uploadAvatar = async (body: UploadAvatarType, currentUserId: string
     await prisma.user.update({
       where: { id: validated.userId },
       data: {
-        imageUrl: validated.photo
+        imageUrl: validated.image
       },
     })
 

@@ -67,8 +67,6 @@ export const uploadFile = async (file: File): Promise<UploadImageResponse> => {
 
 export const deleteFile = async (urlOrId: string | ImageSizes): Promise<{ result: string }> => {
   try {
-    console.log("deleteFiledeleteFiledeleteFiledeleteFile", urlOrId)
-    //urlOrId = inventory-products/j6fyrlgbaqvv2lutnmm6
     const publicId = extractPublicId(urlOrId);
     if (!publicId) throw new Error('Invalid public_id: could not extract');
 

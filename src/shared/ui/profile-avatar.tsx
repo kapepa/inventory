@@ -20,6 +20,7 @@ export const ProfileAvatar = ({ url, name, className }: ProfileAvatarProps) => {
           source={url}
           alt={`${name}'s avatar`}
           className="object-cover"
+          aspectRatio="square"
           priority
           unstyled={true}
         />
