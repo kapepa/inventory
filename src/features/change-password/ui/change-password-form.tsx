@@ -1,17 +1,113 @@
-"use client"
+"use client";
 
-import { AuthenticatedUser } from "@/features/auth"
+import { CancelButton, cn, Form, FormControl, FormField, FormItem, FormLabel, FormMessage, Input, SubmitButton, VALIDATION_LIMITS } from "@/shared";
+import { useChangePasswordForm } from "../model/hooks";
+import { useTranslations } from "next-intl";
+import { memo } from "react";
 
 interface ChangePasswordFormProps {
-  user: AuthenticatedUser
+  className?: string
 }
 
-export const ChangePasswordForm = ({ user }: ChangePasswordFormProps) => {
+export const ChangePasswordForm = memo(({ className }: ChangePasswordFormProps) => {
+  const t = useTranslations("change-password")
+  const { form, onSubmit, isSubmitting, onReset } = useChangePasswordForm()
+
   return (
-    <div>
-      ChangePasswordForm
+    <div
+      className={cn("bg-background rounded-sm overflow-hidden", className)}
+    >
+      <h5 className="text-center my-5 font-semibold text-muted-foreground">{t("title")}</h5>
+      <Form {...form}>
+        <form onSubmit={onSubmit} className="space-y-4">
+          <div className="flex flex-col gap-y-6 pb-3 px-6">
+            <FormField
+              name="currentPassword"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>{t('labels.current-password')}</FormLabel>
+                  <FormControl>
+                    <Input
+                      type="password"
+                      placeholder={t('placeholders.current-password')}
+                      {...field}
+                      value={field.value ?? ''}
+                      maxLength={VALIDATION_LIMITS.PASSWORD_MAX_LENGTH + 1}
+                      disabled={isSubmitting}
+                    />
+                  </FormControl>
+                  <div className="h-1 mt-0">
+                    <FormMessage />
+                  </div>
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              name="newPassword"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>{t('labels.new-password')}</FormLabel>
+                  <FormControl>
+                    <Input
+                      type="password"
+                      placeholder={t('placeholders.new-password')}
+                      {...field}
+                      value={field.value ?? ''}
+                      maxLength={VALIDATION_LIMITS.PASSWORD_MAX_LENGTH + 1}
+                      disabled={isSubmitting}
+                    />
+                  </FormControl>
+                  <div className="h-1 mt-0">
+                    <FormMessage />
+                  </div>
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              name="confirmPassword"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>{t('labels.confirm-password')}</FormLabel>
+                  <FormControl>
+                    <Input
+                      type="password"
+                      placeholder={t('placeholders.confirm-password')}
+                      {...field}
+                      value={field.value ?? ''}
+                      maxLength={VALIDATION_LIMITS.PASSWORD_MAX_LENGTH + 1}
+                      disabled={isSubmitting}
+                    />
+                  </FormControl>
+                  <div className="h-1 mt-0">
+                    <FormMessage />
+                  </div>
+                </FormItem>
+              )}
+            />
+          </div>
+          <div className="bg-accent px-6 py-3 flex justify-end gap-x-2">
+            <CancelButton
+              type="button"
+              onClick={onReset}
+              disabled={isSubmitting}
+            >
+              {t("buttons.reset")}
+            </CancelButton>
+            <SubmitButton
+              type="submit"
+              variant="simply-accent"
+              isLoading={isSubmitting}
+              disabled={isSubmitting}
+            >
+              {t("buttons.change-password")}
+            </SubmitButton>
+          </div>
+        </form>
+      </Form>
     </div>
-  )
-}
+  );
+});
 
 ChangePasswordForm.displayName = "ChangePasswordForm"
