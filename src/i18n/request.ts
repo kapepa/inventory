@@ -45,6 +45,7 @@ export default getRequestConfig(async ({ locale }) => {
       "not-found": (await import(`../shared/lib/i18n/locales/${locale}/not-found.json`)).default,
       "settings-page": (await import(`../shared/lib/i18n/locales/${locale}/settings-page.json`)).default,
       "avatar-upload": (await import(`../shared/lib/i18n/locales/${locale}/avatar-upload.json`)).default,
+      "change-password": (await import(`../shared/lib/i18n/locales/${locale}/change-password.json`)).default,
     }
   };
 });
