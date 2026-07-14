@@ -3,5 +3,10 @@
   "buttons": {
     "reset": "Очистить",
     "send": "Установить"
+  },
+  "toast": {
+    "success-updated": "Аватар успешно обновлён",
+    "error-only-own-avatar-updated": "Вы можете обновить только свой аватар",
+    "error-general-avatar-updated": "Произошла ошибка при обновлении аватара"
   }
 }

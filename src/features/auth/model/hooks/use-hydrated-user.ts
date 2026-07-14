@@ -5,7 +5,7 @@ import { useMounted } from "@/shared";
 export const useHydratedUser = () => {
   const initialUser = useInitialUser();
   const user = useAuthStore(state => state.user)
-  const mounte = useMounted()
+  const mounted = useMounted()
 
-  return !!user || mounte ? user : initialUser;
+  return !!user || mounted ? user : initialUser;
 }

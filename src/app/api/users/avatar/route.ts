@@ -5,7 +5,7 @@ import { apiHandler } from '@/shared/server';
 import { NextRequest, NextResponse } from 'next/server';
 import { ZodError } from 'zod';
 
-export const POST = apiHandler(
+export const PATCH = apiHandler(
   async (request: NextRequest, user: AuthenticatedUser): Promise<NextResponse<string | { error: string }>> => {
     let imageToCleanup: string | null = null
     try {

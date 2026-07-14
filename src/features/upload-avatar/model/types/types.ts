@@ -1,4 +1,4 @@
 export type UploadAvatarType = {
   userId: string,
-  image: string
+  image: string | null
 }

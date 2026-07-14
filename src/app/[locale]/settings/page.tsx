@@ -23,7 +23,6 @@ export default async function Settings({
   params: Promise<{ locale: string }>,
 }) {
   const locale = (await params).locale as AppLocale;
-
   const t = await getTranslations({ locale, namespace: "settings-page" });
 
   return (

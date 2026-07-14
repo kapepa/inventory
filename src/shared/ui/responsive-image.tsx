@@ -27,7 +27,7 @@ export const ResponsiveImage = memo(
     sizes = `(max-width: 480px) 100vw, (max-width: 768px) 80vw, (max-width: 1200px) 50vw, (max-width: 1920px) 33vw, 25vw`
   }: ResponsiveImageProps) => {
     // Track loading and error states
-    const [isLoading, setIsLoading] = useState(true)
+    const [isLoading, setIsLoading] = useState(!priority)
     const [hasError, setHasError] = useState(false)
 
     const normalizedSource: ImageSource | null = (() => {
