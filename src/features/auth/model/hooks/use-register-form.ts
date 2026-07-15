@@ -7,7 +7,7 @@ import { toast } from "sonner";
 import { registerFormSchema, RegisterFormValues } from "../schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { requestAuthRegister } from "../../api";
-import { ERROR_CODES, useRouter, useUnmountCallback } from "@/shared";
+import { AlreadyExistsError, NotVerifiedError, useRouter, useUnmountCallback } from "@/shared";
 import { useVerifiedEmail } from "./use-verified-email";
 
 export const useRegisterForm = () => {
@@ -43,13 +43,13 @@ export const useRegisterForm = () => {
             onReset()
           })
         } catch (error) {
-          if (error instanceof Error && error.message === ERROR_CODES.USER_ALREADY_EXISTS_ERROR) {
+          if (error instanceof AlreadyExistsError) {
             form.setError('email', {
               type: 'manual',
               message: tErrors('email-already-exists')
             }, { shouldFocus: true });
             toast.error(tToast('auth-user-already_exists'));
-          } else if (error instanceof Error && error.message === ERROR_CODES.EMAIL_NOT_VERIFIED) {
+          } else if (error instanceof NotVerifiedError) {
             confirmVerifiedEmail(values.email)
             toast.error(tToast('auth-email-not-verified'));
           } else {

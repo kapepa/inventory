@@ -1,5 +1,5 @@
-import { axiosInstance } from "@/shared";
-import { AxiosError } from "axios"
+import { axiosInstance, ForbiddenError } from "@/shared";
+import axios, { AxiosError } from "axios"
 import { UploadAvatarParmas } from "../model/types"
 
 export const requestUploadAvatar = async ({ data, signal }: UploadAvatarParmas): Promise<{ imageUrl: string }> => {
@@ -8,9 +8,17 @@ export const requestUploadAvatar = async ({ data, signal }: UploadAvatarParmas):
 
     return response.data
   } catch (error) {
-    if (error instanceof AxiosError) {
-      throw new Error(error.response?.data?.error || "Something went wrong requestuploadAvatar")
+    if (axios.isCancel(error)) {
+      throw new Error("Request cancelled");
     }
-    throw error
+
+    if (error instanceof AxiosError) {
+      if (error.response?.status === 403) {
+        throw new ForbiddenError('You can only update your own avatar');
+      }
+
+      throw new Error(error.response?.data?.error || "Something went wrong requestUploadAvatar");
+    }
+    throw error;
   }
 }

@@ -8,7 +8,7 @@ import { loginFormSchema, LoginFormValues, } from "../schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useAuthStore } from "../auth-store";
 import { requestAuthLogin } from "../../api";
-import { ERROR_CODES, ROUTES, useRouter, useUnmountCallback } from "@/shared";
+import { InvalidCredentialsError, NotVerifiedError, ROUTES, useRouter, useUnmountCallback } from "@/shared";
 import { useVerifiedEmail } from "./use-verified-email";
 
 export const useLoginForm = () => {
@@ -44,7 +44,7 @@ export const useLoginForm = () => {
             toast.success(tToast("auth-login-success"))
           })
         } catch (error) {
-          if (error instanceof Error && error.message === ERROR_CODES.INVALID_CREDENTIALS_ERROR) {
+          if (error instanceof InvalidCredentialsError) {
             form.setError('email', {
               type: 'manual',
               message: tErrors('email-invalid-credentials')
@@ -54,7 +54,7 @@ export const useLoginForm = () => {
               message: tErrors('passwords-invalid-credentials')
             }, { shouldFocus: true });
             toast.error(tToast('auth-invalid-credentials'));
-          } else if (error instanceof Error && error.message === ERROR_CODES.EMAIL_NOT_VERIFIED) {
+          } else if (error instanceof NotVerifiedError) {
             confirmVerifiedEmail(values.email)
             toast.error(tToast('auth-email-not-verified'));
           } else {

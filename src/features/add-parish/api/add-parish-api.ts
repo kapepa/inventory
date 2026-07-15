@@ -1,4 +1,4 @@
-import { axiosInstance, ParishAlreadyExistsError } from "@/shared"
+import { AlreadyExistsError, axiosInstance } from "@/shared"
 import { CreateParishParams } from "../model"
 import axios, { AxiosError } from "axios"
 import { ParishWithRelationsTotals } from "@/entities"
@@ -22,7 +22,7 @@ export const requestCreateParish = async ({ data, signal }: CreateParishParams):
 
     if (error instanceof AxiosError) {
       if (error.response?.status === 409) {
-        throw new ParishAlreadyExistsError();
+        new AlreadyExistsError("Parish");
       }
 
       const errorMessage = error.response?.data?.error || "Something went wrong create parish"

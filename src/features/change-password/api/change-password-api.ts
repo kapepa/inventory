@@ -1,4 +1,4 @@
-import { axiosInstance, InvalidPasswordError, SamePasswordError, UserNotFoundError } from "@/shared";
+import { axiosInstance, InvalidCredentialsError, InvalidInputError, NotFoundError } from "@/shared";
 import axios, { AxiosError } from "axios";
 import { ChangePasswordParams } from "../model/types";
 
@@ -13,15 +13,15 @@ export const requestChangePassword = async ({ signal, data }: ChangePasswordPara
 
     if (error instanceof AxiosError) {
       if (error.response?.status === 403) {
-        throw new InvalidPasswordError();
+        throw new InvalidCredentialsError();
       }
 
       if (error.response?.status === 404) {
-        throw new UserNotFoundError();
+        throw new NotFoundError("User");
       }
 
       if (error.response?.status === 409) {
-        throw new SamePasswordError();
+        throw new InvalidInputError('New password must differ from current');
       }
 
       const errorMessage = error.response?.data?.error || "Failed to change password";

@@ -1,1 +1,0 @@
-export { CategoryHasProductsError, CategoryNotFoundError } from "./errors"

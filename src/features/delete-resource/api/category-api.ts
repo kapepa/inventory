@@ -1,4 +1,4 @@
-import { AdminAccessRequiredError, axiosInstance, CategoryHasProductsError, CategoryNotFoundError } from "@/shared"
+import { axiosInstance, ForbiddenError, HasDependenciesError, NotFoundError } from "@/shared"
 import { DeleteCategoryParams, DeleteCategoryResult } from "../model/types"
 import axios, { AxiosError } from "axios"
 
@@ -16,15 +16,15 @@ export const requestDeleteCategory = async ({ id, signal }: DeleteCategoryParams
 
     if (error instanceof AxiosError) {
       if (error.response?.status === 403) {
-        throw new AdminAccessRequiredError();
+        throw new ForbiddenError('Admin access required');
       }
 
       if (error.response?.status === 404) {
-        throw new CategoryNotFoundError();
+        throw new NotFoundError('Category');
       }
 
       if (error.response?.status === 409) {
-        throw new CategoryHasProductsError();
+        throw new HasDependenciesError('Category');
       }
 
       const errorMessage = error.response?.data?.error || "Failed to delete сategory"

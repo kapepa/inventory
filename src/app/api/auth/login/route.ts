@@ -1,8 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { setAuthCookie } from '@/shared/lib/auth';
 import { ZodError } from 'zod';
-import { authLogin, EmailNotVerifiedError, InvalidCredentialsError } from '@/features/server';
+import { authLogin } from '@/features/server';
 import { AuthSignIn } from '@/features';
+import { InvalidCredentialsError, NotVerifiedError } from '@/shared/server';
 
 export async function POST(request: NextRequest) {
   try {
@@ -22,14 +23,14 @@ export async function POST(request: NextRequest) {
     if (error instanceof InvalidCredentialsError) {
       return NextResponse.json(
         { error: error.message },
-        { status: 409 }
+        { status: 401 }
       );
     }
 
-    if (error instanceof EmailNotVerifiedError) {
+    if (error instanceof NotVerifiedError) {
       return NextResponse.json(
         { error: error.message },
-        { status: 409 }
+        { status: 403 }
       );
     }
 

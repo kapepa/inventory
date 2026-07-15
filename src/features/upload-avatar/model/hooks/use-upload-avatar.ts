@@ -2,7 +2,7 @@
 
 import { RefObject, useCallback, useMemo, useState, useTransition } from "react"
 import { useUpload } from "@/entities"
-import { AvatarUpdateForbiddenError, formatResponsiveImage, ImageUploadFieldRef } from "@/shared"
+import { ForbiddenError, formatResponsiveImage, ImageUploadFieldRef } from "@/shared"
 
 import { useAuthStore } from "@/features/auth"
 import type { AuthenticatedUser } from "@/features/auth"
@@ -49,7 +49,7 @@ export const useUploadAvatar = ({ user, refImageUpload }: UseUploadAvatarProps) 
           toast.success(t("success-updated"))
         })
       } catch (error) {
-        if (error instanceof AvatarUpdateForbiddenError) {
+        if (error instanceof ForbiddenError) {
           toast.error(t("only-own-avatar-updated"))
         }
         toast.error(t("error-general-avatar-updated"))

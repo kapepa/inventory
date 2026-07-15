@@ -2,7 +2,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import { apiHandler } from '@/shared/lib/middleware';
 import { deleteCategory } from '@/features/server';
 import { AuthenticatedUser } from '@/features';
-import { AdminAccessRequiredError, CategoryHasProductsError, CategoryNotFoundError, getCategoryhById } from '@/entities/server';
+import { AdminAccessRequiredError, getCategoryhById } from '@/entities/server';
+import { HasDependenciesError, NotFoundError } from '@/shared/server';
 
 export const DELETE = apiHandler(async (_: NextRequest, user: AuthenticatedUser, { params }: { params: Promise<{ id: string }> }) => {
   const { id } = await params;
@@ -10,8 +11,8 @@ export const DELETE = apiHandler(async (_: NextRequest, user: AuthenticatedUser,
     if (user?.role !== "ADMIN") throw new AdminAccessRequiredError()
 
     const existingParish = await getCategoryhById({ id })
-    if (!existingParish) throw new CategoryNotFoundError()
-    if (existingParish._count.products >= 1) throw new CategoryHasProductsError()
+    if (!existingParish) throw new NotFoundError('Category');
+    if (existingParish._count.products >= 1) throw new HasDependenciesError('Category');
 
     await deleteCategory(id);
     return NextResponse.json({ success: true });
@@ -24,14 +25,14 @@ export const DELETE = apiHandler(async (_: NextRequest, user: AuthenticatedUser,
       );
     }
 
-    if (error instanceof CategoryNotFoundError) {
+    if (error instanceof NotFoundError) {
       return NextResponse.json(
         { error: error.message },
         { status: 404 }
       );
     }
 
-    if (error instanceof CategoryHasProductsError) {
+    if (error instanceof HasDependenciesError) {
       return NextResponse.json(
         { error: error.message },
         { status: 409 }

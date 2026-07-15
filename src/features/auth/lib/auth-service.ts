@@ -1,7 +1,7 @@
 import { prisma } from "@/shared/lib/prisma";
 import { AuthSignIn, AuthSignUp, AuthenticatedUser, ResendVerification } from "../model/types";
 import { loginFormServerSchema, registerFormServerSchema, resendVerificationServerSchema } from "../model/schemas";
-import { EmailNotFoundError, EmailNotVerifiedError, InvalidCredentialsError, UserAlreadyExistsError } from "../server";
+import { AlreadyExistsError, InvalidCredentialsError, NotFoundError, NotVerifiedError } from "@/shared/server";
 import { comparePassword, COOKIE_KEYS, hashPassword, signToken, verifyToken } from "@/shared";
 import { cookies } from "next/headers";
 
@@ -33,8 +33,8 @@ export const authRegister = async (body: AuthSignUp): Promise<AuthenticatedUser>
       where: { email: validated.email },
     });
 
-    if (existingUser && existingUser.verifiedAt === null) throw new EmailNotVerifiedError();
-    if (existingUser) throw new UserAlreadyExistsError()
+    if (existingUser && existingUser.verifiedAt === null) throw new NotVerifiedError();
+    if (existingUser) throw new AlreadyExistsError('User')
 
     const hashedPassword = await hashPassword(validated.password);
     const user = await prisma.user.create({
@@ -54,10 +54,10 @@ export const authRegister = async (body: AuthSignUp): Promise<AuthenticatedUser>
 
     return user
   } catch (error) {
-    if (error instanceof UserAlreadyExistsError) {
+    if (error instanceof AlreadyExistsError) {
       throw error;
     }
-    if (error instanceof EmailNotVerifiedError) {
+    if (error instanceof NotVerifiedError) {
       throw error;
     }
     console.log('Prisma Error in authRegister:', error);
@@ -80,12 +80,12 @@ export const authLogin = async (body: AuthSignIn): Promise<{ user: Authenticated
         verifiedAt: true,
       }
     });
-    if (!existingUser) throw new InvalidCredentialsError()
+    if (!existingUser) throw new InvalidCredentialsError();
 
     const { password, verifiedAt, ...user } = existingUser;
     const isPasswordValid = await comparePassword(validated.password, password);
     if (!isPasswordValid) throw new InvalidCredentialsError();
-    if (!verifiedAt) throw new EmailNotVerifiedError();
+    if (!verifiedAt) throw new NotVerifiedError();
 
     const token = await signToken({
       userId: user.id,
@@ -98,7 +98,7 @@ export const authLogin = async (body: AuthSignIn): Promise<{ user: Authenticated
     if (error instanceof InvalidCredentialsError) {
       throw error;
     }
-    if (error instanceof EmailNotVerifiedError) {
+    if (error instanceof NotVerifiedError) {
       throw error;
     }
     console.log('Prisma Error in authLogout:', error);
@@ -151,11 +151,11 @@ export const validateEmailForResend = async (body: ResendVerification): Promise<
       },
     });
 
-    if (!existingUser) throw new EmailNotFoundError()
+    if (!existingUser) throw new NotFoundError('Unverified user')
 
     return existingUser
   } catch (error) {
-    if (error instanceof EmailNotFoundError) {
+    if (error instanceof NotFoundError) {
       throw error;
     }
 

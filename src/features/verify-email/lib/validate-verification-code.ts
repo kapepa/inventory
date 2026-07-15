@@ -1,6 +1,5 @@
-import { prisma } from "@/shared/server";
+import { NotFoundError, prisma } from "@/shared/server";
 import { codeFormServerSchema, VerifyCodeEmail } from "../model";
-import { VerificationCodeNotFoundError } from "../server";
 
 export const validateVerificationCode = async (body: VerifyCodeEmail): Promise<{ email: string, name: string }> => {
   const validated = codeFormServerSchema.parse(body)
@@ -22,11 +21,11 @@ export const validateVerificationCode = async (body: VerifyCodeEmail): Promise<{
       }
     });
 
-    if (!existingVerificationCode) throw new VerificationCodeNotFoundError();
+    if (!existingVerificationCode) throw new NotFoundError('Verification code');
 
     return { email: existingVerificationCode.email, name: existingVerificationCode.user!.name }
   } catch (error) {
-    if (error instanceof VerificationCodeNotFoundError) {
+    if (error instanceof NotFoundError) {
       throw error;
     }
 

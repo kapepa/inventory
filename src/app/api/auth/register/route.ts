@@ -1,9 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { ZodError } from 'zod';
-import { authRegister, EmailNotVerifiedError, UserAlreadyExistsError } from '@/features/server';
+import { authRegister } from '@/features/server';
 import { createVerificationCode, sendVerificationEmail } from '@/entities/server';
 import { AuthSignUp } from '@/features';
 import { AppLocale, defaultLocale } from '@/shared';
+import { AlreadyExistsError, NotVerifiedError } from '@/shared/server';
 
 export async function POST(request: NextRequest): Promise<NextResponse<string | { error: string }>> {
   try {
@@ -30,14 +31,14 @@ export async function POST(request: NextRequest): Promise<NextResponse<string | 
       )
     }
 
-    if (error instanceof UserAlreadyExistsError) {
+    if (error instanceof NotVerifiedError) {
       return NextResponse.json(
         { error: error.message },
-        { status: 409 }
+        { status: 403 }
       );
     }
 
-    if (error instanceof EmailNotVerifiedError) {
+    if (error instanceof AlreadyExistsError) {
       return NextResponse.json(
         { error: error.message },
         { status: 409 }

@@ -5,7 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { toast } from "sonner"
 import { useLocale, useTranslations } from "next-intl"
 import { useParishesStore } from "@/entities/parish/model/parish-store"
-import { AppLocale, ParishAlreadyExistsError, STORAGE_KEYS } from "@/shared"
+import { AlreadyExistsError, AppLocale, STORAGE_KEYS } from "@/shared"
 import { requestCreateParish } from "../../api"
 import { createParishFormSchema, ParishFormValues } from "../schemas"
 
@@ -74,7 +74,7 @@ export const useAddParishForm = (closeModalAction: () => void) => {
           toast(t("create-parish-success"))
           closeModalAction()
         } catch (error) {
-          if (error instanceof ParishAlreadyExistsError) {
+          if (error instanceof AlreadyExistsError) {
             form.setError('translations.ru.title', {
               type: 'manual',
               message: tErrors('err-parish-already-exists')

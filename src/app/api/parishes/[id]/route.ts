@@ -2,36 +2,37 @@ import { NextRequest, NextResponse } from 'next/server';
 import { apiHandler } from '@/shared/lib/middleware';
 import { deleteParish } from '@/features/server';
 import { AuthenticatedUser } from '@/features';
-import { AdminAccessRequiredError, getParishById, ParishHasProductsError, ParishNotFoundError } from '@/entities/server';
+import { getParishById } from '@/entities/server';
+import { ForbiddenError, HasDependenciesError, NotFoundError } from '@/shared/server';
 
 export const DELETE = apiHandler(async (_: NextRequest, user: AuthenticatedUser, { params }: { params: Promise<{ id: string }> }) => {
   const { id } = await params;
   try {
-    if (user?.role !== "ADMIN") throw new AdminAccessRequiredError()
+    if (user?.role !== "ADMIN") throw new ForbiddenError('Admin access required');
 
     const existingParish = await getParishById({ id })
-    if (!existingParish) throw new ParishNotFoundError()
-    if (existingParish._count.products > 0) throw new ParishHasProductsError()
+    if (!existingParish) throw new NotFoundError('Parish');
+    if (existingParish._count.products > 0) throw new HasDependenciesError('Parish');
 
     await deleteParish(id);
     return NextResponse.json({ success: true });
   } catch (error) {
 
-    if (error instanceof AdminAccessRequiredError) {
+    if (error instanceof ForbiddenError) {
       return NextResponse.json(
         { error: error.message },
         { status: 403 }
       );
     }
 
-    if (error instanceof ParishNotFoundError) {
+    if (error instanceof NotFoundError) {
       return NextResponse.json(
         { error: error.message },
         { status: 404 }
       );
     }
 
-    if (error instanceof ParishHasProductsError) {
+    if (error instanceof HasDependenciesError) {
       return NextResponse.json(
         { error: error.message },
         { status: 409 }

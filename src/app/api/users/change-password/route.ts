@@ -1,9 +1,8 @@
-import { changePasswordService, InvalidPasswordError, SamePasswordError } from '@/features/server';
+import { changePasswordService } from '@/features/server';
 import { AuthenticatedUser, ChangePasswordType } from '@/features';
-import { apiHandler } from '@/shared/server';
+import { apiHandler, InvalidCredentialsError, InvalidInputError, NotFoundError } from '@/shared/server';
 import { NextRequest, NextResponse } from 'next/server';
 import { ZodError } from 'zod';
-import { UserNotFoundError } from '@/entities/server';
 
 export const PATCH = apiHandler(
   async (request: NextRequest, user: AuthenticatedUser): Promise<NextResponse<{ success: boolean } | { error: string }>> => {
@@ -21,23 +20,23 @@ export const PATCH = apiHandler(
         );
       }
 
-      if (error instanceof InvalidPasswordError) {
+      if (error instanceof InvalidCredentialsError) {
         return NextResponse.json(
           { error: 'Current password is incorrect' },
           { status: 403 }
         );
       }
 
-      if (error instanceof UserNotFoundError) {
+      if (error instanceof NotFoundError) {
         return NextResponse.json(
-          { error: 'User not found' },
+          { error: error.message },
           { status: 404 }
         );
       }
 
-      if (error instanceof SamePasswordError) {
+      if (error instanceof InvalidInputError) {
         return NextResponse.json(
-          { error: 'New password must differ from current' },
+          { error: error.message },
           { status: 409 }
         );
       }
