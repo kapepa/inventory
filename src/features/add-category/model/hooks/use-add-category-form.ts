@@ -6,7 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { toast } from "sonner"
 import { useLocale, useTranslations } from "next-intl"
 import { useCategoriesStore } from "@/entities/category"
-import { AppLocale, CategoryAlreadyExistsError, ERROR_CODES, STORAGE_KEYS } from "@/shared"
+import { AlreadyExistsError, AppLocale, STORAGE_KEYS } from "@/shared"
 import { requestCreateCategory } from "../../api"
 import { createCategoryFormSchema, CategoryFormValues } from "../schemas"
 
@@ -70,7 +70,7 @@ export const useAddCategoryForm = (closeModalAction: () => void) => {
           toast(t("create-category-success"))
           closeModalAction()
         } catch (error) {
-          if (error instanceof CategoryAlreadyExistsError) {
+          if (error instanceof AlreadyExistsError) {
             form.setError('translations.ru.title', {
               type: 'manual',
               message: tErrors('err-category-already-exists')

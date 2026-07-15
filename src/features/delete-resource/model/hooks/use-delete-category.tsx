@@ -1,6 +1,6 @@
 "use client"
 
-import { AdminAccessRequiredError, CategoryHasProductsError, CategoryNotFoundError, useModalActions } from "@/shared";
+import { ForbiddenError, HasDependenciesError, NotFoundError, useModalActions } from "@/shared";
 import { useTranslations } from "next-intl";
 import { useCallback, useTransition } from "react";
 import { toast } from "sonner";
@@ -32,11 +32,11 @@ export const DeleteCategoryModalWrapper = ({
         toast.success(t("sonner.delete-category-success"));
         onSuccess?.();
       } catch (error) {
-        if (error instanceof AdminAccessRequiredError) {
+        if (error instanceof ForbiddenError) {
           toast.error(tErrors('admin-access-required'));
-        } else if (error instanceof CategoryNotFoundError) {
+        } else if (error instanceof NotFoundError) {
           toast.error(t("sonner.delete-error-category-not-found"));
-        } else if (error instanceof CategoryHasProductsError) {
+        } else if (error instanceof HasDependenciesError) {
           toast.error(t("sonner.cannot-delete-with-products"));
         } else {
           toast.error(t("sonner.delete-error-category"));

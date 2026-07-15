@@ -1,9 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { ZodError } from 'zod';
-import { EmailNotFoundError, validateEmailForResend } from '@/features/server';
+import { validateEmailForResend } from '@/features/server';
 import { createVerificationCode, sendVerificationEmail } from '@/entities/server';
 import { AuthSignUp } from '@/features';
 import { AppLocale, defaultLocale } from '@/shared';
+import { NotFoundError } from '@/shared/server';
 
 export async function POST(request: NextRequest): Promise<NextResponse<string | { error: string }>> {
   try {
@@ -30,10 +31,10 @@ export async function POST(request: NextRequest): Promise<NextResponse<string | 
       )
     }
 
-    if (error instanceof EmailNotFoundError) {
+    if (error instanceof NotFoundError) {
       return NextResponse.json(
         { error: error.message },
-        { status: 409 }
+        { status: 404 }
       );
     }
 

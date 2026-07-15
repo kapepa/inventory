@@ -7,7 +7,7 @@ import { toast } from "sonner";
 import { codeFormSchema, CodeFormValues } from "../schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { requestVerifyCodeEmail } from "../../api";
-import { ERROR_CODES, ROUTES, useRouter, useUnmountCallback } from "@/shared";
+import { ERROR_CODES, NotFoundError, ROUTES, useRouter, useUnmountCallback } from "@/shared";
 
 interface UseCodeFormProps {
   email: string,
@@ -46,7 +46,7 @@ export const useCodeForm = ({ email, token }: UseCodeFormProps) => {
             toast.success(tToast("verify-code-success"))
           })
         } catch (error) {
-          if (error instanceof Error && error.message === ERROR_CODES.VERIFICATION_CODE_NOT_FOUND_ERROR) {
+          if (error instanceof NotFoundError) {
             form.setError('code', {
               type: 'manual',
               message: tErrors('code-invalid')

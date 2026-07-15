@@ -1,1 +1,0 @@
-export { ParishAlreadyExistsError } from "./errors"

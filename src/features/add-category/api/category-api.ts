@@ -1,4 +1,4 @@
-import { axiosInstance, CategoryAlreadyExistsError } from "@/shared"
+import { AlreadyExistsError, axiosInstance } from "@/shared"
 import { CreateCategoryParams } from "../model"
 import axios, { AxiosError } from "axios"
 import { CategoryWithProductCount } from "@/entities"
@@ -22,7 +22,7 @@ export const requestCreateCategory = async ({ data, signal }: CreateCategoryPara
 
     if (error instanceof AxiosError) {
       if (error.response?.status === 409) {
-        throw new CategoryAlreadyExistsError();
+        throw new AlreadyExistsError("Category");
       }
 
       const errorMessage = error.response?.data?.error || "Something went wrong requestCreateCategory"

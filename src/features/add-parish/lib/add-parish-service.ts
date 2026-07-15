@@ -1,7 +1,7 @@
 import { prisma } from '@/shared/lib/prisma';
 import { parishCreateServerSchema, ParishFormValues, } from '../model';
 import { ParishWithRelationsTotals } from '@/entities';
-import { ParishAlreadyExistsError } from '../server';
+import { AlreadyExistsError } from '@/shared';
 
 export const createParish = async (data: ParishFormValues): Promise<ParishWithRelationsTotals> => {
   const validated = parishCreateServerSchema.parse(data)
@@ -20,7 +20,7 @@ export const createParish = async (data: ParishFormValues): Promise<ParishWithRe
       }
     });
 
-    if (existingParish) throw new ParishAlreadyExistsError();
+    if (existingParish) throw new AlreadyExistsError("Parish");
 
     const parish = await prisma.parish.create({
       data: {
@@ -40,7 +40,7 @@ export const createParish = async (data: ParishFormValues): Promise<ParishWithRe
       totals: { usd: 0, uah: 0 }
     };
   } catch (error) {
-    if (error instanceof ParishAlreadyExistsError) {
+    if (error instanceof AlreadyExistsError) {
       throw error;
     }
 

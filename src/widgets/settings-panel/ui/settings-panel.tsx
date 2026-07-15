@@ -9,10 +9,10 @@ export const SettingsPanel = () => {
   if (!user) return null;
 
   return (
-    <div className="flex flex-col items-center gap-y-6">
+    <div className="grid grid-cols-1 gap-y-6 m-auto">
       <AvatarUpload user={user} />
       <ChangePasswordForm className="max-w-xl" />
-      <RoleSelector user={user} />
+      <RoleSelector className="max-w-xl" user={user} />
     </div>
   )
 }

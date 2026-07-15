@@ -1,0 +1,29 @@
+{
+  "title": "Смена роли пользователя",
+  "labels": {
+    "role": "Роль"
+  },
+  "placeholders": {
+    "select-role": "Выберите роль"
+  },
+  "roles": {
+    "user": "Пользователь",
+    "admin": "Администратор"
+  },
+  "buttons": {
+    "reset": "Очистить",
+    "change-role": "Изменить"
+  },
+  "toast": {
+    "role-changed-success": "Роль пользователя изменена",
+    "user-not-found": "Пользователь не найден",
+    "insufficient-permissions": "У вас нет прав для смены ролей",
+    "same-role": "Пользователь уже имеет эту роль",
+    "unknown-error": "Ошибка при смене роли"
+  },
+  "errors": {
+    "user-id-required": "ID пользователя обязателен",
+    "invalid-role": "Выбрана неверная роль",
+    "same-role": "Пользователь уже имеет эту роль"
+  }
+}

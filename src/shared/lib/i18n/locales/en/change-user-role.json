@@ -1,0 +1,29 @@
+{
+  "title": "Change User Role",
+  "labels": {
+    "role": "Role"
+  },
+  "placeholders": {
+    "select-role": "Select role"
+  },
+  "roles": {
+    "user": "User",
+    "admin": "Administrator"
+  },
+  "buttons": {
+    "reset": "Reset",
+    "change-role": "Change"
+  },
+  "toast": {
+    "role-changed-success": "User role changed successfully",
+    "user-not-found": "User not found",
+    "insufficient-permissions": "You do not have permission to change roles",
+    "same-role": "User already has this role",
+    "unknown-error": "An error occurred while changing the role"
+  },
+  "errors": {
+    "user-id-required": "User ID is required",
+    "invalid-role": "Invalid role selected",
+    "same-role": "User already has this role"
+  }
+}

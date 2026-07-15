@@ -1,1 +1,0 @@
-export { AvatarUpdateForbiddenError } from "./errors"

@@ -1,5 +1,5 @@
-import { axiosInstance } from "@/shared";
-import { AxiosError } from "axios";
+import { axiosInstance, ExpiredError, NotFoundError } from "@/shared";
+import axios, { AxiosError } from "axios";
 import { VerifyCodeEmailParams } from "../model";
 
 export const requestVerifyCodeEmail = async ({ signal, data }: VerifyCodeEmailParams): Promise<void> => {
@@ -7,9 +7,17 @@ export const requestVerifyCodeEmail = async ({ signal, data }: VerifyCodeEmailPa
     const response = await axiosInstance.post<void>('/auth/verify-email', data, { signal });
     return response.data;
   } catch (error) {
-    if (error instanceof AxiosError) {
-      throw new Error(error.response?.data?.error || "Something went wrong requestVerifyEmail")
+    if (axios.isCancel(error)) {
+      throw new Error("Request cancelled");
     }
-    throw error
+
+    if (error instanceof AxiosError) {
+      if (error.response?.status === 404) {
+        throw new NotFoundError('Verification code');
+      }
+
+      throw new Error(error.response?.data?.error || "Something went wrong requestVerifyEmail");
+    }
+    throw error;
   }
 }

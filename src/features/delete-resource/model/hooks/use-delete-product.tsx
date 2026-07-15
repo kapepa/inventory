@@ -1,6 +1,6 @@
 "use client"
 
-import { AdminAccessRequiredError, ProductNotFoundError, useModalActions } from "@/shared";
+import { ForbiddenError, NotFoundError, useModalActions } from "@/shared";
 import { useTranslations } from "next-intl";
 import { useCallback, useTransition } from "react";
 import { toast } from "sonner";
@@ -32,9 +32,9 @@ export const DeleteProductModalWrapper = ({
         toast.success(t("sonner.delete-product-success"));
         onSuccess?.();
       } catch (error) {
-        if (error instanceof AdminAccessRequiredError) {
+        if (error instanceof ForbiddenError) {
           toast.error(tErrors('admin-access-required'));
-        } else if (error instanceof ProductNotFoundError) {
+        } else if (error instanceof NotFoundError) {
           toast.error(t("sonner.delete-product-not-found"));
         } else {
           console.error(error);

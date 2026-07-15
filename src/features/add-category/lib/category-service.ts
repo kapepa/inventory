@@ -1,7 +1,7 @@
 import { prisma } from '@/shared/lib/prisma';
 import { categoryCreateServerSchema, CategoryFormValues } from '../model';
 import { CategoryWithProductCount } from '@/entities';
-import { CategoryAlreadyExistsError } from '../server';
+import { AlreadyExistsError } from '@/shared/server';
 
 export const createCategory = async (data: CategoryFormValues): Promise<CategoryWithProductCount> => {
   const validated = categoryCreateServerSchema.parse(data)
@@ -21,7 +21,7 @@ export const createCategory = async (data: CategoryFormValues): Promise<Category
     });
 
     if (existingCategory) {
-      throw new CategoryAlreadyExistsError();
+      throw new AlreadyExistsError("Category");
     }
 
     const category = await prisma.category.create({
@@ -38,7 +38,7 @@ export const createCategory = async (data: CategoryFormValues): Promise<Category
 
     return category;
   } catch (error) {
-    if (error instanceof CategoryAlreadyExistsError) {
+    if (error instanceof AlreadyExistsError) {
       throw error;
     }
     console.log('Prisma Error in createCategory:', error);

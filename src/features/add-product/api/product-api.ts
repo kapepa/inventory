@@ -1,4 +1,4 @@
-import { axiosInstance, ProductAlreadyExistsError } from "@/shared"
+import { AlreadyExistsError, axiosInstance } from "@/shared"
 import axios, { AxiosError } from "axios"
 import { CreateProductParams } from "../model"
 import { ProductWithRelationsShort } from "@/entities"
@@ -16,7 +16,7 @@ export const requestСreateProduct = async ({ signal, data }: CreateProductParam
     if (error instanceof AxiosError) {
 
       if (error.response?.status === 409) {
-        throw new ProductAlreadyExistsError();
+        throw new AlreadyExistsError("Product");
       }
 
       const errorMessage = error.response?.data?.error || "Failed to create product"

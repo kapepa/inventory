@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { toast } from "sonner"
 import { useTranslations } from "next-intl"
-import { formatResponsiveImage, ProductAlreadyExistsError, STORAGE_KEYS } from "@/shared"
+import { AlreadyExistsError, formatResponsiveImage, STORAGE_KEYS } from "@/shared"
 import { ProductCreateFormValues, productCreateFormSchema } from "../schemas"
 import { ProductStatus } from "@prisma/client"
 import { ProductWithRelations, useUpload } from "@/entities"
@@ -96,7 +96,7 @@ export const useProductCreateForm = (parishId: string, closeModalAction: () => v
             sessionStorage.removeItem(ADD_PRODUCT_FORM_DATA)
           }, 100)
         } catch (error) {
-          if (error instanceof ProductAlreadyExistsError) {
+          if (error instanceof AlreadyExistsError) {
             form.setError('translations.ru.title', {
               type: 'manual',
               message: tErrors('err-title-exists')

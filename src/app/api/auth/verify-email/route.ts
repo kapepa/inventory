@@ -1,9 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { ZodError } from 'zod';
-import { activateUserByEmail, validateVerificationCode, VerificationCodeNotFoundError } from '@/features/server';
+import { activateUserByEmail, validateVerificationCode } from '@/features/server';
 import { VerifyCodeEmail } from '@/features';
 import { deleteVerificationCodesByEmail, sendConfirmationEmail } from '@/entities/server';
 import { AppLocale, defaultLocale } from '@/shared';
+import { NotFoundError } from '@/shared/server';
 
 export async function POST(request: NextRequest): Promise<NextResponse<boolean | { error: string }>> {
   try {
@@ -25,10 +26,10 @@ export async function POST(request: NextRequest): Promise<NextResponse<boolean |
       )
     }
 
-    if (error instanceof VerificationCodeNotFoundError) {
+    if (error instanceof NotFoundError) {
       return NextResponse.json(
         { error: error.message },
-        { status: 409 }
+        { status: 404 }
       );
     }
 

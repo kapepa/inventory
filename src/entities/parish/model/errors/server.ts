@@ -1,1 +1,0 @@
-export { ParishNotFoundError, ParishHasProductsError } from "./errors"

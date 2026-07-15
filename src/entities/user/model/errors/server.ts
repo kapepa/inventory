@@ -1,1 +1,0 @@
-export { AdminAccessRequiredError } from "./errors"

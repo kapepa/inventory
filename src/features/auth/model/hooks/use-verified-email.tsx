@@ -1,6 +1,6 @@
 "use client"
 
-import { ERROR_CODES, useModalActions, useRouter } from "@/shared";
+import { NotFoundError, useModalActions, useRouter } from "@/shared";
 import { useTranslations } from "next-intl";
 import { useCallback, useTransition } from "react";
 import { toast } from "sonner";
@@ -25,7 +25,7 @@ export const EmailNotVerifiedModalWrapper = ({
         router.push(verificationLink)
         toast.success(t("toasts.verified-email-success"));
       } catch (error) {
-        if (error instanceof Error && error.message === ERROR_CODES.EMAIL_NOT_FOUND) {
+        if (error instanceof NotFoundError) {
           toast.error(t('toasts.verified-email-not-exist'));
         } else {
           toast.error(t("toasts.verified-email-error"));

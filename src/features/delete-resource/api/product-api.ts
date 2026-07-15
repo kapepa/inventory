@@ -1,4 +1,4 @@
-import { AdminAccessRequiredError, axiosInstance, ProductNotFoundError } from "@/shared";
+import { axiosInstance, ForbiddenError, NotFoundError } from "@/shared";
 import axios, { AxiosError } from "axios";
 import { DeleteProductResult, DeleteProductParams } from "../model/types";
 
@@ -13,11 +13,11 @@ export const requestDeleteProduct = async ({ id, signal }: DeleteProductParams):
 
     if (error instanceof AxiosError) {
       if (error.response?.status === 403) {
-        throw new AdminAccessRequiredError();
+        throw new ForbiddenError('Admin access required');
       }
 
       if (error.response?.status === 404) {
-        throw new ProductNotFoundError();
+        throw new NotFoundError('Product');
       }
 
       const errorMessage = error.response?.data?.error || "Failed to delete product"

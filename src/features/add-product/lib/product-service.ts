@@ -1,7 +1,6 @@
-import { prisma } from "@/shared/server";
+import { AlreadyExistsError, prisma } from "@/shared/server";
 import { ProductCreate, productCreateServerSchema } from "../model";
 import { ProductWithRelationsShort } from "@/entities";
-import { ProductAlreadyExistsError } from "../server";
 
 export const createProduct = async (body: ProductCreate): Promise<ProductWithRelationsShort> => {
   const validated = productCreateServerSchema.parse(body)
@@ -46,7 +45,7 @@ export const createProduct = async (body: ProductCreate): Promise<ProductWithRel
 
     return newProduct;
   } catch (error) {
-    if (error instanceof ProductAlreadyExistsError) {
+    if (error instanceof AlreadyExistsError) {
       throw error;
     }
 
