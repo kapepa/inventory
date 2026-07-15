@@ -1,1 +1,1 @@
-export { AdminAccessRequiredError } from "./errors"
+export { AdminAccessRequiredError, UserNotFoundError } from "./errors"

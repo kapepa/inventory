@@ -7,7 +7,7 @@ import { toast } from "sonner";
 import { changePasswordFormSchema, ChangePasswordFormValues } from "../schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { requestChangePassword } from "../../api";
-import { ERROR_CODES } from "@/shared";
+import { InvalidPasswordError, SamePasswordError, UserNotFoundError } from "@/shared";
 
 export const useChangePasswordForm = () => {
   const tToast = useTranslations("change-password.toast")
@@ -43,16 +43,24 @@ export const useChangePasswordForm = () => {
           form.reset()
           toast.success(tToast("password-changed-success"))
         } catch (error) {
-          if (error instanceof Error && error.message === ERROR_CODES.INVALID_CURRENT_PASSWORD) {
+          if (error instanceof InvalidPasswordError) {
             form.setError('currentPassword', {
               type: 'manual',
               message: tErrors('current-password-incorrect')
             }, { shouldFocus: true });
             toast.error(tToast('current-password-incorrect'));
-          } else {
-            console.error(error)
-            toast.error(tToast("password-change-error"))
           }
+          else if (error instanceof SamePasswordError) {
+            form.setError('newPassword', {
+              type: 'manual',
+              message: tErrors('new-password-must-differ')
+            }, { shouldFocus: true });
+            toast.error(tToast('new-password-must-differ'));
+          }
+          else if (error instanceof UserNotFoundError) {
+            toast.error(tToast('user-not-found'));
+          }
+          console.log(error)
         }
       })
     },

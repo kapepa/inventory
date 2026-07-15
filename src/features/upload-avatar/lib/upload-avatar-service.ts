@@ -12,7 +12,6 @@ export const uploadAvatar = async (body: UploadAvatarType, currentUserId: string
         imageUrl: validated.image
       },
     })
-
   } catch (error) {
     if (error instanceof AvatarUpdateForbiddenError) {
       throw error;

@@ -6,7 +6,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { ZodError } from 'zod';
 
 export const PATCH = apiHandler(
-  async (request: NextRequest, user: AuthenticatedUser): Promise<NextResponse<string | { error: string }>> => {
+  async (request: NextRequest, user: AuthenticatedUser): Promise<NextResponse<{ success: boolean } | { error: string }>> => {
     let imageToCleanup: string | null = null
     try {
       const body: UploadAvatarType = await request.json();
@@ -14,7 +14,7 @@ export const PATCH = apiHandler(
       await uploadAvatar(body, user.id)
       if (user.imageUrl) await deleteFile(user.imageUrl)
 
-      return NextResponse.json("");
+      return NextResponse.json({ success: true });
     } catch (error) {
       if (imageToCleanup) {
         try {
