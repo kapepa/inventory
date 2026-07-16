@@ -79,3 +79,12 @@ export class ExpiredError extends Error {
     this.entity = entity;
   }
 }
+
+export class EmailSendError extends Error {
+  public readonly code = ERROR_CODES.EMAIL_SEND_FAILED;
+
+  constructor(message: string = 'Failed to send email') {
+    super(message);
+    this.name = 'EmailSendError';
+  }
+}
