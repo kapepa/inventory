@@ -1,10 +1,10 @@
 import { axiosInstance, InvalidCredentialsError, InvalidInputError, NotFoundError } from "@/shared";
 import axios, { AxiosError } from "axios";
-import { ChangePasswordParams } from "../model/types";
+import { ChangePasswordDTO, ChangePasswordParams } from "../model/types";
 
-export const requestChangePassword = async ({ signal, data }: ChangePasswordParams): Promise<string> => {
+export const requestChangePassword = async ({ signal, data }: ChangePasswordParams): Promise<ChangePasswordDTO> => {
   try {
-    const response = await axiosInstance.patch('/users/change-password', data, { signal });
+    const response = await axiosInstance.patch<ChangePasswordDTO>('/users/change-password', data, { signal });
     return response.data;
   } catch (error) {
     if (axios.isCancel(error)) {

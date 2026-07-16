@@ -1,13 +1,13 @@
 import { changePasswordService } from '@/features/server';
-import { AuthenticatedUser, ChangePasswordType } from '@/features';
-import { apiHandler, InvalidCredentialsError, InvalidInputError, NotFoundError } from '@/shared/server';
+import { AuthenticatedUser, ChangePasswordDTO, ChangePasswordType } from '@/features';
+import { apiHandler, EmailSendError, InvalidCredentialsError, InvalidInputError, NotFoundError } from '@/shared/server';
 import { NextRequest, NextResponse } from 'next/server';
 import { ZodError } from 'zod';
 import { AppLocale, defaultLocale } from '@/shared';
 import { sendChangePasswordEmail } from '@/entities/server';
 
 export const PATCH = apiHandler(
-  async (request: NextRequest, user: AuthenticatedUser): Promise<NextResponse<{ success: boolean } | { error: string }>> => {
+  async (request: NextRequest, user: AuthenticatedUser): Promise<NextResponse<ChangePasswordDTO | { error: string }>> => {
     try {
       const rawLocale = request.headers.get('Accept-Language') || defaultLocale;
       const locale = (rawLocale.split(',')[0].split('-')[0].trim().toLowerCase()) as AppLocale;
@@ -15,6 +15,19 @@ export const PATCH = apiHandler(
       const body: ChangePasswordType = await request.json();
 
       await changePasswordService({ user, body });
+      try {
+        await sendChangePasswordEmail({ email: user.email, name: user.name, locale });
+      } catch (emailError) {
+        // Password was changed successfully, but email failed
+        if (emailError instanceof EmailSendError) {
+          console.error('Password changed but email notification failed:', emailError);
+          return NextResponse.json(
+            { success: true, warning: 'Password changed but email notification failed' },
+            { status: 200 }
+          );
+        }
+        throw emailError;
+      }
       await sendChangePasswordEmail({ email: user.email, name: user.name, locale })
 
       return NextResponse.json({ success: true });

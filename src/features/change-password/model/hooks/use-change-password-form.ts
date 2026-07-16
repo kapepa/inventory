@@ -19,9 +19,9 @@ export const useChangePasswordForm = () => {
     mode: "onChange",
     reValidateMode: "onChange",
     defaultValues: {
-      currentPassword: "!A123456",
-      newPassword: "123456A!",
-      confirmPassword: "123456A!",
+      currentPassword: "",
+      newPassword: "",
+      confirmPassword: "",
     },
   })
 
@@ -33,15 +33,20 @@ export const useChangePasswordForm = () => {
     (values: ChangePasswordFormValues) => {
       startSubmitTransition(async () => {
         try {
-          await requestChangePassword({
+          const result = await requestChangePassword({
             data: {
               currentPassword: values.currentPassword,
               newPassword: values.newPassword,
             }
           })
 
-          form.reset()
-          toast.success(tToast("password-changed-success"))
+          if (result.warning) {
+            toast.warning(tToast('password-changed-email-failed'));
+          } else {
+            toast.success(tToast('password-changed-success'));
+          }
+
+          onReset()
         } catch (error) {
           if (error instanceof InvalidCredentialsError) {
             form.setError('currentPassword', {
