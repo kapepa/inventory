@@ -3,16 +3,22 @@ import { AuthenticatedUser, ChangePasswordType } from '@/features';
 import { apiHandler, InvalidCredentialsError, InvalidInputError, NotFoundError } from '@/shared/server';
 import { NextRequest, NextResponse } from 'next/server';
 import { ZodError } from 'zod';
+import { AppLocale, defaultLocale } from '@/shared';
+import { sendChangePasswordEmail } from '@/entities/server';
 
 export const PATCH = apiHandler(
   async (request: NextRequest, user: AuthenticatedUser): Promise<NextResponse<{ success: boolean } | { error: string }>> => {
     try {
+      const rawLocale = request.headers.get('Accept-Language') || defaultLocale;
+      const locale = (rawLocale.split(',')[0].split('-')[0].trim().toLowerCase()) as AppLocale;
+
       const body: ChangePasswordType = await request.json();
+
       await changePasswordService({ user, body });
+      await sendChangePasswordEmail({ email: user.email, name: user.name, locale })
 
       return NextResponse.json({ success: true });
-    } catch (error) {
-
+    } catch (error: unknown) {
       if (error instanceof ZodError) {
         return NextResponse.json(
           { error: 'Invalid data format', details: error.format() },
