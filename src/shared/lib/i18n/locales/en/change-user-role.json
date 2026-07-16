@@ -16,10 +16,10 @@
   },
   "toast": {
     "role-changed-success": "User role changed successfully",
-    "user-not-found": "User not found",
     "insufficient-permissions": "You do not have permission to change roles",
     "same-role": "User already has this role",
-    "unknown-error": "An error occurred while changing the role"
+    "unknown-error": "An error occurred while changing the role",
+    "role-not-changed": "User role has not been changed"
   },
   "errors": {
     "user-id-required": "User ID is required",
