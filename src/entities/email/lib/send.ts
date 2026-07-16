@@ -1,3 +1,4 @@
+import { EmailSendError } from '@/shared/server';
 import { transporter } from '../config/transport';
 import { EmailOptions } from '../model/types/types';
 
@@ -15,7 +16,6 @@ export async function sendEmail(options: EmailOptions): Promise<void> {
     console.log('Email sent successfully:', info.messageId);
   } catch (error) {
     console.error('Error sending email:', error);
-    console.error('Error details:', JSON.stringify(error, null, 2));
-    throw error;
+    throw new EmailSendError('Failed to send email notification');
   }
 }
