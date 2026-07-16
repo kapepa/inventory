@@ -27,6 +27,8 @@ export const EmailNotVerifiedModalWrapper = ({
       } catch (error) {
         if (error instanceof NotFoundError) {
           toast.error(t('toasts.verified-email-not-exist'));
+        } else if (error instanceof NotFoundError) {
+          toast.error(t('toasts.resend-email-failed'));
         } else {
           toast.error(t("toasts.verified-email-error"));
           console.error(error);

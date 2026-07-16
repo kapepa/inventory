@@ -7,7 +7,7 @@ import { toast } from "sonner";
 import { registerFormSchema, RegisterFormValues } from "../schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { requestAuthRegister } from "../../api";
-import { AlreadyExistsError, NotVerifiedError, useRouter, useUnmountCallback } from "@/shared";
+import { AlreadyExistsError, EmailSendError, NotVerifiedError, useRouter, useUnmountCallback } from "@/shared";
 import { useVerifiedEmail } from "./use-verified-email";
 
 export const useRegisterForm = () => {
@@ -52,6 +52,8 @@ export const useRegisterForm = () => {
           } else if (error instanceof NotVerifiedError) {
             confirmVerifiedEmail(values.email)
             toast.error(tToast('auth-email-not-verified'));
+          } else if (error instanceof EmailSendError) {
+            toast.error(tToast('registration-email-send-failed'));
           } else {
             console.error(error)
             toast.error(tToast("auth-register-error"))
