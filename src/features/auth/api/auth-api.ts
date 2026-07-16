@@ -1,4 +1,4 @@
-import { AlreadyExistsError, axiosInstance, InvalidCredentialsError, NotFoundError, NotVerifiedError } from "@/shared";
+import { AlreadyExistsError, axiosInstance, EmailSendError, InvalidCredentialsError, NotFoundError, NotVerifiedError } from "@/shared";
 import axios, { AxiosError } from "axios";
 import { AuthenticatedUser, AuthSignInParmas, AuthSignUpParmas, ResendVerificationParmas } from "../model";
 
@@ -44,6 +44,10 @@ export const requestAuthRegister = async ({ signal, data }: AuthSignUpParmas): P
         throw new AlreadyExistsError('User');
       }
 
+      if (error.response?.status === 500 && error.response?.data?.error?.includes('verification email')) {
+        throw new EmailSendError(error.response.data.error);
+      }
+
       throw new Error(error.response?.data?.error || "Something went wrong requestAuthRegister");
     }
     throw error;
@@ -74,6 +78,10 @@ export const requestResendVerification = async ({ signal, data }: ResendVerifica
     if (error instanceof AxiosError) {
       if (error.response?.status === 404) {
         throw new NotFoundError('Unverified user');
+      }
+
+      if (error.response?.status === 500 && error.response?.data?.error?.includes('verification email')) {
+        throw new EmailSendError(error.response.data.error);
       }
 
       throw new Error(error.response?.data?.error || "Something went wrong requestResendVerification");

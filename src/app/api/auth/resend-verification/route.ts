@@ -4,7 +4,7 @@ import { validateEmailForResend } from '@/features/server';
 import { createVerificationCode, sendVerificationEmail } from '@/entities/server';
 import { AuthSignUp } from '@/features';
 import { AppLocale, defaultLocale } from '@/shared';
-import { NotFoundError } from '@/shared/server';
+import { EmailSendError, NotFoundError } from '@/shared/server';
 
 export async function POST(request: NextRequest): Promise<NextResponse<string | { error: string }>> {
   try {
@@ -35,6 +35,14 @@ export async function POST(request: NextRequest): Promise<NextResponse<string | 
       return NextResponse.json(
         { error: error.message },
         { status: 404 }
+      );
+    }
+
+    if (error instanceof EmailSendError) {
+      console.error('Failed to resend verification email:', error);
+      return NextResponse.json(
+        { error: 'Failed to resend verification email. Please try again later or contact support.' },
+        { status: 500 }
       );
     }
 

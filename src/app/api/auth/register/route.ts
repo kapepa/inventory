@@ -4,7 +4,7 @@ import { authRegister } from '@/features/server';
 import { createVerificationCode, sendVerificationEmail } from '@/entities/server';
 import { AuthSignUp } from '@/features';
 import { AppLocale, defaultLocale } from '@/shared';
-import { AlreadyExistsError, NotVerifiedError } from '@/shared/server';
+import { AlreadyExistsError, EmailSendError, NotVerifiedError } from '@/shared/server';
 
 export async function POST(request: NextRequest): Promise<NextResponse<string | { error: string }>> {
   try {
@@ -42,6 +42,14 @@ export async function POST(request: NextRequest): Promise<NextResponse<string | 
       return NextResponse.json(
         { error: error.message },
         { status: 409 }
+      );
+    }
+
+    if (error instanceof EmailSendError) {
+      console.error('User registered but verification email failed:', error);
+      return NextResponse.json(
+        { error: 'Registration successful but failed to send verification email. Please contact support.' },
+        { status: 500 }
       );
     }
 
