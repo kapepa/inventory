@@ -27,8 +27,9 @@ export const GET = apiHandler(async (request: NextRequest): Promise<NextResponse
       prismaCode: error.code,
       prismaMeta: error.meta
     });
+
     return NextResponse.json(
-      { error: error.message || 'Failed to fetch parishes' },
+      { error: 'Failed to fetch parishes' },
       { status: 500 }
     );
   }

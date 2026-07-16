@@ -6,7 +6,7 @@ import { deleteVerificationCodesByEmail, sendConfirmationEmail } from '@/entitie
 import { AppLocale, defaultLocale } from '@/shared';
 import { NotFoundError } from '@/shared/server';
 
-export async function POST(request: NextRequest): Promise<NextResponse<boolean | { error: string }>> {
+export async function POST(request: NextRequest): Promise<NextResponse<{ success: boolean } | { error: string }>> {
   try {
     const rawLocale = request.headers.get('Accept-Language') || defaultLocale;
     const locale = (rawLocale.split(',')[0].split('-')[0].trim().toLowerCase()) as AppLocale;
@@ -17,8 +17,8 @@ export async function POST(request: NextRequest): Promise<NextResponse<boolean |
     await deleteVerificationCodesByEmail(email)
     await sendConfirmationEmail({ name, email, locale })
 
-    return NextResponse.json(true, { status: 200 });
-  } catch (error) {
+    return NextResponse.json({ success: true }, { status: 200 });
+  } catch (error: unknown) {
     if (error instanceof ZodError) {
       return NextResponse.json(
         { error: 'Invalid data format', details: error.format() },

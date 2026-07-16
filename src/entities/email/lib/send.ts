@@ -15,6 +15,7 @@ export async function sendEmail(options: EmailOptions): Promise<void> {
     console.log('Email sent successfully:', info.messageId);
   } catch (error) {
     console.error('Error sending email:', error);
-    throw new Error('Failed to send email');
+    console.error('Error details:', JSON.stringify(error, null, 2));
+    throw error;
   }
 }

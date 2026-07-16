@@ -1,8 +1,8 @@
 import { ParishWithRelationsTotals, ResponseParishesDTO } from '@/entities';
 import { getParishes } from '@/entities/server';
-import { createParish, ParishAlreadyExistsError } from '@/features/server';
+import { createParish } from '@/features/server';
 import { AppLocale, PAGINATION_PARISHES_DEFAULTS, defaultLocale, locales } from '@/shared';
-import { apiHandler } from '@/shared/server';
+import { AlreadyExistsError, apiHandler } from '@/shared/server';
 import { NextRequest, NextResponse } from 'next/server';
 import { ZodError } from 'zod';
 
@@ -29,6 +29,7 @@ export const GET = apiHandler(async (request: NextRequest): Promise<NextResponse
       prismaCode: error.code,
       prismaMeta: error.meta
     });
+
     return NextResponse.json(
       { error: error.message || 'Failed to fetch parishes' },
       { status: 500 }
@@ -42,7 +43,7 @@ export const POST = apiHandler(async (request: NextRequest): Promise<NextRespons
     const result = await createParish(body);
 
     return NextResponse.json(result, { status: 201 });
-  } catch (error: any) {
+  } catch (error: unknown) {
     if (error instanceof ZodError) {
       return NextResponse.json(
         { error: 'Invalid data format', details: error.format() },
@@ -50,7 +51,7 @@ export const POST = apiHandler(async (request: NextRequest): Promise<NextRespons
       )
     }
 
-    if (error instanceof ParishAlreadyExistsError) {
+    if (error instanceof AlreadyExistsError) {
       return NextResponse.json(
         { error: error.message },
         { status: 409 }
@@ -59,7 +60,7 @@ export const POST = apiHandler(async (request: NextRequest): Promise<NextRespons
 
     console.error('Create parish error:', error);
     return NextResponse.json(
-      { error: error.message || 'Failed to create parish' },
+      { error: 'Failed to create parish' },
       { status: 500 }
     );
   }

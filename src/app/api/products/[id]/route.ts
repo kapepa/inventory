@@ -23,7 +23,7 @@ export const DELETE = apiHandler(
 
       const response = await deleteProduct(id);
       return NextResponse.json(response)
-    } catch (error) {
+    } catch (error: unknown) {
 
       if (error instanceof ForbiddenError) {
         return NextResponse.json(

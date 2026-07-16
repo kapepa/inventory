@@ -26,6 +26,11 @@ export interface ConfirmationEmailData {
   locale: AppLocale;
 }
 
+export interface ChangePasswordData {
+  name: string;
+  locale: AppLocale;
+}
+
 export interface SendVerificationEmailInput {
   email: string;
   name: string;
@@ -35,6 +40,12 @@ export interface SendVerificationEmailInput {
 }
 
 export interface SendConfirmationEmailInput {
+  email: string;
+  name: string;
+  locale: AppLocale;
+}
+
+export interface SendChangePasswordEmailInput {
   email: string;
   name: string;
   locale: AppLocale;

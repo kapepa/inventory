@@ -1,2 +1,2 @@
-export * from "./types"
-export * from "./api-params"
+export type { ChangeUserRoleType, UserRoleType } from "./types"
+export type { ChangeUserRoleParams } from "./api-params"

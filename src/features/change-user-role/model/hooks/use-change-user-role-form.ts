@@ -7,11 +7,13 @@ import { toast } from "sonner";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { requestChangeUserRole } from "../../api";
 import { changeUserRoleFormSchema, ChangeUserRoleFormValues } from "../schemas";
-
+import { UserRoleType } from "../types";
+import { ForbiddenError, InvalidInputError } from "@/shared";
+import { useAuthStore } from "@/features/auth";
 
 interface UseChangeUserRoleFormProps {
   userId: string;
-  currentRole: 'USER' | 'ADMIN';
+  currentRole: UserRoleType;
   onSuccess?: () => void;
 }
 
@@ -31,38 +33,44 @@ export const useChangeUserRoleForm = ({ userId, currentRole }: UseChangeUserRole
   })
 
   const onReset = useCallback(() => {
-    form.reset({ userId, role: currentRole });
+    form.reset({ userId, role: currentRole }, { keepDefaultValues: true });
   }, [form, userId, currentRole]);
 
   const onSubmit = useCallback(
     (values: ChangeUserRoleFormValues) => {
       startSubmitTransition(async () => {
+        if (values.role === currentRole) {
+          toast.error(tToast("role-not-changed"))
+          return
+        }
         try {
-          await requestChangeUserRole({
+          const role = await requestChangeUserRole({
             data: {
               userId: values.userId,
               role: values.role,
             }
           })
 
+          useAuthStore.getState().setUser({
+            ...useAuthStore.getState().user!,
+            role,
+          })
+
           toast.success(tToast("role-changed-success"))
         } catch (error) {
-          // if (error instanceof UserNotFoundError) {
-          //   toast.error(tToast('user-not-found'));
-          // }
-          // else if (error instanceof InsufficientPermissionsError) {
-          //   toast.error(tToast('insufficient-permissions'));
-          // }
-          // else if (error instanceof SameRoleError) {
-          //   form.setError('role', {
-          //     type: 'manual',
-          //     message: tErrors('same-role')
-          //   });
-          //   toast.error(tToast('same-role'));
-          // }
-          // else {
-          //   toast.error(tToast('unknown-error'));
-          // }
+          if (error instanceof ForbiddenError) {
+            toast.error(tToast('insufficient-permissions'));
+          }
+          else if (error instanceof InvalidInputError) {
+            form.setError('role', {
+              type: 'manual',
+              message: tErrors('same-role')
+            });
+            toast.error(tToast('same-role'));
+          }
+          else {
+            toast.error(tToast('unknown-error'));
+          }
           console.log(error)
         }
       })

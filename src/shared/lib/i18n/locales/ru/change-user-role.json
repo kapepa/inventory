@@ -16,10 +16,10 @@
   },
   "toast": {
     "role-changed-success": "Роль пользователя изменена",
-    "user-not-found": "Пользователь не найден",
     "insufficient-permissions": "У вас нет прав для смены ролей",
     "same-role": "Пользователь уже имеет эту роль",
-    "unknown-error": "Ошибка при смене роли"
+    "unknown-error": "Ошибка при смене роли",
+    "role-not-changed": "Роль пользователя не изменена"
   },
   "errors": {
     "user-id-required": "ID пользователя обязателен",

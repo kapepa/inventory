@@ -1,5 +1,5 @@
 import { prisma } from '@/shared/lib/prisma';
-import { parishCreateServerSchema, ParishFormValues, } from '../model';
+import { parishCreateServerSchema, ParishFormValues } from '../model';
 import { ParishWithRelationsTotals } from '@/entities';
 import { AlreadyExistsError } from '@/shared';
 

@@ -23,7 +23,7 @@ export async function POST(request: NextRequest): Promise<NextResponse<string | 
     })
 
     return NextResponse.json(verificationLink, { status: 201 });
-  } catch (error) {
+  } catch (error: unknown) {
     if (error instanceof ZodError) {
       return NextResponse.json(
         { error: 'Invalid data format', details: error.format() },

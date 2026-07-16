@@ -2,13 +2,13 @@ import { NextRequest, NextResponse } from 'next/server';
 import { apiHandler } from '@/shared/lib/middleware';
 import { deleteCategory } from '@/features/server';
 import { AuthenticatedUser } from '@/features';
-import { AdminAccessRequiredError, getCategoryhById } from '@/entities/server';
-import { HasDependenciesError, NotFoundError } from '@/shared/server';
+import { getCategoryhById } from '@/entities/server';
+import { ForbiddenError, HasDependenciesError, NotFoundError } from '@/shared/server';
 
 export const DELETE = apiHandler(async (_: NextRequest, user: AuthenticatedUser, { params }: { params: Promise<{ id: string }> }) => {
   const { id } = await params;
   try {
-    if (user?.role !== "ADMIN") throw new AdminAccessRequiredError()
+    if (user?.role !== "ADMIN") throw new ForbiddenError('Admin access required');
 
     const existingParish = await getCategoryhById({ id })
     if (!existingParish) throw new NotFoundError('Category');
@@ -16,9 +16,9 @@ export const DELETE = apiHandler(async (_: NextRequest, user: AuthenticatedUser,
 
     await deleteCategory(id);
     return NextResponse.json({ success: true });
-  } catch (error) {
+  } catch (error: unknown) {
 
-    if (error instanceof AdminAccessRequiredError) {
+    if (error instanceof ForbiddenError) {
       return NextResponse.json(
         { error: error.message },
         { status: 403 }

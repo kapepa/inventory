@@ -29,7 +29,7 @@ export const GET = apiHandler(async (
     })
 
     return NextResponse.json(response);
-  } catch (error) {
+  } catch (error: unknown) {
     console.error('Failed to fetch categories:', error)
     return NextResponse.json(
       { error: 'Failed to fetch categories' },
