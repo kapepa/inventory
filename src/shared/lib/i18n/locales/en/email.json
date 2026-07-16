@@ -27,5 +27,18 @@
     "go-to-app": "Go to App",
     "security-note": "If you did not verify this email, please contact support.",
     "footer": "© 2026 Inventory. All rights reserved."
+  },
+  "send-change-password-email": {
+    "subject": "Your password has been changed — Inventory",
+    "text": "Hi, {name}! Your password has been successfully changed. If this wasn't you, please contact support immediately."
+  },
+  "change-password-email-template": {
+    "subject": "Password Successfully Changed",
+    "greeting": "Hello, {name}!",
+    "success-message": "Your password has been successfully changed.",
+    "access-message": "You can now sign in with your new password.",
+    "go-to-app": "Go to App",
+    "security-note": "If you did not change your password, please contact support immediately.",
+    "footer": "© 2026 Inventory. All rights reserved."
   }
 }
