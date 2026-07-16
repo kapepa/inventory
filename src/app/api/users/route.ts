@@ -15,10 +15,10 @@ export const GET = apiHandler(async (request: NextRequest): Promise<NextResponse
     })
 
     return NextResponse.json(response);
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Fetch users error:', error);
     return NextResponse.json(
-      { error: error.message || 'Failed to fetch getFilteredUsers' },
+      { error: error instanceof Error ? error.message : 'Failed to fetch getFilteredUsers' },
       { status: 500 }
     );
   }

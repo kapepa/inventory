@@ -59,7 +59,7 @@ export const POST = apiHandler(async (request: NextRequest) => {
     setCache(cacheKey, translatedText);
     return NextResponse.json({ translatedText });
 
-  } catch (error) {
+  } catch (error: unknown) {
     console.error("Translation API error:", error);
     return NextResponse.json(
       { error: "Translation failed" },

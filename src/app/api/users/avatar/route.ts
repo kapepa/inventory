@@ -1,7 +1,7 @@
 import { deleteFile } from '@/entities/server';
 import { AuthenticatedUser, UploadAvatarType } from '@/features';
-import { AvatarUpdateForbiddenError, uploadAvatar } from '@/features/server';
-import { apiHandler } from '@/shared/server';
+import { uploadAvatar } from '@/features/server';
+import { apiHandler, ForbiddenError } from '@/shared/server';
 import { NextRequest, NextResponse } from 'next/server';
 import { ZodError } from 'zod';
 
@@ -15,7 +15,7 @@ export const PATCH = apiHandler(
       if (user.imageUrl) await deleteFile(user.imageUrl)
 
       return NextResponse.json({ success: true });
-    } catch (error) {
+    } catch (error: unknown) {
       if (imageToCleanup) {
         try {
           await deleteFile(imageToCleanup);
@@ -31,7 +31,7 @@ export const PATCH = apiHandler(
         );
       }
 
-      if (error instanceof AvatarUpdateForbiddenError) {
+      if (error instanceof ForbiddenError) {
         return NextResponse.json(
           { error: error.message },
           { status: 403 }

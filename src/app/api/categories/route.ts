@@ -2,8 +2,8 @@ import { NextRequest, NextResponse } from 'next/server'
 import { AppLocale, defaultLocale } from '@/shared';
 import { getCategories } from '@/entities/server';
 import { CategoryWithProductCount, CategoryWithTranslations } from '@/entities';
-import { apiHandler } from '@/shared/server';
-import { CategoryAlreadyExistsError, createCategory } from '@/features/server';
+import { AlreadyExistsError, apiHandler } from '@/shared/server';
+import { createCategory } from '@/features/server';
 import { ZodError } from 'zod';
 
 export const GET = apiHandler(async (request: NextRequest): Promise<NextResponse<CategoryWithTranslations[] | { error: string }>> => {
@@ -14,7 +14,7 @@ export const GET = apiHandler(async (request: NextRequest): Promise<NextResponse
     const categories = await getCategories({ locale })
 
     return NextResponse.json(categories)
-  } catch (error) {
+  } catch (error: unknown) {
     console.error('Failed to fetch categories:', error)
     return NextResponse.json(
       { error: 'Failed to fetch categories' },
@@ -29,7 +29,7 @@ export const POST = apiHandler(async (request: NextRequest): Promise<NextRespons
     const category = await createCategory(body)
 
     return NextResponse.json(category)
-  } catch (error) {
+  } catch (error: unknown) {
     if (error instanceof ZodError) {
       return NextResponse.json(
         { error: 'Invalid data format', details: error.format() },
@@ -37,16 +37,16 @@ export const POST = apiHandler(async (request: NextRequest): Promise<NextRespons
       )
     }
 
-    if (error instanceof CategoryAlreadyExistsError) {
+    if (error instanceof AlreadyExistsError) {
       return NextResponse.json(
         { error: error.message },
         { status: 409 }
       );
     }
 
-    console.error('Failed to fetch categories:', error)
+    console.error('Failed to create categori:', error)
     return NextResponse.json(
-      { error: 'Failed to fetch categories' },
+      { error: 'Failed to create categori' },
       { status: 500 }
     )
   }

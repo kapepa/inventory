@@ -19,9 +19,9 @@ export const useChangePasswordForm = () => {
     mode: "onChange",
     reValidateMode: "onChange",
     defaultValues: {
-      currentPassword: "",
-      newPassword: "",
-      confirmPassword: "",
+      currentPassword: "!A123456",
+      newPassword: "123456A!",
+      confirmPassword: "123456A!",
     },
   })
 

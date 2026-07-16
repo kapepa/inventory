@@ -2,9 +2,9 @@ import { ProductWithRelationsShort, ResponseProductsShortDTO } from '@/entities'
 import { getFilteredProductsShort } from '@/entities/server';
 import { deleteFile } from '@/entities/server';
 import { AuthenticatedUser } from '@/features';
-import { createProduct, ProductAlreadyExistsError } from '@/features/server';
+import { createProduct } from '@/features/server';
 import { AppLocale, defaultLocale, locales, PAGINATION_PRODUCTS_DEFAULTS } from '@/shared';
-import { apiHandler } from '@/shared/server';
+import { AlreadyExistsError, apiHandler } from '@/shared/server';
 import { NextRequest, NextResponse } from 'next/server';
 import { ZodError } from 'zod';
 
@@ -43,7 +43,7 @@ export const POST = apiHandler(async (request: NextRequest, user: AuthenticatedU
     const newProduct = await createProduct(body);
 
     return NextResponse.json(newProduct, { status: 201 });
-  } catch (error) {
+  } catch (error: unknown) {
     if (photoToCleanup) {
       try {
         await deleteFile(photoToCleanup);
@@ -59,7 +59,7 @@ export const POST = apiHandler(async (request: NextRequest, user: AuthenticatedU
       );
     }
 
-    if (error instanceof ProductAlreadyExistsError) {
+    if (error instanceof AlreadyExistsError) {
       return NextResponse.json(
         { error: error.message },
         { status: 409 }

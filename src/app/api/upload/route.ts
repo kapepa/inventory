@@ -13,11 +13,11 @@ export const POST = apiHandler(async (request: NextRequest): Promise<NextRespons
     const response = await uploadFile(file)
     return NextResponse.json(response)
 
-  } catch (error) {
+  } catch (error: unknown) {
     console.error('Upload error:', error)
     return NextResponse.json(
-      { error: 'Failed to upload file' },
+      { error: error instanceof Error ? error.message : 'Failed to upload file' },
       { status: 500 }
-    )
+    );
   }
 })

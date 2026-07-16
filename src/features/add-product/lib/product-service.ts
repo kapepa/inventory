@@ -19,7 +19,7 @@ export const createProduct = async (body: ProductCreate): Promise<ProductWithRel
       }
     });
 
-    if (existingProduct) throw new ProductAlreadyExistsError();
+    if (existingProduct) throw new AlreadyExistsError("Product");
 
     const newProduct = await prisma.product.create({
       data: {
