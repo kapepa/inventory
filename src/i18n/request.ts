@@ -47,6 +47,7 @@ export default getRequestConfig(async ({ locale }) => {
       "avatar-upload": (await import(`../shared/lib/i18n/locales/${locale}/avatar-upload.json`)).default,
       "change-password": (await import(`../shared/lib/i18n/locales/${locale}/change-password.json`)).default,
       "change-user-role": (await import(`../shared/lib/i18n/locales/${locale}/change-user-role.json`)).default,
+      "delete-account": (await import(`../shared/lib/i18n/locales/${locale}/delete-account.json`)).default,
     }
   };
 });

@@ -39,7 +39,7 @@ export default async function Parishes({
   const t = await getTranslations({ locale, namespace: "parishes-page" });
 
   return (
-    <Container className="py-6 md:py-16">
+    <Container className="pt-6 md:pt-16 flex-1 flex flex-col min-h-0">
       <PageHeader
         title={t("header-title")}
         count={initialData.total}

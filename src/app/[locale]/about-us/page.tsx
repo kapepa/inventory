@@ -30,18 +30,20 @@ export default async function AboutUs({
   const t = await getTranslations({ locale, namespace: "about-us" });
 
   return (
-    <Container className="py-6 md:py-16 flex-1 flex flex-col min-h-0">
+    <Container className="pt-6 md:pt-16 flex-1 flex flex-col min-h-0">
       <PageHeader
         title={t("header-title")}
         action={<BackButton />}
       />
       <ScrollArea className="flex-1 min-h-0">
-        <p className="text-sm md:text-base text-muted-foreground mt-3 mb-6 text-center">
-          {t("header-description")}
-        </p>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
-          <CategoryChart statusCounts={statusCounts} className="h-full" />
-          <WarehouseMapDynamic />
+        <div className="pb-6 md:pb-16">
+          <p className="text-sm md:text-base text-muted-foreground mt-3 mb-6 text-center">
+            {t("header-description")}
+          </p>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
+            <CategoryChart statusCounts={statusCounts} className="h-full" />
+            <WarehouseMapDynamic />
+          </div>
         </div>
       </ScrollArea>
     </Container>

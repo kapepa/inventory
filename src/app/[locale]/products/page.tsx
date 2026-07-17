@@ -45,7 +45,7 @@ export default async function Products({
   const t = await getTranslations({ locale, namespace: "products-page" });
 
   return (
-    <Container className="py-6 md:py-16 flex-1 flex flex-col min-h-0">
+    <Container className="pt-6 md:pt-16 flex-1 flex flex-col min-h-0">
       <ProductsExplore
         initialCategories={categories}
         className="pb-3"
