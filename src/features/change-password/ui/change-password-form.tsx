@@ -17,7 +17,7 @@ export const ChangePasswordForm = memo(({ className }: ChangePasswordFormProps) 
     <div
       className={cn("bg-background rounded-sm overflow-hidden", className)}
     >
-      <h5 className="text-center my-5 font-semibold text-muted-foreground">{t("title")}</h5>
+      <h5 className="text-center my-5 px-6 font-semibold text-muted-foreground">{t("title")}</h5>
       <Form {...form}>
         <form onSubmit={onSubmit} className="space-y-4">
           <div className="flex flex-col gap-y-6 pb-3 px-6">

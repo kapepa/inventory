@@ -60,7 +60,7 @@ export const GroupsList = ({
         className={cn(CARD_CLASS)}
       />
       <ScrollArea className="flex-1 min-h-0">
-        <div className="flex flex-col gap-y-3">
+        <div className="flex flex-col gap-y-3 pb-6 md:pb-16">
           {
             parishes.map(parish => (
               <ParishShortCard

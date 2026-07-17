@@ -16,5 +16,12 @@
   },
   "errors": {
     "admin-access-required": "Administrator privileges are required"
+  },
+  "delete-confirm-modal": {
+    "title": "Confirm Deletion",
+    "buttons": {
+      "cancel": "Cancel",
+      "delete": "Delete"
+    }
   }
 }

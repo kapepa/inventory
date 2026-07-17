@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect } from "react"
 import { ParishWideCard, ParishWithRelationsTotals, useInfiniteParishes, ParishWideHeader, ParishWideCardSkeleton, useParishesStore, ParishWithRelations, isTotalsParish } from "@/entities"
-import { cn, QUERY_PARAMS_KEYS, useIntersectionObserver, useQueryParam } from "@/shared"
+import { cn, QUERY_PARAMS_KEYS, ScrollArea, useIntersectionObserver, useQueryParam } from "@/shared"
 import { useDeleteParish } from "@/features"
 import { useTranslations } from "next-intl"
 import { fetchParishesTotals } from "@/entities/parish/api/parish-api"
@@ -54,12 +54,11 @@ export const ParishesList = ({
   if (!parishes.length) return <div className="text-center py-4 text-destructive">{t("parishes-list.empty")}</div>
 
   return (
-    <div className={cn("w-full", className)}>
-      <div className="pb-4">
+    <div className={cn("w-full min-h-0 flex flex-col", className)}>
+      <ParishWideHeader className={cn(PARISH_GRID_LAYOUT, "hidden md:grid shrink-0")} />
 
-        <ParishWideHeader className={cn(PARISH_GRID_LAYOUT, "hidden md:grid")} />
-
-        <div className="flex flex-col gap-3 mx-auto">
+      <ScrollArea className="flex-1 min-h-0">
+        <div className="flex flex-col gap-3 mx-auto pb-6 md:pb-16">
           {parishes.map((parish) => (
             <ParishWideCard
               key={parish.id}
@@ -74,8 +73,7 @@ export const ParishesList = ({
             </div>
           )}
         </div>
-
-      </div>
+      </ScrollArea>
     </div>
   )
 }

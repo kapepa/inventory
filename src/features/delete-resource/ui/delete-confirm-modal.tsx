@@ -10,7 +10,6 @@ import {
   SubmitButton
 } from "@/shared";
 import { Trash } from "lucide-react";
-import { useTransition } from "react";
 
 interface DeleteConfirmModalProps {
   title: string;
@@ -25,11 +24,11 @@ export const DeleteConfirmModal = ({
   onConfirmAction,
   onCancelAction
 }: DeleteConfirmModalProps) => {
-  const t = useTranslations('parish.modal');
+  const t = useTranslations();
 
   return (
     <ModalContents>
-      <ModalHeader title={`${t("delete-confirm")}?`} />
+      <ModalHeader title={`${t("delete-confirm-modal.title")}?`} />
       <ModalBody>
         <p className="text-base text-muted-foreground">
           <strong>{title}</strong>
@@ -37,7 +36,7 @@ export const DeleteConfirmModal = ({
       </ModalBody>
       <ModalFooter>
         <CancelButton onCancelAction={onCancelAction} disabled={isLoading}>
-          {t("buttons.cancel")}
+          {t("delete-confirm-modal.buttons.cancel")}
         </CancelButton>
         <SubmitButton
           variant="simply-destructive"
@@ -46,10 +45,12 @@ export const DeleteConfirmModal = ({
         >
           <div className="flex gap-x-2">
             <Trash />
-            <span>{t("buttons.delete")}</span>
+            <span>{t("delete-confirm-modal.buttons.delete")}</span>
           </div>
         </SubmitButton>
       </ModalFooter>
     </ModalContents>
   );
 };
+
+DeleteConfirmModal.displayName = "DeleteConfirmModal"

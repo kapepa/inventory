@@ -5,7 +5,7 @@ import { useTranslations } from "next-intl";
 import { useCallback, useTransition } from "react";
 import { toast } from "sonner";
 import { DeleteConfirmModal } from "../../ui";
-import { requestDeleteProduct } from "../../api/product-api";
+import { requestDeleteProduct } from "../../api";
 import { ProductWithRelations } from "@/entities";
 
 interface DeleteProductModalWrapperProps {
@@ -15,7 +15,7 @@ interface DeleteProductModalWrapperProps {
   onSuccess?: () => void;
 }
 
-export const DeleteProductModalWrapper = ({
+const DeleteProductModalWrapper = ({
   title,
   productId,
   onCloseAction,

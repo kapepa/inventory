@@ -54,7 +54,7 @@ export default async function Groups({
   const t = await getTranslations({ locale, namespace: "groups-page" });
 
   return (
-    <Container className="py-4 flex-1 flex flex-col min-h-0">
+    <Container className="pt-6 md:pt-16 flex-1 flex flex-col min-h-0">
       <PageHeader
         title={t("header-title")}
         count={initialParishes.total}
@@ -62,7 +62,7 @@ export default async function Groups({
         className="shrink-0"
         storeType="parishes"
       />
-      <div className="w-full mx-auto pb-6 flex-1 min-h-0">
+      <div className="w-full mx-auto flex-1 min-h-0">
         <div className="grid grid-cols-1 lg:grid-cols-[2fr_4fr] gap-4 h-full">
           <GroupsList
             initialHasMore={initialParishes.hasMore}
@@ -70,16 +70,16 @@ export default async function Groups({
             initialParishesId={parishId}
             className="h-full max-w-lg lg:w-full m-auto"
           />
-          <div className="hidden lg:block h-full">
+          <div className="hidden lg:block h-full min-h-0">
             <GroupsRelations
               initialHasMore={initialProducts?.hasMore}
               initialProducts={initialProducts?.data}
               initialParishesId={parishId}
               initialParishTitle={parish?.translations?.[0]?.title || ""}
-              className="h-full"
+              className="h-full pb-6 md:pb-16"
             />
           </div>
-          <div className=" block lg:hidden h-full">
+          <div className="block lg:hidden h-full">
             <WrapperSheetGroupsRelations
               initialHasMore={initialProducts?.hasMore}
               initialProducts={initialProducts?.data}

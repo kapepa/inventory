@@ -2,5 +2,13 @@
   "user-card": {
     "email": "Email",
     "name": "Name"
+  },
+  "delete-account": {
+    "title": "Are you sure you want to delete your account {name}?",
+    "toast": {
+      "success": "Account deleted successfully",
+      "error": "Failed to delete account",
+      "unauthorized": "Your session has expired. Please log in again."
+    }
   }
 }

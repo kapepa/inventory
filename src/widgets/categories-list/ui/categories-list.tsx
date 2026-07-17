@@ -49,7 +49,7 @@ export const CategoriesList = ({ className, initialHasMore, initialCategories }:
     <div className={cn("flex-1 min-h-0 flex flex-col", className)}>
       <CategoryHeader className={cn("", CARD_CLASS)} />
       <ScrollArea className="flex-1 min-h-0 ">
-        <div className={cn("flex flex-col max-w-lg lg:max-w-full h-full min-h-0 gap-y-3 m-auto", className)}>
+        <div className={cn("flex flex-col max-w-lg lg:max-w-full h-full min-h-0 gap-y-3 m-auto pb-6 md:pb-16", className)}>
           {categories.map((category) => (
             <CategoryCard
               key={category.id}
