@@ -22,7 +22,7 @@ export const RoleSelector = memo(({
     <div
       className={cn("bg-background rounded-sm overflow-hidden", className)}
     >
-      <h5 className="text-center my-5 font-semibold text-muted-foreground">
+      <h5 className="text-center my-5 px-6 font-semibold text-muted-foreground">
         {t("title")} {user.name}
       </h5>
       <Form {...form}>
