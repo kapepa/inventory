@@ -16,5 +16,12 @@
   },
   "errors": {
     "admin-access-required": "Требуются права администратора"
+  },
+  "delete-confirm-modal": {
+    "title": "Подтверждение удаления",
+    "buttons": {
+      "cancel": "Отмена",
+      "delete": "Удалить"
+    }
   }
 }
