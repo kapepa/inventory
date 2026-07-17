@@ -1,2 +1,2 @@
-export type { DeleteParishResult, DeleteProductResult, DeleteCategoryResult } from "./types"
-export type { DeleteProductParams, DeleteParishesParams, DeleteCategoryParams } from "./api-params"
+export type { DeleteParishResult, DeleteProductResult, DeleteCategoryResult, DeleteAccountResult } from "./types"
+export type { DeleteProductParams, DeleteParishesParams, DeleteCategoryParams, DeleteAccountParams } from "./api-params"
