@@ -15,7 +15,7 @@ interface DeleteParishModalWrapperProps {
   onSuccess?: () => void;
 }
 
-export const DeleteParishModalWrapper = ({
+const DeleteParishModalWrapper = ({
   title,
   parishId,
   onCloseAction,

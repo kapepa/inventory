@@ -5,7 +5,7 @@ import { useTranslations } from "next-intl";
 import { useCallback, useTransition } from "react";
 import { toast } from "sonner";
 import { DeleteConfirmModal } from "../../ui";
-import { requestDeleteCategory } from "../../api/category-api";
+import { requestDeleteCategory } from "../../api";
 import { CategoryWithProductCount } from "@/entities";
 
 interface DeleteCategoryModalWrapperProps {
@@ -15,7 +15,7 @@ interface DeleteCategoryModalWrapperProps {
   onSuccess?: () => void;
 }
 
-export const DeleteCategoryModalWrapper = ({
+const DeleteCategoryModalWrapper = ({
   title,
   categoryId,
   onCloseAction,
