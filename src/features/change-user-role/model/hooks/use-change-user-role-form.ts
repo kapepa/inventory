@@ -39,10 +39,10 @@ export const useChangeUserRoleForm = ({ userId, currentRole }: UseChangeUserRole
   const onSubmit = useCallback(
     (values: ChangeUserRoleFormValues) => {
       startSubmitTransition(async () => {
-        if (values.role === currentRole) {
-          toast.error(tToast("role-not-changed"))
-          return
-        }
+        // if (values.role === form.getValues("role")) {
+        //   toast.error(tToast("role-not-changed"))
+        //   return
+        // }
         try {
           const role = await requestChangeUserRole({
             data: {
@@ -55,6 +55,8 @@ export const useChangeUserRoleForm = ({ userId, currentRole }: UseChangeUserRole
             ...useAuthStore.getState().user!,
             role,
           })
+
+          form.setValue("role", role)
 
           toast.success(tToast("role-changed-success"))
         } catch (error) {

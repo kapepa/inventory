@@ -1,19 +1,20 @@
 "use client";
 
-import { CancelButton, cn, Form, FormControl, FormField, FormItem, FormLabel, FormMessage, SubmitButton, Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/shared";
+import { CancelButton, cn, Form, FormControl, FormField, FormItem, FormLabel, FormMessage, SubmitButton, Select, SelectContent, SelectItem, SelectTrigger, SelectValue, Tooltip, TooltipTrigger, TooltipContent } from "@/shared";
 import { useChangeUserRoleForm } from "../model/hooks";
 import { useTranslations } from "next-intl";
 import { memo } from "react";
 import { AuthenticatedUser } from "@/features/auth";
+import { Info } from 'lucide-react';
 
 interface RoleSelectorProps {
-  className?: string;
   user: AuthenticatedUser
+  className?: string;
 }
 
 export const RoleSelector = memo(({
+  user,
   className,
-  user
 }: RoleSelectorProps) => {
   const t = useTranslations("change-user-role")
   const { form, onSubmit, isSubmitting, onReset } = useChangeUserRoleForm({ userId: user.id, currentRole: user.role })
@@ -32,7 +33,17 @@ export const RoleSelector = memo(({
               name="role"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>{t('labels.role')}</FormLabel>
+                  <FormLabel>
+                    {t('labels.role')}
+                    <Tooltip>
+                      <TooltipTrigger>
+                        <Info className="text-accent" size={18} strokeWidth={2} />
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        {t("info")}
+                      </TooltipContent>
+                    </Tooltip>
+                  </FormLabel>
                   <Select
                     onValueChange={field.onChange}
                     value={field.value}
