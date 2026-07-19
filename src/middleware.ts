@@ -10,7 +10,7 @@ const intlMiddleware = createIntlMiddleware(routing);
 const publicRoutes = ['/auth', '/verify', '/api/auth/login', '/api/auth/register', '/api/verify', '/api/auth/resend-verification', "/api/auth/verify-email"];
 
 // Routes for admins only
-const adminRoutes = ['/admin'];
+const adminRoutes = ['/admin', '/categories'];
 
 export default async function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;

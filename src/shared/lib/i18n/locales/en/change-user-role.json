@@ -25,5 +25,6 @@
     "user-id-required": "User ID is required",
     "invalid-role": "Invalid role selected",
     "same-role": "User already has this role"
-  }
+  },
+  "info": "Switching roles allows you to delete and create products and categories, as well as visit the Categories page"
 }

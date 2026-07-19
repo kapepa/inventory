@@ -6,14 +6,15 @@ import { DotAvailableCellSkeleton, IdentifierCellSkeleton, PictureCellSkeleton, 
 import { memo } from "react"
 
 interface ProductShortCardProps {
-  className?: string,
   product: ProductWithRelationsShort,
+  isAdmin?: boolean,
+  className?: string,
   openProductModal: (products: ProductWithRelationsShort) => void
   onDeleteProduct: (products: ProductWithRelationsShort) => void
 }
 
 export const ProductShortCard = memo(
-  ({ product, className, openProductModal, onDeleteProduct }: ProductShortCardProps) => {
+  ({ product, isAdmin, className, openProductModal, onDeleteProduct }: ProductShortCardProps) => {
     const { title } = product.translations[0]
 
     return (
@@ -26,7 +27,7 @@ export const ProductShortCard = memo(
         <PictureCell url={product.photo} alt={title} />
         <IdentifierCell title={title} serialNumber={product.serialNumber} />
         <StatusCell status={product.status} className="min-w-24 hidden lg:flex" />
-        <ActionsProductCell onDeleteProduct={() => { onDeleteProduct(product) }} isOwner={true} className="hidden lg:flex" />
+        {isAdmin && <ActionsProductCell onDeleteProduct={() => { onDeleteProduct(product) }} isOwner={true} className="hidden lg:flex" />}
       </button>
     )
   }
@@ -34,18 +35,14 @@ export const ProductShortCard = memo(
 
 ProductShortCard.displayName = "ProductShortCard"
 
-interface ProductShortCardSkeletonProps {
-  className?: string
-}
-
-export const ProductShortCardSkeleton = ({ className }: ProductShortCardSkeletonProps) => {
+export const ProductShortCardSkeleton = ({ isAdmin, className }: { isAdmin?: boolean, className?: string, }) => {
   return (
     <div className={cn("border-t w-full", className)}>
       <DotAvailableCellSkeleton />
       <PictureCellSkeleton />
       <IdentifierCellSkeleton />
       <StatusCellSkeleton className="hidden lg:flex" />
-      <ActionsProductCellSkeleton className="hidden lg:flex" />
+      {isAdmin && <ActionsProductCellSkeleton className="hidden lg:flex" />}
     </div>
   )
 }

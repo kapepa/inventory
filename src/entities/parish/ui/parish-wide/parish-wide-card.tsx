@@ -8,12 +8,13 @@ const CELL_GENERAL_STYLE = "flex flex-col items-center"
 
 interface ParishWideCardProps {
   parish: ParishWithRelationsTotals
-  onDeleteParish: (parish: ParishWithRelationsTotals) => void
+  isAdmin?: boolean,
   className?: string
+  onDeleteParish: (parish: ParishWithRelationsTotals) => void
 }
 
 export const ParishWideCard = memo(
-  ({ parish, onDeleteParish, className }: ParishWideCardProps) => {
+  ({ parish, isAdmin, className, onDeleteParish }: ParishWideCardProps) => {
     const t = useTranslations('parish.list.header');
     const { title, description } = parish.translations[0]
 
@@ -27,7 +28,7 @@ export const ParishWideCard = memo(
         <CountCell count={parish._count.products} label={t("count")} className={cn(CELL_GENERAL_STYLE, "md:items-start")} />
         <DateCell created={parish.createdAt} delivery={parish.deliveryDate} label={t("date")} className={CELL_GENERAL_STYLE} />
         <AmountCell sumUAH={parish.totals.uah} sumUSD={parish.totals.usd} label={t("amount")} className={CELL_GENERAL_STYLE} />
-        <ActionsCell isOwner={true} onDeleteParish={() => { onDeleteParish(parish) }} label={t("delete")} className={CELL_GENERAL_STYLE} />
+        {isAdmin && <ActionsCell isOwner={isAdmin} onDeleteParish={() => { onDeleteParish(parish) }} label={t("delete")} className={CELL_GENERAL_STYLE} />}
       </Link>
     )
   }
@@ -35,7 +36,7 @@ export const ParishWideCard = memo(
 
 ParishWideCard.displayName = "ParishWideCard"
 
-export const ParishWideCardSkeleton = memo(({ className }: { className?: string }) => {
+export const ParishWideCardSkeleton = memo(({ isAdmin, className }: { isAdmin?: boolean, className?: string }) => {
 
   return (
     <div className={cn("px-5 py-3 lg:px-6 lg:py-4 gap-2 border rounded-md bg-card border-chart-1", className)}>
@@ -44,7 +45,7 @@ export const ParishWideCardSkeleton = memo(({ className }: { className?: string 
       <CountCellSkeleton />
       <DateCellSkeleton />
       <AmountCellSkeleton />
-      <ActionsCellSkeleton />
+      {isAdmin && <ActionsCellSkeleton />}
     </div>
   )
 }

@@ -17,7 +17,7 @@ interface PageHeaderProps {
 
 export const PageHeader = ({ title, subtitle, count, reverse, children, action, className, storeType }: PageHeaderProps) => {
   return (
-    <div className={cn("flex flex-col pb-3 items-center lg:items-start w-full overflow-hidden", className)}>
+    <div className={cn("flex flex-col pb-3 items-center lg:items-start w-full", className)}>
       <div className={cn(
         "flex items-center w-full",
         reverse && "flex-row-reverse justify-end",

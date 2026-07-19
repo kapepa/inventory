@@ -1,4 +1,4 @@
-import { AlreadyExistsError, axiosInstance } from "@/shared"
+import { AlreadyExistsError, axiosInstance, ForbiddenError } from "@/shared"
 import { CreateCategoryParams } from "../model"
 import axios, { AxiosError } from "axios"
 import { CategoryWithProductCount } from "@/entities"
