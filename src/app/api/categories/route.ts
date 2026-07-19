@@ -2,9 +2,10 @@ import { NextRequest, NextResponse } from 'next/server'
 import { AppLocale, defaultLocale } from '@/shared';
 import { getCategories } from '@/entities/server';
 import { CategoryWithProductCount, CategoryWithTranslations } from '@/entities';
-import { AlreadyExistsError, apiHandler } from '@/shared/server';
+import { AlreadyExistsError, apiHandler, ForbiddenError } from '@/shared/server';
 import { createCategory } from '@/features/server';
 import { ZodError } from 'zod';
+import { AuthenticatedUser } from '@/features';
 
 export const GET = apiHandler(async (request: NextRequest): Promise<NextResponse<CategoryWithTranslations[] | { error: string }>> => {
   try {
@@ -23,8 +24,9 @@ export const GET = apiHandler(async (request: NextRequest): Promise<NextResponse
   }
 })
 
-export const POST = apiHandler(async (request: NextRequest): Promise<NextResponse<CategoryWithProductCount | { error: string }>> => {
+export const POST = apiHandler(async (request: NextRequest, user: AuthenticatedUser): Promise<NextResponse<CategoryWithProductCount | { error: string }>> => {
   try {
+    if (user.role !== "ADMIN") throw new ForbiddenError('Admin access required');
     const body = await request.json();
     const category = await createCategory(body)
 
@@ -35,6 +37,13 @@ export const POST = apiHandler(async (request: NextRequest): Promise<NextRespons
         { error: 'Invalid data format', details: error.format() },
         { status: 400 }
       )
+    }
+
+    if (error instanceof ForbiddenError) {
+      return NextResponse.json(
+        { error: error.message },
+        { status: 403 }
+      );
     }
 
     if (error instanceof AlreadyExistsError) {

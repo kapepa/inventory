@@ -4,7 +4,7 @@ import { deleteFile } from '@/entities/server';
 import { AuthenticatedUser } from '@/features';
 import { createProduct } from '@/features/server';
 import { AppLocale, defaultLocale, locales, PAGINATION_PRODUCTS_DEFAULTS } from '@/shared';
-import { AlreadyExistsError, apiHandler } from '@/shared/server';
+import { AlreadyExistsError, apiHandler, ForbiddenError } from '@/shared/server';
 import { NextRequest, NextResponse } from 'next/server';
 import { ZodError } from 'zod';
 
@@ -37,6 +37,7 @@ export const GET = apiHandler(async (request: NextRequest): Promise<NextResponse
 export const POST = apiHandler(async (request: NextRequest, user: AuthenticatedUser): Promise<NextResponse<ProductWithRelationsShort | { error: string }>> => {
   let photoToCleanup: string | null = null
   try {
+    if (user.role !== "ADMIN") throw new ForbiddenError('Admin access required');
     const body = await request.json();
     photoToCleanup = body.photo;
     body.userId = user?.id
@@ -56,6 +57,13 @@ export const POST = apiHandler(async (request: NextRequest, user: AuthenticatedU
       return NextResponse.json(
         { error: 'Invalid data format', details: error.format() },
         { status: 400 }
+      );
+    }
+
+    if (error instanceof ForbiddenError) {
+      return NextResponse.json(
+        { error: error.message },
+        { status: 403 }
       );
     }
 
