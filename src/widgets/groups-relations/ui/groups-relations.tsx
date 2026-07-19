@@ -1,12 +1,22 @@
 "use client"
 
 import { useParishesStore, fetchProductsShort, ProductShortCard, ProductShortCardSkeleton, ProductsShortBody, ProductsStateMessage, ProductWithRelationsShort, useInfiniteProducts } from "@/entities"
-import { ProductCreateButton, useDeleteProduct, useViewProduct } from "@/features"
+import { ProductCreateButton, useDeleteProduct, useHydratedIsAdmin, useViewProduct } from "@/features"
 import { cn, useActiveParishId, useIntersectionObserver, LoaderSpin } from "@/shared"
 import { useTranslations } from "next-intl"
 import { memo, useCallback, useEffect } from "react"
 
-const CARD_CLASS = "grid gap-x-3 px-5 py-2 grid-cols-[1fr_1fr_6fr] lg:grid-cols-[1fr_1fr_8fr_2fr_1fr]"
+const GROUPS_GRID_BASE = "grid gap-x-3 px-5 py-2";
+
+const GROUPS_GRID_LAYOUT = cn(
+  GROUPS_GRID_BASE,
+  "grid-cols-[1fr_1fr_6fr] lg:grid-cols-[1fr_1fr_8fr_2fr]"
+)
+
+const GROUPS_GRID_LAYOUT_ADMIN = cn(
+  GROUPS_GRID_BASE,
+  "grid-cols-[1fr_1fr_6fr] lg:grid-cols-[1fr_1fr_8fr_2fr_1fr]"
+)
 
 interface GroupsRelationsProps {
   className?: string,
@@ -18,6 +28,7 @@ interface GroupsRelationsProps {
 
 export const GroupsRelations = memo(({ className, initialHasMore, initialProducts, initialParishesId, initialParishTitle }: GroupsRelationsProps) => {
   const t = useTranslations('groups');
+  const isAdmin = useHydratedIsAdmin();
   const { activeParishe } = useParishesStore()
   const storeActiveParisheTitle = activeParishe?.translations[0]?.title
   const [activeParishId, setActiveParishId] = useActiveParishId(initialParishesId);
@@ -61,11 +72,13 @@ export const GroupsRelations = memo(({ className, initialHasMore, initialProduct
     </ProductsStateMessage>
   )
 
+  const GROUPS_LAYOUT = isAdmin ? GROUPS_GRID_LAYOUT_ADMIN : GROUPS_GRID_LAYOUT
+
   return (
     <div className={cn("flex flex-col h-full min-h-0", className)}>
       <ProductsShortBody
         title={activeParishTitle}
-        actions={<ProductCreateButton parishId={activeParishId} onSuccessAction={addProduct} />}
+        actions={isAdmin ? <ProductCreateButton parishId={activeParishId} onSuccessAction={addProduct} /> : null}
         onCloseActions={() => { setActiveParishId(""); clearProducts(); }}
       >
         <div className="flex flex-col">
@@ -74,7 +87,8 @@ export const GroupsRelations = memo(({ className, initialHasMore, initialProduct
               <ProductShortCard
                 key={product.id}
                 product={product}
-                className={CARD_CLASS}
+                isAdmin={isAdmin}
+                className={GROUPS_LAYOUT}
                 openProductModal={openProductModal}
                 onDeleteProduct={handlerDeleteProduct}
               />
@@ -82,7 +96,7 @@ export const GroupsRelations = memo(({ className, initialHasMore, initialProduct
           }
           {(hasMore || isLoading) && (
             <div ref={targetRef} className="w-full h-16 flex items-center justify-center">
-              {isLoading && <ProductShortCardSkeleton className={CARD_CLASS} />}
+              {isLoading && <ProductShortCardSkeleton isAdmin={isAdmin} className={GROUPS_LAYOUT} />}
             </div>
           )}
         </div>

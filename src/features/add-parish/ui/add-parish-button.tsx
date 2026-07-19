@@ -4,12 +4,16 @@ import { CirclePlusButton, cn, Tooltip, TooltipContent, TooltipText, TooltipTrig
 import { useTranslations } from "next-intl"
 import { memo } from "react"
 import { useAddParish } from "../model"
+import { useHydratedIsAdmin } from "@/features/auth"
 
 interface AddParishButtonProps {
   className?: string
 }
 
 export const AddParishButton = memo(({ className }: AddParishButtonProps) => {
+  const isAdmin = useHydratedIsAdmin()
+  if (!isAdmin) return null;
+
   const t = useTranslations('add-parish');
   const { openAddParishModal } = useAddParish();
 

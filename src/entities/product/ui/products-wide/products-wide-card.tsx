@@ -7,13 +7,14 @@ import { ActionsProductCell, ActionsProductCellSkeleton, ConditionCell, Conditio
 import { useTranslations } from "next-intl"
 
 interface ProductsWideCardProps {
-  className?: string
   product: ProductWithRelationsWide
+  isAdmin?: boolean
+  className?: string
   openProductModal: (products: ProductWithRelationsWide) => void
   onDeleteProduct: (products: ProductWithRelationsWide) => void
 }
 
-export const ProductsWideCard = memo(({ product, className, onDeleteProduct, openProductModal }: ProductsWideCardProps) => {
+export const ProductsWideCard = memo(({ product, isAdmin, className, onDeleteProduct, openProductModal }: ProductsWideCardProps) => {
   const { title } = product.translations[0];
   const { USD, UAH } = getProductPrimaryPrice(product.prices)
   const t = useTranslations('products.products-wide');
@@ -35,14 +36,14 @@ export const ProductsWideCard = memo(({ product, className, onDeleteProduct, ope
       <RentalCell startDate={product.rental?.startDate} endDate={product.rental?.endDate} label={t("rental")} />
       <ConditionCell condition={product.isNew} label={t("condition")} />
       <DualCurrencyPrice sumUSD={USD} sumUAH={UAH} label={t("price")} />
-      <ActionsProductCell onDeleteProduct={() => { onDeleteProduct(product) }} isOwner={true} label={t("actions")} />
+      {isAdmin && <ActionsProductCell onDeleteProduct={() => { onDeleteProduct(product) }} isOwner={true} label={t("actions")} />}
     </button>
   )
 })
 
 ProductsWideCard.displayName = "ProductsWideCard"
 
-export const ProductsWideCardSkeleton = memo(({ className }: { className?: string }) => {
+export const ProductsWideCardSkeleton = memo(({ isAdmin, className }: { isAdmin?: boolean, className?: string }) => {
   return (
     <div
       className={cn(
@@ -57,7 +58,7 @@ export const ProductsWideCardSkeleton = memo(({ className }: { className?: strin
       <RentalCellSkeleton />
       <ConditionCellSkeleton />
       <DualCurrencyPriceSkeleton />
-      <ActionsProductCellSkeleton />
+      {isAdmin && <ActionsProductCellSkeleton />}
     </div>
   )
 })
