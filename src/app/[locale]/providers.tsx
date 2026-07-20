@@ -1,7 +1,7 @@
 'use client';
 
 import { AuthenticatedUser, AuthProvider } from '@/features';
-import { TooltipProvider, ModalProvider, QueryParamProvider } from '@/shared';
+import { TooltipProvider, ModalProvider, QueryParamProvider, WebSocketProvider } from '@/shared';
 import { NextIntlClientProvider, AbstractIntlMessages } from 'next-intl';
 import { ReactNode, useMemo } from 'react';
 
@@ -18,7 +18,9 @@ export function Providers({ children, locale, messages, initialUser }: Providers
       <ModalProvider>
         <TooltipProvider>
           <AuthProvider initialUser={initialUser}>
-            {children}
+            <WebSocketProvider>
+              {children}
+            </WebSocketProvider>
           </AuthProvider>
         </TooltipProvider>
       </ModalProvider>
