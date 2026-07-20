@@ -11,3 +11,4 @@ export * from "./verify-email";
 export * from "./change-password";
 export * from "./upload-avatar";
 export * from "./change-user-role";
+export * from "./websocket"

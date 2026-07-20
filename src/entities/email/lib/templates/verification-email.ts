@@ -49,7 +49,7 @@ export const verificationEmailTemplate = async ({ name, code, expiresIn, verific
             <p style="text-align: center;">
               <a href="${verificationLink}" class="button">${t("confirm-button")}</a>
             </p>
-            <p>${t("code-label")}<strong>${code}</strong></p>
+            <p>${t("code-label")} <strong>${code}</strong></p>
             <p>${t("manual-link")}</p>
             <p style="word-break: break-all; color: #4CAF50;">${verificationLink}</p>
             <p><strong>${t("expires-in", { time: expiresIn })}</strong></p>

@@ -8,7 +8,7 @@ type SendVerificationEmailOutput = { verificationLink: string }
 
 export async function sendVerificationEmail({ email, name, code, token, locale }: SendVerificationEmailInput): Promise<SendVerificationEmailOutput> {
   const t = await getTranslations({ locale, namespace: 'email.send-verification-email' });
-  const verificationLink = `${process.env.APP_URL}${ROUTES.VERIFY}?${QUERY_PARAMS_KEYS.VERIFY_TOKEN}=${token}`;
+  const verificationLink = `${process.env.NEXT_PUBLIC_APP_URL}${ROUTES.VERIFY}?${QUERY_PARAMS_KEYS.VERIFY_TOKEN}=${token}`;
 
   const html = await verificationEmailTemplate({
     name,

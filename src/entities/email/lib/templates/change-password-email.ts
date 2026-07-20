@@ -58,7 +58,7 @@ export const changePasswordEmailTemplate = async ({ name, locale }: ChangePasswo
           <p>${t("success-message")}</p>
           <p>${t("access-message")}</p>
           <p style="text-align: center;">
-            <a href="${process.env.APP_URL}" class="button">${t("go-to-app")}</a>
+            <a href="${process.env.NEXT_PUBLIC_APP_URL}" class="button">${t("go-to-app")}</a>
           </p>
           <p style="color: #888; font-size: 14px;">${t("security-note")}</p>
         </div>
