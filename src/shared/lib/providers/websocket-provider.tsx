@@ -1,8 +1,7 @@
 'use client';
 
-import { useWebSocket } from '@/features/websocket';
-import { UserStatusData, SOCKET_EVENTS } from '@/shared';
-import { useAuthStore } from '@/features/auth';
+import { useOnlineUserstStore, useWebSocket, useAuthStore } from '@/features';
+import { SOCKET_EVENTS, UserStatusData } from '@/shared';
 import { useEffect, createContext, useContext, ReactNode } from 'react';
 
 interface WebSocketContextValue {
@@ -23,6 +22,7 @@ interface WebSocketProviderProps {
 
 export function WebSocketProvider({ children }: WebSocketProviderProps) {
   const { user, isAuthenticated } = useAuthStore();
+  const { addOnlineUser, setOnlineUsers, removeOnlineUser } = useOnlineUserstStore()
   const { isConnected, subscribe, emit } = useWebSocket({
     autoConnect: true,
     userId: user?.id,
@@ -40,9 +40,8 @@ export function WebSocketProvider({ children }: WebSocketProviderProps) {
 
     const unsubscribe = subscribe<string[]>(
       SOCKET_EVENTS.USER.ONLINE_USERS_LIST,
-      (userIds) => {
-        console.log('[WebSocket] Initial online users list:', userIds);
-        // TODO: update global store with initial online users
+      (userIds: string[]) => {
+        setOnlineUsers(userIds)
       }
     );
 
@@ -55,9 +54,9 @@ export function WebSocketProvider({ children }: WebSocketProviderProps) {
 
     const unsubscribe = subscribe<UserStatusData>(
       SOCKET_EVENTS.USER.STATUS,
-      (data) => {
-        console.log('[WebSocket] User status update:', data);
-        // Here you can refresh the global store with the list of online users
+      ({ userId, status }: UserStatusData) => {
+        if (status === "online") addOnlineUser(userId)
+        if (status === "offline") removeOnlineUser(userId)
       }
     );
 

@@ -1,8 +1,9 @@
 import { deleteFile } from '@/entities/server';
 import { AuthenticatedUser, UploadAvatarType } from '@/features';
 import { uploadAvatar } from '@/features/server';
-import { apiHandler, ForbiddenError } from '@/shared/server';
+import { ForbiddenError } from '@/shared/server';
 import { NextRequest, NextResponse } from 'next/server';
+import { apiHandler } from '@/app/api/_middleware';
 import { ZodError } from 'zod';
 
 export const PATCH = apiHandler(

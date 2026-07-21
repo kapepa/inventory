@@ -1,8 +1,8 @@
 import { ResponseProductsWideDTO } from "@/entities";
 import { getFilteredProductsWide } from "@/entities/server";
 import { AppLocale, defaultLocale, locales, PAGINATION_PRODUCTS_DEFAULTS } from "@/shared";
-import { apiHandler } from "@/shared/server";
 import { NextRequest, NextResponse } from "next/server";
+import { apiHandler } from '@/app/api/_middleware';
 
 export const GET = apiHandler(async (request: NextRequest): Promise<NextResponse<ResponseProductsWideDTO | { error: string }>> => {
   try {

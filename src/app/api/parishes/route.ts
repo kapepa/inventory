@@ -3,8 +3,9 @@ import { getParishes } from '@/entities/server';
 import { AuthenticatedUser } from '@/features';
 import { createParish } from '@/features/server';
 import { AppLocale, PAGINATION_PARISHES_DEFAULTS, defaultLocale, locales } from '@/shared';
-import { AlreadyExistsError, apiHandler, ForbiddenError } from '@/shared/server';
+import { AlreadyExistsError, ForbiddenError } from '@/shared/server';
 import { NextRequest, NextResponse } from 'next/server';
+import { apiHandler } from '@/app/api/_middleware';
 import { ZodError } from 'zod';
 
 export const GET = apiHandler(async (request: NextRequest): Promise<NextResponse<ResponseParishesDTO | { error: string }>> => {

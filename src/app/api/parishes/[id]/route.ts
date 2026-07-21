@@ -1,9 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { apiHandler } from '@/shared/lib/middleware';
 import { deleteParish } from '@/features/server';
 import { AuthenticatedUser } from '@/features';
 import { getParishById } from '@/entities/server';
 import { ForbiddenError, HasDependenciesError, NotFoundError } from '@/shared/server';
+import { apiHandler } from '@/app/api/_middleware';
 
 export const DELETE = apiHandler(
   async (_: NextRequest, user: AuthenticatedUser, { params }: { params: Promise<{ id: string }> }): Promise<NextResponse<{ success: boolean } | { error: string }>> => {

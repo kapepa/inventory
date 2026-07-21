@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { translate as translateGoogle } from "@vitalets/google-translate-api";
 import translate from "translate";
 import { AppLocale } from '@/shared';
-import { apiHandler } from '@/shared/server';
+import { apiHandler } from '@/app/api/_middleware';
 
 const translationCache = new Map<string, { text: string; timestamp: number }>();
 const CACHE_TTL = 60 * 60 * 1000;

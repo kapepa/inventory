@@ -2,8 +2,8 @@ import { NextRequest, NextResponse } from 'next/server'
 import { AppLocale, defaultLocale, locales, PAGINATION_PRODUCTS_DEFAULTS } from '@/shared';
 import { getFilteredProductsWide } from '@/entities/server';
 import { ResponseProductsWideDTO } from '@/entities';
-import { apiHandler } from '@/shared/server';
 import { AuthenticatedUser } from '@/features';
+import { apiHandler } from '@/app/api/_middleware';
 
 export const GET = apiHandler(async (
   request: NextRequest,

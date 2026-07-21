@@ -1,8 +1,8 @@
 import { ResponseParishesTotalsDTO } from '@/entities';
 import { getParishesTotals } from '@/entities/server';
 import { AppLocale, PAGINATION_PARISHES_DEFAULTS, defaultLocale, locales } from '@/shared';
-import { apiHandler } from '@/shared/server';
 import { NextRequest, NextResponse } from 'next/server';
+import { apiHandler } from '@/app/api/_middleware';
 
 export const GET = apiHandler(async (request: NextRequest): Promise<NextResponse<ResponseParishesTotalsDTO | { error: string }>> => {
   try {
