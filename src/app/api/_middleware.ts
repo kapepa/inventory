@@ -1,14 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { authorizeRequest } from '@/features/server';
-import { AuthenticatedUser } from '@/features';
-import { getAuthToken, verifyToken } from './auth';
+import { authorizeRequest, AuthenticatedUser } from '@/features/server';
+import { getAuthToken, verifyToken } from '@/shared/server';
 
 type Handler = (req: NextRequest, user: AuthenticatedUser, context?: any) => Promise<NextResponse>;
 
 export const apiHandler = (handler: Handler) => {
   return async (req: NextRequest, context?: any) => {
     try {
-      // Retrieve the token from the cookies
+      //Retrieve the token from the cookies
       const token = getAuthToken(req);
 
       if (!token) {

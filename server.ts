@@ -3,10 +3,8 @@ import { createServer, IncomingMessage, ServerResponse } from 'http';
 import { parse as parseUrl } from 'url';
 import next from 'next';
 import { Server, Socket } from 'socket.io';
-import { handleConnection } from './src/features/websocket/model/connection-handler';
-import { verifyToken } from './src/shared/lib/auth/jwt';
-import { COOKIE_KEYS } from "./src/shared/constants/cookies"
-import { parseCookies } from "./src/shared/lib/parse-cookies"
+import { handleConnection } from '@/features/websocket/server';
+import { COOKIE_KEYS, parseCookies, verifyToken } from '@/shared/server';
 
 const dev = process.env.NODE_ENV !== 'production';
 const hostname = 'localhost';
@@ -46,15 +44,12 @@ app.prepare().then(() => {
       return;
     }
 
-
     const payload = await verifyToken(jwtToken);
     if (!payload) {
       console.log('Invalid JWT token:', socket.id);
       socket.disconnect();
       return;
     }
-
-    // console.log('Authenticated user:', payload.userId, 'socket:', socket.id);
 
     handleConnection(io, socket, payload.userId);
   });

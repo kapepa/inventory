@@ -3,7 +3,7 @@ import { getFilteredUsers } from '@/entities/server';
 import { AuthenticatedUser } from '@/features';
 import { deleteAccount } from '@/features/server';
 import { PAGINATION_PRODUCTS_DEFAULTS, removeAuthCookie } from '@/shared';
-import { apiHandler } from '@/shared/server';
+import { apiHandler } from '@/app/api/_middleware';
 import { NextRequest, NextResponse } from 'next/server';
 
 export const GET = apiHandler(async (request: NextRequest): Promise<NextResponse<ResponseUsersDTO | { error: string }>> => {

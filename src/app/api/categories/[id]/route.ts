@@ -1,9 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { apiHandler } from '@/shared/lib/middleware';
 import { deleteCategory } from '@/features/server';
 import { AuthenticatedUser } from '@/features';
 import { getCategoryhById } from '@/entities/server';
 import { ForbiddenError, HasDependenciesError, NotFoundError } from '@/shared/server';
+import { apiHandler } from '@/app/api/_middleware';
 
 export const DELETE = apiHandler(async (_: NextRequest, user: AuthenticatedUser, { params }: { params: Promise<{ id: string }> }) => {
   const { id } = await params;

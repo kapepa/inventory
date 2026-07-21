@@ -1,8 +1,9 @@
 import { getProductById, deleteFile } from "@/entities/server";
 import { DeleteProductResult, AuthenticatedUser } from "@/features";
 import { deleteProduct } from "@/features/server";
-import { apiHandler, ForbiddenError, NotFoundError } from "@/shared/server";
+import { ForbiddenError, NotFoundError } from "@/shared/server";
 import { NextRequest, NextResponse } from "next/server";
+import { apiHandler } from '@/app/api/_middleware';
 
 export const DELETE = apiHandler(
   async (_: NextRequest, user: AuthenticatedUser, { params }: { params: Promise<{ id: string }> }): Promise<NextResponse<DeleteProductResult | { error: string }>> => {

@@ -1,7 +1,8 @@
 import { changePasswordService } from '@/features/server';
 import { AuthenticatedUser, ChangePasswordDTO, ChangePasswordType } from '@/features';
-import { apiHandler, EmailSendError, InvalidCredentialsError, InvalidInputError, NotFoundError } from '@/shared/server';
+import { EmailSendError, InvalidCredentialsError, InvalidInputError, NotFoundError } from '@/shared/server';
 import { NextRequest, NextResponse } from 'next/server';
+import { apiHandler } from '@/app/api/_middleware';
 import { ZodError } from 'zod';
 import { AppLocale, defaultLocale } from '@/shared';
 import { sendChangePasswordEmail } from '@/entities/server';

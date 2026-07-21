@@ -3,14 +3,10 @@ const onlineUsers = new Map<string, string>();
 export const OnlineUsersService = {
   add(userId: string, socketId: string): void {
     onlineUsers.set(userId, socketId);
-    console.log('[OnlineUsers] User added:', userId, 'Total online:', onlineUsers.size);
   },
 
   remove(userId: string): boolean {
     const removed = onlineUsers.delete(userId);
-    if (removed) {
-      console.log('[OnlineUsers] User removed:', userId, 'Total online:', onlineUsers.size);
-    }
     return removed;
   },
 
