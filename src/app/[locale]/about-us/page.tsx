@@ -1,6 +1,6 @@
 import { getProductStatusCounts } from "@/entities/server";
 import { Container, AppLocale, BackButton, ScrollArea } from "@/shared";
-import { CategoryChart, PageHeader, WarehouseMapDynamic } from "@/widgets";
+import { CategoryChartDynamic, PageHeader, WarehouseMapDynamic } from "@/widgets";
 import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 
@@ -41,7 +41,7 @@ export default async function AboutUs({
             {t("header-description")}
           </p>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
-            <CategoryChart statusCounts={statusCounts} className="h-full" />
+            <CategoryChartDynamic statusCounts={statusCounts} className="h-full" />
             <WarehouseMapDynamic />
           </div>
         </div>
