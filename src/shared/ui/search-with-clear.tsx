@@ -3,17 +3,18 @@
 import { Eraser } from "lucide-react"
 import { Button } from "./button"
 import { Input } from "./input"
-import { cn } from "../lib"
+import { cn, useMounted } from "../lib"
 import { InputHTMLAttributes } from "react"
 
 interface SearchWithClearProps extends InputHTMLAttributes<HTMLInputElement> {
-  isClient: boolean,
   className?: string
   containerClassName?: string
   clearInputAction: () => void
 }
 
-export const SearchWithClear = ({ maxLength = 100, value, clearInputAction, className, containerClassName, isClient, ...props }: SearchWithClearProps) => {
+export const SearchWithClear = ({ maxLength = 100, value, clearInputAction, className, containerClassName, ...props }: SearchWithClearProps) => {
+  const mounterd = useMounted()
+
   return (
     <div className={cn("relative", containerClassName)}>
       <Input
@@ -26,7 +27,7 @@ export const SearchWithClear = ({ maxLength = 100, value, clearInputAction, clas
         variant="link"
         className="cursor-pointer absolute top-0 right-0 bottom-0 h-full"
         onClick={clearInputAction}
-        disabled={!isClient || !value}
+        disabled={!mounterd || !value}
       >
         <Eraser className="text-accent size-7" aria-label="clear" />
       </Button>
