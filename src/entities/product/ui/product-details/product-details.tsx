@@ -1,4 +1,4 @@
-import { ProductWithRelationsWide, ProductWithRelationsShort, hasCategory, hasRental, hasUser } from "../../model";
+import { ProductWithRelationsWide, ProductWithRelationsShort, hasCategory, hasRental, hasUser, hasParish } from "../../model";
 import { ProductInfoList } from "./product-info-list";
 import { ProductPricing } from "./product-pricing";
 import { ProductHeader } from "./product-header";
@@ -15,6 +15,7 @@ export const ProductDetails = ({ product }: ProductDetailsProps) => {
   const { title, specification } = product.translations[0];
   const { UAH, USD } = getProductPrimaryPrice(product.prices)
   const category = hasCategory(product) ? product.category.translations[0].title : null
+  const parish = hasParish(product) ? product.parish.translations[0].title : null
   const rental = hasRental(product) ? product.rental : null
   const user = hasUser(product) ? product.user : null
 
@@ -35,6 +36,7 @@ export const ProductDetails = ({ product }: ProductDetailsProps) => {
             serialNumber={product.serialNumber}
             status={product.status}
             category={category}
+            parish={parish}
             className="space-y-2 mb-2"
           />
           {rental && <ProductRental className="mb-2" rental={{ endDate: rental.endDate, startDate: rental.startDate }} />}

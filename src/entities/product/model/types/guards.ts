@@ -1,5 +1,11 @@
 import { ProductWithRelationsShort, ProductWithRelationsWide } from "./types";
 
+export const hasParish = (
+  product: ProductWithRelationsShort | ProductWithRelationsWide
+): product is ProductWithRelationsWide & { parish: NonNullable<ProductWithRelationsWide['parish']> } => {
+  return 'parish' in product && product.parish != null;
+};
+
 export const hasCategory = (
   product: ProductWithRelationsShort | ProductWithRelationsWide
 ): product is ProductWithRelationsWide & { category: NonNullable<ProductWithRelationsWide['category']> } => {

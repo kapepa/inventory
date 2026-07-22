@@ -23,6 +23,7 @@
     "status": "Статус",
     "condition": "Cостояние",
     "category": "Категория",
+    "parish": "Приход",
     "rental": "Аренда",
     "author": "Автор"
   },
