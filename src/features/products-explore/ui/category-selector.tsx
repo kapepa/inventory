@@ -1,7 +1,7 @@
 "use client"
 
 import { CategoryWithTranslations } from "@/entities"
-import { cn, QUERY_PARAMS_KEYS, Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue, useSearchParam } from "@/shared"
+import { cn, QUERY_PARAMS_KEYS, Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue, useMounted, useSearchParam } from "@/shared"
 import { useTranslations } from "next-intl"
 import { memo } from "react"
 
@@ -13,7 +13,8 @@ interface CategorySelectorProps {
 
 export const CategorySelector = memo(({ label, initialCategories, className }: CategorySelectorProps) => {
   const t = useTranslations('products-explore');
-  const { inputValue, setInputValue, isClient, clearInput } = useSearchParam({
+  const mounted = useMounted();
+  const { inputValue, setInputValue, clearInput } = useSearchParam({
     queryKey: QUERY_PARAMS_KEYS.CATEGORY,
     debounceMs: 1000,
   });
@@ -24,7 +25,7 @@ export const CategorySelector = memo(({ label, initialCategories, className }: C
         {label}:
       </label>
       <Select
-        value={isClient ? inputValue : ""}
+        value={mounted ? inputValue : ""}
         onValueChange={(value) => {
           if (value === "all") return clearInput();
           setInputValue(value)

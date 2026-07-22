@@ -2,8 +2,9 @@
 
 import { useCallback } from 'react';
 import { useQueryParamActions, useQueryParamValue } from '../providers/query-param-provider';
+import { QueryParamsValue } from '@/shared/types';
 
-export const useQueryParam = (key: string) => {
+export const useQueryParam = (key: QueryParamsValue) => {
   const { queryParams } = useQueryParamValue();
   const { setQueryParam } = useQueryParamActions();
 

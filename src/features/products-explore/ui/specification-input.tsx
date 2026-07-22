@@ -11,7 +11,7 @@ interface SpecificationInputProps {
 
 export const SpecificationInput = memo(({ label, className }: SpecificationInputProps) => {
   const t = useTranslations('products-explore.placeholder');
-  const { inputValue, setInputValue, isClient, clearInput } = useSearchParam({
+  const { inputValue, setInputValue, clearInput } = useSearchParam({
     queryKey: QUERY_PARAMS_KEYS.SPECIFICATION,
     debounceMs: 1000,
   });
@@ -29,7 +29,6 @@ export const SpecificationInput = memo(({ label, className }: SpecificationInput
         onChange={(e) => setInputValue(e.target.value)}
         value={inputValue}
         clearInputAction={clearInput}
-        isClient={isClient}
         name={QUERY_PARAMS_KEYS.SPECIFICATION}
         className="bg-background border-chart-1  placeholder:font-normal"
         containerClassName="w-full max-w-80"

@@ -3,9 +3,10 @@
 import { useCallback, useEffect, useRef } from 'react';
 import { useModalState } from '@/shared/ui/modal/modal-context';
 import { useQueryParamActions, useQueryParamValue } from '../providers/query-param-provider';
+import { QueryParamsValue } from '@/shared/types';
 
 interface UseModalQueryOptions {
-  modalName: string;
+  modalName: QueryParamsValue;
   onOpen?: (close: () => void) => void;
   onClose?: () => void;
 }

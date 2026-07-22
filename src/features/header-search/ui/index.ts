@@ -1,4 +1,4 @@
-export * from "./parishes-search"
-export * from "./products-search"
-export * from "./categories-search"
-export * from "./users-search"
+export { ParishesSearch } from "./parishes-search"
+export { ProductsSearch } from "./products-search"
+export { CategoriesSearch } from "./categories-search"
+export { UsersSearch } from "./users-search"
