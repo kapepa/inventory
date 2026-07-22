@@ -8,4 +8,4 @@ export type {
 } from "./types"
 export type { FetchProductsParams } from "./api-params"
 export type { ResponseProductsWideDTO, ResponseProductsShortDTO } from "./dto"
-export { hasCategory, hasRental, hasUser } from "./guards"
+export { hasCategory, hasRental, hasUser, hasParish } from "./guards"

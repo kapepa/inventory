@@ -99,6 +99,11 @@ export const GroupsRelations = memo(({ className, initialHasMore, initialProduct
               {isLoading && <ProductShortCardSkeleton isAdmin={isAdmin} className={GROUPS_LAYOUT} />}
             </div>
           )}
+          {(!hasMore || !products.length) && (
+            <div className="w-full h-16 flex items-center justify-center">
+              <span className="text-sm text-muted-foreground font-semibold">{t("groups-relations.products.not-found")}</span>
+            </div>
+          )}
         </div>
       </ProductsShortBody>
     </div>

@@ -53,6 +53,14 @@ export async function getFilteredProductsWide(params: FetchProducts): Promise<Re
           prices: {
             select: { value: true, symbol: true }
           },
+          parish: {
+            select: {
+              translations: {
+                where: { locale },
+                select: { title: true }
+              }
+            }
+          },
           category: {
             select: {
               id: true,

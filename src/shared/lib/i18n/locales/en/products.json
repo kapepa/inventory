@@ -23,6 +23,7 @@
     "status": "Status",
     "condition": "Condition",
     "category": "Сategory",
+    "parish": "Parish",
     "rental": "Rental",
     "author": "Author"
   },

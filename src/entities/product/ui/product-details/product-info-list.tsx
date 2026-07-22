@@ -12,20 +12,22 @@ interface ProductInfoListProps {
   status: ProductStatus,
   isNew: boolean
   category?: string | null
+  parish?: string | null
 }
 
 export const ProductInfoList = memo(
-  ({ serialNumber, order, status, isNew, className, category }: ProductInfoListProps) => {
+  ({ serialNumber, order, status, isNew, className, category, parish }: ProductInfoListProps) => {
     const t = useTranslations('products.product-details')
+    console.log()
 
     return (
       <div className={cn("", className)}>
-        <div className="flex justify-between text-sm flex-col sm:flex-row items-center">
+        <div className="flex justify-between text-sm flex-col sm:flex-row">
           <span className="text-chart-2">{t("serial-number")}</span>
           <DotsDivider className="border-chart-2 hidden sm:block" />
           <span className="font-semibold px-3 break-all">{serialNumber}</span>
         </div>
-        <div className="flex justify-between text-sm flex-col sm:flex-row items-center">
+        <div className="flex justify-between text-sm flex-col sm:flex-row">
           <span className="text-chart-2 ">{t("order")}</span>
           <DotsDivider className="border-chart-2 hidden sm:block" />
           <span className="font-semibold px-3 break-all">{order}</span>
@@ -44,6 +46,11 @@ export const ProductInfoList = memo(
           <span className="text-chart-2">{t("category")}</span>
           <DotsDivider className="border-chart-2" />
           <span className="font-semibold px-3 ">{category}</span>
+        </div>}
+        {parish && <div className="flex justify-between text-sm">
+          <span className="text-chart-2">{t("parish")}</span>
+          <DotsDivider className="border-chart-2" />
+          <span className="font-semibold px-3 ">{parish}</span>
         </div>}
       </div>
     )

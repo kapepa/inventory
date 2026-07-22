@@ -13,6 +13,7 @@
     "parishes-not-selected": "Приход не выбран",
     "parishes-error": "Произошла ошибка",
     "products": {
+      "not-found": "Товары не найдены",
       "status": {
         "status-free": "Свободный",
         "status-busy": "Занятый",

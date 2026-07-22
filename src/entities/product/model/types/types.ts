@@ -1,5 +1,5 @@
 import { AppLocale } from "@/shared";
-import { Category, CategoryTranslation, Price, Product, ProductStatus, ProductTranslation, Rental, User } from "@prisma/client";
+import { Category, CategoryTranslation, Parish, ParishTranslation, Price, Product, ProductStatus, ProductTranslation, Rental, User } from "@prisma/client";
 
 export interface FetchProducts {
   specification?: string,
@@ -17,6 +17,7 @@ export interface ProductWithRelationsShort extends Product {
 }
 
 export interface ProductWithRelationsWide extends ProductWithRelationsShort {
+  parish: Pick<Parish & { translations: Pick<ParishTranslation, "title">[] }, "translations"> | null
   category: Pick<Category & { translations: Pick<CategoryTranslation, "title">[] }, "id" | "translations"> | null
   user: Pick<User, "id" | "name"> | null
   rental: Pick<Rental, "startDate" | "endDate"> | null
