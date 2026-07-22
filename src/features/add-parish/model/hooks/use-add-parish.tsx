@@ -2,7 +2,7 @@
 
 import { useModalActions, useModalQuery, QUERY_PARAMS_KEYS } from "@/shared";
 import { useCallback } from "react";
-import { AddParishModal } from "../../ui";
+import { AddParishModalDynamic } from "../../ui";
 
 export const useAddParish = () => {
   const { openModal, closeModal } = useModalActions();
@@ -10,7 +10,7 @@ export const useAddParish = () => {
   const { open } = useModalQuery({
     modalName: QUERY_PARAMS_KEYS.ADD_PARISH,
     onOpen: useCallback((closeQueryModal: () => void) => {
-      openModal(<AddParishModal onCancelAction={closeQueryModal} />);
+      openModal(<AddParishModalDynamic onCancelAction={closeQueryModal} />);
     }, [openModal]),
     onClose: closeModal,
   });

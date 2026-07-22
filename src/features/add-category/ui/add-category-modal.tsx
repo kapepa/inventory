@@ -15,3 +15,5 @@ export const AddCategoryModal = ({ onCancelAction }: AddCategoryModalProps) => {
     </ModalContents>
   )
 }
+
+AddCategoryModal.displayName = "AddCategoryModal"

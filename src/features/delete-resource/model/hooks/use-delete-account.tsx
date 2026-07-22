@@ -4,9 +4,9 @@ import { ForbiddenError, ROUTES, useModalActions, useRouter, useUnmountCallback 
 import { useTranslations } from "next-intl";
 import { useCallback, useTransition } from "react";
 import { toast } from "sonner";
-import { DeleteConfirmModal } from "../../ui";
 import { AuthenticatedUser, useAuthStore } from "@/features/auth";
 import { requestDeleteAccount } from "../../api";
+import { DeleteConfirmModalDynamic } from "../../ui";
 
 interface DeleteUserModalWrapperProps {
   user: AuthenticatedUser;
@@ -45,7 +45,7 @@ const DeleteUserModalWrapper = ({
   };
 
   return (
-    <DeleteConfirmModal
+    <DeleteConfirmModalDynamic
       title={t("title", { name: user.name })}
       isLoading={isPending}
       onConfirmAction={handleConfirm}

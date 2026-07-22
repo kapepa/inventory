@@ -2,7 +2,7 @@
 
 import { useModalActions, useModalQuery, QUERY_PARAMS_KEYS } from "@/shared";
 import { useCallback } from "react";
-import { AddCategoryModal } from "../../ui/add-category-modal";
+import { AddCategoryModalDynamic } from "../../ui";
 
 export const useAddCategory = () => {
   const { openModal, closeModal } = useModalActions();
@@ -10,7 +10,7 @@ export const useAddCategory = () => {
   const { open } = useModalQuery({
     modalName: QUERY_PARAMS_KEYS.ADD_CATEGORY,
     onOpen: useCallback((closeQueryModal: () => void) => {
-      openModal(<AddCategoryModal onCancelAction={closeQueryModal} />);
+      openModal(<AddCategoryModalDynamic onCancelAction={closeQueryModal} />);
     }, [openModal]),
     onClose: closeModal,
   });

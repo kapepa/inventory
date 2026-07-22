@@ -4,9 +4,9 @@ import { ForbiddenError, NotFoundError, useModalActions } from "@/shared";
 import { useTranslations } from "next-intl";
 import { useCallback, useTransition } from "react";
 import { toast } from "sonner";
-import { DeleteConfirmModal } from "../../ui";
 import { requestDeleteProduct } from "../../api";
 import { ProductWithRelations } from "@/entities";
+import { DeleteConfirmModalDynamic } from "../../ui";
 
 interface DeleteProductModalWrapperProps {
   title: string;
@@ -47,7 +47,7 @@ const DeleteProductModalWrapper = ({
   };
 
   return (
-    <DeleteConfirmModal
+    <DeleteConfirmModalDynamic
       title={title}
       isLoading={isPending}
       onConfirmAction={handleConfirm}

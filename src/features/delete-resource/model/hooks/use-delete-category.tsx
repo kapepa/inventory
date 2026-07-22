@@ -4,9 +4,9 @@ import { ForbiddenError, HasDependenciesError, NotFoundError, useModalActions } 
 import { useTranslations } from "next-intl";
 import { useCallback, useTransition } from "react";
 import { toast } from "sonner";
-import { DeleteConfirmModal } from "../../ui";
 import { requestDeleteCategory } from "../../api";
 import { CategoryWithProductCount } from "@/entities";
+import { DeleteConfirmModalDynamic } from "../../ui";
 
 interface DeleteCategoryModalWrapperProps {
   title: string;
@@ -49,7 +49,7 @@ const DeleteCategoryModalWrapper = ({
   };
 
   return (
-    <DeleteConfirmModal
+    <DeleteConfirmModalDynamic
       title={title}
       isLoading={isPending}
       onConfirmAction={handleConfirm}

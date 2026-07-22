@@ -2,11 +2,11 @@
 
 import { ForbiddenError, HasDependenciesError, NotFoundError, useModalActions } from "@/shared";
 import { ParishesType } from "@/entities";
-import { DeleteConfirmModal } from "../../ui/delete-confirm-modal";
 import { toast } from "sonner";
 import { useTranslations } from "next-intl";
 import { useCallback, useTransition } from "react";
 import { requestDeleteParish } from "../../api";
+import { DeleteConfirmModalDynamic } from "../../ui";
 
 interface DeleteParishModalWrapperProps {
   title: string;
@@ -49,7 +49,7 @@ const DeleteParishModalWrapper = ({
   };
 
   return (
-    <DeleteConfirmModal
+    <DeleteConfirmModalDynamic
       title={title}
       isLoading={isPending}
       onConfirmAction={handleConfirm}
