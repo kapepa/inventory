@@ -3,7 +3,7 @@ import { getFilteredProductsShort } from "@/entities/server";
 import { AddParishButton } from "@/features";
 import { Container, AppLocale, PAGINATION_PARISHES_DEFAULTS, QUERY_PARAMS_KEYS, PAGINATION_PRODUCTS_DEFAULTS } from "@/shared";
 import { GroupsList, PageHeader } from "@/widgets";
-import { GroupsRelations, WrapperSheetGroupsRelations } from "@/widgets/groups-relations";
+import { GroupsRelations, SheetGroupsRelationsDynamic } from "@/widgets/groups-relations";
 import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 
@@ -80,7 +80,7 @@ export default async function Groups({
             />
           </div>
           <div className="block lg:hidden h-full">
-            <WrapperSheetGroupsRelations
+            <SheetGroupsRelationsDynamic
               initialHasMore={initialProducts?.hasMore}
               initialProducts={initialProducts?.data}
               initialParishesId={parishId}
