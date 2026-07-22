@@ -4,7 +4,7 @@ import { NotFoundError, useModalActions, useRouter } from "@/shared";
 import { useTranslations } from "next-intl";
 import { useCallback, useTransition } from "react";
 import { toast } from "sonner";
-import { EmailNotVerifiedModal } from "../../ui";
+import { EmailNotVerifiedModalDynamic } from "../../ui";
 import { requestResendVerification } from "../../api";
 
 interface EmailNotVerifiedModalWrapperProps {
@@ -40,7 +40,7 @@ export const EmailNotVerifiedModalWrapper = ({
   };
 
   return (
-    <EmailNotVerifiedModal
+    <EmailNotVerifiedModalDynamic
       email={email}
       isLoading={isPending}
       onConfirmAction={handleConfirm}

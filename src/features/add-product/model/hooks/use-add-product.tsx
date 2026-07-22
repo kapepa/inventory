@@ -2,7 +2,7 @@
 
 import { useCallback, useState } from 'react'
 import { useMediaQuery, useModalActions } from '@/shared'
-import { ProductCreateModalDynamic, ProductCreateSheet } from '../../ui';
+import { ProductCreateModalDynamic, ProductCreateSheetDynamic } from '../../ui';
 import { ProductWithRelations } from '@/entities';
 
 export const useAddProduct = ({ parishId, onSuccessAction }: { parishId: string, onSuccessAction: (product: ProductWithRelations) => void }) => {
@@ -25,7 +25,7 @@ export const useAddProduct = ({ parishId, onSuccessAction }: { parishId: string,
   }, [parishId, openModal, closeModal, onSuccessAction, isDesktop])
 
   const ProductCreateElement = (
-    <ProductCreateSheet
+    <ProductCreateSheetDynamic
       isOpen={isSheetOpen}
       onOpenChangeAction={setIsSheetOpen}
       parishId={parishId}
