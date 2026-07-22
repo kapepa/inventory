@@ -1,0 +1,36 @@
+"use client";
+
+import { QUERY_PARAMS_KEYS } from "@/shared";
+import { memo } from "react";
+import { GenericSearchInput, GenericSearchResponsive } from "./generic-search";
+import { useGenericSearch } from "../hooks";
+import { useTranslations } from "next-intl";
+
+interface ParishesSearchProps {
+  className?: string
+}
+
+export const ParishesSearch = memo(({ className }: ParishesSearchProps) => {
+  const t = useTranslations('header-search.parishes-search');
+  const tPlaceholder = t("placeholder")
+  const { openGenericSearch } = useGenericSearch({
+    modalName: QUERY_PARAMS_KEYS.PARISHES_SEARCH,
+    placeholder: tPlaceholder
+  })
+
+  return (
+    <GenericSearchResponsive
+      className={className}
+      openSearch={openGenericSearch}
+    >
+      <GenericSearchInput
+        queryKey={QUERY_PARAMS_KEYS.PARISHES_SEARCH}
+        className="w-xs"
+        placeholder={tPlaceholder}
+      />
+    </GenericSearchResponsive>
+  );
+}
+)
+
+ParishesSearch.displayName = "ParishesSearch"
