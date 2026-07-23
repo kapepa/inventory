@@ -1,5 +1,5 @@
 import { prisma } from '@/shared/server';
-import { FetchProducts, ProductStatusCounts, ResponseProductsShortDTO, ResponseProductsWideDTO } from '../model';
+import { FetchProducts, FetchProductsById, ProductStatusCounts, ResponseProductsShortDTO, ResponseProductsWideDTO } from '../model';
 import { PAGINATION_PRODUCTS_DEFAULTS } from '@/shared';
 import { Prisma, Product } from '@prisma/client';
 
@@ -36,7 +36,11 @@ const buildWhereClause = ({ search, parishId, categoryId, specification, locale 
 };
 
 export async function getFilteredProductsWide(params: FetchProducts): Promise<ResponseProductsWideDTO> {
-  const { page = PAGINATION_PRODUCTS_DEFAULTS.PAGE, limit = PAGINATION_PRODUCTS_DEFAULTS.LIMIT, locale } = params;
+  const {
+    page = PAGINATION_PRODUCTS_DEFAULTS.PAGE,
+    limit = PAGINATION_PRODUCTS_DEFAULTS.LIMIT,
+    locale
+  } = params;
 
   try {
     const skip = (page - 1) * limit;
@@ -101,13 +105,14 @@ export async function getFilteredProductsWide(params: FetchProducts): Promise<Re
   }
 }
 
-export async function getFilteredProductsShort({
-  parishId,
-  page = PAGINATION_PRODUCTS_DEFAULTS.PAGE,
-  limit = PAGINATION_PRODUCTS_DEFAULTS.LIMIT,
-  locale
-}: FetchProducts,
+export async function getFilteredProductsShort(props: FetchProducts,
 ): Promise<ResponseProductsShortDTO> {
+  const {
+    parishId,
+    page = PAGINATION_PRODUCTS_DEFAULTS.PAGE,
+    limit = PAGINATION_PRODUCTS_DEFAULTS.LIMIT,
+    locale
+  } = props
   try {
     const skip = (page - 1) * limit;
 
@@ -141,7 +146,7 @@ export async function getFilteredProductsShort({
   }
 }
 
-export async function getProductById({ id }: { id: string }): Promise<Product | null> {
+export async function getProductById({ id }: FetchProductsById): Promise<Product | null> {
   try {
     return await prisma.product.findUnique({
       where: { id },

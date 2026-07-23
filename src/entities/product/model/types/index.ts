@@ -4,7 +4,8 @@ export type {
   ProductWithRelationsWide,
   ProductWithRelations,
   ProductStatusCounts,
-  ProductStatusKey
+  ProductStatusKey,
+  FetchProductsById,
 } from "./types"
 export type { FetchProductsParams } from "./api-params"
 export type { ResponseProductsWideDTO, ResponseProductsShortDTO } from "./dto"

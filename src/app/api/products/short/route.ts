@@ -1,5 +1,5 @@
 import { ResponseProductsShortDTO } from "@/entities";
-import { getFilteredProductsShort } from "@/entities/server";
+import { getFilteredProductsShortCached } from "@/entities/server";
 import { AppLocale, defaultLocale, locales, PAGINATION_PRODUCTS_DEFAULTS } from "@/shared";
 import { NextRequest, NextResponse } from "next/server";
 import { apiHandler } from '@/app/api/_middleware';
@@ -12,7 +12,7 @@ export const GET = apiHandler(async (request: NextRequest): Promise<NextResponse
 
     const finalLocale = (locales.includes(locale) ? locale : defaultLocale);
 
-    const response = await getFilteredProductsShort({
+    const response = await getFilteredProductsShortCached({
       parishId: searchParams.get('parishId') || '',
       page: parseInt(searchParams.get('page') || `${PAGINATION_PRODUCTS_DEFAULTS.PAGE}`),
       limit: parseInt(searchParams.get('limit') || `${PAGINATION_PRODUCTS_DEFAULTS.LIMIT}`),

@@ -1,12 +1,12 @@
-import { getProductById, deleteFile } from "@/entities/server";
-import { DeleteProductResult, AuthenticatedUser } from "@/features";
-import { deleteProduct } from "@/features/server";
-import { ForbiddenError, NotFoundError } from "@/shared/server";
+import { getProductById, deleteFile, invalidateProductCacheById } from "@/entities/server";
+import { DeleteProductResult } from "@/features";
+import { deleteProduct, AuthenticatedUser } from "@/features/server";
+import { ForbiddenError, getLocaleFromRequest, NotFoundError } from "@/shared/server";
 import { NextRequest, NextResponse } from "next/server";
 import { apiHandler } from '@/app/api/_middleware';
 
 export const DELETE = apiHandler(
-  async (_: NextRequest, user: AuthenticatedUser, { params }: { params: Promise<{ id: string }> }): Promise<NextResponse<DeleteProductResult | { error: string }>> => {
+  async (request: NextRequest, user: AuthenticatedUser, { params }: { params: Promise<{ id: string }> }): Promise<NextResponse<DeleteProductResult | { error: string }>> => {
     try {
       if (user?.role !== "ADMIN") throw new ForbiddenError('Admin access required');
 
@@ -23,6 +23,10 @@ export const DELETE = apiHandler(
       }
 
       const response = await deleteProduct(id);
+
+      const locale = getLocaleFromRequest(request);
+      invalidateProductCacheById({ id, locale })
+
       return NextResponse.json(response)
     } catch (error: unknown) {
 

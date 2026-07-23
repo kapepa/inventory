@@ -1,10 +1,8 @@
 import { ProductWithRelationsShort, ResponseProductsShortDTO } from '@/entities';
-import { getFilteredProductsShort } from '@/entities/server';
-import { deleteFile } from '@/entities/server';
-import { AuthenticatedUser } from '@/features';
-import { createProduct } from '@/features/server';
+import { getFilteredProductsShortCached, invalidateProductCacheList, deleteFile } from '@/entities/server';
+import { createProduct, AuthenticatedUser } from '@/features/server';
 import { AppLocale, defaultLocale, locales, PAGINATION_PRODUCTS_DEFAULTS } from '@/shared';
-import { AlreadyExistsError, ForbiddenError } from '@/shared/server';
+import { AlreadyExistsError, ForbiddenError, getLocaleFromRequest } from '@/shared/server';
 import { NextRequest, NextResponse } from 'next/server';
 import { apiHandler } from '@/app/api/_middleware';
 import { ZodError } from 'zod';
@@ -17,7 +15,7 @@ export const GET = apiHandler(async (request: NextRequest): Promise<NextResponse
 
     const finalLocale = (locales.includes(locale) ? locale : defaultLocale);
 
-    const response = await getFilteredProductsShort({
+    const response = await getFilteredProductsShortCached({
       parishId: searchParams.get('parishId') || '',
       page: parseInt(searchParams.get('page') || `${PAGINATION_PRODUCTS_DEFAULTS.PAGE}`),
       limit: parseInt(searchParams.get('limit') || `${PAGINATION_PRODUCTS_DEFAULTS.LIMIT}`),
@@ -43,6 +41,9 @@ export const POST = apiHandler(async (request: NextRequest, user: AuthenticatedU
     photoToCleanup = body.photo;
     body.userId = user?.id
     const newProduct = await createProduct(body);
+
+    const locale = getLocaleFromRequest(request);
+    invalidateProductCacheList({ locale })
 
     return NextResponse.json(newProduct, { status: 201 });
   } catch (error: unknown) {

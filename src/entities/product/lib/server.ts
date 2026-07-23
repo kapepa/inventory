@@ -1,1 +1,3 @@
 export { getProductById, getFilteredProductsShort, getFilteredProductsWide, getProductStatusCounts } from "./product-service"
+export { getProductByIdCached, getFilteredProductsWideCached, getFilteredProductsShortCached, getProductStatusCountsCached } from "./product-service-cached"
+export { invalidateProductCacheById, invalidateProductCacheList, invalidateProductDetailCache } from "./cache-invalidation"

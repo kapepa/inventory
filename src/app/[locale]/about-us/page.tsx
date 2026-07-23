@@ -1,4 +1,4 @@
-import { getProductStatusCounts } from "@/entities/server";
+import { getProductStatusCountsCached } from "@/entities/server";
 import { Container, AppLocale, BackButton, ScrollArea } from "@/shared";
 import { CategoryChartDynamic, PageHeader, WarehouseMapDynamic } from "@/widgets";
 import { Metadata } from "next";
@@ -25,7 +25,7 @@ export default async function AboutUs({
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>
 }) {
   const locale = (await params).locale as AppLocale;
-  const statusCounts = await getProductStatusCounts();
+  const statusCounts = await getProductStatusCountsCached();
 
   const t = await getTranslations({ locale, namespace: "about-us" });
 

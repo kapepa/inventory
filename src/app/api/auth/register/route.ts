@@ -3,13 +3,11 @@ import { ZodError } from 'zod';
 import { authRegister } from '@/features/server';
 import { createVerificationCode, sendVerificationEmail } from '@/entities/server';
 import { AuthSignUp } from '@/features';
-import { AppLocale, defaultLocale } from '@/shared';
-import { AlreadyExistsError, EmailSendError, NotVerifiedError } from '@/shared/server';
+import { AlreadyExistsError, EmailSendError, getLocaleFromRequest, NotVerifiedError } from '@/shared/server';
 
 export async function POST(request: NextRequest): Promise<NextResponse<string | { error: string }>> {
   try {
-    const rawLocale = request.headers.get('Accept-Language') || defaultLocale;
-    const locale = (rawLocale.split(',')[0].split('-')[0].trim().toLowerCase()) as AppLocale;
+    const locale = getLocaleFromRequest(request);
 
     const body: AuthSignUp = await request.json();
     const user = await authRegister(body);

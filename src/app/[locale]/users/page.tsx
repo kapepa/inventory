@@ -1,4 +1,4 @@
-import { getFilteredUsers } from "@/entities/server"
+import { getFilteredUsersCached } from "@/entities/server"
 import { Container, AppLocale, PAGINATION_USERS_DEFAULTS, QUERY_PARAMS_KEYS } from "@/shared";
 import { PageHeader, UsersList } from "@/widgets";
 import { Metadata } from "next";
@@ -30,7 +30,7 @@ export default async function Users({
   const usersTerm = (resolvedSearchParams[QUERY_PARAMS_KEYS.USERS_SEARCH] as string) || "";
 
   const [users] = await Promise.all([
-    getFilteredUsers({
+    getFilteredUsersCached({
       search: usersTerm,
       limit: PAGINATION_USERS_DEFAULTS.LIMIT,
       page: PAGINATION_USERS_DEFAULTS.PAGE,

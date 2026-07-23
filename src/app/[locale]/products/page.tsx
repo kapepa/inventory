@@ -1,4 +1,4 @@
-import { getCategories, getFilteredProductsWide } from "@/entities/server";
+import { getCategoriesCached, getFilteredProductsWideCached } from "@/entities/server";
 import { ProductsExplore } from "@/features";
 import { Container, AppLocale, PAGINATION_PARISHES_DEFAULTS, QUERY_PARAMS_KEYS, BackButton } from "@/shared";
 import { PageHeader, ProductsList } from "@/widgets";
@@ -32,8 +32,8 @@ export default async function Products({
   const specification = (resolvedSearchParams[QUERY_PARAMS_KEYS.SPECIFICATION] as string) || "";
 
   const [categories, products] = await Promise.all([
-    getCategories({ locale }),
-    getFilteredProductsWide({
+    getCategoriesCached({ locale }),
+    getFilteredProductsWideCached({
       locale,
       specification: specification,
       categoryId: categoryTerm,

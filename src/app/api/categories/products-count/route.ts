@@ -1,4 +1,4 @@
-import { getCategoriesWithProductCount } from '@/entities/server';
+import { getCategoriesWithProductCountCached } from '@/entities/server';
 import { AppLocale, defaultLocale, locales, PAGINATION_CATEGORIES_DEFAULTS } from '@/shared';
 import { NextRequest, NextResponse } from 'next/server';
 
@@ -9,7 +9,7 @@ export async function GET(request: NextRequest) {
     const locale = (rawLocale.split(',')[0].split('-')[0].trim().toLowerCase()) as AppLocale;
     const finalLocale = (locales.includes(locale) ? locale : defaultLocale);
 
-    const categories = await getCategoriesWithProductCount({
+    const categories = await getCategoriesWithProductCountCached({
       page: parseInt(searchParams.get('page') || `${PAGINATION_CATEGORIES_DEFAULTS.PAGE}`),
       limit: parseInt(searchParams.get('limit') || `${PAGINATION_CATEGORIES_DEFAULTS.LIMIT}`),
       search: searchParams.get('search') || '',

@@ -1,5 +1,5 @@
 import { ResponseParishesTotalsDTO } from '@/entities';
-import { getParishesTotals } from '@/entities/server';
+import { getParishesTotalsCached } from '@/entities/server';
 import { AppLocale, PAGINATION_PARISHES_DEFAULTS, defaultLocale, locales } from '@/shared';
 import { NextRequest, NextResponse } from 'next/server';
 import { apiHandler } from '@/app/api/_middleware';
@@ -12,7 +12,7 @@ export const GET = apiHandler(async (request: NextRequest): Promise<NextResponse
 
     const finalLocale = (locales.includes(locale) ? locale : defaultLocale);
 
-    const result = await getParishesTotals({
+    const result = await getParishesTotalsCached({
       page: parseInt(searchParams.get('page') || `${PAGINATION_PARISHES_DEFAULTS.PAGE}`),
       limit: parseInt(searchParams.get('limit') || `${PAGINATION_PARISHES_DEFAULTS.LIMIT}`),
       search: searchParams.get('search') || '',
