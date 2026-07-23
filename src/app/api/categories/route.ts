@@ -1,8 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { AppLocale, defaultLocale } from '@/shared';
-import { getCategories } from '@/entities/server';
+import { getCategoriesCached, invalidateCategoriesCacheList } from '@/entities/server';
 import { CategoryWithProductCount, CategoryWithTranslations } from '@/entities';
-import { AlreadyExistsError, ForbiddenError } from '@/shared/server';
+import { AlreadyExistsError, ForbiddenError, getLocaleFromRequest } from '@/shared/server';
 import { createCategory } from '@/features/server';
 import { ZodError } from 'zod';
 import { AuthenticatedUser } from '@/features';
@@ -10,10 +9,8 @@ import { apiHandler } from '@/app/api/_middleware';
 
 export const GET = apiHandler(async (request: NextRequest): Promise<NextResponse<CategoryWithTranslations[] | { error: string }>> => {
   try {
-    const rawLocale = request.headers.get('Accept-Language') || defaultLocale;
-    const locale = (rawLocale.split(',')[0].split('-')[0].trim().toLowerCase()) as AppLocale;
-
-    const categories = await getCategories({ locale })
+    const locale = getLocaleFromRequest(request);
+    const categories = await getCategoriesCached({ locale })
 
     return NextResponse.json(categories)
   } catch (error: unknown) {
@@ -30,6 +27,9 @@ export const POST = apiHandler(async (request: NextRequest, user: AuthenticatedU
     if (user.role !== "ADMIN") throw new ForbiddenError('Admin access required');
     const body = await request.json();
     const category = await createCategory(body)
+
+    const locale = getLocaleFromRequest(request);
+    invalidateCategoriesCacheList({ locale })
 
     return NextResponse.json(category)
   } catch (error: unknown) {

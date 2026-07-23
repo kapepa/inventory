@@ -11,6 +11,12 @@ export interface FetchProducts {
   page?: number,
 }
 
+export interface FetchProductsById {
+  id: string,
+  locale?: AppLocale,
+}
+
+
 export interface ProductWithRelationsShort extends Product {
   translations: Pick<ProductTranslation, "title" | "specification">[];
   prices: Pick<Price, "value" | "symbol">[]

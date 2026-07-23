@@ -1,1 +1,3 @@
-export { getCategories, getCategoriesByParishId, getCategoriesWithProductCount, getCategoryhById } from "./category-service"
+export { getCategories, getCategoriesByParishId, getCategoriesWithProductCount, getCategoryById } from "./category-service"
+export { getCategoriesCached, getCategoryByIdCached, getCategoriesByParishIdCached, getCategoriesWithProductCountCached } from "./category-service-cached"
+export { invalidateCategoryCacheById, invalidateCategoriesCacheList, invalidateCategoriesByParishId } from "./category-invalidation"

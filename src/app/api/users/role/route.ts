@@ -1,16 +1,20 @@
 import { AuthenticatedUser, ChangeUserRoleType, UserRoleType } from '@/features';
 import { changeUserRoleService } from '@/features/server';
 import { setAuthCookie } from '@/shared';
-import { ForbiddenError, InvalidInputError } from '@/shared/server';
+import { ForbiddenError, getLocaleFromRequest, InvalidInputError } from '@/shared/server';
 import { NextRequest, NextResponse } from 'next/server';
 import { apiHandler } from '@/app/api/_middleware';
 import { ZodError } from 'zod';
+import { invalidateUserCacheById } from '@/entities/server';
 
 export const PATCH = apiHandler(
   async (request: NextRequest, user: AuthenticatedUser): Promise<NextResponse<UserRoleType | { error: string }>> => {
     try {
       const body: ChangeUserRoleType = await request.json();
       const { role, token } = await changeUserRoleService({ user, body })
+
+      const locale = getLocaleFromRequest(request);
+      invalidateUserCacheById({ id: user.id, locale });
 
       const response = NextResponse.json(role);
       return setAuthCookie(response, token);

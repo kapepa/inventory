@@ -1,4 +1,4 @@
-import { getCategoriesWithProductCount } from "@/entities/server";
+import { getCategoriesWithProductCountCached } from "@/entities/server";
 import { AddCategoryButton } from "@/features";
 import { Container, AppLocale, PAGINATION_CATEGORIES_DEFAULTS, QUERY_PARAMS_KEYS } from "@/shared";
 import { CategoriesList, PageHeader } from "@/widgets";
@@ -30,7 +30,7 @@ export default async function Categories({
   const resolvedSearchParams = await searchParams;
   const categoryTerm = (resolvedSearchParams[QUERY_PARAMS_KEYS.CATEGORIES_SEARCH] as string) || "";
 
-  const categories = await getCategoriesWithProductCount({
+  const categories = await getCategoriesWithProductCountCached({
     search: categoryTerm,
     page: PAGINATION_CATEGORIES_DEFAULTS.PAGE,
     limit: PAGINATION_CATEGORIES_DEFAULTS.LIMIT,

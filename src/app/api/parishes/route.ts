@@ -1,9 +1,8 @@
 import { ParishWithRelationsTotals, ResponseParishesDTO } from '@/entities';
-import { getParishes } from '@/entities/server';
-import { AuthenticatedUser } from '@/features';
-import { createParish } from '@/features/server';
-import { AppLocale, PAGINATION_PARISHES_DEFAULTS, defaultLocale, locales } from '@/shared';
-import { AlreadyExistsError, ForbiddenError } from '@/shared/server';
+import { getParishesCached, invalidateParishesCacheList } from '@/entities/server';
+import { createParish, AuthenticatedUser } from '@/features/server';
+import { PAGINATION_PARISHES_DEFAULTS } from '@/shared';
+import { AlreadyExistsError, ForbiddenError, getLocaleFromRequest } from '@/shared/server';
 import { NextRequest, NextResponse } from 'next/server';
 import { apiHandler } from '@/app/api/_middleware';
 import { ZodError } from 'zod';
@@ -11,16 +10,13 @@ import { ZodError } from 'zod';
 export const GET = apiHandler(async (request: NextRequest): Promise<NextResponse<ResponseParishesDTO | { error: string }>> => {
   try {
     const { searchParams } = request.nextUrl;
-    const rawLocale = request.headers.get('Accept-Language') || defaultLocale;
-    const locale = (rawLocale.split(',')[0].split('-')[0].trim().toLowerCase()) as AppLocale;
+    const locale = getLocaleFromRequest(request);
 
-    const finalLocale = (locales.includes(locale) ? locale : defaultLocale);
-
-    const result = await getParishes({
+    const result = await getParishesCached({
       page: parseInt(searchParams.get('page') || `${PAGINATION_PARISHES_DEFAULTS.PAGE}`),
       limit: parseInt(searchParams.get('limit') || `${PAGINATION_PARISHES_DEFAULTS.LIMIT}`),
       search: searchParams.get('search') || '',
-      locale: finalLocale
+      locale: locale
     });
 
     return NextResponse.json(result);
@@ -44,6 +40,9 @@ export const POST = apiHandler(async (request: NextRequest, user: AuthenticatedU
     if (user.role !== "ADMIN") throw new ForbiddenError('Admin access required');
     const body = await request.json();
     const result = await createParish(body);
+
+    const locale = getLocaleFromRequest(request);
+    invalidateParishesCacheList({ locale })
 
     return NextResponse.json(result, { status: 201 });
   } catch (error: unknown) {

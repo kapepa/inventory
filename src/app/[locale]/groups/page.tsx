@@ -1,5 +1,4 @@
-import { getParishes } from "@/entities/server";
-import { getFilteredProductsShort } from "@/entities/server";
+import { getFilteredProductsShortCached, getParishesCached } from "@/entities/server";
 import { AddParishButton } from "@/features";
 import { Container, AppLocale, PAGINATION_PARISHES_DEFAULTS, QUERY_PARAMS_KEYS, PAGINATION_PRODUCTS_DEFAULTS } from "@/shared";
 import { GroupsList, PageHeader } from "@/widgets";
@@ -33,7 +32,7 @@ export default async function Groups({
   const searchTerm = (resolvedSearchParams[QUERY_PARAMS_KEYS.PARISHES_SEARCH] as string) || "";
   const parishId = (resolvedSearchParams.parish as string) || null;
 
-  const initialParishes = await getParishes({
+  const initialParishes = await getParishesCached({
     page: PAGINATION_PARISHES_DEFAULTS.PAGE,
     limit: PAGINATION_PARISHES_DEFAULTS.LIMIT,
     search: searchTerm,
@@ -42,7 +41,7 @@ export default async function Groups({
 
   let initialProducts = null;
   if (parishId) {
-    initialProducts = await getFilteredProductsShort({
+    initialProducts = await getFilteredProductsShortCached({
       parishId,
       page: PAGINATION_PRODUCTS_DEFAULTS.PAGE,
       limit: PAGINATION_PRODUCTS_DEFAULTS.LIMIT,

@@ -1,5 +1,4 @@
-import { getCategoriesByParishId, getParishById } from "@/entities/server";
-import { getFilteredProductsWide } from "@/entities/server";
+import { getCategoriesByParishIdCached, getFilteredProductsWideCached, getParishById, getParishByIdCached } from "@/entities/server";
 import { ProductsExplore } from "@/features";
 import { Container, AppLocale, PAGINATION_PARISHES_DEFAULTS, BackButton, QUERY_PARAMS_KEYS } from "@/shared";
 import { PageHeader, ProductsList } from "@/widgets";
@@ -39,8 +38,8 @@ export default async function ParishesId({
   const locale = getParams.locale as AppLocale;
 
   const [parish, products, categories] = await Promise.all([
-    getParishById({ id, locale }),
-    getFilteredProductsWide({
+    getParishByIdCached({ id, locale }),
+    getFilteredProductsWideCached({
       locale,
       parishId: id,
       categoryId: categoryTerm,
@@ -48,7 +47,7 @@ export default async function ParishesId({
       page: PAGINATION_PARISHES_DEFAULTS.PAGE,
       limit: PAGINATION_PARISHES_DEFAULTS.LIMIT,
     }),
-    getCategoriesByParishId({ id, locale })
+    getCategoriesByParishIdCached({ id, locale })
   ]);
   if (!parish) notFound();
 

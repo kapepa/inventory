@@ -1,4 +1,4 @@
-import { getCategoryhById, getFilteredProductsWide } from "@/entities/server";
+import { getCategoryByIdCached, getFilteredProductsWideCached } from "@/entities/server";
 import { Container, AppLocale, BackButton, PAGINATION_PARISHES_DEFAULTS, QUERY_PARAMS_KEYS } from "@/shared";
 import { PageHeader, ProductsList } from "@/widgets";
 import { Metadata } from "next";
@@ -14,7 +14,7 @@ export async function generateMetadata({
   const id = getParams.id
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: 'metadata' });
-  const category = await getCategoryhById({ id, locale: locale as AppLocale });
+  const category = await getCategoryByIdCached({ id, locale: locale as AppLocale });
 
   return {
     title: t('categories-id.title', { title: category?.translations[0].title || "" }),
@@ -36,8 +36,8 @@ export default async function CategoriesId({
   const locale = getParams.locale as AppLocale;
 
   const [category, products] = await Promise.all([
-    getCategoryhById({ id, locale: locale as AppLocale }),
-    getFilteredProductsWide({
+    getCategoryByIdCached({ id, locale: locale as AppLocale }),
+    getFilteredProductsWideCached({
       categoryId: id,
       search: searchTerm,
       page: PAGINATION_PARISHES_DEFAULTS.PAGE,

@@ -1,10 +1,11 @@
 import { ResponseUsersDTO } from '@/entities';
-import { getFilteredUsers } from '@/entities/server';
+import { getFilteredUsers, invalidateUserCacheById } from '@/entities/server';
 import { AuthenticatedUser } from '@/features';
 import { deleteAccount } from '@/features/server';
 import { PAGINATION_PRODUCTS_DEFAULTS, removeAuthCookie } from '@/shared';
 import { apiHandler } from '@/app/api/_middleware';
 import { NextRequest, NextResponse } from 'next/server';
+import { getLocaleFromRequest } from '@/shared/server';
 
 export const GET = apiHandler(async (request: NextRequest): Promise<NextResponse<ResponseUsersDTO | { error: string }>> => {
   try {
@@ -27,9 +28,13 @@ export const GET = apiHandler(async (request: NextRequest): Promise<NextResponse
 });
 
 export const DELETE = apiHandler(
-  async (_: NextRequest, user: AuthenticatedUser): Promise<NextResponse<{ message: string } | { error: string }>> => {
+  async (request: NextRequest, user: AuthenticatedUser): Promise<NextResponse<{ message: string } | { error: string }>> => {
     try {
       await deleteAccount(user.id)
+
+      const locale = getLocaleFromRequest(request);
+      invalidateUserCacheById({ id: user.id, locale })
+
       return removeAuthCookie(NextResponse.json(
         { message: 'Account deleted successfully' },
         { status: 200 }

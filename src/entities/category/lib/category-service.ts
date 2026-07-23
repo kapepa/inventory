@@ -104,7 +104,7 @@ export const getCategoriesWithProductCount = async (params: FetchCategories): Pr
   }
 };
 
-export const getCategoryhById = async (params: FetchCategoryById): Promise<CategoryWithProductCount | null> => {
+export const getCategoryById = async (params: FetchCategoryById): Promise<CategoryWithProductCount | null> => {
   const locale = params.locale || (await getLocale()) as AppLocale;
 
   try {
