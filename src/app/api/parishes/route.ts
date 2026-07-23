@@ -1,7 +1,7 @@
 import { ParishWithRelationsTotals, ResponseParishesDTO } from '@/entities';
 import { getParishesCached, invalidateParishesCacheList } from '@/entities/server';
 import { createParish, AuthenticatedUser } from '@/features/server';
-import { PAGINATION_PARISHES_DEFAULTS, defaultLocale, locales } from '@/shared';
+import { PAGINATION_PARISHES_DEFAULTS } from '@/shared';
 import { AlreadyExistsError, ForbiddenError, getLocaleFromRequest } from '@/shared/server';
 import { NextRequest, NextResponse } from 'next/server';
 import { apiHandler } from '@/app/api/_middleware';
@@ -12,13 +12,11 @@ export const GET = apiHandler(async (request: NextRequest): Promise<NextResponse
     const { searchParams } = request.nextUrl;
     const locale = getLocaleFromRequest(request);
 
-    const finalLocale = (locales.includes(locale) ? locale : defaultLocale);
-
     const result = await getParishesCached({
       page: parseInt(searchParams.get('page') || `${PAGINATION_PARISHES_DEFAULTS.PAGE}`),
       limit: parseInt(searchParams.get('limit') || `${PAGINATION_PARISHES_DEFAULTS.LIMIT}`),
       search: searchParams.get('search') || '',
-      locale: finalLocale
+      locale: locale
     });
 
     return NextResponse.json(result);

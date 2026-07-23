@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { deleteCategory } from '@/features/server';
 import { AuthenticatedUser } from '@/features';
-import { getCategoryhById, invalidateCategoryCacheById } from '@/entities/server';
+import { getCategoryById, invalidateCategoryCacheById } from '@/entities/server';
 import { ForbiddenError, getLocaleFromRequest, HasDependenciesError, NotFoundError } from '@/shared/server';
 import { apiHandler } from '@/app/api/_middleware';
 
@@ -10,7 +10,7 @@ export const DELETE = apiHandler(async (request: NextRequest, user: Authenticate
   try {
     if (user?.role !== "ADMIN") throw new ForbiddenError('Admin access required');
 
-    const existingParish = await getCategoryhById({ id })
+    const existingParish = await getCategoryById({ id })
     if (!existingParish) throw new NotFoundError('Category');
     if (existingParish._count.products >= 1) throw new HasDependenciesError('Category');
 

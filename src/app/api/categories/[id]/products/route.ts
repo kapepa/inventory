@@ -1,9 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { AppLocale, defaultLocale, locales, PAGINATION_PRODUCTS_DEFAULTS } from '@/shared';
+import { PAGINATION_PRODUCTS_DEFAULTS } from '@/shared';
 import { getFilteredProductsWide } from '@/entities/server';
 import { ResponseProductsWideDTO } from '@/entities';
 import { AuthenticatedUser } from '@/features';
 import { apiHandler } from '@/app/api/_middleware';
+import { getLocaleFromRequest } from '@/shared/server';
 
 export const GET = apiHandler(async (
   request: NextRequest,
@@ -13,10 +14,7 @@ export const GET = apiHandler(async (
   try {
     const { id: categoryId } = await params;
     const { searchParams } = request.nextUrl;
-    const rawLocale = request.headers.get('Accept-Language') || defaultLocale;
-    const locale = (rawLocale.split(',')[0].split('-')[0].trim().toLowerCase()) as AppLocale;
-
-    const finalLocale = (locales.includes(locale) ? locale : defaultLocale);
+    const locale = getLocaleFromRequest(request);
 
     const response = await getFilteredProductsWide({
       parishId: '',
@@ -25,7 +23,7 @@ export const GET = apiHandler(async (
       categoryId,
       search: searchParams.get('search') || '',
       specification: '',
-      locale: finalLocale
+      locale: locale
     })
 
     return NextResponse.json(response);

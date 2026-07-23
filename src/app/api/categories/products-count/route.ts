@@ -1,19 +1,18 @@
 import { getCategoriesWithProductCountCached } from '@/entities/server';
-import { AppLocale, defaultLocale, locales, PAGINATION_CATEGORIES_DEFAULTS } from '@/shared';
+import { PAGINATION_CATEGORIES_DEFAULTS } from '@/shared';
+import { getLocaleFromRequest } from '@/shared/server';
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = request.nextUrl;
-    const rawLocale = request.headers.get('Accept-Language') || defaultLocale;
-    const locale = (rawLocale.split(',')[0].split('-')[0].trim().toLowerCase()) as AppLocale;
-    const finalLocale = (locales.includes(locale) ? locale : defaultLocale);
+    const locale = getLocaleFromRequest(request);
 
     const categories = await getCategoriesWithProductCountCached({
       page: parseInt(searchParams.get('page') || `${PAGINATION_CATEGORIES_DEFAULTS.PAGE}`),
       limit: parseInt(searchParams.get('limit') || `${PAGINATION_CATEGORIES_DEFAULTS.LIMIT}`),
       search: searchParams.get('search') || '',
-      locale: finalLocale
+      locale: locale
     });
 
     return NextResponse.json(categories);

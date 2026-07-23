@@ -1,23 +1,21 @@
 import { ResponseProductsShortDTO } from "@/entities";
 import { getFilteredProductsShortCached } from "@/entities/server";
-import { AppLocale, defaultLocale, locales, PAGINATION_PRODUCTS_DEFAULTS } from "@/shared";
+import { PAGINATION_PRODUCTS_DEFAULTS } from "@/shared";
 import { NextRequest, NextResponse } from "next/server";
 import { apiHandler } from '@/app/api/_middleware';
+import { getLocaleFromRequest } from "@/shared/server";
 
 export const GET = apiHandler(async (request: NextRequest): Promise<NextResponse<ResponseProductsShortDTO | { error: string }>> => {
   try {
     const { searchParams } = request.nextUrl;
-    const rawLocale = request.headers.get('Accept-Language') || defaultLocale;
-    const locale = (rawLocale.split(',')[0].split('-')[0].trim().toLowerCase()) as AppLocale;
-
-    const finalLocale = (locales.includes(locale) ? locale : defaultLocale);
+    const locale = getLocaleFromRequest(request);
 
     const response = await getFilteredProductsShortCached({
       parishId: searchParams.get('parishId') || '',
       page: parseInt(searchParams.get('page') || `${PAGINATION_PRODUCTS_DEFAULTS.PAGE}`),
       limit: parseInt(searchParams.get('limit') || `${PAGINATION_PRODUCTS_DEFAULTS.LIMIT}`),
       search: searchParams.get('search') || '',
-      locale: finalLocale
+      locale: locale
     })
 
     return NextResponse.json(response);

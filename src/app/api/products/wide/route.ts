@@ -1,16 +1,14 @@
 import { ResponseProductsWideDTO } from "@/entities";
 import { getFilteredProductsWide } from "@/entities/server";
-import { AppLocale, defaultLocale, locales, PAGINATION_PRODUCTS_DEFAULTS } from "@/shared";
+import { PAGINATION_PRODUCTS_DEFAULTS } from "@/shared";
 import { NextRequest, NextResponse } from "next/server";
 import { apiHandler } from '@/app/api/_middleware';
+import { getLocaleFromRequest } from "@/shared/server";
 
 export const GET = apiHandler(async (request: NextRequest): Promise<NextResponse<ResponseProductsWideDTO | { error: string }>> => {
   try {
     const { searchParams } = request.nextUrl;
-    const rawLocale = request.headers.get('Accept-Language') || defaultLocale;
-    const locale = (rawLocale.split(',')[0].split('-')[0].trim().toLowerCase()) as AppLocale;
-
-    const finalLocale = (locales.includes(locale) ? locale : defaultLocale);
+    const locale = getLocaleFromRequest(request);
 
     const response = await getFilteredProductsWide({
       parishId: searchParams.get('parishId') || '',
@@ -19,7 +17,7 @@ export const GET = apiHandler(async (request: NextRequest): Promise<NextResponse
       categoryId: searchParams.get('categoryId') || '',
       search: searchParams.get('search') || '',
       specification: searchParams.get('specification') || '',
-      locale: finalLocale
+      locale: locale
     })
 
     return NextResponse.json(response);
