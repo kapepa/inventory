@@ -20,6 +20,10 @@ export const CACHE_TAGS = {
   CATEGORIES: 'categories',
   CATEGORIES_BY_PARISH_ID: 'categories-by-parish-id',
   CATEGORIES_PRODUCTS_COUNT: 'categories-products-count',
+
+  // Session
+  SESSION: 'session',
+  SESSION_USER: 'session-user',
 } as const;
 
 export const CACHE_ENTITIES = {
