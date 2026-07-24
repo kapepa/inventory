@@ -106,6 +106,20 @@ export const authLogin = async (body: AuthSignIn): Promise<{ user: Authenticated
   }
 }
 
+export const getUserByIdInternal = async (userId: string) => {
+  return prisma.user.findUnique({
+    where: { id: userId },
+    select: {
+      id: true,
+      name: true,
+      email: true,
+      role: true,
+      imageUrl: true,
+      createdAt: true,
+    },
+  });
+};
+
 export const getSessionUser = async (): Promise<AuthenticatedUser | null> => {
   try {
     const cookieStore = await cookies();
