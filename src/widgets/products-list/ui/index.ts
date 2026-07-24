@@ -1,1 +1,1 @@
-export { ProductsList } from "./products-list"
+export { ProductsList, ProductsListSkeleton } from "./products-list"

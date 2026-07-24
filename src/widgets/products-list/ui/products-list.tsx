@@ -11,12 +11,12 @@ const PRODUCTD_GRID_BASE = "grid grid-cols-2 lg:gap-8 auto-rows-auto"
 
 const PRODUCTD_GRID_LAYOUT = cn(
   PRODUCTD_GRID_BASE,
-  "lg:grid-cols-[minmax(auto,12px)_minmax(auto,48px)_minmax(200px,_1fr)_minmax(100px,120px)_minmax(110px,150px)_minmax(40px,60px)_minmax(85px,100px)] ",
+  "lg:grid-cols-[1fr_1fr_8fr_3fr_3fr_2fr_2fr]",
 )
 
 const PRODUCTD_GRID_LAYOUT_ADMIN = cn(
   PRODUCTD_GRID_BASE,
-  "lg:grid-cols-[minmax(auto,12px)_minmax(auto,48px)_minmax(200px,_1fr)_minmax(100px,120px)_minmax(110px,150px)_minmax(40px,60px)_minmax(85px,100px)_1fr] ",
+  "lg:grid-cols-[1fr_1fr_8fr_3fr_3fr_2fr_2fr_1fr]",
 )
 
 interface ProductsListProps {
@@ -94,3 +94,28 @@ export const ProductsList = ({ initialParishId, initialProducts, initialHasMore,
 }
 
 ProductsList.displayName = "ProductsList"
+
+export const ProductsListSkeleton = ({ className }: { className?: string }) => {
+  const isAdmin = false
+  const PRODUCTD_LAYOUT = PRODUCTD_GRID_LAYOUT
+
+  return (
+    <div className="flex-1 min-h-0 flex flex-col w-full">
+      <ScrollArea className="flex-1 min-h-0 w-full mx-auto max-w-lg lg:max-w-full">
+        <div className={cn("flex flex-col gap-3 pb-6 md:pb-16", className)}>
+          {
+            Array.from({ length: 4 }).map((_, index) => (
+              <ProductsWideCardSkeleton
+                key={`products-list-skeleton${index}`}
+                isAdmin={isAdmin}
+                className={PRODUCTD_LAYOUT}
+              />
+            ))
+          }
+        </div>
+      </ScrollArea>
+    </div>
+  )
+}
+
+ProductsListSkeleton.displayName = "ProductsListSkeleton"
