@@ -2,7 +2,7 @@
 
 import { memo } from "react";
 import { StoreType, useTotalByStore } from "../lib";
-import { useMounted } from "@/shared";
+import { cn, Skeleton, useMounted } from "@/shared";
 
 interface CountTotalProps {
   className?: string;
@@ -26,3 +26,14 @@ export const CountTotal = memo(({ fallbackCount, className, storeType }: CountTo
 });
 
 CountTotal.displayName = "CountTotal";
+
+export const CountTotalSkeleton = ({ className }: { className?: string }) => {
+  return (
+    <>
+      <span className="hidden lg:inline">/</span>
+      <Skeleton className={cn("h-9 w-8", className)} />
+    </>
+  );
+};
+
+CountTotalSkeleton.displayName = "CountTotalSkeleton";

@@ -1,6 +1,6 @@
 "use client"
 
-import { cn, Tooltip, TooltipContent, TooltipText, TooltipTrigger } from "@/shared"
+import { cn, Skeleton, Tooltip, TooltipContent, TooltipText, TooltipTrigger } from "@/shared"
 import { memo } from "react"
 
 interface SubtitleProps {
@@ -31,3 +31,14 @@ export const Subtitle = memo(({ subtitle, className }: SubtitleProps) => {
 })
 
 Subtitle.displayName = "Subtitle"
+
+export const SubtitleSkeleton = ({ className }: { className?: string }) => {
+  return (
+    <>
+      <span className="hidden lg:inline">/</span>
+      <Skeleton className={cn("h-9 w-1/2", className)} />
+    </>
+  )
+}
+
+SubtitleSkeleton.displayName = "SubtitleSkeleton"
