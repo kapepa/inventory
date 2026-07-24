@@ -13,6 +13,18 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  experimental: {
+    optimizePackageImports: [
+      'lucide-react',
+      'date-fns',
+      'recharts',
+      'react-hook-form',
+      'zod',
+    ],
+  },
+  compiler: {
+    removeConsole: process.env.NODE_ENV === 'production',
+  },
 };
 
 export default withNextIntl(nextConfig);
