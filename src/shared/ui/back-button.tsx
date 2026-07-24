@@ -4,6 +4,7 @@ import { Button } from "./button";
 import { ChevronLeft } from "lucide-react";
 import { cn, useRouter } from "../lib";
 import { HTMLAttributes } from "react";
+import { Skeleton } from "./skeleton";
 
 interface BackButtonProps extends HTMLAttributes<HTMLButtonElement> {
   className?: string;
@@ -26,3 +27,12 @@ export const BackButton = ({ className, label, ...props }: BackButtonProps) => {
 };
 
 BackButton.displayName = "BackButton"
+
+export const BackButtonSkeleton = ({ className }: { className?: string }) => {
+
+  return (
+    <Skeleton className={cn("size-8 rounded-full", className)} />
+  )
+};
+
+BackButtonSkeleton.displayName = "BackButtonSkeleton"
