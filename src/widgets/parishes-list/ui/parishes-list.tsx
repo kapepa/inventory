@@ -1,7 +1,7 @@
 "use client"
 
 import { useCallback, useEffect } from "react"
-import { ParishWideCard, ParishWithRelationsTotals, useInfiniteParishes, ParishWideHeader, ParishWideCardSkeleton, useParishesStore, isTotalsParish } from "@/entities"
+import { ParishWideCard, ParishWithRelationsTotals, useInfiniteParishes, ParishWideHeader, ParishWideCardSkeleton, useParishesStore, isTotalsParish, ParishWideHeaderSkeleton } from "@/entities"
 import { cn, QUERY_PARAMS_KEYS, ScrollArea, useIntersectionObserver, useQueryParam } from "@/shared"
 import { useDeleteParish, useHydratedIsAdmin } from "@/features"
 import { useTranslations } from "next-intl"
@@ -90,3 +90,32 @@ export const ParishesList = ({
     </div>
   )
 }
+
+ParishesList.displayName = "ParishesList"
+
+export const ParishesListSkeleton = ({ className }: ParishesListProps) => {
+  const isAdmin = false
+  const PARISH_LAYOUT = PARISH_GRID_LAYOUT
+
+  return (
+    <div className={cn("w-full min-h-0 flex flex-col", className)}>
+      <ParishWideHeaderSkeleton
+        isAdmin={isAdmin}
+        className={cn(PARISH_LAYOUT, "hidden md:grid shrink-0")}
+      />
+      <ScrollArea className="flex-1 min-h-0 w-full mx-auto max-w-lg lg:max-w-full">
+        <div className="flex flex-col gap-3 mx-auto pb-6 md:pb-16 w-full">
+          {Array.from({ length: 4 }).map((_, index) => (
+            <ParishWideCardSkeleton
+              key={`parishes-list-skeleton-${index}`}
+              isAdmin={isAdmin}
+              className={PARISH_LAYOUT}
+            />
+          ))}
+        </div>
+      </ScrollArea>
+    </div>
+  )
+}
+
+ParishesListSkeleton.displayName = "ParishesListSkeleton"

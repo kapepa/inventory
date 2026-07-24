@@ -3,13 +3,21 @@ import { notFound } from 'next/navigation';
 import { Inter } from "next/font/google";
 import { Providers } from './providers';
 import { routing, ModalRoot, Toaster } from '@/shared';
-import { getSessionUser } from '@/features/server';
+import { getSessionUserCached } from '@/features/server';
+import type { Metadata } from 'next';
 
 const inter = Inter({
   subsets: ['cyrillic', 'latin'],
   variable: '--font-inter',
   display: 'swap',
+  preload: true
 });
+
+export const metadata: Metadata = {
+  icons: {
+    icon: '/svgs/shield-user.svg',
+  },
+};
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -28,8 +36,7 @@ export default async function LocaleLayout({
 
   setRequestLocale(locale);
 
-  const messages = await getMessages({ locale });
-  const user = await getSessionUser();
+  const [messages, user] = await Promise.all([getMessages({ locale }), getSessionUserCached()])
 
   return (
     <html lang={locale} className={`${inter.className} h-full antialiased`}>

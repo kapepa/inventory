@@ -27,7 +27,7 @@ export const HeaderBar = ({ showOnline, className }: HeaderBarProps) => {
     return (
       <div>
         <div className={className}>
-          <div className="grid grid-cols-2 gap-x-3 gap-1">
+          <div className="grid grid-cols-2 gap-x-3 gap-1 min-w-56">
             <div className="flex flex-col gap-y-1">
               <LiveDatetimeWeekSkeleton />
               <LiveDatetimeDateSkeleton />
@@ -47,7 +47,7 @@ export const HeaderBar = ({ showOnline, className }: HeaderBarProps) => {
   return (
     <div>
       <LiveDatetime className={className}>
-        <div className="grid grid-cols-2 gap-x-3 gap-1">
+        <div className="grid grid-cols-2 gap-x-3 gap-1 min-w-56">
           <div className="flex flex-col gap-y-1">
             <LiveDatetimeWeek />
             <LiveDatetimeDate />
