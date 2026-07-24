@@ -1,1 +1,1 @@
-export { ParishesList } from "./parishes-list"
+export { ParishesList, ParishesListSkeleton } from "./parishes-list"
