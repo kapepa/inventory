@@ -1,6 +1,6 @@
 "use client"
 
-import { cn, QUERY_PARAMS_KEYS, SearchWithClear, useSearchParam } from "@/shared"
+import { cn, QUERY_PARAMS_KEYS, SearchWithClear, Skeleton, useSearchParam } from "@/shared"
 import { useTranslations } from "next-intl"
 import { memo } from "react"
 
@@ -39,3 +39,14 @@ export const SpecificationInput = memo(({ label, className }: SpecificationInput
 })
 
 SpecificationInput.displayName = "SpecificationInput"
+
+export const SpecificationInputSkeleton = ({ className }: SpecificationInputProps) => {
+  return (
+    <div className={cn("flex items-center gap-x-2 w-full", className)}>
+      <Skeleton className="h-4 w-full max-w-20" />
+      <Skeleton className="h-10 w-full max-w-80" />
+    </div>
+  )
+}
+
+SpecificationInputSkeleton.displayName = "SpecificationInputSkeleton"

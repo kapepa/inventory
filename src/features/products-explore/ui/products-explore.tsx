@@ -1,7 +1,6 @@
 import { cn } from "@/shared"
-import { memo } from "react"
-import { SpecificationInput } from "./specification-input"
-import { CategorySelector } from "./category-selector"
+import { SpecificationInput, SpecificationInputSkeleton } from "./specification-input"
+import { CategorySelector, CategorySelectorSkeleton } from "./category-selector"
 import { useTranslations } from "next-intl"
 import { CategoryWithTranslations } from "@/entities"
 
@@ -10,7 +9,7 @@ interface ProductsExploreProps {
   className?: string
 }
 
-export const ProductsExplore = memo(({ initialCategories, className }: ProductsExploreProps) => {
+export const ProductsExplore = ({ initialCategories, className }: ProductsExploreProps) => {
   const t = useTranslations('products-explore.labels');
 
   return (
@@ -19,6 +18,17 @@ export const ProductsExplore = memo(({ initialCategories, className }: ProductsE
       <SpecificationInput label={t("specification")} className="flex-col lg:flex-row" />
     </div>
   )
-})
+}
 
 ProductsExplore.displayName = "ProductsExplore"
+
+export const ProductsExploreSkeleton = ({ className }: { className?: string }) => {
+  return (
+    <div className={cn("grid grid-cols-1 lg:grid-cols-2 items-center gap-3", className)}>
+      <CategorySelectorSkeleton />
+      <SpecificationInputSkeleton />
+    </div>
+  )
+}
+
+ProductsExploreSkeleton.displayName = "ProductsExploreSkeleton"

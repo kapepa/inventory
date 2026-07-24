@@ -1,7 +1,7 @@
 "use client"
 
 import { CategoryWithTranslations } from "@/entities"
-import { cn, QUERY_PARAMS_KEYS, Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue, useMounted, useSearchParam } from "@/shared"
+import { cn, QUERY_PARAMS_KEYS, Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue, Skeleton, useMounted, useSearchParam } from "@/shared"
 import { useTranslations } from "next-intl"
 import { memo } from "react"
 
@@ -56,3 +56,15 @@ export const CategorySelector = memo(({ label, initialCategories, className }: C
 })
 
 CategorySelector.displayName = "CategorySelector"
+
+
+export const CategorySelectorSkeleton = ({ className }: { className?: string }) => {
+  return (
+    <div className={cn("flex items-center gap-x-2 w-full", className)}>
+      <Skeleton className="h-4 w-full max-w-20" />
+      <Skeleton className="h-10 w-full max-w-80" />
+    </div>
+  )
+}
+
+CategorySelectorSkeleton.displayName = "CategorySelectorSkeleton"
