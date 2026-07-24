@@ -39,7 +39,7 @@ ParishWideCard.displayName = "ParishWideCard"
 export const ParishWideCardSkeleton = memo(({ isAdmin, className }: { isAdmin?: boolean, className?: string }) => {
 
   return (
-    <div className={cn("px-5 py-3 lg:px-6 lg:py-4 gap-2 border rounded-md bg-card border-chart-1", className)}>
+    <div className={cn("px-5 py-3 lg:px-6 lg:py-3.5 gap-2 border rounded-md bg-card border-chart-1", className)}>
       <TitleCellSkeleton className="col-span-2 md:col-span-1" />
       <DetailsCellSkeleton />
       <CountCellSkeleton />
