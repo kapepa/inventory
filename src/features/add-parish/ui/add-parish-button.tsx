@@ -1,6 +1,6 @@
 "use client"
 
-import { CirclePlusButton, cn, Tooltip, TooltipContent, TooltipText, TooltipTrigger } from "@/shared"
+import { CirclePlusButton, cn, Skeleton, Tooltip, TooltipContent, TooltipText, TooltipTrigger } from "@/shared"
 import { useTranslations } from "next-intl"
 import { memo } from "react"
 import { useAddParish } from "../model"
@@ -30,3 +30,14 @@ export const AddParishButton = memo(({ className }: AddParishButtonProps) => {
     </Tooltip>
   )
 })
+
+AddParishButton.displayName = "AddParishButton"
+
+export const AddParishButtonSkeleton = ({ className }: AddParishButtonProps) => {
+  return (
+    <Skeleton className={cn("size-10 rounded-full", className)} />
+  )
+}
+
+AddParishButtonSkeleton.displayName = "AddParishButtonSkeleton"
+

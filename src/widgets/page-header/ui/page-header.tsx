@@ -1,4 +1,4 @@
-import { ReactNode } from "react"
+import { memo, ReactNode } from "react"
 import { cn, Skeleton } from "@/shared"
 import { CountTotal, CountTotalSkeleton } from "./count-total"
 import { Subtitle, SubtitleSkeleton } from "./subtitle"
@@ -15,7 +15,7 @@ interface PageHeaderProps {
   storeType?: StoreType
 }
 
-export const PageHeader = ({ title, subtitle, count, reverse, children, action, className, storeType }: PageHeaderProps) => {
+export const PageHeader = memo(({ title, subtitle, count, reverse, children, action, className, storeType }: PageHeaderProps) => {
   return (
     <div className={cn("flex flex-col pb-3 items-center lg:items-start w-full", className)}>
       <div className={cn(
@@ -40,7 +40,7 @@ export const PageHeader = ({ title, subtitle, count, reverse, children, action, 
       )}
     </div>
   )
-}
+})
 
 PageHeader.displayName = "PageHeader"
 
