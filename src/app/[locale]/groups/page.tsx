@@ -1,8 +1,7 @@
 import { getFilteredProductsShortCached, getParishesCached } from "@/entities/server";
 import { AddParishButton } from "@/features";
 import { Container, AppLocale, PAGINATION_PARISHES_DEFAULTS, QUERY_PARAMS_KEYS, PAGINATION_PRODUCTS_DEFAULTS } from "@/shared";
-import { GroupsList, PageHeader } from "@/widgets";
-import { GroupsRelations, SheetGroupsRelationsDynamic } from "@/widgets/groups-relations";
+import { GroupsList, PageHeader, GroupsRelations, SheetGroupsRelationsDynamic } from "@/widgets";
 import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 

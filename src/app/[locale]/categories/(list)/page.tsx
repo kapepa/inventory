@@ -1,7 +1,7 @@
 import { getCategoriesWithProductCountCached } from "@/entities/server";
-import { AddCategoryButton } from "@/features";
+import { AddCategoryButton, AddCategoryButtonSkeleton } from "@/features";
 import { Container, AppLocale, PAGINATION_CATEGORIES_DEFAULTS, QUERY_PARAMS_KEYS } from "@/shared";
-import { CategoriesList, PageHeader } from "@/widgets";
+import { CategoriesList, CategoriesListSkeleton, PageHeader, PageHeaderSkeleton } from "@/widgets";
 import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 
