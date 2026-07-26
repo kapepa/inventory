@@ -2,8 +2,8 @@
 
 import { useTranslations } from "next-intl";
 import { fetchParishes, ParishShortCard, ParishShortCardSkeleton, ParishShortHeader, ParishWithRelations, useInfiniteParishes, useParishesStore } from "@/entities";
-import { cn, QUERY_PARAMS_KEYS, ScrollArea, useActiveParishId, useIntersectionObserver, useQueryParam, useThrottle } from "@/shared";
-import { useCallback, useEffect } from "react";
+import { cn, QUERY_PARAMS_KEYS, ScrollArea, StateMessage, useActiveParishId, useIntersectionObserver, useQueryParam, useThrottle } from "@/shared";
+import { memo, useCallback, useEffect } from "react";
 
 interface GroupsListProps {
   className?: string;
@@ -18,13 +18,13 @@ interface GroupsListProps {
 
 const CARD_CLASS = "grid grid-cols-[1fr_1fr_2fr] items-center gap-4";
 
-export const GroupsList = ({
+export const GroupsList = memo(({
   className,
   initialParishes = [],
   initialHasMore = true,
   initialParishesId,
 }: GroupsListProps) => {
-  const t = useTranslations('groups');
+  const t = useTranslations('groups-list');
   const [search] = useQueryParam(QUERY_PARAMS_KEYS.PARISHES_SEARCH);
   const { setActiveParishe } = useParishesStore()
   const [activeParishId, setActiveParishId] = useActiveParishId(initialParishesId);
@@ -52,7 +52,17 @@ export const GroupsList = ({
     }
   }, [activeParishId, parishes, setActiveParishe])
 
-  if (error) return <div className="text-destructive text-center py-4">{t("groups-list.errors.parishes")}</div>
+  if (error && !isLoading) return (
+    <StateMessage variant="destructive" >
+      {t("errors.parishes")}
+    </StateMessage>
+  )
+
+  if (!hasMore && !parishes.length) return (
+    <StateMessage>
+      {t("parishes-empty")}
+    </StateMessage>
+  )
 
   return (
     <div className={cn("flex flex-col h-full min-h-0 gap-y-3", className)}>
@@ -81,6 +91,31 @@ export const GroupsList = ({
       </ScrollArea>
     </div>
   );
-}
+})
 
 GroupsList.displayName = 'GroupsList';
+
+export const GroupsListSkeleton = ({ className }: { className?: string }) => {
+  return (
+    <div className={cn("flex flex-col h-full min-h-0 gap-y-3", className)}>
+      <ParishShortHeader
+        className={cn(CARD_CLASS)}
+      />
+      <ScrollArea className="flex-1 min-h-0">
+        <div className="flex flex-col gap-y-3 pb-6 md:pb-16">
+          {
+            Array.from({ length: 3 }).map((_, index) => (
+              <ParishShortCardSkeleton
+                key={`groups-list-skeleton-${index}`}
+                className={CARD_CLASS}
+              />
+            ))
+          }
+        </div>
+      </ScrollArea>
+    </div>
+  );
+}
+
+GroupsListSkeleton.displayName = 'GroupsListSkeleton';
+

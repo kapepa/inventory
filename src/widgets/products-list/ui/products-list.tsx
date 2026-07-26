@@ -1,10 +1,10 @@
 "use client"
 
-import { ProductsStateMessage, ProductsWideCard, ProductsWideCardSkeleton, ProductWithRelationsWide, useInfiniteProducts } from "@/entities"
+import { ProductsWideCard, ProductsWideCardSkeleton, ProductWithRelationsWide, useInfiniteProducts } from "@/entities"
 import { useDeleteProduct, useHydratedIsAdmin, useViewProduct } from "@/features"
-import { cn, QUERY_PARAMS_KEYS, ScrollArea, useIntersectionObserver, useQueryParam, LoaderSpin } from "@/shared"
+import { cn, QUERY_PARAMS_KEYS, ScrollArea, useIntersectionObserver, useQueryParam, StateMessage } from "@/shared"
 import { useTranslations } from "next-intl"
-import { useCallback, useEffect } from "react"
+import { memo, useCallback, useEffect } from "react"
 import { ProductsActionMode, useFetchProductsAction } from "../model"
 
 const PRODUCTD_GRID_BASE = "grid grid-cols-2 lg:gap-8 auto-rows-auto"
@@ -28,7 +28,7 @@ interface ProductsListProps {
   mode?: ProductsActionMode
 }
 
-export const ProductsList = ({ initialParishId, initialProducts, initialHasMore, initialcategoryId, className, mode }: ProductsListProps) => {
+export const ProductsList = memo(({ initialParishId, initialProducts, initialHasMore, initialcategoryId, className, mode }: ProductsListProps) => {
   const t = useTranslations('products-list');
   const isAdmin = useHydratedIsAdmin();
   const [search] = useQueryParam(QUERY_PARAMS_KEYS.PRODUCTS_SEARCH)
@@ -53,15 +53,15 @@ export const ProductsList = ({ initialParishId, initialProducts, initialHasMore,
   }, [isIntersecting, hasMore, isLoading, loadMore])
 
   if (error && !isLoading) return (
-    <ProductsStateMessage className="text-destructive">
+    <StateMessage variant="destructive">
       {t("errors.infinite-scroll-error")}
-    </ProductsStateMessage>
+    </StateMessage>
   )
 
-  if (isLoading && products.length === 0 && !initialProducts.length) return (
-    <ProductsStateMessage className="flex flex-col h-full min-h-0">
-      <LoaderSpin className="h-16 w-16" />
-    </ProductsStateMessage>
+  if (!hasMore && !products.length) return (
+    <StateMessage>
+      {t("products-empty")}
+    </StateMessage>
   )
 
   const PRODUCTD_LAYOUT = isAdmin ? PRODUCTD_GRID_LAYOUT_ADMIN : PRODUCTD_GRID_LAYOUT
@@ -91,7 +91,7 @@ export const ProductsList = ({ initialParishId, initialProducts, initialHasMore,
       </ScrollArea>
     </div>
   )
-}
+})
 
 ProductsList.displayName = "ProductsList"
 

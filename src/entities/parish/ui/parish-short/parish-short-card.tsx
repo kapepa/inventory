@@ -53,7 +53,7 @@ ParishShortCard.displayName = 'ParishShortCard';
 export const ParishShortCardSkeleton = memo(({ className }: { className?: string }) => {
   return (
     <div className="border rounded-md bg-card w-full flex border-chart-1">
-      <div className={cn("grow px-2 py-3", className)}>
+      <div className={cn("grow px-2 py-3.5", className)}>
         <DetailsCellSkeleton />
         <CountCellSkeleton />
         <DateCellSkeleton />

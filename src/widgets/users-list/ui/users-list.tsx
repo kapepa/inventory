@@ -1,8 +1,7 @@
 "use client"
 
 import { fetchUsers, useInfiniteUsers, UserCard, UserCardSkeleton, UserPublic } from "@/entities";
-import { UsersStateMessage } from "@/entities";
-import { cn, LoaderSpin, QUERY_PARAMS_KEYS, ScrollArea, useIntersectionObserver, useQueryParam } from "@/shared";
+import { cn, QUERY_PARAMS_KEYS, ScrollArea, StateMessage, useIntersectionObserver, useQueryParam } from "@/shared";
 import { useTranslations } from "next-intl";
 import { useEffect } from "react";
 
@@ -30,19 +29,19 @@ export const UsersList = ({ className, initialUsers, initialHasMore }: UsersList
   }, [isIntersecting, hasMore, isLoading, loadMore])
 
   if (error && !isLoading) return (
-    <UsersStateMessage className="text-destructive">
+    <StateMessage variant="destructive" >
       {t("errors.infinite-scroll-error")}
-    </UsersStateMessage>
+    </StateMessage>
   )
 
-  if (isLoading && users.length === 0 && !initialUsers.length) return (
-    <UsersStateMessage className="flex flex-col h-full min-h-0">
-      <LoaderSpin className="h-16 w-16" />
-    </UsersStateMessage>
+  if (!hasMore && !users.length) return (
+    <StateMessage>
+      {t("users-empty")}
+    </StateMessage>
   )
 
   return (
-    <div className="flex-1 min-h-0 flex flex-col w-full">
+    <div className="flex-1 min-h-0 flex flex-col w-full max-w-2xl m-auto">
       <ScrollArea className="flex-1 min-h-0 w-full mx-auto max-w-lg lg:max-w-full">
         <div className={cn("flex flex-col gap-3 pb-6 md:pb-16", className)}>
           {
@@ -66,3 +65,24 @@ export const UsersList = ({ className, initialUsers, initialHasMore }: UsersList
 };
 
 UsersList.displayName = "UsersList";
+
+export const UsersListSkeleton = ({ className }: { className?: string }) => {
+  return (
+    <div className="flex-1 min-h-0 flex flex-col w-full max-w-2xl m-auto">
+      <ScrollArea className="flex-1 min-h-0 w-full mx-auto max-w-lg lg:max-w-full">
+        <div className={cn("flex flex-col gap-3 pb-6 md:pb-16", className)}>
+          {
+            Array.from({ length: 3 }).map((_, index) => (
+              <UserCardSkeleton
+                key={`users-list-skeleton-${index}`}
+                className={cn("", CARD_CLASS)}
+              />
+            ))
+          }
+        </div>
+      </ScrollArea>
+    </div>
+  );
+};
+
+UsersListSkeleton.displayName = "UsersListSkeleton";

@@ -1,22 +1,22 @@
 "use client"
 
-import { useCallback, useEffect } from "react"
+import { memo, useCallback, useEffect } from "react"
 import { ParishWideCard, ParishWithRelationsTotals, useInfiniteParishes, ParishWideHeader, ParishWideCardSkeleton, useParishesStore, isTotalsParish, ParishWideHeaderSkeleton } from "@/entities"
-import { cn, QUERY_PARAMS_KEYS, ScrollArea, useIntersectionObserver, useQueryParam } from "@/shared"
+import { cn, QUERY_PARAMS_KEYS, ScrollArea, StateMessage, useIntersectionObserver, useQueryParam } from "@/shared"
 import { useDeleteParish, useHydratedIsAdmin } from "@/features"
 import { useTranslations } from "next-intl"
 import { fetchParishesTotals } from "@/entities/parish/api/parish-api"
 
-const PARISH_GRID_BASE = "items-center grid gap-4 grid-rows-6 grid-cols-2 pb-4"
+const PARISH_GRID_BASE = "items-center grid gap-4 grid-rows-6 grid-cols-2 pb-4 md:min-w-[725px] md:grid-rows-1"
 
 const PARISH_GRID_LAYOUT = cn(
   PARISH_GRID_BASE,
-  "md:grid-cols-[minmax(225px,_6fr)_minmax(45px,_1fr)_minmax(90px,_1fr)_minmax(110px,_2fr)_minmax(90px,_2fr)] md:min-w-[725px] md:grid-rows-1 grid-rows-3",
+  "md:grid-cols-[6fr_1fr_1fr_2fr_2fr]"
 );
 
 const PARISH_GRID_LAYOUT_ADMIN = cn(
   PARISH_GRID_BASE,
-  "md:grid-cols-[minmax(225px,_6fr)_minmax(45px,_1fr)_minmax(90px,_1fr)_minmax(110px,_2fr)_minmax(90px,_2fr)_minmax(50px,_1fr)] md:min-w-[725px] md:grid-rows-1 grid-rows-4",
+  "md:grid-cols-[6fr_1fr_1fr_2fr_2fr_1fr] grid-rows-4",
 );
 
 interface ParishesListProps {
@@ -25,12 +25,12 @@ interface ParishesListProps {
   initialHasMore?: boolean,
 }
 
-export const ParishesList = ({
+export const ParishesList = memo(({
   className,
   initialParishes = [],
   initialHasMore = true,
 }: ParishesListProps) => {
-  const t = useTranslations('parish');
+  const t = useTranslations('parishes-list');
   const isAdmin = useHydratedIsAdmin();
   const [search] = useQueryParam(QUERY_PARAMS_KEYS.PARISHES_SEARCH);
   const { newParishe, addNewParish } = useParishesStore()
@@ -57,8 +57,17 @@ export const ParishesList = ({
     confirmDeleteParish(parish, () => removeParishes(parish.id));
   }, [confirmDeleteParish])
 
-  if (error) return <div className="text-destructive text-center py-4">{t("parishes-list.error")}</div>
-  if (!parishes.length) return <div className="text-center py-4 text-destructive">{t("parishes-list.empty")}</div>
+  if (error && !isLoading) return (
+    <StateMessage variant="destructive">
+      {t("errors.infinite-scroll-error")}
+    </StateMessage>
+  )
+
+  if (!hasMore && !parishes.length) return (
+    <StateMessage>
+      {t("parishes-empty")}
+    </StateMessage>
+  )
 
   const PARISH_LAYOUT = isAdmin ? PARISH_GRID_LAYOUT_ADMIN : PARISH_GRID_LAYOUT
 
@@ -89,7 +98,7 @@ export const ParishesList = ({
       </ScrollArea>
     </div>
   )
-}
+})
 
 ParishesList.displayName = "ParishesList"
 

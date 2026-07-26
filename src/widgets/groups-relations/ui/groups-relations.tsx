@@ -1,8 +1,8 @@
 "use client"
 
-import { useParishesStore, fetchProductsShort, ProductShortCard, ProductShortCardSkeleton, ProductsShortBody, ProductsStateMessage, ProductWithRelationsShort, useInfiniteProducts } from "@/entities"
+import { useParishesStore, fetchProductsShort, ProductShortCard, ProductShortCardSkeleton, ProductsShortBody, ProductWithRelationsShort, useInfiniteProducts, ProductsShortBodySkeleton } from "@/entities"
 import { ProductCreateButton, useDeleteProduct, useHydratedIsAdmin, useViewProduct } from "@/features"
-import { cn, useActiveParishId, useIntersectionObserver, LoaderSpin } from "@/shared"
+import { cn, useActiveParishId, useIntersectionObserver, LoaderSpin, StateMessage } from "@/shared"
 import { useTranslations } from "next-intl"
 import { memo, useCallback, useEffect } from "react"
 
@@ -27,7 +27,7 @@ interface GroupsRelationsProps {
 }
 
 export const GroupsRelations = memo(({ className, initialHasMore, initialProducts, initialParishesId, initialParishTitle }: GroupsRelationsProps) => {
-  const t = useTranslations('groups');
+  const t = useTranslations('groups-relations');
   const isAdmin = useHydratedIsAdmin();
   const { activeParishe } = useParishesStore()
   const storeActiveParisheTitle = activeParishe?.translations[0]?.title
@@ -55,21 +55,21 @@ export const GroupsRelations = memo(({ className, initialHasMore, initialProduct
   }, [isIntersecting, hasMore, isLoading, loadMore])
 
   if (!activeParishId) return (
-    <ProductsStateMessage className="text-muted-foreground">
-      {t("groups-relations.parishes-not-selected")}
-    </ProductsStateMessage>
+    <StateMessage>
+      {t("parishes-not-selected")}
+    </StateMessage>
   )
 
-  if (error) return (
-    <ProductsStateMessage className="text-destructive">
-      {t("groups-relations.parishes-error")}
-    </ProductsStateMessage>
+  if (error && !isLoading && !error.includes("cancel")) return (
+    <StateMessage variant="destructive">
+      {t("parishes-error")}
+    </StateMessage>
   )
 
   if (isLoading && products.length === 0) return (
-    <ProductsStateMessage className="flex flex-col h-full min-h-0">
+    <div className="flex flex-col h-full min-h-0 w-full justify-center items-center">
       <LoaderSpin className="h-16 w-16" />
-    </ProductsStateMessage>
+    </div>
   )
 
   const GROUPS_LAYOUT = isAdmin ? GROUPS_GRID_LAYOUT_ADMIN : GROUPS_GRID_LAYOUT
@@ -101,7 +101,7 @@ export const GroupsRelations = memo(({ className, initialHasMore, initialProduct
           )}
           {(!hasMore && !products.length) && (
             <div className="w-full h-16 flex items-center justify-center">
-              <span className="text-sm text-muted-foreground font-semibold">{t("groups-relations.products.not-found")}</span>
+              <span className="text-sm text-muted-foreground font-semibold">{t("products.not-found")}</span>
             </div>
           )}
         </div>
@@ -111,3 +111,28 @@ export const GroupsRelations = memo(({ className, initialHasMore, initialProduct
 })
 
 GroupsRelations.displayName = "GroupsRelations"
+
+export const GroupsRelationsSkeleton = ({ className }: { className?: string }) => {
+  const isAdmin = false
+  const GROUPS_LAYOUT = GROUPS_GRID_LAYOUT
+
+  return (
+    <div className={cn("flex flex-col h-full min-h-0", className)}>
+      <ProductsShortBodySkeleton>
+        <div className="flex flex-col">
+          {
+            Array.from({ length: 3 }).map((_, index) => (
+              <ProductShortCardSkeleton
+                key={`groups-relations-skeleton-${index}`}
+                isAdmin={isAdmin}
+                className={GROUPS_LAYOUT}
+              />
+            ))
+          }
+        </div>
+      </ProductsShortBodySkeleton>
+    </div>
+  )
+}
+
+GroupsRelationsSkeleton.displayName = "GroupsRelationsSkeleton"
