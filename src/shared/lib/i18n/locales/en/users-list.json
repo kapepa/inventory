@@ -1,5 +1,6 @@
 {
   "errors": {
     "infinite-scroll-error": "Unable to load more users"
-  }
+  },
+  "users-empty": "The user list is empty"
 }

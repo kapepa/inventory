@@ -1,5 +1,6 @@
 {
   "errors": {
     "infinite-scroll-error": "Не удалось подгрузить ещё товары"
-  }
+  },
+  "products-empty": "Продуктов нет в наличии"
 }
