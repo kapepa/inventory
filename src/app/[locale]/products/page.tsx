@@ -1,6 +1,6 @@
 import { getCategoriesCached, getFilteredProductsWideCached } from "@/entities/server";
 import { ProductsExplore } from "@/features";
-import { Container, AppLocale, PAGINATION_PARISHES_DEFAULTS, QUERY_PARAMS_KEYS, BackButton } from "@/shared";
+import { Container, AppLocale, PAGINATION_PARISHES_DEFAULTS, QUERY_PARAMS_KEYS } from "@/shared";
 import { PageHeader, ProductsList } from "@/widgets";
 import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
@@ -53,7 +53,6 @@ export default async function Products({
       <PageHeader
         title={t("header-title")}
         count={products.total}
-        action={<BackButton />}
         storeType="products"
       />
       <ProductsList

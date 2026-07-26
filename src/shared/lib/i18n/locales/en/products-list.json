@@ -1,5 +1,6 @@
 {
   "errors": {
     "infinite-scroll-error": "Unable to load more products"
-  }
+  },
+  "products-empty": "No products are available"
 }

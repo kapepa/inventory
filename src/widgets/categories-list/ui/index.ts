@@ -1,1 +1,1 @@
-export { CategoriesList } from "./categories-list";
+export { CategoriesList, CategoriesListSkeleton } from "./categories-list";

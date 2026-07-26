@@ -1,1 +1,1 @@
-export { GroupsList } from './groups-list';
+export { GroupsList, GroupsListSkeleton } from './groups-list';

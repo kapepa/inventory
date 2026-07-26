@@ -25,9 +25,5 @@
       "cancel": "Cancel",
       "delete": "Delete"
     }
-  },
-  "parishes-list": {
-    "empty": "No parishes found",
-    "error": "Something went wrong"
   }
 }

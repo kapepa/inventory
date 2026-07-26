@@ -121,7 +121,7 @@ export const useInfiniteParishes = <T extends { id: string }>({
     return () => controller.abort()
   }, [fetchItems])
 
-  const loadMore = useDebouncedCallback(() => { fetchItems(false) }, 1000)
+  const loadMore = useDebouncedCallback(() => { fetchItems(false) }, 1200)
 
   const clearParishes = useCallback(() => {
     setParishes([])

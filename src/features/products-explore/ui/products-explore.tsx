@@ -3,13 +3,14 @@ import { SpecificationInput, SpecificationInputSkeleton } from "./specification-
 import { CategorySelector, CategorySelectorSkeleton } from "./category-selector"
 import { useTranslations } from "next-intl"
 import { CategoryWithTranslations } from "@/entities"
+import { memo } from "react"
 
 interface ProductsExploreProps {
   initialCategories: CategoryWithTranslations[]
   className?: string
 }
 
-export const ProductsExplore = ({ initialCategories, className }: ProductsExploreProps) => {
+export const ProductsExplore = memo(({ initialCategories, className }: ProductsExploreProps) => {
   const t = useTranslations('products-explore.labels');
 
   return (
@@ -18,7 +19,7 @@ export const ProductsExplore = ({ initialCategories, className }: ProductsExplor
       <SpecificationInput label={t("specification")} className="flex-col lg:flex-row" />
     </div>
   )
-}
+})
 
 ProductsExplore.displayName = "ProductsExplore"
 

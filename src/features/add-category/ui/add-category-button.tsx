@@ -1,6 +1,6 @@
 "use client"
 
-import { CirclePlusButton, cn, Tooltip, TooltipContent, TooltipText, TooltipTrigger } from "@/shared"
+import { CirclePlusButton, cn, Skeleton, Tooltip, TooltipContent, TooltipText, TooltipTrigger } from "@/shared"
 import { useTranslations } from "next-intl"
 import { memo } from "react"
 import { useAddCategory } from "../model/hooks"
@@ -26,3 +26,13 @@ export const AddCategoryButton = memo(({ className }: AddCategoryButtonProps) =>
     </Tooltip>
   )
 })
+
+AddCategoryButton.displayName = "AddCategoryButton"
+
+export const AddCategoryButtonSkeleton = ({ className }: { className?: string }) => {
+  return (
+    <Skeleton className={cn("size-10 rounded-full", className)} />
+  )
+}
+
+AddCategoryButtonSkeleton.displayName = "AddCategoryButtonSkeleton"

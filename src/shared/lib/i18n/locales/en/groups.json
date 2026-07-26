@@ -4,27 +4,6 @@
     "total-number": "Total number",
     "date": "Date"
   },
-  "groups-list": {
-    "errors": {
-      "parishes": "Something went wrong in the parishes"
-    }
-  },
-  "groups-relations": {
-    "parishes-not-selected": "No parish selected",
-    "parishes-error": "Something went wrong",
-    "products": {
-      "not-found": "Not found products",
-      "status": {
-        "status-free": "Free",
-        "status-busy": "Busy",
-        "status-repair": "Repair"
-      },
-      "condition": {
-        "new": "New",
-        "old": "Used"
-      }
-    }
-  },
   "sonner": {
     "delete-product-success": "Product deleted successfully",
     "delete-error-product": "An error occurred during deletion",

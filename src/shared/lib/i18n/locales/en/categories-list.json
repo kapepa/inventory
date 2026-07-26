@@ -1,0 +1,6 @@
+{
+  "errors": {
+    "infinite-scroll-error": "Unable to load more categories"
+  },
+  "categories-empty": "The list of categories is empty"
+}

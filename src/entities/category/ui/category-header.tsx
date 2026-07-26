@@ -1,4 +1,4 @@
-import { cn } from "@/shared";
+import { cn, Skeleton } from "@/shared";
 import { useTranslations } from "next-intl";
 import { memo } from "react";
 
@@ -24,3 +24,20 @@ export const CategoryHeader = memo(({ className }: CategoryHeaderProps) => {
 })
 
 CategoryHeader.displayName = 'CategoryHeader';
+
+export const CategoryHeaderSkeleton = ({ className }: { className?: string }) => {
+  return (
+    <div className={cn(
+      "px-6 py-3 text-xs font-bold text-muted-foreground uppercase tracking-widest",
+      className,
+      "hidden lg:grid"
+    )}>
+      <div><Skeleton className="h-5 w-40" /></div>
+      <div><Skeleton className="h-5 w-24" /></div>
+      <div><Skeleton className="h-5 w-20 m-auto" /></div>
+      <div><Skeleton className="h-5 w-20 m-auto" /></div>
+    </div>
+  );
+}
+
+CategoryHeaderSkeleton.displayName = 'CategoryHeaderSkeleton';

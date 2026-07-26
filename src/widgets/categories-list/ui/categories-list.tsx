@@ -1,9 +1,10 @@
 "use client"
 
-import { useInfiniteCategories, requestCategoriesWithProductCount, CategoryCard, CategoryCardSkeleton, CategoryHeader, CategoryShortStateMessage, CategoryWithProductCount, useCategoriesStore, isCategoryWithProductCount } from "@/entities";
+import { useInfiniteCategories, requestCategoriesWithProductCount, CategoryCard, CategoryCardSkeleton, CategoryHeader, CategoryWithProductCount, useCategoriesStore, isCategoryWithProductCount, CategoryHeaderSkeleton } from "@/entities";
 import { useDeleteCategory } from "@/features";
-import { cn, QUERY_PARAMS_KEYS, ScrollArea, useIntersectionObserver, useQueryParam, LoaderSpin } from "@/shared";
-import { useCallback, useEffect } from "react";
+import { cn, QUERY_PARAMS_KEYS, ScrollArea, useIntersectionObserver, useQueryParam, StateMessage } from "@/shared";
+import { useTranslations } from "next-intl";
+import { memo, useCallback, useEffect } from "react";
 
 interface CategoriesListProps {
   className?: string
@@ -13,10 +14,11 @@ interface CategoriesListProps {
 
 const CARD_CLASS = "grid grid-cols-[1fr_1fr] lg:grid-cols-[8fr_1fr_2fr_1fr] items-center gap-4";
 
-export const CategoriesList = ({ className, initialHasMore, initialCategories }: CategoriesListProps) => {
+export const CategoriesList = memo(({ className, initialHasMore, initialCategories }: CategoriesListProps) => {
+  const t = useTranslations('categories-list');
   const [search] = useQueryParam(QUERY_PARAMS_KEYS.CATEGORIES_SEARCH)
   const { newCategory, addNewCategory } = useCategoriesStore()
-  const { categories, isLoading, hasMore, loadMore, addCategory, removeCategory } = useInfiniteCategories(
+  const { categories, isLoading, error, hasMore, loadMore, addCategory, removeCategory } = useInfiniteCategories(
     { search, initialHasMore, initialCategories, fetchFnAction: requestCategoriesWithProductCount }
   )
   const { targetRef, isIntersecting } = useIntersectionObserver({ threshold: 0.5, rootMargin: "100px" })
@@ -39,10 +41,16 @@ export const CategoriesList = ({ className, initialHasMore, initialCategories }:
     }
   }, [newCategory, addCategory, addNewCategory])
 
-  if (isLoading && categories.length === 0 && !initialCategories.length) return (
-    <CategoryShortStateMessage className="flex flex-col h-full min-h-0">
-      <LoaderSpin className="h-16 w-16" />
-    </CategoryShortStateMessage>
+  if (error && !isLoading) return (
+    <StateMessage variant="destructive" >
+      {t("errors.infinite-scroll-error")}
+    </StateMessage>
+  )
+
+  if (!hasMore && !categories.length) return (
+    <StateMessage>
+      {t("categories-empty")}
+    </StateMessage>
   )
 
   return (
@@ -67,6 +75,28 @@ export const CategoriesList = ({ className, initialHasMore, initialCategories }:
       </ScrollArea>
     </div>
   );
-}
+})
 
 CategoriesList.displayName = "CategoriesList"
+
+export const CategoriesListSkeleton = ({ className }: { className?: string }) => {
+  return (
+    <div className={cn("flex-1 min-h-0 flex flex-col", className)}>
+      <CategoryHeaderSkeleton className={cn("", CARD_CLASS)} />
+      <ScrollArea className="flex-1 min-h-0 ">
+        <div className={cn("flex flex-col max-w-lg lg:max-w-full h-full min-h-0 gap-y-3 m-auto pb-6 md:pb-16", className)}>
+          {
+            Array.from({ length: 3 }).map((_, index) => (
+              <CategoryCardSkeleton
+                key={`categories-list-skeleton-${index}`}
+                className={cn("", CARD_CLASS)}
+              />
+            ))
+          }
+        </div>
+      </ScrollArea>
+    </div>
+  );
+}
+
+CategoriesListSkeleton.displayName = "CategoriesListSkeleton"
