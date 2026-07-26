@@ -11,3 +11,4 @@ export * from "./map";
 export * from "./auth-gate";
 export * from "./verify-email-status";
 export * from "./settings-panel"
+export * from "./groups-relations"
