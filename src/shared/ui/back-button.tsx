@@ -8,15 +8,16 @@ import { Skeleton } from "./skeleton";
 
 interface BackButtonProps extends HTMLAttributes<HTMLButtonElement> {
   className?: string;
-  label?: string;
 }
 
-export const BackButton = ({ className, label, ...props }: BackButtonProps) => {
+export const BackButton = ({ className, ...props }: BackButtonProps) => {
   const router = useRouter();
 
   return (
     <Button
+      type="button"
       size="icon"
+      aria-label="Back"
       className={cn("bg-accent rounded-full cursor-pointer", className)}
       onClick={() => router.back()}
       {...props}
