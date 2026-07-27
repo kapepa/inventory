@@ -35,11 +35,11 @@ export const AuthGate = () => {
           </TabsTrigger>
         </TabsList>
 
-        <TabsContent value="login" aria-selected={false}>
+        <TabsContent value="login">
           <LoginForm />
         </TabsContent>
 
-        <TabsContent value="register" aria-selected={false}>
+        <TabsContent value="register">
           <RegisterForm />
         </TabsContent>
       </Tabs>
