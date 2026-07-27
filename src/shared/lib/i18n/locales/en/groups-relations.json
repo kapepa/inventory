@@ -12,5 +12,8 @@
       "new": "New",
       "old": "Used"
     }
+  },
+  "identifier-cell": {
+    "sn": "s.n."
   }
 }
