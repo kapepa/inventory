@@ -20,10 +20,11 @@ export const signToken = async (payload: JwtPayload): Promise<string> => {
 
 export const verifyToken = async (token: string): Promise<JwtPayload | null> => {
   try {
+    if (!token || token.trim() === '') return null;
     const { payload } = await jwtVerify(token, JWT_SECRET);
     return payload as unknown as JwtPayload;
   } catch (error) {
-    console.error('JWT verification failed:', error);
+    // if (process.env.NODE_ENV === 'development') console.warn('JWT verification failed (expected in dev):', error);
     return null;
   }
 };
