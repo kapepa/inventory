@@ -44,20 +44,28 @@ export const ResponsiveImage = memo(
 
     // Default fallback UI when no image is available
     const defaultFallback = (
-      <div className="flex flex-col items-center justify-center text-muted-foreground/40 h-full">
+      <div
+        className="flex flex-col items-center justify-center text-muted-foreground/40 h-full"
+        role="img"
+        aria-label={alt || "No image available"}
+      >
         {/* <span className="text-sm mb-2">{t("no-image")}</span> */}
-        <ImageIcon className="w-16 h-16" strokeWidth={1.5} />
+        <ImageIcon className="w-16 h-16" strokeWidth={1.5} aria-hidden="true" />
       </div>
     )
 
     // Render fallback if no image source is provided
     if (!normalizedSource) {
       return (
-        <div className={cn(
-          "relative overflow-hidden bg-muted flex items-center justify-center border rounded-lg",
-          aspectRatio !== "auto" && aspectRatioMap[aspectRatio],
-          className
-        )}>
+        <div
+          className={cn(
+            "relative overflow-hidden bg-muted flex items-center justify-center border rounded-lg",
+            aspectRatio !== "auto" && aspectRatioMap[aspectRatio],
+            className
+          )}
+          role="img"
+          aria-label={alt || "No image available"}
+        >
           {fallback || defaultFallback}
         </div>
       )
@@ -149,7 +157,7 @@ export const ResponsiveImage = memo(
       <div className={wrapperClasses}>
         {/* Show skeleton while loading */}
         {showSkeletonLoader && (
-          <Skeleton className="w-full h-full absolute inset-0 z-10" />
+          <Skeleton className="w-full h-full absolute inset-0 z-10" aria-hidden="true" />
         )}
 
         {!hasError && (

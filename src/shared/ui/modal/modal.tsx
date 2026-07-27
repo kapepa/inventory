@@ -34,6 +34,8 @@ export const Modal = memo(({ isOpen, onCloseAction, children, className }: Modal
 
   return createPortal(
     <div
+      role="dialog"
+      aria-modal="true"
       className="fixed inset-0 z-50 flex items-center justify-center pointer-events-auto"
       onPointerDown={(e) => e.stopPropagation()}
       onMouseDown={(e) => e.stopPropagation()}
@@ -52,7 +54,10 @@ export const Modal = memo(({ isOpen, onCloseAction, children, className }: Modal
       />
 
       {/* Modal content */}
-      <div className="relative z-50 w-full max-w-lg px-4 animate-in zoom-in-95 duration-200">
+      <div
+        aria-hidden="true"
+        className="relative z-50 w-full max-w-lg px-4 animate-in zoom-in-95 duration-200"
+      >
         <div
           className={cn("bg-white rounded-sm shadow-2xl relative", className)}
           onClick={(e) => e.stopPropagation()}

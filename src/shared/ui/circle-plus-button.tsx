@@ -8,11 +8,13 @@ interface CirclePlusButtonProps extends HTMLAttributes<HTMLButtonElement> { }
 export const CirclePlusButton = ({ className, ...props }: CirclePlusButtonProps) => {
   return (
     <Button
+      type="button"
       size="icon"
+      aria-label="Add"
       className={cn("bg-accent rounded-full cursor-pointer", className)}
       {...props}
     >
-      <Plus aria-label="plus" />
+      <Plus aria-label="plus" aria-hidden="true" />
     </Button>
   )
 }

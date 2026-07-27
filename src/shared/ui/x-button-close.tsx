@@ -21,9 +21,10 @@ interface XButtonCloseProps {
 export const XButtonClose = ({ className, onCloseAction = () => { } }: XButtonCloseProps) => {
   return (
     <button
+      type="button"
       onClick={onCloseAction}
       className={cn(closeButtonClasses, className)}
-      aria-label="close"
+      aria-label="Close"
     >
       <X className="size-6 text-chart-2" />
     </button>

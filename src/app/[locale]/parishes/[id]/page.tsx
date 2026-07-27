@@ -1,4 +1,4 @@
-import { getCategoriesByParishIdCached, getFilteredProductsWideCached, getParishById, getParishByIdCached } from "@/entities/server";
+import { getCategoriesByParishIdCached, getFilteredProductsWideCached, getParishByIdCached } from "@/entities/server";
 import { ProductsExplore } from "@/features";
 import { Container, AppLocale, PAGINATION_PARISHES_DEFAULTS, BackButton, QUERY_PARAMS_KEYS } from "@/shared";
 import { PageHeader, ProductsList } from "@/widgets";
@@ -9,17 +9,21 @@ import { notFound } from "next/navigation";
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ locale: string, id: string }>;
+  params: Promise<{ locale: AppLocale, id: string }>;
 }): Promise<Metadata> {
-  const getParams = (await params)
-  const id = getParams.id
-  const { locale } = await params;
+  const { id, locale } = await params;
   const t = await getTranslations({ locale, namespace: 'metadata' });
-  const parish = await getParishById({ id, locale: locale as AppLocale });
+  const parish = await getParishByIdCached({ id, locale: locale as AppLocale });
+  const parishTitle = parish?.translations[0].title || "";
+  const parishDescription = (parish?.translations[0].description?.trim() || t('parishes-id.description')).substring(0, 160);
 
   return {
-    title: t('parishes-id.title', { title: parish?.translations[0].title || "" }),
-    description: t('parishes-id.description'),
+    title: t('parishes-id.title', { title: parishTitle }),
+    description: parishDescription,
+    openGraph: {
+      title: t('parishes-id.title', { title: parishTitle }),
+      description: parishDescription,
+    },
   };
 }
 
@@ -27,15 +31,13 @@ export default async function ParishesId({
   params,
   searchParams
 }: {
-  params: Promise<{ locale: string, id: string }>,
+  params: Promise<{ locale: AppLocale, id: string }>,
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>
 }) {
-  const getParams = (await params)
-  const id = getParams.id
+  const { id, locale } = await params;
   const resolvedSearchParams = await searchParams;
   const categoryTerm = (resolvedSearchParams[QUERY_PARAMS_KEYS.CATEGORY] as string) || "";
   const specification = (resolvedSearchParams[QUERY_PARAMS_KEYS.SPECIFICATION] as string) || "";
-  const locale = getParams.locale as AppLocale;
 
   const [parish, products, categories] = await Promise.all([
     getParishByIdCached({ id, locale }),

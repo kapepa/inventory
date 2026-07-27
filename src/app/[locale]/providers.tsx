@@ -18,9 +18,7 @@ export function Providers({ children, locale, messages, initialUser }: Providers
       <ModalProvider>
         <TooltipProvider>
           <AuthProvider initialUser={initialUser}>
-            <WebSocketProvider>
-              {children}
-            </WebSocketProvider>
+            {children}
           </AuthProvider>
         </TooltipProvider>
       </ModalProvider>
