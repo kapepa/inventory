@@ -17,8 +17,17 @@ export const DetailsCell = ({ label, title, description, className }: DetailsCel
       {label && <MobileCellLabel className="block md:hidden">{label}</MobileCellLabel>}
       <Popover>
         <PopoverTrigger asChild>
-          <Button asChild className="cursor-pointer size-11 rounded-full" variant="outline">
-            <Menu className="size-6 text-chart-3" strokeWidth={3} />
+          <Button
+            asChild
+            className="cursor-pointer size-11 rounded-full"
+            variant="outline"
+            aria-label={description?.slice(0, 50) || "Details"}
+          >
+            <Menu
+              className="size-6 text-chart-3"
+              strokeWidth={3}
+              aria-hidden="true"
+            />
           </Button>
         </PopoverTrigger>
         <PopoverContent className="w-80 lg:w-100">
