@@ -1,3 +1,4 @@
+export * from "./modal"
 export { Button, buttonVariants } from "./button";
 export { Input } from "./input";
 export { Container, containerVariants } from "./container"
@@ -68,18 +69,6 @@ export {
   FormLabel,
   FormMessage,
 } from "./form"
-export {
-  Modal,
-  ModalProvider,
-  useModal,
-  useModalState,
-  useModalActions,
-  ModalRoot,
-  ModalContents,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
-} from "./modal"
 export {
   DropdownMenu,
   DropdownMenuPortal,

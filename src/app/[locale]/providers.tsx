@@ -1,7 +1,7 @@
 'use client';
 
 import { AuthenticatedUser, AuthProvider } from '@/features';
-import { TooltipProvider, ModalProvider, QueryParamProvider, WebSocketProvider } from '@/shared';
+import { TooltipProvider, ModalProvider, QueryParamProvider } from '@/shared';
 import { NextIntlClientProvider, AbstractIntlMessages } from 'next-intl';
 import { ReactNode, useMemo } from 'react';
 

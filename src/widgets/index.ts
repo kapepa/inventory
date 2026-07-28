@@ -6,8 +6,8 @@ export * from "./parishes-list";
 export * from "./products-list";
 export * from "./categories-list";
 export * from "./users-list";
-export * from "./category-chart";
-export * from "./map";
+export { CategoryChartDynamic } from "./category-chart";
+export { WarehouseMapDynamic } from "./map";
 export * from "./auth-gate";
 export * from "./verify-email-status";
 export * from "./settings-panel"

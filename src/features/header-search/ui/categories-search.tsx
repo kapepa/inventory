@@ -22,6 +22,7 @@ export const CategoriesSearch = memo(({ className }: CategoriesSearchProps) => {
     <GenericSearchResponsive
       className={className}
       openSearch={openGenericSearch}
+      searchLabel={tPlaceholder}
     >
       <GenericSearchInput
         queryKey={QUERY_PARAMS_KEYS.CATEGORIES_SEARCH}

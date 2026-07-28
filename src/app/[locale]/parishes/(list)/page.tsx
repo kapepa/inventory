@@ -2,8 +2,6 @@ import { getParishesTotalsCached } from "@/entities/server";
 import { AddParishButton } from "@/features";
 import { Container, AppLocale, PAGINATION_PARISHES_DEFAULTS, QUERY_PARAMS_KEYS } from "@/shared";
 import { PageHeader, ParishesList } from "@/widgets";
-
-
 import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 
