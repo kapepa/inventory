@@ -1,6 +1,8 @@
 "use client";
 
 import { createContext, useContext, useState, ReactNode, useCallback, useMemo } from "react";
+import { ModalRootDynamic } from "./modal-root-dynamic";
+import { Toaster } from "../sonner";
 
 interface ModalState {
   isOpen: boolean;
@@ -45,6 +47,7 @@ export const ModalProvider = ({ children }: { children: ReactNode }) => {
     <ModalStateContext.Provider value={state}>
       <ModalActionsContext.Provider value={actions}>
         {children}
+        <ModalRootDynamic />
       </ModalActionsContext.Provider>
     </ModalStateContext.Provider>
   );

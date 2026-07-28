@@ -46,6 +46,7 @@ export default async function Parishes({
         action={<AddParishButton />}
         storeType="parishes"
       />
+
       <ParishesList
         initialParishes={initialData.data}
         initialHasMore={initialData.hasMore}
