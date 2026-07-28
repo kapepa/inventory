@@ -45,8 +45,14 @@ export const LoginButton = ({ className }: LoginButtonProps) => {
               "shadow-sm hover:shadow-md transition-shadow duration-300",
               className
             )}
+          aria-label="settings"
+          type="button"
         >
-          <Settings strokeWidth={2} className="size-7 text-chart-4" />
+          <Settings
+            strokeWidth={2}
+            className="size-7 text-chart-4"
+            aria-hidden="true"
+          />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-40" align="start">

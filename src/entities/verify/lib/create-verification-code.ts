@@ -1,8 +1,8 @@
-import { prisma } from "@/shared/server";
+import { ExpiredError, NotFoundError, prisma } from "@/shared/server";
 import crypto from 'crypto';
 import { VerificationCodeInput, VerificationCodeOutput } from "../types";
 import { VERIFICATION_CONFIG } from "@/shared";
-import { TokenExpiredError, TokenNotFoundError } from "../server";
+import { email } from "zod";
 
 export const createVerificationCode = async ({ email, userId }: VerificationCodeInput): Promise<VerificationCodeOutput> => {
   try {
@@ -46,12 +46,15 @@ export const validateVerificationToken = async (token: string): Promise<{ email:
       }
     })
 
-    if (!existingVerification) throw new TokenNotFoundError();
-    if (existingVerification.expiresAt < new Date()) throw new TokenExpiredError(existingVerification.email);
+    if (!existingVerification) throw new NotFoundError("Verification token");
 
-    return { email: existingVerification.email }
+    const email = existingVerification.email
+
+    if (existingVerification.expiresAt < new Date()) throw new ExpiredError("Expired token", email);
+
+    return { email }
   } catch (error) {
-    if (error instanceof TokenExpiredError || error instanceof TokenNotFoundError) {
+    if (error instanceof ExpiredError || error instanceof NotFoundError) {
       throw error;
     }
 

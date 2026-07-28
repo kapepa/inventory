@@ -2,13 +2,13 @@
 
 import { useState, useCallback } from 'react'
 import { requestUploadFile } from '../../api/upload-api'
-import { UploadError, UploadResponse } from '../types/types'
+import { ResponsiveImageSizes } from '../types/types'
 
 export const useUpload = () => {
   const [isUploading, setIsUploading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
-  const upload = useCallback(async (file: File): Promise<UploadResponse> => {
+  const upload = useCallback(async (file: File): Promise<ResponsiveImageSizes> => {
     setIsUploading(true)
     setError(null)
     try {

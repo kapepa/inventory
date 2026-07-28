@@ -2,7 +2,7 @@ import { getMessages, setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { Inter } from "next/font/google";
 import { Providers } from './providers';
-import { routing, ModalRoot, Toaster } from '@/shared';
+import { routing, ModalRootDynamic, Toaster } from '@/shared';
 import { getSessionUserCached } from '@/features/server';
 
 const inter = Inter({
@@ -38,7 +38,7 @@ export default async function LocaleLayout({
           <div className="min-w-75">
             {children}
           </div>
-          <ModalRoot />
+          <ModalRootDynamic />
           <Toaster />
         </Providers>
       </body>

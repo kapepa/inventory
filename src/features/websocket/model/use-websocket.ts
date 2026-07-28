@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useCallback, useRef } from 'react';
-import { socketClient, SocketEvent } from '@/shared';
+import { SocketEvent } from '@/shared';
 import { useWebSocketStore } from './websocket-store';
 
 interface UseWebSocketOptions {
@@ -13,13 +13,18 @@ export function useWebSocket(options: UseWebSocketOptions = {}) {
   const { autoConnect = true, userId } = options;
   const { isConnected, setConnected, setError } = useWebSocketStore();
   const hasInitialized = useRef(false);
+  const socketClientRef = useRef<any>(null);
 
   useEffect(() => {
     if (!autoConnect || hasInitialized.current) return;
     hasInitialized.current = true;
 
-    const wsUrl = process.env.NEXT_PUBLIC_WS_URL || 'http://localhost:3000';
-    socketClient.connect(wsUrl, userId);
+    const initSocket = async () => {
+      const { socketClient } = await import('@/shared/lib/websocket/socket-client-dynamic');
+      socketClientRef.current = socketClient;
+
+      const wsUrl = process.env.NEXT_PUBLIC_WS_URL || 'http://localhost:3000';
+      await socketClient.connect(wsUrl, userId);
 
     const handleConnect = () => {
       setConnected(true);
@@ -48,18 +53,23 @@ export function useWebSocket(options: UseWebSocketOptions = {}) {
       socketClient.off(SocketEvent.DISCONNECT, handleDisconnect);
       socketClient.off('connect_error', handleError);
     };
+    };
+
+    initSocket();
   }, [autoConnect, userId, setConnected, setError]);
 
   const subscribe = useCallback(
     <T = unknown>(event: SocketEvent | string, callback: (data: T) => void) => {
-      socketClient.on(event, callback);
-      return () => socketClient.off(event, callback);
+      if (!socketClientRef.current) return () => {};
+      socketClientRef.current.on(event, callback);
+      return () => socketClientRef.current?.off(event, callback);
     },
     []
   );
 
   const emit = useCallback((event: string, data?: unknown) => {
-    socketClient.emit(event, data);
+    if (!socketClientRef.current) return;
+    socketClientRef.current.emit(event, data);
   }, []);
 
 

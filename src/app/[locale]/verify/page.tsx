@@ -1,5 +1,5 @@
-import { TokenExpiredError, TokenNotFoundError, validateVerificationToken } from "@/entities/server";
-import { AppLocale, Container, QUERY_PARAMS_KEYS, redirect, ROUTES } from "@/shared";
+import { validateVerificationToken } from "@/entities/server";
+import { AppLocale, Container, ExpiredError, NotFoundError, QUERY_PARAMS_KEYS, redirect, ROUTES } from "@/shared";
 import { PageHeader, StatusVerifyEmail, VerifyEmailStatus } from "@/widgets";
 import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
@@ -43,10 +43,10 @@ export default async function Verify({
     tokenStatus.status = 'valid';
     tokenStatus.email = email;
   } catch (error) {
-    if (error instanceof TokenExpiredError) {
+    if (error instanceof ExpiredError) {
       tokenStatus.status = 'expired';
       tokenStatus.email = error.email;
-    } else if (error instanceof TokenNotFoundError) {
+    } else if (error instanceof NotFoundError) {
       tokenStatus.status = 'invalid';
     } else {
       throw error;

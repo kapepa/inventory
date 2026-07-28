@@ -1,6 +1,6 @@
 import { ImageSizes, MultipleImageSources } from '@/shared'
 
-export const formatResponsiveImage = (uploadResponse: ImageSizes): string => {
+export const formatResponsiveImage = (uploadResponse: Partial<ImageSizes>): string => {
   return JSON.stringify({
     thumbnail: uploadResponse.thumbnail,
     small: uploadResponse.small,

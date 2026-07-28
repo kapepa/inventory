@@ -72,11 +72,13 @@ export class NotVerifiedError extends Error {
 export class ExpiredError extends Error {
   public readonly code = ERROR_CODES.EXPIRED;
   public readonly entity: string;
+  public readonly email?: string;
 
-  constructor(entity: string) {
+  constructor(entity: string, email?: string) {
     super(`${entity} expired`);
     this.name = 'ExpiredError';
     this.entity = entity;
+    this.email = email;
   }
 }
 

@@ -1,6 +1,6 @@
 "use client"
 
-import { memo, useCallback, useEffect } from "react"
+import { useCallback, useEffect } from "react"
 import { ParishWideCard, ParishWithRelationsTotals, useInfiniteParishes, ParishWideHeader, ParishWideCardSkeleton, useParishesStore, isTotalsParish, ParishWideHeaderSkeleton } from "@/entities"
 import { cn, QUERY_PARAMS_KEYS, ScrollArea, StateMessage, useIntersectionObserver, useQueryParam } from "@/shared"
 import { useDeleteParish, useHydratedIsAdmin } from "@/features"
@@ -11,7 +11,7 @@ const PARISH_GRID_BASE = "items-center grid gap-4 grid-rows-6 grid-cols-2 pb-4 m
 
 const PARISH_GRID_LAYOUT = cn(
   PARISH_GRID_BASE,
-  "md:grid-cols-[6fr_1fr_1fr_2fr_2fr]"
+  "md:grid-cols-[6fr_1fr_1fr_2fr_2fr] grid-rows-3"
 );
 
 const PARISH_GRID_LAYOUT_ADMIN = cn(
@@ -25,7 +25,7 @@ interface ParishesListProps {
   initialHasMore?: boolean,
 }
 
-export const ParishesList = memo(({
+export const ParishesList = ({
   className,
   initialParishes = [],
   initialHasMore = true,
@@ -98,7 +98,7 @@ export const ParishesList = memo(({
       </ScrollArea>
     </div>
   )
-})
+}
 
 ParishesList.displayName = "ParishesList"
 
