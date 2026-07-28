@@ -1,9 +1,9 @@
 import { getMessages, setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { Inter } from "next/font/google";
-import { Providers } from './providers';
-import { routing, ModalRootDynamic, Toaster } from '@/shared';
-import { getSessionUserCached } from '@/features/server';
+import { BaseProviders } from './providers';
+import { routing, AppLocale } from '@/shared';
+import { ProvidersUIClient } from './providers-client';
 
 const inter = Inter({
   subsets: ['cyrillic', 'latin'],
@@ -27,20 +27,17 @@ export default async function LocaleLayout({
 
   if (!routing.locales.includes(locale as any)) notFound();
 
-  setRequestLocale(locale);
+  const typedLocale = locale as AppLocale;
+  setRequestLocale(typedLocale);
 
-  const [messages, user] = await Promise.all([getMessages({ locale }), getSessionUserCached()])
+  const messages = await getMessages({ locale: typedLocale })
 
   return (
-    <html lang={locale} className={`${inter.className} h-full antialiased`}>
-      <body className='bg-static'>
-        <Providers locale={locale} messages={messages} initialUser={user}>
-          <div className="min-w-75">
-            {children}
-          </div>
-          <ModalRootDynamic />
-          <Toaster />
-        </Providers>
+    <html lang={typedLocale} className={`${inter.className} h-full antialiased`}>
+      <body className='bg-static min-w-75'>
+        <BaseProviders locale={typedLocale} messages={messages}>
+          <ProvidersUIClient>{children}</ProvidersUIClient>
+        </BaseProviders>
       </body>
     </html>
   );

@@ -106,7 +106,7 @@ export const authLogin = async (body: AuthSignIn): Promise<{ user: Authenticated
   }
 }
 
-export const getUserByIdInternal = async (userId: string) => {
+export const getUserByIdInternal = async (userId: string): Promise<AuthenticatedUser | null> => {
   return prisma.user.findUnique({
     where: { id: userId },
     select: {

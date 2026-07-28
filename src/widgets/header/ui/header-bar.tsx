@@ -11,6 +11,7 @@ import {
   LiveDatetimeWeekSkeleton,
   useMounted,
   OnlineUsersCountSkeleton,
+  WebSocketProvider,
   cn
 } from "@/shared";
 
@@ -44,7 +45,7 @@ export const HeaderBar = ({ showOnline, className }: HeaderBarProps) => {
     );
   }
 
-  return (
+  const content = (
     <div>
       <LiveDatetime className={className}>
         <div className="grid grid-cols-2 gap-x-3 gap-1 min-w-56">
@@ -62,6 +63,12 @@ export const HeaderBar = ({ showOnline, className }: HeaderBarProps) => {
       </LiveDatetime>
     </div>
   );
+
+  return showOnline ? (
+    <WebSocketProvider>
+      {content}
+    </WebSocketProvider>
+  ) : content;
 }
 
 HeaderBar.displayName = "HeaderBar"

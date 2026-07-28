@@ -4,6 +4,8 @@ import { PageHeader, StatusVerifyEmail, VerifyEmailStatus } from "@/widgets";
 import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 
+export const dynamic = 'force-dynamic';
+
 type TokenStatusType = {
   status: StatusVerifyEmail;
   email?: string;
