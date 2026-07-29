@@ -1,13 +1,14 @@
-import { axiosInstance, ForbiddenError, NotFoundError } from "@/shared";
-import axios, { AxiosError } from "axios";
+import { axiosInstance } from "@/shared/lib/axios";
+import { ForbiddenError, NotFoundError } from "@/shared";
 import { DeleteProductResult, DeleteProductParams } from "../model/types";
+import { AxiosError, isCancel } from "axios"
 
 export const requestDeleteProduct = async ({ id, signal }: DeleteProductParams): Promise<DeleteProductResult> => {
   try {
     const response = await axiosInstance.delete<DeleteProductResult>(`/products/${id}`, { signal });
     return response.data
   } catch (error) {
-    if (axios.isCancel(error)) {
+    if (isCancel(error)) {
       throw new Error("Request cancelled")
     }
 

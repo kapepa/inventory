@@ -1,5 +1,6 @@
-import { axiosInstance, ForbiddenError } from "@/shared";
-import axios, { AxiosError } from "axios"
+import { axiosInstance } from "@/shared/lib/axios"
+import { ForbiddenError } from "@/shared";
+import { AxiosError, isCancel } from "axios"
 import { UploadAvatarParmas } from "../model/types"
 
 export const requestUploadAvatar = async ({ data, signal }: UploadAvatarParmas): Promise<{ imageUrl: string }> => {
@@ -8,7 +9,7 @@ export const requestUploadAvatar = async ({ data, signal }: UploadAvatarParmas):
 
     return response.data
   } catch (error) {
-    if (axios.isCancel(error)) {
+    if (isCancel(error)) {
       throw new Error("Request cancelled");
     }
 

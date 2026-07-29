@@ -1,6 +1,6 @@
-import { axiosInstance } from '@/shared'
+import { axiosInstance } from "@/shared/lib/axios"
 import { ResponsiveImageSizes } from '../model/types/types'
-import axios, { AxiosError } from 'axios'
+import { AxiosError, isCancel } from "axios"
 import { RequestUploadFileParams } from '../model'
 
 export const requestUploadFile = async ({ file, signal }: RequestUploadFileParams): Promise<ResponsiveImageSizes> => {
@@ -19,7 +19,7 @@ export const requestUploadFile = async ({ file, signal }: RequestUploadFileParam
 
     return response.data
   } catch (error) {
-    if (axios.isCancel(error)) {
+    if (isCancel(error)) {
       throw new Error("Request cancelled")
     }
 

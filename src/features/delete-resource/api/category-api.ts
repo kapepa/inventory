@@ -1,6 +1,7 @@
-import { axiosInstance, ForbiddenError, HasDependenciesError, NotFoundError } from "@/shared"
+import { axiosInstance } from "@/shared/lib/axios"
+import { ForbiddenError, HasDependenciesError, NotFoundError } from "@/shared"
 import { DeleteCategoryParams, DeleteCategoryResult } from "../model/types"
-import axios, { AxiosError } from "axios"
+import { AxiosError, isCancel } from "axios"
 
 export const requestDeleteCategory = async ({ id, signal }: DeleteCategoryParams): Promise<DeleteCategoryResult> => {
   try {
@@ -10,7 +11,7 @@ export const requestDeleteCategory = async ({ id, signal }: DeleteCategoryParams
 
     return response.data
   } catch (error) {
-    if (axios.isCancel(error)) {
+    if (isCancel(error)) {
       throw new Error("Request cancelled")
     }
 

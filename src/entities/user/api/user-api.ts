@@ -1,5 +1,5 @@
-import { axiosInstance } from "@/shared"
-import axios, { AxiosError } from "axios"
+import { axiosInstance } from "@/shared/lib/axios"
+import { AxiosError, isCancel } from "axios"
 import { FetchUsersParams, ResponseUsersDTO } from "../model"
 
 const fetchUsersBase = async <T>(endpoint: string, { search = "", signal, ...props }: FetchUsersParams): Promise<T> => {
@@ -15,7 +15,7 @@ const fetchUsersBase = async <T>(endpoint: string, { search = "", signal, ...pro
     })
     return response.data
   } catch (error) {
-    if (axios.isCancel(error)) throw new Error("Request cancelled")
+    if (isCancel(error)) throw new Error("Request cancelled")
 
     if (error instanceof AxiosError) {
       const message = error.response?.data?.error || error.response?.data?.message || "Failed to fetch products";

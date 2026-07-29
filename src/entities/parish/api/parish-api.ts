@@ -1,5 +1,5 @@
-import { axiosInstance } from "@/shared"
-import axios, { AxiosError } from "axios"
+import { axiosInstance } from "@/shared/lib/axios"
+import { AxiosError, isCancel } from "axios"
 import { FetchParishesParams, ResponseParishesDTO, ResponseParishesTotalsDTO } from "../model"
 
 const fetchParishesBase = async <T>(
@@ -18,7 +18,7 @@ const fetchParishesBase = async <T>(
     })
     return response.data
   } catch (error) {
-    if (axios.isCancel(error)) {
+    if (isCancel(error)) {
       throw new Error("Request cancelled")
     }
 

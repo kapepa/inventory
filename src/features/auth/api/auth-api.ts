@@ -1,5 +1,6 @@
-import { AlreadyExistsError, axiosInstance, EmailSendError, InvalidCredentialsError, NotFoundError, NotVerifiedError } from "@/shared";
-import axios, { AxiosError } from "axios";
+import { axiosInstance } from "@/shared/lib/axios"
+import { AlreadyExistsError, EmailSendError, InvalidCredentialsError, NotFoundError, NotVerifiedError } from "@/shared";
+import { AxiosError, isCancel } from "axios"
 import { AuthenticatedUser, AuthSignInParmas, AuthSignUpParmas, ResendVerificationParmas } from "../model";
 
 export const requestAuthLogin = async ({ signal, data }: AuthSignInParmas): Promise<AuthenticatedUser> => {
@@ -7,7 +8,7 @@ export const requestAuthLogin = async ({ signal, data }: AuthSignInParmas): Prom
     const response = await axiosInstance.post<AuthenticatedUser>('/auth/login', data, { signal });
     return response.data;
   } catch (error) {
-    if (axios.isCancel(error)) {
+    if (isCancel(error)) {
       throw new Error("Request cancelled");
     }
 
@@ -31,7 +32,7 @@ export const requestAuthRegister = async ({ signal, data }: AuthSignUpParmas): P
     const response = await axiosInstance.post('/auth/register', data, { signal });
     return response.data;
   } catch (error) {
-    if (axios.isCancel(error)) {
+    if (isCancel(error)) {
       throw new Error("Request cancelled");
     }
 
@@ -71,7 +72,7 @@ export const requestResendVerification = async ({ signal, data }: ResendVerifica
     const response = await axiosInstance.post('/auth/resend-verification', data, { signal });
     return response.data;
   } catch (error) {
-    if (axios.isCancel(error)) {
+    if (isCancel(error)) {
       throw new Error("Request cancelled");
     }
 
