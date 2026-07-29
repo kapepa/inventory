@@ -1,4 +1,3 @@
-export * from "./axios"
 export * from "./currency"
 export * from "./hooks"
 export * from "./i18n"

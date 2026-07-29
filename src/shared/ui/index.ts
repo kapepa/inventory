@@ -1,4 +1,3 @@
-export * from "./modal"
 export { Button, buttonVariants } from "./button";
 export { Input } from "./input";
 export { Container, containerVariants } from "./container"
@@ -7,12 +6,10 @@ export { Logo } from "./logo"
 export { NavLink } from "./nav-link"
 export { ProfileAvatar } from "./profile-avatar"
 export { Skeleton } from "./skeleton"
-export { Toaster } from "./sonner"
 export { ToasterDynamic } from "./sonner-dynamic"
 export { TooltipText } from "./tooltip-text"
 export { Label } from "./label"
 export { Textarea } from "./textarea"
-export { Calendar } from "./calendar"
 export { Tabs, TabsList, TabsTrigger, TabsContent } from "./tabs"
 export { TranslateWrapperInput } from "./translate-wrapper-input"
 export { Loader } from "./loader"
@@ -110,12 +107,16 @@ export {
   SheetTitle,
   SheetTrigger,
 } from "./sheet"
+
 export {
-  type ChartConfig,
-  ChartContainer,
-  ChartLegend,
-  ChartLegendContent,
-  ChartStyle,
-  ChartTooltip,
-  ChartTooltipContent,
-} from "./chart"
+  Modal,
+  ModalBody,
+  ModalContents,
+  ModalFooter,
+  ModalHeader,
+  ModalProvider,
+  ModalRoot,
+  ModalRootDynamic,
+  useModalActions,
+  useModalState,
+} from "./modal"
