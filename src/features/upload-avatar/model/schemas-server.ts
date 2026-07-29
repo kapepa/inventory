@@ -12,5 +12,4 @@ export const avatarUploadServerSchema = z.object({
     .max(VALIDATION_LIMITS.ID_MAX_LENGTH),
 })
 
-
 export type AvatarUploadServerValues = z.infer<typeof avatarUploadServerSchema>

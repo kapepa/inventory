@@ -1,5 +1,5 @@
 export * from "./types"
 export * from "./hooks"
 export { useAuthStore } from "./auth-store"
-export type { LoginFormSchema, LoginFormValues, RegisterSchema, RegisterFormValues, ResendVerificationServerValues } from "./schemas"
-export { loginFormSchema, registerFormSchema, resendVerificationServerSchema } from "./schemas"
+export type { LoginFormSchema, LoginFormValues, RegisterSchema, RegisterFormValues } from "./schemas-client"
+export { loginFormSchema, registerFormSchema } from "./schemas-client"
