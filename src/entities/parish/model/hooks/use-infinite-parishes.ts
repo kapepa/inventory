@@ -24,7 +24,8 @@ export const useInfiniteParishes = <T extends { id: string }>({
   initialHasMore = false,
   fetchFnAction,
 }: UseInfiniteParishesProps<T>) => {
-  const { setTotal, setPage } = useParishesStore()
+  const setTotal = useParishesStore((state) => state.setTotal)
+  const setPage = useParishesStore((state) => state.setPage)
   const [parishes, setParishes] = useState<T[]>(initialParishes)
   const [hasMore, setHasMore] = useState<boolean>(initialHasMore)
   const [isLoading, setIsLoading] = useState(false)
