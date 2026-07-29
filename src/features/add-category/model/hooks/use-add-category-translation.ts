@@ -3,7 +3,7 @@
 import { useMemo, useState, useTransition } from "react"
 import { FieldPath, UseFormReturn } from "react-hook-form"
 import { AppLocale, oppositeLocale, useThrottle, useTranslate } from "@/shared"
-import { CategoryFormValues, CategoryTranslatableFieldName } from "../schemas"
+import { CategoryFormValues, CategoryTranslatableFieldName } from "../schemas-client"
 
 
 export const useAddCategoryTranslation = (form: UseFormReturn<CategoryFormValues>) => {

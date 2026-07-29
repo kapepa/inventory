@@ -2,7 +2,7 @@
 
 import { useModalActions, useModalQuery, QUERY_PARAMS_KEYS } from "@/shared";
 import { useCallback } from "react";
-import { AddCategoryModalDynamic } from "../../ui";
+import { AddCategoryModalDynamic } from "../../ui/add-category-modal-dynamic";
 
 export const useAddCategory = () => {
   const { openModal, closeModal } = useModalActions();

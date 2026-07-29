@@ -2,7 +2,6 @@
 
 import { createContext, useContext, useState, ReactNode, useCallback, useMemo } from "react";
 import { ModalRootDynamic } from "./modal-root-dynamic";
-import { Toaster } from "../sonner";
 
 interface ModalState {
   isOpen: boolean;

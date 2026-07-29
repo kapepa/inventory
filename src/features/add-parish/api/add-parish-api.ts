@@ -1,6 +1,7 @@
-import { AlreadyExistsError, axiosInstance } from "@/shared"
+import { axiosInstance } from "@/shared/lib/axios"
+import { AlreadyExistsError } from "@/shared"
 import { CreateParishParams } from "../model"
-import axios, { AxiosError } from "axios"
+import { AxiosError, isCancel } from "axios"
 import { ParishWithRelationsTotals } from "@/entities"
 
 export const requestCreateParish = async ({ data, signal }: CreateParishParams): Promise<ParishWithRelationsTotals> => {
@@ -16,7 +17,7 @@ export const requestCreateParish = async ({ data, signal }: CreateParishParams):
     )
     return response.data
   } catch (error) {
-    if (axios.isCancel(error)) {
+    if (isCancel(error)) {
       throw new Error("Request cancelled")
     }
 

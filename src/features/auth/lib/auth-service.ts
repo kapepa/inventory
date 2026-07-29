@@ -1,6 +1,6 @@
 import { prisma } from "@/shared/lib/prisma";
 import { AuthSignIn, AuthSignUp, AuthenticatedUser, ResendVerification } from "../model/types";
-import { loginFormServerSchema, registerFormServerSchema, resendVerificationServerSchema } from "../model/schemas";
+import { loginFormServerSchema, registerFormServerSchema, resendVerificationServerSchema } from "../model/server";
 import { AlreadyExistsError, InvalidCredentialsError, NotFoundError, NotVerifiedError } from "@/shared/server";
 import { comparePassword, COOKIE_KEYS, hashPassword, signToken, verifyToken } from "@/shared";
 import { cookies } from "next/headers";

@@ -4,7 +4,7 @@ import { useTranslations } from "next-intl";
 import { useCallback, useMemo, useTransition } from "react";
 import { useForm } from "react-hook-form"
 import { toast } from "sonner";
-import { codeFormSchema, CodeFormValues } from "../schemas";
+import { codeFormSchema, CodeFormValues } from "../schemas-client";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { requestVerifyCodeEmail } from "../../api";
 import { ERROR_CODES, NotFoundError, ROUTES, useRouter, useUnmountCallback } from "@/shared";

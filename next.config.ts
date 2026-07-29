@@ -9,6 +9,7 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 
 const nextConfig: NextConfig = {
   images: {
+    minimumCacheTTL: 60,
     remotePatterns: [
       {
         protocol: 'https',
@@ -26,12 +27,23 @@ const nextConfig: NextConfig = {
       'zod',
       'socket.io-client',
       'leaflet',
+      '@radix-ui/react-tabs',
+      'sonner',
+      'zustand',
+      'clsx',
+      'class-variance-authority',
+      'tailwind-merge',
     ],
     optimizeCss: true,
+    webpackBuildWorker: true,
+    parallelServerBuildTraces: true,
   },
   compiler: {
     removeConsole: process.env.NODE_ENV === 'production',
   },
+  productionBrowserSourceMaps: false,
+  generateEtags: true,
+  staticPageGenerationTimeout: 120,
   webpack: (config, { isServer }) => {
     if (!isServer) {
       config.optimization = {

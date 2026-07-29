@@ -2,7 +2,7 @@
 
 import { useModalActions, useModalQuery, QUERY_PARAMS_KEYS } from "@/shared";
 import { useCallback } from "react";
-import { AddParishModalDynamic } from "../../ui";
+import { AddParishModalDynamic } from "../../ui/add-parish-modal-dynamic";
 
 export const useAddParish = () => {
   const { openModal, closeModal } = useModalActions();

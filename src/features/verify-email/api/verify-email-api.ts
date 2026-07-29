@@ -1,5 +1,6 @@
-import { axiosInstance, ExpiredError, NotFoundError } from "@/shared";
-import axios, { AxiosError } from "axios";
+import { axiosInstance } from "@/shared/lib/axios"
+import { NotFoundError } from "@/shared";
+import { AxiosError, isCancel } from "axios"
 import { VerifyCodeEmailParams } from "../model";
 
 export const requestVerifyCodeEmail = async ({ signal, data }: VerifyCodeEmailParams): Promise<void> => {
@@ -7,7 +8,7 @@ export const requestVerifyCodeEmail = async ({ signal, data }: VerifyCodeEmailPa
     const response = await axiosInstance.post<void>('/auth/verify-email', data, { signal });
     return response.data;
   } catch (error) {
-    if (axios.isCancel(error)) {
+    if (isCancel(error)) {
       throw new Error("Request cancelled");
     }
 

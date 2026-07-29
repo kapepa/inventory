@@ -4,10 +4,10 @@ import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { toast } from "sonner"
 import { useLocale, useTranslations } from "next-intl"
-import { useParishesStore } from "@/entities/parish/model/parish-store"
+import { useParishesStore } from "@/entities"
 import { AlreadyExistsError, AppLocale, STORAGE_KEYS } from "@/shared"
 import { requestCreateParish } from "../../api"
-import { createParishFormSchema, ParishFormValues } from "../schemas"
+import { createParishFormSchema, ParishFormValues } from "../schemas-client"
 
 const ADD_PARISH_FORM_DATA = STORAGE_KEYS.ADD_PARISH_FORM_DATA
 
@@ -16,7 +16,7 @@ export const useAddParishForm = (closeModalAction: () => void) => {
   const t = useTranslations("add-parish.form.toast")
   const tErrors = useTranslations("add-parish.form.errors")
   const [isSubmitting, startSubmitTransition] = useTransition()
-  const { addNewParish } = useParishesStore()
+  const addNewParish = useParishesStore((state) => state.addNewParish)
 
   const form = useForm<ParishFormValues>({
     resolver: zodResolver(createParishFormSchema(tErrors)),

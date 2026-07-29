@@ -1,5 +1,6 @@
-import { AlreadyExistsError, axiosInstance } from "@/shared"
-import axios, { AxiosError } from "axios"
+import { axiosInstance } from "@/shared/lib/axios"
+import { AlreadyExistsError } from "@/shared"
+import { AxiosError, isCancel } from "axios"
 import { CreateProductParams } from "../model"
 import { ProductWithRelationsShort } from "@/entities"
 
@@ -9,7 +10,7 @@ export const requestСreateProduct = async ({ signal, data }: CreateProductParam
 
     return response.data
   } catch (error) {
-    if (axios.isCancel(error)) {
+    if (isCancel(error)) {
       throw new Error("Request cancelled")
     }
 

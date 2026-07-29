@@ -1,5 +1,6 @@
-import { axiosInstance, ForbiddenError, InvalidInputError, NotFoundError } from "@/shared";
-import axios, { AxiosError } from "axios";
+import { axiosInstance } from "@/shared/lib/axios"
+import { ForbiddenError, InvalidInputError } from "@/shared";
+import { AxiosError, isCancel } from "axios"
 import { ChangeUserRoleParams, UserRoleType } from "../model/types";
 
 
@@ -8,7 +9,7 @@ export const requestChangeUserRole = async ({ signal, data }: ChangeUserRolePara
     const response = await axiosInstance.patch<UserRoleType>(`/users/role`, data, { signal });
     return response.data;
   } catch (error) {
-    if (axios.isCancel(error)) {
+    if (isCancel(error)) {
       throw new Error("Request cancelled");
     }
 

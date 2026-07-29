@@ -2,20 +2,15 @@ import { useCategoriesStore, useParishesStore, useProductsStore, useUsersStore }
 import { StoreType } from "../types";
 
 export const useTotalByStore = (storeType?: StoreType) => {
-  const parishesTotal = useParishesStore((state) => state.total);
-  const productsTotal = useProductsStore((state) => state.total);
-  const categoriesTotal = useCategoriesStore((state) => state.total)
-  const usersTotal = useUsersStore((state) => state.total);
-
   switch (storeType) {
     case 'parishes':
-      return parishesTotal;
+      return useParishesStore((state) => state.total);
     case 'products':
-      return productsTotal;
+      return useProductsStore((state) => state.total);
     case 'categories':
-      return categoriesTotal;
+      return useCategoriesStore((state) => state.total);
     case 'users':
-      return usersTotal;
+      return useUsersStore((state) => state.total);
     default:
       return null;
   }

@@ -28,14 +28,3 @@ export const changePasswordFormSchema = (t: TranslationFunction) => z.object({
 
 export type ChangePasswordFormSchema = ReturnType<typeof changePasswordFormSchema>;
 export type ChangePasswordFormValues = z.infer<ChangePasswordFormSchema>;
-
-export const changePasswordServerSchema = z.object({
-  currentPassword: z
-    .string()
-    .min(VALIDATION_LIMITS.PASSWORD_MIN_LENGTH)
-    .max(VALIDATION_LIMITS.PASSWORD_MAX_LENGTH),
-  newPassword: z
-    .string()
-    .min(VALIDATION_LIMITS.PASSWORD_MIN_LENGTH)
-    .max(VALIDATION_LIMITS.PASSWORD_MAX_LENGTH),
-});

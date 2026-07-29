@@ -15,11 +15,11 @@ import {
   Button,
   cn,
   PopoverContent,
-  Calendar,
-  dateFnsLocales,
   AppLocale,
 } from "@/shared"
 import { memo } from "react"
+import { CalendarDynamic } from "@/shared/ui/calendar-dynamic"
+import { dateFnsLocales } from "@/shared/lib/i18n/date-fns-locales"
 
 interface DeliveryDateFieldProps {
   isPending?: boolean,
@@ -60,7 +60,7 @@ export const DeliveryDateField = memo(
                 </FormControl>
               </PopoverTrigger>
               <PopoverContent className="w-auto mb-1" align="start">
-                <Calendar
+                <CalendarDynamic
                   mode="single"
                   locale={dateFnsLocales[locale]}
                   selected={field.value}

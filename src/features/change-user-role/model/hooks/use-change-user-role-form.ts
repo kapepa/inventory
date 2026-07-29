@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form"
 import { toast } from "sonner";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { requestChangeUserRole } from "../../api";
-import { changeUserRoleFormSchema, ChangeUserRoleFormValues } from "../schemas";
+import { changeUserRoleFormSchema, ChangeUserRoleFormValues } from "../schemas-client";
 import { UserRoleType } from "../types";
 import { ForbiddenError, InvalidInputError } from "@/shared";
 import { useAuthStore } from "@/features/auth";

@@ -1,4 +1,4 @@
-import { CategoryFormValues } from "../schemas";
+import { CategoryFormValues } from "../schemas-client";
 
 export interface CreateCategoryParams {
   data: CategoryFormValues,

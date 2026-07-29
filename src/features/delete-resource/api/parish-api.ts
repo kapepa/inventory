@@ -1,6 +1,7 @@
-import { axiosInstance, ForbiddenError, HasDependenciesError, NotFoundError } from "@/shared"
+import { axiosInstance } from "@/shared/lib/axios"
+import { ForbiddenError, HasDependenciesError, NotFoundError } from "@/shared"
 import { DeleteParishesParams, DeleteParishResult } from "../model/types"
-import axios, { AxiosError } from "axios"
+import { AxiosError, isCancel } from "axios"
 
 export const requestDeleteParish = async ({ id, signal }: DeleteParishesParams): Promise<DeleteParishResult> => {
   try {
@@ -10,7 +11,7 @@ export const requestDeleteParish = async ({ id, signal }: DeleteParishesParams):
 
     return response.data
   } catch (error) {
-    if (axios.isCancel(error)) {
+    if (isCancel(error)) {
       throw new Error("Request cancelled")
     }
 

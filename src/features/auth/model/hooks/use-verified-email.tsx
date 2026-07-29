@@ -4,8 +4,8 @@ import { NotFoundError, useModalActions, useRouter } from "@/shared";
 import { useTranslations } from "next-intl";
 import { useCallback, useTransition } from "react";
 import { toast } from "sonner";
-import { EmailNotVerifiedModalDynamic } from "../../ui";
 import { requestResendVerification } from "../../api";
+import { EmailNotVerifiedModalDynamic } from "../../ui/email-not-verified-modal-dynamic";
 
 interface EmailNotVerifiedModalWrapperProps {
   email: string; onCloseAction: () => void;

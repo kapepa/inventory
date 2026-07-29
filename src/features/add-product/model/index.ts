@@ -1,4 +1,4 @@
-export { productCreateFormSchema, productCreateServerSchema } from "./schemas"
-export type { ProductCreateSchema, ProductCreateFormValues, TranslatableProductFieldName, ProductCreateServerValues } from "./schemas"
 export * from "./types"
 export * from "./hooks"
+export { productCreateFormSchema } from "./schemas-client"
+export type { ProductCreateSchema, ProductCreateFormValues, TranslatableProductFieldName } from "./schemas-client"

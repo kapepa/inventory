@@ -1,5 +1,6 @@
-import { axiosInstance, InvalidCredentialsError, InvalidInputError, NotFoundError } from "@/shared";
-import axios, { AxiosError } from "axios";
+import { axiosInstance } from "@/shared/lib/axios"
+import { InvalidCredentialsError, InvalidInputError, NotFoundError } from "@/shared";
+import { AxiosError, isCancel } from "axios"
 import { ChangePasswordDTO, ChangePasswordParams } from "../model/types";
 
 export const requestChangePassword = async ({ signal, data }: ChangePasswordParams): Promise<ChangePasswordDTO> => {
@@ -7,7 +8,7 @@ export const requestChangePassword = async ({ signal, data }: ChangePasswordPara
     const response = await axiosInstance.patch<ChangePasswordDTO>('/users/change-password', data, { signal });
     return response.data;
   } catch (error) {
-    if (axios.isCancel(error)) {
+    if (isCancel(error)) {
       throw new Error("Request cancelled")
     }
 

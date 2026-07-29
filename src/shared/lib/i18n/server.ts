@@ -1,2 +1,2 @@
-export { locales, localeNames, defaultLocale, dateFnsLocales, oppositeLocale } from "./config"
+export { locales, localeNames, defaultLocale, oppositeLocale } from "./config"
 export type { AppLocale } from "./config"

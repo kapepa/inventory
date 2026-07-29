@@ -4,7 +4,7 @@ import { useTranslations } from "next-intl";
 import { useCallback, useMemo, useTransition } from "react";
 import { useForm } from "react-hook-form"
 import { toast } from "sonner";
-import { changePasswordFormSchema, ChangePasswordFormValues } from "../schemas";
+import { changePasswordFormSchema, ChangePasswordFormValues } from "../schemas-client";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { requestChangePassword } from "../../api";
 import { InvalidCredentialsError, InvalidInputError, NotFoundError } from "@/shared";

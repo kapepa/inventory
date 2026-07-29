@@ -3,7 +3,7 @@
 import { STORAGE_KEYS } from "@/shared";
 import { useEffect } from "react";
 import { UseFormReturn } from "react-hook-form";
-import { ProductCreateFormValues } from "../schemas";
+import { ProductCreateFormValues } from "../schemas-client";
 
 const ADD_PRODUCT_FORM_DATA = STORAGE_KEYS.ADD_PRODUCT_FORM_DATA
 

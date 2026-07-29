@@ -1,6 +1,6 @@
-import { axiosInstance } from "@/shared"
+import { axiosInstance } from "@/shared/lib/axios"
 import { RequestCategoriesProductsCountParams, CategoryWithTranslations, RequestCategoriesParams, GetCategoriesWithProductCountDTO } from "../model/types"
-import axios, { AxiosError } from "axios"
+import { AxiosError, isCancel } from "axios"
 import { RequestCategoryProductsParams } from "../model/types/api-params"
 import { ResponseProductsWideDTO } from "@/entities/product"
 
@@ -15,7 +15,7 @@ const fetchCategoriesBase = async <T>(
     })
     return response.data
   } catch (error) {
-    if (axios.isCancel(error)) {
+    if (isCancel(error)) {
       throw new Error("Request cancelled")
     }
 

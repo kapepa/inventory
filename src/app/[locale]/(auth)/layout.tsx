@@ -1,5 +1,5 @@
 import { getSessionUserCached } from "@/features/server";
-import { ProvidersAuthClient } from "../providers-client";
+import { ProvidersAuthClient, ProvidersUIClient } from "../providers-client";
 import { AppLocale, redirect, ROUTES } from "@/shared";
 
 export default async function AuthLayout({
@@ -15,8 +15,10 @@ export default async function AuthLayout({
   if (!user) return redirect({ href: ROUTES.AUTH, locale: locale as AppLocale })
 
   return (
-    <ProvidersAuthClient initialUser={user}>
-      {children}
-    </ProvidersAuthClient>
+    <ProvidersUIClient>
+      <ProvidersAuthClient initialUser={user}>
+        {children}
+      </ProvidersAuthClient>
+    </ProvidersUIClient>
   );
 }
