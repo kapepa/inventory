@@ -28,7 +28,7 @@ export const PageHeader = memo(({ title, subtitle, count, reverse, children, act
           "flex items-center font-semibold min-w-0 flex-col w-full",
           "text-lg md:text-3xl sm:text-xl gap-1 sm:gap-3 lg:flex-row"
         )}>
-          <h2 className="lg:truncate text-center lg:text-left max-w-full">{title}</h2>
+          <h3 className="lg:truncate text-center lg:text-left max-w-full">{title}</h3>
           {count !== undefined && <CountTotal fallbackCount={count} storeType={storeType} />}
           {subtitle && <Subtitle subtitle={subtitle} />}
         </div>
