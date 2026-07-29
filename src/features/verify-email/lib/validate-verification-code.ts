@@ -1,5 +1,6 @@
-import { ExpiredError, NotFoundError, prisma } from "@/shared/server";
-import { codeFormServerSchema, VerifyCodeEmail } from "../model";
+import { NotFoundError, prisma } from "@/shared/server";
+import { VerifyCodeEmail } from "../model";
+import { codeFormServerSchema } from "../server";
 
 export const validateVerificationCode = async (body: VerifyCodeEmail): Promise<{ email: string, name: string }> => {
   const validated = codeFormServerSchema.parse(body)

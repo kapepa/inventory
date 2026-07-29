@@ -1,4 +1,4 @@
-import { ParishFormValues } from "../schemas";
+import { ParishFormValues } from "../schemas-client";
 
 export interface CreateParishParams {
   data: ParishFormValues
