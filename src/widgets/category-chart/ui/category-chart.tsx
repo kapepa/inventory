@@ -1,7 +1,8 @@
 "use client"
 
 import { ProductStatusCounts } from "@/entities";
-import { ChartConfig, ChartContainer, cn } from "@/shared";
+import { cn } from "@/shared";
+import { ChartConfig, ChartContainer } from "@/shared/ui/chart";
 import { useTranslations } from "next-intl";
 import { Bar, BarChart, CartesianGrid, XAxis } from "recharts";
 

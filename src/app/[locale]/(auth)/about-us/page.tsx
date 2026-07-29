@@ -1,6 +1,8 @@
 import { getProductStatusCountsCached } from "@/entities/server";
 import { Container, AppLocale, BackButton, ScrollArea } from "@/shared";
-import { CategoryChartDynamic, PageHeader, WarehouseMapDynamic } from "@/widgets";
+import { PageHeader } from "@/widgets";
+import { CategoryChartDynamic } from "@/widgets/category-chart";
+import { WarehouseMapDynamic } from "@/widgets/map";
 import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 

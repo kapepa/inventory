@@ -3,7 +3,6 @@ import { notFound } from 'next/navigation';
 import { Inter } from "next/font/google";
 import { BaseProviders } from './providers';
 import { routing, AppLocale } from '@/shared';
-import { ProvidersUIClient } from './providers-client';
 
 const inter = Inter({
   subsets: ['cyrillic', 'latin'],
@@ -36,7 +35,7 @@ export default async function LocaleLayout({
     <html lang={typedLocale} className={`${inter.className} h-full antialiased`}>
       <body className='bg-static min-w-75'>
         <BaseProviders locale={typedLocale} messages={messages}>
-          <ProvidersUIClient>{children}</ProvidersUIClient>
+          {children}
         </BaseProviders>
       </body>
     </html>

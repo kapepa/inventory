@@ -33,7 +33,8 @@ export const ParishesList = ({
   const t = useTranslations('parishes-list');
   const isAdmin = useHydratedIsAdmin();
   const [search] = useQueryParam(QUERY_PARAMS_KEYS.PARISHES_SEARCH);
-  const { newParishe, addNewParish } = useParishesStore()
+  const newParishe = useParishesStore((state) => state.newParishe)
+  const addNewParish = useParishesStore((state) => state.addNewParish)
   const { parishes, isLoading, error, hasMore, loadMore, addParishes, removeParishes } = useInfiniteParishes<ParishWithRelationsTotals>({
     search, initialParishes, initialHasMore, fetchFnAction: fetchParishesTotals
   })

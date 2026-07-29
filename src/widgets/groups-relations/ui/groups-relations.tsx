@@ -29,7 +29,7 @@ interface GroupsRelationsProps {
 export const GroupsRelations = memo(({ className, initialHasMore, initialProducts, initialParishesId, initialParishTitle }: GroupsRelationsProps) => {
   const t = useTranslations('groups-relations');
   const isAdmin = useHydratedIsAdmin();
-  const { activeParishe } = useParishesStore()
+  const activeParishe = useParishesStore((state) => state.activeParishe)
   const storeActiveParisheTitle = activeParishe?.translations[0]?.title
   const [activeParishId, setActiveParishId] = useActiveParishId(initialParishesId);
   const { products, isLoading, error, clearProducts, hasMore, loadMore, addProduct, removeProduct } = useInfiniteProducts<ProductWithRelationsShort>({

@@ -26,7 +26,7 @@ export const GroupsList = memo(({
 }: GroupsListProps) => {
   const t = useTranslations('groups-list');
   const [search] = useQueryParam(QUERY_PARAMS_KEYS.PARISHES_SEARCH);
-  const { setActiveParishe } = useParishesStore()
+  const setActiveParishe = useParishesStore((state) => state.setActiveParishe)
   const [activeParishId, setActiveParishId] = useActiveParishId(initialParishesId);
   const { parishes, isLoading, error, hasMore, loadMore } = useInfiniteParishes<ParishWithRelations>({
     search, initialParishes, initialHasMore, fetchFnAction: fetchParishes

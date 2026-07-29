@@ -2,10 +2,11 @@
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@radix-ui/react-tabs";
 import { AuthTab } from "../model";
-import { LoginFormDynamic, RegisterFormDynamic } from "@/features";
+import { LoginForm } from "@/features";
 import { useState } from "react";
 import { cn } from "@/shared";
 import { useTranslations } from "next-intl";
+import { RegisterFormDynamic } from "@/features/auth/ui/register-form-dynamic";
 
 export const AuthGate = () => {
   const t = useTranslations('auth-gate');
@@ -36,7 +37,7 @@ export const AuthGate = () => {
         </TabsList>
 
         <TabsContent value="login">
-          <LoginFormDynamic />
+          <LoginForm />
         </TabsContent>
 
         <TabsContent value="register">
