@@ -2,7 +2,8 @@
 
 import { useCallback, useState } from 'react'
 import { useMediaQuery, useModalActions } from '@/shared'
-import { ProductCreateModalDynamic, ProductCreateSheetDynamic } from '../../ui';
+import { ProductCreateModalDynamic } from '../../ui/product-create-modal-dynamic';
+import { ProductCreateSheetDynamic } from '../../ui/product-create-sheet-dynamic';
 import { ProductWithRelations } from '@/entities';
 
 export const useAddProduct = ({ parishId, onSuccessAction }: { parishId: string, onSuccessAction: (product: ProductWithRelations) => void }) => {

@@ -4,7 +4,7 @@ import { useTranslations } from "next-intl";
 import { useCallback, useMemo, useTransition } from "react";
 import { useForm } from "react-hook-form"
 import { toast } from "sonner";
-import { loginFormSchema, LoginFormValues, } from "../schemas";
+import { loginFormSchema, LoginFormValues, } from "../schemas-client";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useAuthStore } from "../auth-store";
 import { requestAuthLogin } from "../../api";

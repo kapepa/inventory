@@ -8,7 +8,7 @@ import { useLocale, useTranslations } from "next-intl"
 import { useCategoriesStore } from "@/entities/category"
 import { AlreadyExistsError, AppLocale, STORAGE_KEYS } from "@/shared"
 import { requestCreateCategory } from "../../api"
-import { createCategoryFormSchema, CategoryFormValues } from "../schemas"
+import { createCategoryFormSchema, CategoryFormValues } from "../schemas-client"
 
 const ADD_CATEGORY_FORM_DATA = STORAGE_KEYS.ADD_CATEGORY_FORM_DATA
 

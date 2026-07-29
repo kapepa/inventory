@@ -1,7 +1,2 @@
 export { LoginButton } from "./login-button"
 export { LoginForm } from "./login-form"
-export { LoginFormDynamic } from "./login-form-dynamic"
-export { RegisterForm } from "./register-form"
-export { RegisterFormDynamic } from "./register-form-dynamic"
-export { EmailNotVerifiedModal } from "./email-not-verified-modal"
-export { EmailNotVerifiedModalDynamic } from "./email-not-verified-modal-dynamic"

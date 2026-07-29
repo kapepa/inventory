@@ -3,7 +3,6 @@
 import { RefObject, useCallback, useMemo, useState, useTransition } from "react"
 import { useUpload } from "@/entities"
 import { ForbiddenError, formatResponsiveImage, ImageUploadFieldRef } from "@/shared"
-
 import { useAuthStore } from "@/features/auth"
 import type { AuthenticatedUser } from "@/features/auth"
 import { requestUploadAvatar } from "../../api"
