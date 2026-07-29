@@ -23,9 +23,9 @@ export const RoleSelector = memo(({
     <div
       className={cn("bg-background rounded-sm overflow-hidden", className)}
     >
-      <h5 className="text-center my-5 px-6 font-semibold text-muted-foreground">
+      <h3 className="text-center my-5 px-6 font-semibold text-muted-foreground">
         {t("title")} {user.name}
-      </h5>
+      </h3>
       <Form {...form}>
         <form onSubmit={onSubmit} className="space-y-4">
           <div className="flex flex-col gap-y-6 pb-3 px-6">

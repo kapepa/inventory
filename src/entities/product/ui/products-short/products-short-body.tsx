@@ -24,7 +24,7 @@ export const ProductsShortBody = memo(({ title, children, actions, className, on
         <div className="pb-4 min-w-0">
           <Tooltip>
             <TooltipTrigger asChild>
-              <h4 className="font-bold text-lg truncate">{title}</h4>
+              <h2 className="font-bold text-lg truncate">{title}</h2>
             </TooltipTrigger>
             <TooltipContent className={cn("bg-chart-2", "border-chart-2")}>
               <TooltipText>
