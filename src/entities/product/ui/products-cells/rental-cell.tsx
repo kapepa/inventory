@@ -1,6 +1,7 @@
 "use client"
 
-import { cn, MobileCellLabel, Skeleton } from '@/shared';
+import { cn } from "@/shared/lib"
+import { MobileCellLabel, Skeleton } from '@/shared/ui';
 import { format } from 'date-fns';
 import { ru, enUS } from 'date-fns/locale';
 import { useLocale, useTranslations } from 'next-intl';

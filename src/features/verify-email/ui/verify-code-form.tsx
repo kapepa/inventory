@@ -1,7 +1,9 @@
-import { CancelButton, Form, FormControl, FormField, FormItem, FormLabel, FormMessage, Input, SubmitButton, VALIDATION_LIMITS } from "@/shared"
+import { CancelButton, Input, SubmitButton } from "@/shared/ui"
 import { memo } from "react"
-import { useCodeForm } from "../model"
 import { useTranslations } from "next-intl"
+import { VALIDATION_LIMITS } from "@/shared/constants"
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/shared/ui/form"
+import { useCodeForm } from "../model/hooks/use-code-form"
 
 interface VerifyCodeFormProps {
   token: string,

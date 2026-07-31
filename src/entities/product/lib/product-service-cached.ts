@@ -1,7 +1,8 @@
 import { unstable_cache } from "next/cache"
 import { getFilteredProductsShort, getFilteredProductsWide, getProductById, getProductStatusCounts } from "./product-service"
-import { FetchProducts, FetchProductsById } from "../model"
-import { CACHE_ENTITIES, CACHE_REVALIDATE, CACHE_TAGS, createCacheEntityTag, createCacheKey } from "@/shared/server"
+import { createCacheEntityTag, createCacheKey } from "@/shared/lib/cache-utils"
+import { CACHE_ENTITIES, CACHE_REVALIDATE, CACHE_TAGS } from "@/shared/constants/cache"
+import { FetchProducts, FetchProductsById } from "../model/types"
 
 export const getFilteredProductsWideCached = (params: FetchProducts) => {
   const cacheKey = createCacheKey(

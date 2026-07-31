@@ -1,9 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { ZodError } from 'zod';
-import { activateUserByEmail, validateVerificationCode } from '@/features/server';
-import { VerifyCodeEmail } from '@/features';
-import { deleteVerificationCodesByEmail, invalidateUsersCacheList, sendConfirmationEmail } from '@/entities/server';
-import { getLocaleFromRequest, NotFoundError } from '@/shared/server';
+import { getLocaleFromRequest, NotFoundError } from '@/shared/lib/server';
+import { VerifyCodeEmail } from '@/features/verify-email/model/types';
+import { validateVerificationCode } from '@/features/verify-email/lib/validate-verification-code';
+import { activateUserByEmail } from '@/features/auth/lib/auth-service';
+import { deleteVerificationCodesByEmail } from '@/entities/verify/lib/create-verification-code';
+import { sendConfirmationEmail } from '@/entities/email/lib/send-confirmation-email';
+import { invalidateUsersCacheList } from '@/entities/user/lib/cache-invalidation';
 
 export async function POST(request: NextRequest): Promise<NextResponse<{ success: boolean } | { error: string }>> {
   try {

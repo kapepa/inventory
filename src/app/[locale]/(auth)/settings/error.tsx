@@ -1,6 +1,6 @@
 'use client';
 
-import { ErrorBlock } from '@/shared';
+import { ErrorBlock } from '@/shared/ui';
 import { useTranslations } from 'next-intl';
 
 interface ErrorSettingsProps {

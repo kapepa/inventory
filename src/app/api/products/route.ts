@@ -1,11 +1,15 @@
-import { ProductWithRelationsShort, ResponseProductsShortDTO } from '@/entities';
-import { getFilteredProductsShortCached, invalidateProductCacheList, deleteFile } from '@/entities/server';
-import { createProduct, AuthenticatedUser } from '@/features/server';
-import { PAGINATION_PRODUCTS_DEFAULTS } from '@/shared';
-import { AlreadyExistsError, ForbiddenError, getLocaleFromRequest } from '@/shared/server';
 import { NextRequest, NextResponse } from 'next/server';
 import { apiHandler } from '@/app/api/_middleware';
 import { ZodError } from 'zod';
+import { getLocaleFromRequest } from '@/shared/lib/get-locale-from-request';
+import { PAGINATION_PRODUCTS_DEFAULTS } from '@/shared/constants';
+import { AlreadyExistsError, ForbiddenError } from '@/shared/lib/server';
+import { ProductWithRelationsShort, ResponseProductsShortDTO } from '@/entities/product/model/types';
+import { getFilteredProductsShortCached } from '@/entities/product/lib/product-service-cached';
+import { AuthenticatedUser } from '@/features/auth/model/types';
+import { createProduct } from '@/features/add-product/lib/product-service';
+import { invalidateProductCacheList } from '@/entities/product/lib/cache-invalidation';
+import { deleteFile } from '@/entities/upload/lib/upload-service';
 
 export const GET = apiHandler(async (request: NextRequest): Promise<NextResponse<ResponseProductsShortDTO | { error: string }>> => {
   try {

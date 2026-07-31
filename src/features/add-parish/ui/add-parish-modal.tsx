@@ -1,6 +1,6 @@
-import { ModalContents, ModalHeader } from "@/shared"
 import { useTranslations } from "next-intl"
 import { AddParishForm } from "./add-parish-form"
+import { ModalContents, ModalHeader } from "@/shared/ui/modal"
 
 interface AddParishModalProps {
   onCancelAction: () => void

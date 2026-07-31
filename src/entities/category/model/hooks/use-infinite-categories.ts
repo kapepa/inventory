@@ -2,8 +2,9 @@
 
 import { useState, useEffect, useCallback, useRef } from "react"
 import { useCategoriesStore } from "../categories-store";
-import { PAGINATION_PRODUCTS_DEFAULTS, useDebouncedCallback } from "@/shared"
 import { RequestCategoriesProductsCountParams } from "../types";
+import { PAGINATION_PRODUCTS_DEFAULTS } from "@/shared/constants";
+import { useDebouncedCallback } from "@/shared/lib/hooks";
 
 interface FetchResponse<T> {
   data: T[];

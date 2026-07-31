@@ -1,4 +1,4 @@
-import { ROUTES } from "@/shared";
+import { ROUTES } from "@/shared/constants";
 import { redirect } from "next/navigation";
 
 export default async function RootPage({ params }: { params: Promise<{ locale: string }> }) {

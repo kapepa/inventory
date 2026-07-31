@@ -1,6 +1,9 @@
-import { getFilteredUsersCached } from "@/entities/server"
-import { Container, AppLocale, PAGINATION_USERS_DEFAULTS, QUERY_PARAMS_KEYS } from "@/shared";
-import { PageHeader, UsersList } from "@/widgets";
+import { getFilteredUsersCached } from "@/entities/user/lib/user-service-cached";
+import { PAGINATION_USERS_DEFAULTS, QUERY_PARAMS_KEYS } from "@/shared/constants";
+import { AppLocale } from "@/shared/lib/i18n/config";
+import { Container } from "@/shared/ui";
+import { PageHeader } from "@/widgets/page-header/ui/page-header";
+import { UsersList } from "@/widgets/users-list";
 import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 

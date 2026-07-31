@@ -1,4 +1,5 @@
-import { cn, Skeleton } from "@/shared";
+import { cn } from "@/shared/lib";
+import { Skeleton } from "@/shared/ui";
 import { memo } from "react";
 
 export const ParishShortCardSkeleton = memo(({ className }: { className?: string }) => {

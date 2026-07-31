@@ -1,11 +1,11 @@
-import { axiosInstance } from "@/shared/lib/axios"
-import { AlreadyExistsError, EmailSendError, InvalidCredentialsError, NotFoundError, NotVerifiedError } from "@/shared";
+import { axiosClient } from "@/shared/lib/axios/client"
 import { AxiosError, isCancel } from "axios"
-import { AuthenticatedUser, AuthSignInParmas, AuthSignUpParmas, ResendVerificationParmas } from "../model";
+import { AlreadyExistsError, EmailSendError, InvalidCredentialsError, NotFoundError, NotVerifiedError } from "@/shared/lib";
+import { AuthenticatedUser, AuthSignInParmas, AuthSignUpParmas, ResendVerificationParmas } from "../model/types";
 
 export const requestAuthLogin = async ({ signal, data }: AuthSignInParmas): Promise<AuthenticatedUser> => {
   try {
-    const response = await axiosInstance.post<AuthenticatedUser>('/auth/login', data, { signal });
+    const response = await axiosClient.post<AuthenticatedUser>('/auth/login', data, { signal });
     return response.data;
   } catch (error) {
     if (isCancel(error)) {
@@ -29,7 +29,7 @@ export const requestAuthLogin = async ({ signal, data }: AuthSignInParmas): Prom
 
 export const requestAuthRegister = async ({ signal, data }: AuthSignUpParmas): Promise<string> => {
   try {
-    const response = await axiosInstance.post('/auth/register', data, { signal });
+    const response = await axiosClient.post('/auth/register', data, { signal });
     return response.data;
   } catch (error) {
     if (isCancel(error)) {
@@ -57,7 +57,7 @@ export const requestAuthRegister = async ({ signal, data }: AuthSignUpParmas): P
 
 export const requestAuthLogout = async (signal?: AbortSignal) => {
   try {
-    const response = await axiosInstance.post('/auth/logout', { signal });
+    const response = await axiosClient.post('/auth/logout', { signal });
     return response.data;
   } catch (error) {
     if (error instanceof AxiosError) {
@@ -69,7 +69,7 @@ export const requestAuthLogout = async (signal?: AbortSignal) => {
 
 export const requestResendVerification = async ({ signal, data }: ResendVerificationParmas): Promise<string> => {
   try {
-    const response = await axiosInstance.post('/auth/resend-verification', data, { signal });
+    const response = await axiosClient.post('/auth/resend-verification', data, { signal });
     return response.data;
   } catch (error) {
     if (isCancel(error)) {

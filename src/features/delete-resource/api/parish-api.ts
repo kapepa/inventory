@@ -1,11 +1,11 @@
-import { axiosInstance } from "@/shared/lib/axios"
-import { ForbiddenError, HasDependenciesError, NotFoundError } from "@/shared"
+import { axiosClient } from "@/shared/lib/axios/client"
+import { ForbiddenError, HasDependenciesError, NotFoundError } from "@/shared/lib"
 import { DeleteParishesParams, DeleteParishResult } from "../model/types"
 import { AxiosError, isCancel } from "axios"
 
 export const requestDeleteParish = async ({ id, signal }: DeleteParishesParams): Promise<DeleteParishResult> => {
   try {
-    const response = await axiosInstance.delete<DeleteParishResult>(`/parishes/${id}`, {
+    const response = await axiosClient.delete<DeleteParishResult>(`/parishes/${id}`, {
       signal,
     })
 

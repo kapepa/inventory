@@ -1,4 +1,4 @@
-import { VALIDATION_LIMITS } from "@/shared";
+import { VALIDATION_LIMITS } from "@/shared/constants";
 import { z } from "zod";
 
 export const codeFormServerSchema = z.object({

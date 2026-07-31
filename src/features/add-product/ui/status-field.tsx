@@ -4,17 +4,8 @@ import { memo } from "react"
 import { useFormContext } from "react-hook-form"
 import { useTranslations } from "next-intl"
 import { ProductStatus } from "@prisma/client"
-import {
-  FormField,
-  FormItem,
-  FormLabel,
-  FormControl,
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/shared"
+import { FormField, FormItem, FormLabel, FormControl } from "@/shared/ui/form"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/shared/ui/select"
 
 interface StatusFieldProps {
   isPending?: boolean

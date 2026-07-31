@@ -1,9 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { ZodError } from 'zod';
-import { validateEmailForResend } from '@/features/server';
-import { createVerificationCode, sendVerificationEmail } from '@/entities/server';
-import { AuthSignUp } from '@/features';
-import { EmailSendError, getLocaleFromRequest, NotFoundError } from '@/shared/server';
+import { getLocaleFromRequest } from '@/shared/lib/get-locale-from-request';
+import { EmailSendError, NotFoundError } from '@/shared/lib/server';
+import { AuthSignUp } from '@/features/auth/model/types';
+import { validateEmailForResend } from '@/features/auth/lib/auth-service';
+import { createVerificationCode } from '@/entities/verify/lib/create-verification-code';
+import { sendVerificationEmail } from '@/entities/email/lib/send-verification-email';
 
 export async function POST(request: NextRequest): Promise<NextResponse<string | { error: string }>> {
   try {

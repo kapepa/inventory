@@ -1,7 +1,12 @@
 "use client"
 
-import { CategoryWithTranslations } from "@/entities"
-import { cn, QUERY_PARAMS_KEYS, Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue, Skeleton, useMounted, useSearchParam } from "@/shared"
+import { CategoryWithTranslations } from "@/entities/category/model/types"
+import { QUERY_PARAMS_KEYS } from "@/shared/constants"
+import { cn } from "@/shared/lib"
+import { useMounted } from "@/shared/lib/hooks"
+import { useSearchParam } from "@/shared/lib/hooks/use-search-param"
+import { Skeleton } from "@/shared/ui"
+import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/shared/ui/select"
 import { useTranslations } from "next-intl"
 import { memo } from "react"
 

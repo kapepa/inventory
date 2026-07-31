@@ -1,6 +1,6 @@
-import { getCategoriesWithProductCountCached } from '@/entities/server';
-import { PAGINATION_CATEGORIES_DEFAULTS } from '@/shared';
-import { getLocaleFromRequest } from '@/shared/server';
+import { getCategoriesWithProductCountCached } from '@/entities/category/lib/category-service-cached';
+import { PAGINATION_CATEGORIES_DEFAULTS } from '@/shared/constants';
+import { getLocaleFromRequest } from '@/shared/lib/get-locale-from-request';
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(request: NextRequest) {

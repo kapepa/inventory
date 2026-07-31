@@ -1,12 +1,13 @@
 "use client"
 
-import { ForbiddenError, NotFoundError, useModalActions } from "@/shared";
 import { useTranslations } from "next-intl";
 import { useCallback, useTransition } from "react";
 import { toast } from "sonner";
 import { requestDeleteProduct } from "../../api";
-import { ProductWithRelations } from "@/entities";
-import { DeleteConfirmModalDynamic } from "../../ui";
+import { ForbiddenError, NotFoundError } from "@/shared/lib";
+import { useModalActions } from "@/shared/ui/modal";
+import { DeleteConfirmModalDynamic } from "../../ui/delete-confirm-modal-dynamic";
+import { ProductWithRelations } from "@/entities/product/model/types";
 
 interface DeleteProductModalWrapperProps {
   title: string;

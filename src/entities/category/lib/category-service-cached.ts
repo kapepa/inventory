@@ -5,15 +5,9 @@ import {
   getCategoriesWithProductCount,
   getCategoryById
 } from './category-service';
-import { FetchCategories, FetchCategoryById } from '../model';
-import { GetCategoriesByParishIdParams, GetCategoriesParams } from '../model/types';
-import {
-  CACHE_ENTITIES,
-  CACHE_REVALIDATE,
-  CACHE_TAGS,
-  createCacheEntityTag,
-  createCacheKey
-} from '@/shared/server';
+import { FetchCategories, FetchCategoryById, GetCategoriesByParishIdParams, GetCategoriesParams } from '../model/types';
+import { createCacheEntityTag, createCacheKey } from '@/shared/lib/cache-utils';
+import { CACHE_ENTITIES, CACHE_REVALIDATE, CACHE_TAGS } from '@/shared/constants/cache';
 
 export const getCategoriesCached = (params: GetCategoriesParams) => {
   const cacheKey = createCacheKey(

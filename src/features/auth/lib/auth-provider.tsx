@@ -1,7 +1,8 @@
 'use client';
 
 import { createContext, useRef } from 'react';
-import { AuthenticatedUser, useAuthStore } from '@/features';
+import { AuthenticatedUser } from '../model/types';
+import { useAuthStore } from '../model/auth-store';
 
 interface AuthProviderProps {
   children: React.ReactNode;

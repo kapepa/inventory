@@ -1,18 +1,23 @@
 "use client"
 
-import { Button, cn, DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuTrigger, ROUTES, useRouter, useUnmountCallback } from "@/shared"
+import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuTrigger } from "@/shared/ui/dropdown-menu"
 import { Settings } from "lucide-react"
 import { useTranslations } from "next-intl";
-import { useCallback, useEffect, useRef, useTransition } from "react";
+import { memo, useCallback, useTransition } from "react";
 import { requestAuthLogout } from "../api";
-import { useAuthStore } from "../model";
 import { toast } from "sonner";
+import { cn } from "@/shared/lib";
+import { ROUTES } from "@/shared/constants";
+import { Button, Skeleton } from "@/shared/ui";
+import { useRouter } from "@/shared/lib/i18n/routing";
+import { useUnmountCallback } from "@/shared/lib/hooks";
+import { useAuthStore } from "../model/auth-store";
 
 interface LoginButtonProps {
   className?: string
 }
 
-export const LoginButton = ({ className }: LoginButtonProps) => {
+export const LoginButton = memo(({ className }: LoginButtonProps) => {
   const router = useRouter();
   const t = useTranslations('auth.login-button');
   const [isPending, startTransition] = useTransition();
@@ -67,6 +72,14 @@ export const LoginButton = ({ className }: LoginButtonProps) => {
       </DropdownMenuContent>
     </DropdownMenu>
   )
-}
+})
 
 LoginButton.displayName = "LoginButton"
+
+export const LoginButtonSkeleton = ({ className }: { className?: string }) => {
+  return (
+    <Skeleton className={cn("size-14 rounded-full", className)} />
+  )
+}
+
+LoginButtonSkeleton.displayName = "LoginButtonSkeleton"

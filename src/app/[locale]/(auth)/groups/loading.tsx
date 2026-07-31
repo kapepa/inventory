@@ -1,6 +1,8 @@
-import { AddParishButtonSkeleton } from "@/features";
-import { Container } from "@/shared";
-import { GroupsListSkeleton, GroupsRelationsSkeleton, PageHeaderSkeleton } from "@/widgets";
+import { AddParishButtonSkeleton } from "@/features/add-parish/ui/add-parish-button";
+import { Container } from "@/shared/ui";
+import { GroupsListSkeleton } from "@/widgets/groups-list/ui/groups-list";
+import { GroupsRelationsSkeleton } from "@/widgets/groups-relations/ui/groups-relations";
+import { PageHeaderSkeleton } from "@/widgets/page-header/ui/page-header";
 
 export default function LoadingGroups() {
   return (

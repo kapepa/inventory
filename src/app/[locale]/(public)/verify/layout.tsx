@@ -1,4 +1,4 @@
-import { Header, Sidebar } from "@/widgets";
+import { Header } from "@/widgets/header/ui/Header";
 
 export default function VerifyLayout({ children }: { children: React.ReactNode }) {
   return (

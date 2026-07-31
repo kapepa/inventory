@@ -4,6 +4,7 @@ import { getFirstLetter } from "../lib/get-first-letter"
 import { getRandomColor } from "../lib/get-random-color"
 import { cn } from "../lib/utils"
 import { ResponsiveImage } from "./responsive-image"
+import { Skeleton } from "./skeleton"
 
 interface ProfileAvatarProps {
   url?: string | null,
@@ -39,3 +40,11 @@ export const ProfileAvatar = ({ url, name, className }: ProfileAvatarProps) => {
 }
 
 ProfileAvatar.displayName = "ProfileAvatar"
+
+export const ProfileAvatarSkeleton = ({ className }: { className?: string }) => {
+  return (
+    <Skeleton className={cn("rounded-full h-full w-full overflow-hidden", className)} />
+  )
+}
+
+ProfileAvatarSkeleton.displayName = "ProfileAvatarSkeleton"

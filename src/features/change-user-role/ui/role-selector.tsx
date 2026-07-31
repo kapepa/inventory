@@ -1,11 +1,15 @@
 "use client";
 
-import { CancelButton, cn, Form, FormControl, FormField, FormItem, FormLabel, FormMessage, SubmitButton, Select, SelectContent, SelectItem, SelectTrigger, SelectValue, Tooltip, TooltipTrigger, TooltipContent } from "@/shared";
-import { useChangeUserRoleForm } from "../model/hooks";
+import { CancelButton, SubmitButton } from "@/shared/ui";
 import { useTranslations } from "next-intl";
 import { memo } from "react";
-import { AuthenticatedUser } from "@/features/auth";
 import { Info } from 'lucide-react';
+import { cn } from "@/shared/lib";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/shared/ui/form";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/shared/ui/tooltip";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/shared/ui/select";
+import { AuthenticatedUser } from "@/features/auth/model/types";
+import { useChangeUserRoleForm } from "../model/hooks/use-change-user-role-form";
 
 interface RoleSelectorProps {
   user: AuthenticatedUser

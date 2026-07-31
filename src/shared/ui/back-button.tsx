@@ -2,9 +2,10 @@
 
 import { Button } from "./button";
 import { ChevronLeft } from "lucide-react";
-import { cn, useRouter } from "../lib";
+import { cn } from "../lib";
 import { HTMLAttributes } from "react";
 import { Skeleton } from "./skeleton";
+import { useRouter } from "../lib/i18n/routing";
 
 interface BackButtonProps extends HTMLAttributes<HTMLButtonElement> {
   className?: string;

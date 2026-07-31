@@ -1,10 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { PAGINATION_PRODUCTS_DEFAULTS } from '@/shared';
-import { getFilteredProductsWide } from '@/entities/server';
-import { ResponseProductsWideDTO } from '@/entities';
-import { AuthenticatedUser } from '@/features';
 import { apiHandler } from '@/app/api/_middleware';
-import { getLocaleFromRequest } from '@/shared/server';
+import { getLocaleFromRequest } from '@/shared/lib/get-locale-from-request';
+import { PAGINATION_PRODUCTS_DEFAULTS } from '@/shared/constants';
+import { AuthenticatedUser } from '@/features/auth/model/types';
+import { ResponseProductsWideDTO } from '@/entities/product/model/types';
+import { getFilteredProductsWide } from '@/entities/product/lib/product-service';
 
 export const GET = apiHandler(async (
   request: NextRequest,

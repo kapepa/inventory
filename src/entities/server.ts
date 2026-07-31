@@ -1,7 +1,0 @@
-export * from "./category/server"
-export * from "./parish/server"
-export * from "./product/server"
-export * from "./upload/server"
-export * from "./user/server"
-export * from "./verify/server"
-export * from "./email/server"

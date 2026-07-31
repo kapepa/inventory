@@ -1,8 +1,10 @@
 "use client";
 
-import { CancelButton, Form, FormControl, FormField, FormItem, FormLabel, FormMessage, Input, SubmitButton, VALIDATION_LIMITS } from "@/shared";
-import { useRegisterForm } from "../model/hooks";
+import { CancelButton, Input, SubmitButton } from "@/shared/ui";
 import { useTranslations } from "next-intl";
+import { VALIDATION_LIMITS } from "@/shared/constants";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/shared/ui/form";
+import { useRegisterForm } from "../model/hooks/use-register-form";
 
 export const RegisterForm = () => {
   const t = useTranslations("auth.form")

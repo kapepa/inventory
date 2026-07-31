@@ -1,12 +1,12 @@
-import { axiosInstance } from "@/shared/lib/axios"
-import { AlreadyExistsError } from "@/shared"
+import { axiosClient } from "@/shared/lib/axios/client"
 import { AxiosError, isCancel } from "axios"
-import { CreateProductParams } from "../model"
-import { ProductWithRelationsShort } from "@/entities"
+import { AlreadyExistsError } from "@/shared/lib"
+import { CreateProductParams } from "../model/types"
+import { ProductWithRelationsShort } from "@/entities/product/model/types"
 
 export const requestСreateProduct = async ({ signal, data }: CreateProductParams): Promise<ProductWithRelationsShort> => {
   try {
-    const response = await axiosInstance.post<ProductWithRelationsShort>(`/products`, data, { signal })
+    const response = await axiosClient.post<ProductWithRelationsShort>(`/products`, data, { signal })
 
     return response.data
   } catch (error) {

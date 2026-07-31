@@ -1,8 +1,8 @@
 import { prisma } from '@/shared/lib/prisma';
-import { CategoryFormValues } from '../model';
-import { CategoryWithProductCount } from '@/entities';
-import { AlreadyExistsError } from '@/shared/server';
-import { categoryCreateServerSchema } from '../server';
+import { AlreadyExistsError } from '@/shared/lib/server';
+import { CategoryWithProductCount } from '@/entities/category/model/types';
+import { CategoryFormValues } from '../model/schemas-client';
+import { categoryCreateServerSchema } from '../model/schemas-server';
 
 export const createCategory = async (data: CategoryFormValues): Promise<CategoryWithProductCount> => {
   const validated = categoryCreateServerSchema.parse(data)

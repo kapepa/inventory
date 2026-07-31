@@ -1,8 +1,8 @@
-import { axiosInstance } from "@/shared/lib/axios"
-import { AlreadyExistsError } from "@/shared"
-import { CreateParishParams } from "../model"
+import { axiosClient } from "@/shared/lib/axios/client"
 import { AxiosError, isCancel } from "axios"
-import { ParishWithRelationsTotals } from "@/entities"
+import { AlreadyExistsError } from "@/shared/lib"
+import { CreateParishParams } from "../model/types"
+import { ParishWithRelationsTotals } from "@/entities/parish/model/types"
 
 export const requestCreateParish = async ({ data, signal }: CreateParishParams): Promise<ParishWithRelationsTotals> => {
   const payload = {
@@ -11,7 +11,7 @@ export const requestCreateParish = async ({ data, signal }: CreateParishParams):
   }
 
   try {
-    const response = await axiosInstance.post<ParishWithRelationsTotals>('/parishes',
+    const response = await axiosClient.post<ParishWithRelationsTotals>('/parishes',
       payload,
       { signal }
     )

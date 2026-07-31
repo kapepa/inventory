@@ -1,7 +1,10 @@
 "use client"
 
-import { AvatarUpload, ChangePasswordForm, DeleteAccount, InitialUserContext, RoleSelector, useHydratedUser } from "@/features"
-import { useContext } from "react";
+import { useHydratedUser } from "@/features/auth/model/hooks/use-hydrated-user";
+import { ChangePasswordForm } from "@/features/change-password/ui/change-password-form";
+import { RoleSelector } from "@/features/change-user-role/ui/role-selector";
+import { DeleteAccount } from "@/features/delete-resource/ui/delete-account";
+import { AvatarUpload } from "@/features/upload-avatar/ui/avatar-upload";
 
 export const SettingsPanel = () => {
   const user = useHydratedUser();

@@ -1,9 +1,12 @@
-import { getProductById, deleteFile, invalidateProductCacheById } from "@/entities/server";
-import { DeleteProductResult } from "@/features";
-import { deleteProduct, AuthenticatedUser } from "@/features/server";
-import { ForbiddenError, getLocaleFromRequest, NotFoundError } from "@/shared/server";
 import { NextRequest, NextResponse } from "next/server";
 import { apiHandler } from '@/app/api/_middleware';
+import { ForbiddenError, getLocaleFromRequest, NotFoundError } from "@/shared/lib/server";
+import { AuthenticatedUser } from "@/features/auth/model/types";
+import { getProductById } from "@/entities/product/lib/product-service";
+import { deleteFile } from "@/entities/upload/lib/upload-service";
+import { deleteProduct } from "@/features/delete-resource/lib/product-service";
+import { invalidateProductCacheById } from "@/entities/product/lib/cache-invalidation";
+import { DeleteProductResult } from "@/features/delete-resource/model/types";
 
 export const DELETE = apiHandler(
   async (request: NextRequest, user: AuthenticatedUser, { params }: { params: Promise<{ id: string }> }): Promise<NextResponse<DeleteProductResult | { error: string }>> => {

@@ -1,20 +1,15 @@
 "use client"
 
 import { useLocale, useTranslations } from "next-intl"
-import {
-  SubmitButton,
-  ModalBody,
-  CancelButton,
-  ModalFooter,
-  Form,
-  AppLocale,
-  Tabs,
-  TabsContent,
-} from "@/shared"
-import { useAddParishForm, useAddParishTranslation } from "../model"
+import { CancelButton, SubmitButton, Tabs, TabsContent } from "@/shared/ui"
 import { TranslationFields } from "./translation-fields"
 import { DeliveryDateField } from "./delivery-date-field"
 import { TranslationTabsHeader } from "./translation-tabs-header"
+import { ModalBody, ModalFooter } from "@/shared/ui/modal"
+import { Form } from "@/shared/ui/form"
+import { AppLocale } from "@/shared/lib/i18n/config"
+import { useAddParishForm } from "../model/hooks/use-add-parish-form"
+import { useAddParishTranslation } from "../model/hooks/use-add-parish-translation"
 
 interface AddParishFormProps {
   onCancelAction: () => void

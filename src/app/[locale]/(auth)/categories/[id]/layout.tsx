@@ -1,4 +1,5 @@
-import { Header, Sidebar } from "@/widgets";
+import { Header } from "@/widgets/header/ui/Header";
+import { Sidebar } from "@/widgets/sidebar/ui/sidebar";
 
 export default function CategoriesIdLayout({ children }: { children: React.ReactNode }) {
   return (

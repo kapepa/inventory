@@ -1,6 +1,6 @@
-import { axiosInstance } from "@/shared/lib/axios"
+import { axiosClient } from "@/shared/lib/axios/client"
 import { AxiosError, isCancel } from "axios"
-import { FetchParishesParams, ResponseParishesDTO, ResponseParishesTotalsDTO } from "../model"
+import { FetchParishesParams, ResponseParishesDTO, ResponseParishesTotalsDTO } from "../model/types"
 
 const fetchParishesBase = async <T>(
   endpoint: string,
@@ -12,7 +12,7 @@ const fetchParishesBase = async <T>(
   }
 
   try {
-    const response = await axiosInstance.get<T>(endpoint, {
+    const response = await axiosClient.get<T>(endpoint, {
       params: queryParams,
       signal,
     })

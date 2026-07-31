@@ -1,4 +1,6 @@
-import { cn, Tooltip, TooltipContent, TooltipText, TooltipTrigger } from "@/shared";
+import { cn } from "@/shared/lib";
+import { TooltipText } from "@/shared/ui";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/shared/ui/tooltip";
 import { CalendarDays, Info, LucideIcon, NotebookTabs } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useMemo } from "react";

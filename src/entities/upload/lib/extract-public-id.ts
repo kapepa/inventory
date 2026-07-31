@@ -1,4 +1,4 @@
-import { ImageSizes } from "@/shared";
+import { ImageSizes } from "@/shared/types";
 
 export const extractPublicId = (photo: string | ImageSizes): string | null => {
   try {

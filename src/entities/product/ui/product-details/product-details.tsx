@@ -1,11 +1,12 @@
-import { ProductWithRelationsWide, ProductWithRelationsShort, hasCategory, hasRental, hasUser, hasParish } from "../../model";
 import { ProductInfoList } from "./product-info-list";
 import { ProductPricing } from "./product-pricing";
 import { ProductHeader } from "./product-header";
 import { ProductImage } from "./product-image";
-import { getProductPrimaryPrice, ScrollArea } from "@/shared";
+import { ScrollArea } from "@/shared/ui";
 import { ProductRental } from "./product-rental";
 import { ProductAuthor } from "./product-author";
+import { getProductPrimaryPrice } from "@/shared/lib";
+import { hasCategory, hasParish, hasRental, hasUser, ProductWithRelationsShort, ProductWithRelationsWide } from "../../model/types";
 
 interface ProductDetailsProps {
   product: ProductWithRelationsWide | ProductWithRelationsShort

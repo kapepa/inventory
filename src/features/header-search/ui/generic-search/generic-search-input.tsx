@@ -1,6 +1,9 @@
 "use client"
 
-import { cn, useSearchParam, SearchWithClear, QueryParamsValue } from "@/shared";
+import { cn } from "@/shared/lib";
+import { useSearchParam } from "@/shared/lib/hooks/use-search-param";
+import { QueryParamsValue } from "@/shared/types";
+import { SearchWithClear } from "@/shared/ui";
 import { InputHTMLAttributes, memo } from "react";
 
 interface GenericSearchInputProps extends InputHTMLAttributes<HTMLInputElement> {

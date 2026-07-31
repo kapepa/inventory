@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { memo } from "react";
 import { ROUTES } from "../constants";
-import { Link } from "../lib";
+import { Link } from "../lib/i18n/routing";
 
 export const Logo = memo(
   () => {

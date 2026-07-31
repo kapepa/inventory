@@ -1,7 +1,9 @@
 import { unstable_cache } from 'next/cache';
-import { CACHE_REVALIDATE, CACHE_TAGS, COOKIE_KEYS, verifyToken } from '@/shared/server';
 import { cookies } from 'next/headers';
 import { getUserByIdInternal } from './auth-service';
+import { COOKIE_KEYS } from '@/shared/constants';
+import { CACHE_REVALIDATE, CACHE_TAGS } from '@/shared/constants/cache';
+import { verifyToken } from '@/shared/lib/auth';
 
 export const getSessionUserCached = async () => {
   const cookieStore = await cookies();

@@ -1,10 +1,11 @@
 "use client"
 
 import Image from "next/image"
-import { cn, getThumbnailUrl } from "@/shared"
+
 import { ImageIcon, LucideIcon } from "lucide-react"
 import { Skeleton } from "@/shared/ui/skeleton"
 import { memo, useState, ReactNode } from "react"
+import { cn, getThumbnailUrl } from "../lib"
 
 interface ThumbnailProps {
   source?: string | null

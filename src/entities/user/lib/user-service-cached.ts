@@ -1,7 +1,8 @@
 import { unstable_cache } from 'next/cache';
 import { getFilteredUsers } from './user-service';
-import { FetchUsers } from '../model';
-import { CACHE_ENTITIES, CACHE_REVALIDATE, createCacheKey } from '@/shared/server';
+import { createCacheKey } from '@/shared/lib/cache-utils';
+import { CACHE_ENTITIES, CACHE_REVALIDATE } from '@/shared/constants/cache';
+import { FetchUsers } from '../model/types';
 
 export const getFilteredUsersCached = (params: FetchUsers) => {
   const cacheKey = createCacheKey(

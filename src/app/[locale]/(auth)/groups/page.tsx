@@ -1,7 +1,13 @@
-import { getFilteredProductsShortCached, getParishesCached } from "@/entities/server";
-import { AddParishButton } from "@/features";
-import { Container, AppLocale, PAGINATION_PARISHES_DEFAULTS, QUERY_PARAMS_KEYS, PAGINATION_PRODUCTS_DEFAULTS } from "@/shared";
-import { GroupsList, PageHeader, GroupsRelations, SheetGroupsRelationsDynamic } from "@/widgets";
+import { getParishesCached } from "@/entities/parish/lib/parish-service-cached";
+import { getFilteredProductsShortCached } from "@/entities/product/lib/product-service-cached";
+import { AddParishButton } from "@/features/add-parish/ui/add-parish-button";
+import { PAGINATION_PARISHES_DEFAULTS, PAGINATION_PRODUCTS_DEFAULTS, QUERY_PARAMS_KEYS } from "@/shared/constants";
+import { AppLocale } from "@/shared/lib/i18n/config";
+import { Container } from "@/shared/ui";
+import { GroupsList } from "@/widgets/groups-list/ui/groups-list";
+import { GroupsRelations } from "@/widgets/groups-relations/ui/groups-relations";
+import { SheetGroupsRelationsDynamic } from "@/widgets/groups-relations/ui/sheet-groups-relations-dynamic";
+import { PageHeader } from "@/widgets/page-header/ui/page-header";
 import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 
@@ -48,7 +54,7 @@ export default async function Groups({
     });
   }
 
-  const parish = initialParishes.data.find(p => p.id === parishId);
+  const parish = initialParishes.data.find((p) => p.id === parishId);
   const t = await getTranslations({ locale, namespace: "groups-page" });
 
   return (

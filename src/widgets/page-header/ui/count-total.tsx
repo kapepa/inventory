@@ -1,8 +1,11 @@
 "use client"
 
 import { memo } from "react";
-import { StoreType, useTotalByStore } from "../lib";
-import { cn, Skeleton, useMounted } from "@/shared";
+import { cn } from "@/shared/lib";
+import { Skeleton } from "@/shared/ui";
+import { useMounted } from "@/shared/lib/hooks";
+import { StoreType } from "../lib/types/types";
+import { useTotalByStore } from "../lib/hooks/use-store-selector";
 
 interface CountTotalProps {
   className?: string;

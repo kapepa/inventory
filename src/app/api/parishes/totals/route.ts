@@ -1,9 +1,9 @@
-import { ResponseParishesTotalsDTO } from '@/entities';
-import { getParishesTotalsCached } from '@/entities/server';
-import { PAGINATION_PARISHES_DEFAULTS } from '@/shared';
 import { NextRequest, NextResponse } from 'next/server';
-import { apiHandler } from '@/app/api/_middleware';
-import { getLocaleFromRequest } from '@/shared/server';
+import { apiHandler } from '@/app/api/_middleware';;
+import { PAGINATION_PARISHES_DEFAULTS } from '@/shared/constants';
+import { getLocaleFromRequest } from '@/shared/lib/get-locale-from-request';
+import { ResponseParishesTotalsDTO } from '@/entities/parish/model/types';
+import { getParishesTotalsCached } from '@/entities/parish/lib/parish-service-cached';
 
 export const GET = apiHandler(async (request: NextRequest): Promise<NextResponse<ResponseParishesTotalsDTO | { error: string }>> => {
   try {

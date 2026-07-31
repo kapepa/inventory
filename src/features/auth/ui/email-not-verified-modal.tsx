@@ -1,14 +1,8 @@
 "use client"
 
 import { useTranslations } from "next-intl";
-import {
-  ModalContents,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
-  CancelButton,
-  SubmitButton
-} from "@/shared";
+import { CancelButton, SubmitButton } from "@/shared/ui";
+import { ModalBody, ModalContents, ModalFooter, ModalHeader } from "@/shared/ui/modal";
 
 interface EmailNotVerifiedModalProps {
   email: string

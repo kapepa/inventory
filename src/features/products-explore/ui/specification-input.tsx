@@ -1,6 +1,9 @@
 "use client"
 
-import { cn, QUERY_PARAMS_KEYS, SearchWithClear, Skeleton, useSearchParam } from "@/shared"
+import { QUERY_PARAMS_KEYS } from "@/shared/constants"
+import { cn } from "@/shared/lib"
+import { useSearchParam } from "@/shared/lib/hooks/use-search-param"
+import { SearchWithClear, Skeleton } from "@/shared/ui"
 import { useTranslations } from "next-intl"
 import { memo } from "react"
 

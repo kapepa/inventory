@@ -1,8 +1,8 @@
 'use client';
 
 import { useEffect, useCallback, useRef } from 'react';
-import { SocketEvent } from '@/shared';
 import { useWebSocketStore } from './websocket-store';
+import { SocketEvent } from '@/shared/types';
 
 interface UseWebSocketOptions {
   autoConnect?: boolean;
@@ -26,33 +26,33 @@ export function useWebSocket(options: UseWebSocketOptions = {}) {
       const wsUrl = process.env.NEXT_PUBLIC_WS_URL || 'http://localhost:3000';
       await socketClient.connect(wsUrl, userId);
 
-    const handleConnect = () => {
-      setConnected(true);
-      setError(null);
-    };
+      const handleConnect = () => {
+        setConnected(true);
+        setError(null);
+      };
 
-    const handleDisconnect = () => {
-      setConnected(false);
-    };
+      const handleDisconnect = () => {
+        setConnected(false);
+      };
 
-    const handleError = (error: Error) => {
-      setError(error.message);
-      setConnected(false);
-    };
+      const handleError = (error: Error) => {
+        setError(error.message);
+        setConnected(false);
+      };
 
-    socketClient.on(SocketEvent.CONNECT, handleConnect);
-    socketClient.on(SocketEvent.DISCONNECT, handleDisconnect);
-    socketClient.on('connect_error', handleError);
+      socketClient.on(SocketEvent.CONNECT, handleConnect);
+      socketClient.on(SocketEvent.DISCONNECT, handleDisconnect);
+      socketClient.on('connect_error', handleError);
 
-    if (socketClient.isConnected()) {
-      handleConnect();
-    }
+      if (socketClient.isConnected()) {
+        handleConnect();
+      }
 
-    return () => {
-      socketClient.off(SocketEvent.CONNECT, handleConnect);
-      socketClient.off(SocketEvent.DISCONNECT, handleDisconnect);
-      socketClient.off('connect_error', handleError);
-    };
+      return () => {
+        socketClient.off(SocketEvent.CONNECT, handleConnect);
+        socketClient.off(SocketEvent.DISCONNECT, handleDisconnect);
+        socketClient.off('connect_error', handleError);
+      };
     };
 
     initSocket();
@@ -60,7 +60,7 @@ export function useWebSocket(options: UseWebSocketOptions = {}) {
 
   const subscribe = useCallback(
     <T = unknown>(event: SocketEvent | string, callback: (data: T) => void) => {
-      if (!socketClientRef.current) return () => {};
+      if (!socketClientRef.current) return () => { };
       socketClientRef.current.on(event, callback);
       return () => socketClientRef.current?.off(event, callback);
     },

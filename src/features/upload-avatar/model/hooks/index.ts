@@ -1,1 +1,0 @@
-export { useUploadAvatar } from "./use-upload-avatar"

@@ -1,8 +1,10 @@
 "use client"
 
-import { ModalBody, CancelButton, ModalContents, ModalFooter, ModalHeader, QueryParamsValue } from "@/shared";
+import { CancelButton } from "@/shared/ui";
 import { useTranslations } from "next-intl";
 import { GenericSearchInput } from "./generic-search-input";
+import { QueryParamsValue } from "@/shared/types";
+import { ModalBody, ModalContents, ModalFooter, ModalHeader } from "@/shared/ui/modal";
 
 interface GenericSearchModalProps {
   queryKey: QueryParamsValue

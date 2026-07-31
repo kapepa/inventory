@@ -1,10 +1,10 @@
 "use client"
 
-import { cn } from "@/shared";
-import { ParishWithRelations } from "../../model";
+import { cn } from "@/shared/lib";
 import { CountCell, CountCellSkeleton, DateCell, DateCellSkeleton, DetailsCell, DetailsCellSkeleton } from "../cells";
 import { memo } from "react";
 import { ChevronRight } from "lucide-react";
+import { ParishWithRelations } from "../../model/types";
 
 interface ParishShortCardProps {
   className?: string,

@@ -1,4 +1,4 @@
-import { cn } from "@/shared"
+import { cn } from "@/shared/lib"
 import { ReactNode, HTMLAttributes } from "react"
 
 type StateVariant = "default" | "destructive" | "success" | "warning" | "info"

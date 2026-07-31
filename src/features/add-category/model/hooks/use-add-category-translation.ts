@@ -2,9 +2,10 @@
 
 import { useMemo, useState, useTransition } from "react"
 import { FieldPath, UseFormReturn } from "react-hook-form"
-import { AppLocale, oppositeLocale, useThrottle, useTranslate } from "@/shared"
 import { CategoryFormValues, CategoryTranslatableFieldName } from "../schemas-client"
-
+import { useThrottle } from "@/shared/lib/hooks"
+import { AppLocale, oppositeLocale } from "@/shared/lib/i18n/config"
+import { useTranslate } from "@/shared/lib/hooks/use-translate"
 
 export const useAddCategoryTranslation = (form: UseFormReturn<CategoryFormValues>) => {
   const { translate, isLoading: isTranslatingApi } = useTranslate()

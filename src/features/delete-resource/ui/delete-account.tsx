@@ -1,10 +1,10 @@
 "use client"
 
-import { useContext } from "react";
-import { cn, SubmitButton } from "@/shared";
 import { useTranslations } from "next-intl";
-import { useDeleteUser } from "../model";
-import { AuthenticatedUser } from "@/features/auth";
+import { SubmitButton } from "@/shared/ui";
+import { cn } from "@/shared/lib";
+import { AuthenticatedUser } from "@/features/auth/model/types";
+import { useDeleteUser } from "../model/hooks/use-delete-account";
 
 interface DeleteAccountProps {
   user: AuthenticatedUser,

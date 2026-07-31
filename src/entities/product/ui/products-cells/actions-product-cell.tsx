@@ -1,6 +1,7 @@
 "use client"
 
-import { cn, MobileCellLabel, Skeleton, TrashButton } from "@/shared"
+import { cn } from "@/shared/lib"
+import { MobileCellLabel, Skeleton, TrashButton } from "@/shared/ui"
 import { memo, MouseEvent, useCallback } from "react"
 
 interface ActionsProductCellProps {

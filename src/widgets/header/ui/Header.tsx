@@ -1,8 +1,13 @@
-import { CategoriesSearch, ParishesSearch, ProductsSearch, UsersSearch } from "@/features";
-import { cn, LanguageSwitcher, Logo } from "@/shared";
+import { Logo } from "@/shared/ui";
 import { Container } from "@/shared/ui/container";
 import { HeaderBar } from "./header-bar";
 import { memo } from "react";
+import { cn } from "@/shared/lib";
+import { ParishesSearch } from "@/features/header-search/ui/parishes-search";
+import { ProductsSearch } from "@/features/header-search/ui/products-search";
+import { CategoriesSearch } from "@/features/header-search/ui/categories-search";
+import { UsersSearch } from "@/features/header-search/ui/users-search";
+import { LanguageSwitcherDynamic } from "@/shared/ui/language/language-switcher-dynamic";
 
 interface HeaderProps {
   showOnline?: boolean,
@@ -22,7 +27,7 @@ export const Header = memo(({ showOnline = true, language = false, showSearch, c
         {showSearch === "products" && <ProductsSearch />}
         {showSearch === "categories" && <CategoriesSearch />}
         {showSearch === "users" && <UsersSearch />}
-        {language && <LanguageSwitcher />}
+        {language && <div className="flex justify-center items-center"><LanguageSwitcherDynamic /></div>}
         <HeaderBar
           showOnline={showOnline}
           className="hidden md:flex flex-col justify-center h-full"

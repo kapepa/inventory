@@ -1,10 +1,11 @@
-import { getProductStatusCountsCached } from "@/entities/server";
-import { Container, AppLocale, BackButton, ScrollArea } from "@/shared";
-import { PageHeader } from "@/widgets";
-import { CategoryChartDynamic } from "@/widgets/category-chart";
-import { WarehouseMapDynamic } from "@/widgets/map";
-import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
+import { Metadata } from "next";
+import { BackButton, Container, ScrollArea } from "@/shared/ui";
+import { AppLocale } from "@/shared/lib/i18n/config";
+import { getProductStatusCountsCached } from "@/entities/product/lib/product-service-cached";
+import { CategoryChartDynamic } from "@/widgets/category-chart/ui/category-chart-dynamic";
+import { PageHeader } from "@/widgets/page-header/ui/page-header";
+import { WarehouseMapDynamic } from "@/widgets/map/ui/warehouse-map-dynamic";
 
 export async function generateMetadata({
   params,

@@ -1,5 +1,7 @@
-import { VerifyExpiredView, VerifyInvalidView, VerifyValidView } from "@/features"
-import { StatusVerifyEmail } from "../model"
+import { VerifyValidView } from "@/features/verify-email/ui/verify-valid-view"
+import { VerifyExpiredView } from "@/features/verify-email/ui/verify-expired-view"
+import { VerifyInvalidView } from "@/features/verify-email/ui/verify-invalid-view"
+import { StatusVerifyEmail } from "../model/types"
 
 interface VerifyEmailStatusProps {
   token: string,

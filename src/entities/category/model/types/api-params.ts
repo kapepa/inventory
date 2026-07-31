@@ -19,4 +19,5 @@ export interface RequestCategoriesProductsCountParams extends FetchCategories {
 
 export interface RequestCategoryProductsParams extends FetchCategoryProductsParams {
   signal?: AbortSignal,
+  categoryId: string;
 }

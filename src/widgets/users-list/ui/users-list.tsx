@@ -1,7 +1,14 @@
 "use client"
 
-import { fetchUsers, useInfiniteUsers, UserCard, UserCardSkeleton, UserPublic } from "@/entities";
-import { cn, QUERY_PARAMS_KEYS, ScrollArea, StateMessage, useIntersectionObserver, useQueryParam } from "@/shared";
+import { fetchUsers } from "@/entities/user/api";
+import { useInfiniteUsers } from "@/entities/user/model/hooks";
+import { UserPublic } from "@/entities/user/model/types";
+import { UserCard, UserCardSkeleton } from "@/entities/user/ui/user-card/user-card";
+import { QUERY_PARAMS_KEYS } from "@/shared/constants";
+import { cn } from "@/shared/lib";
+import { useIntersectionObserver } from "@/shared/lib/hooks";
+import { useQueryParam } from "@/shared/lib/hooks/use-query-param";
+import { ScrollArea, StateMessage } from "@/shared/ui";
 import { useTranslations } from "next-intl";
 import { useEffect } from "react";
 

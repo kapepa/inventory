@@ -1,13 +1,14 @@
 "use client"
 
 import { RefObject, useCallback, useMemo, useState, useTransition } from "react"
-import { useUpload } from "@/entities"
-import { ForbiddenError, formatResponsiveImage, ImageUploadFieldRef } from "@/shared"
-import { useAuthStore } from "@/features/auth"
-import type { AuthenticatedUser } from "@/features/auth"
 import { requestUploadAvatar } from "../../api"
 import { toast } from "sonner"
 import { useTranslations } from "next-intl"
+import { ImageUploadFieldRef } from "@/shared/types"
+import { ForbiddenError, formatResponsiveImage } from "@/shared/lib"
+import { AuthenticatedUser } from "@/features/auth/model/types"
+import { useUpload } from "@/entities/upload/model/hooks/use-upload"
+import { useAuthStore } from "@/features/auth/model/auth-store"
 
 interface UseUploadAvatarProps {
   user: AuthenticatedUser,

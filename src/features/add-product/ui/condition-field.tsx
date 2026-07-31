@@ -3,18 +3,8 @@
 import { memo } from "react"
 import { useFormContext } from "react-hook-form"
 import { useTranslations } from "next-intl"
-import {
-  FormField,
-  FormItem,
-  FormLabel,
-  FormControl,
-  FormMessage,
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/shared"
+import { FormField, FormItem, FormLabel, FormControl, FormMessage } from "@/shared/ui/form"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/shared/ui/select"
 
 interface ConditionFieldProps {
   isPending?: boolean

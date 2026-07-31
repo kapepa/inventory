@@ -2,7 +2,8 @@ import { getMessages, setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { Inter } from "next/font/google";
 import { BaseProviders } from './providers';
-import { routing, AppLocale } from '@/shared';
+import { routing } from '@/shared/lib/i18n/routing';
+import { AppLocale } from '@/shared/lib/i18n/config';
 
 const inter = Inter({
   subsets: ['cyrillic', 'latin'],

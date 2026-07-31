@@ -1,10 +1,10 @@
 "use client";
 
-import { QUERY_PARAMS_KEYS } from "@/shared";
 import { memo } from "react";
-import { GenericSearchInput, GenericSearchResponsive } from "./generic-search";
-import { useGenericSearch } from "../hooks";
 import { useTranslations } from "next-intl";
+import { QUERY_PARAMS_KEYS } from "@/shared/constants";
+import { GenericSearchInput, GenericSearchResponsive } from "./generic-search";
+import { useGenericSearch } from "../hooks/use-generic-search";
 
 interface UsersSearchProps {
   className?: string

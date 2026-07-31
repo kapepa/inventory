@@ -1,9 +1,18 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { fetchParishes, ParishShortCard, ParishShortCardSkeleton, ParishShortHeader, ParishWithRelations, useInfiniteParishes, useParishesStore } from "@/entities";
-import { cn, QUERY_PARAMS_KEYS, ScrollArea, StateMessage, useActiveParishId, useIntersectionObserver, useQueryParam, useThrottle } from "@/shared";
+import { ScrollArea, StateMessage } from "@/shared/ui";
 import { memo, useCallback, useEffect } from "react";
+import { cn } from "@/shared/lib";
+import { QUERY_PARAMS_KEYS } from "@/shared/constants";
+import { useIntersectionObserver, useThrottle } from "@/shared/lib/hooks";
+import { useQueryParam } from "@/shared/lib/hooks/use-query-param";
+import { useActiveParishId } from "@/shared/lib/hooks/use-active-parish-id";
+import { ParishWithRelations } from "@/entities/parish/model/types";
+import { useParishesStore } from "@/entities/parish/model/parish-store";
+import { useInfiniteParishes } from "@/entities/parish/model/hooks/use-infinite-parishes";
+import { fetchParishes } from "@/entities/parish/api";
+import { ParishShortCard, ParishShortCardSkeleton, ParishShortHeader } from "@/entities/parish/ui/parish-short";
 
 interface GroupsListProps {
   className?: string;

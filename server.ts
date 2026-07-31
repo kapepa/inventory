@@ -3,8 +3,10 @@ import { createServer, IncomingMessage, ServerResponse } from 'http';
 import { parse as parseUrl } from 'url';
 import next from 'next';
 import { Server, Socket } from 'socket.io';
-import { handleConnection } from '@/features/websocket/server';
-import { COOKIE_KEYS, parseCookies, verifyToken } from '@/shared/server';
+import { parseCookies } from '@/shared/lib';
+import { COOKIE_KEYS } from '@/shared/constants';
+import { verifyToken } from '@/shared/lib/auth';
+import { handleConnection } from '@/features/websocket/model/connection-handler';
 
 const dev = process.env.NODE_ENV !== 'production';
 const hostname = 'localhost';

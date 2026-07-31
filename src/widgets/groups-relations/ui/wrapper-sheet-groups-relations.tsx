@@ -1,10 +1,13 @@
 "use client"
 
-import { useActiveParishId, Sheet, SheetContent, SheetHeader, SheetTitle, SheetFooter, SheetClose, CancelButton, useMediaQuery } from "@/shared";
+import { CancelButton } from "@/shared/ui";
 import { GroupsRelations } from "./groups-relations";
-import { ProductWithRelationsShort } from "@/entities/product";
 import { memo } from "react";
 import { useTranslations } from "next-intl";
+import { Sheet, SheetClose, SheetContent, SheetFooter, SheetHeader, SheetTitle } from "@/shared/ui/sheet";
+import { useActiveParishId } from "@/shared/lib/hooks/use-active-parish-id";
+import { useMediaQuery } from "@/shared/lib/hooks";
+import { ProductWithRelationsShort } from "@/entities/product/model/types";
 
 interface WrapperSheetGroupsRelationsProps {
   initialHasMore?: boolean;

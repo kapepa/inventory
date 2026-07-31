@@ -1,4 +1,4 @@
-import { cn, PRODUCT_CONDITION_DISPLAY } from "@/shared"
+import { cn, PRODUCT_CONDITION_DISPLAY } from "@/shared/lib"
 import { useTranslations } from "next-intl"
 
 interface ProductBadgeProps {

@@ -1,4 +1,4 @@
-import { Header } from "@/widgets";
+import { Header } from "@/widgets/header/ui/Header";
 
 export default function AuthLayout({ children }: { children: React.ReactNode }) {
   return (

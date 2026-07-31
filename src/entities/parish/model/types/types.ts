@@ -1,4 +1,4 @@
-import { AppLocale } from '@/shared';
+import { AppLocale } from '@/shared/lib/i18n/config';
 import { Parish, ParishTranslation } from '@prisma/client';
 
 export interface FetchParishes {
@@ -6,6 +6,7 @@ export interface FetchParishes {
   limit: number
   search?: string
   locale?: AppLocale
+
 }
 
 export interface ParishWithRelations extends Parish {
@@ -30,3 +31,14 @@ export interface FetchParishById {
 }
 
 export type ParishesType = ParishWithRelations | ParishWithRelationsTotals
+
+export interface ParishesState {
+  total: number;
+  page: number;
+  activeParishe: ParishesType | null;
+  newParishe: ParishesType | null;
+  addNewParish: (parishe: ParishesType | null) => void;
+  setActiveParishe: (parishe: ParishesType | null) => void;
+  setTotal: (total: number) => void;
+  setPage: (page: number) => void;
+}

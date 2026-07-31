@@ -1,9 +1,9 @@
-import { cn } from "@/shared"
+import { cn } from "@/shared/lib"
 import { SpecificationInput, SpecificationInputSkeleton } from "./specification-input"
 import { CategorySelector, CategorySelectorSkeleton } from "./category-selector"
 import { useTranslations } from "next-intl"
-import { CategoryWithTranslations } from "@/entities"
 import { memo } from "react"
+import { CategoryWithTranslations } from "@/entities/category/model/types"
 
 interface ProductsExploreProps {
   initialCategories: CategoryWithTranslations[]

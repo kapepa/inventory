@@ -1,8 +1,10 @@
-import { cn, Link, ROUTES } from "@/shared"
 import { memo } from "react"
-import { ParishWithRelationsTotals } from "../../model"
 import { ActionsCell, ActionsCellSkeleton, AmountCell, AmountCellSkeleton, CountCell, CountCellSkeleton, DateCell, DateCellSkeleton, DetailsCell, DetailsCellSkeleton, TitleCell, TitleCellSkeleton } from "../cells"
 import { useTranslations } from "next-intl"
+import { cn } from "@/shared/lib"
+import { ROUTES } from "@/shared/constants"
+import { Link } from "@/shared/lib/i18n/routing"
+import { ParishWithRelationsTotals } from "../../model/types"
 
 const CELL_GENERAL_STYLE = "flex flex-col items-center"
 

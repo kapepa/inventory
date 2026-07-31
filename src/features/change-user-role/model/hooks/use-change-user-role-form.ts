@@ -8,8 +8,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { requestChangeUserRole } from "../../api";
 import { changeUserRoleFormSchema, ChangeUserRoleFormValues } from "../schemas-client";
 import { UserRoleType } from "../types";
-import { ForbiddenError, InvalidInputError } from "@/shared";
-import { useAuthStore } from "@/features/auth";
+import { ForbiddenError, InvalidInputError } from "@/shared/lib";
+import { useAuthStore } from "@/features/auth/model/auth-store";
 
 interface UseChangeUserRoleFormProps {
   userId: string;

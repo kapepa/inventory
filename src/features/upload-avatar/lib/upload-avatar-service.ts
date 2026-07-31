@@ -1,6 +1,6 @@
-import { ForbiddenError, prisma } from "@/shared/server";
-import { UploadAvatarType } from "../model";
-import { avatarUploadServerSchema } from "../server";
+import { ForbiddenError, prisma } from "@/shared/lib/server";
+import { UploadAvatarType } from "../model/types";
+import { avatarUploadServerSchema } from "../model/schemas-server";
 
 export const uploadAvatar = async (body: UploadAvatarType, currentUserId: string): Promise<void> => {
   const validated = avatarUploadServerSchema.parse(body)

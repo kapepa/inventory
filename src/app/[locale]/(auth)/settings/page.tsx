@@ -1,5 +1,7 @@
-import { Container, AppLocale, ScrollArea } from "@/shared";
-import { PageHeader, SettingsPanel } from "@/widgets";
+import { AppLocale } from "@/shared/lib/i18n/config";
+import { Container, ScrollArea } from "@/shared/ui";
+import { PageHeader } from "@/widgets/page-header/ui/page-header";
+import { SettingsPanel } from "@/widgets/settings-panel";
 import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 

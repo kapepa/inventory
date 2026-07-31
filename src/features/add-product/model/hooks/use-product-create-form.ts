@@ -4,13 +4,15 @@ import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { toast } from "sonner"
 import { useTranslations } from "next-intl"
-import { AlreadyExistsError, formatResponsiveImage, STORAGE_KEYS } from "@/shared"
 import { ProductCreateFormValues, productCreateFormSchema } from "../schemas-client"
 import { ProductStatus } from "@prisma/client"
-import { ProductWithRelations, useUpload } from "@/entities"
 import { useSyncFormWithStorage } from "./use-sync-form-with-storage"
 import { requestСreateProduct } from "../../api"
 import { ProductCreate } from "../types"
+import { STORAGE_KEYS } from "@/shared/constants"
+import { AlreadyExistsError, formatResponsiveImage } from "@/shared/lib"
+import { ProductWithRelations } from "@/entities/product/model/types"
+import { useUpload } from "@/entities/upload/model/hooks/use-upload"
 
 const ADD_PRODUCT_FORM_DATA = STORAGE_KEYS.ADD_PRODUCT_FORM_DATA
 

@@ -1,9 +1,11 @@
 "use client"
 
-import { CirclePlusButton, cn, Skeleton, Tooltip, TooltipContent, TooltipText, TooltipTrigger } from "@/shared"
+import { cn } from "@/shared/lib"
+import { CirclePlusButton, Skeleton, TooltipText } from "@/shared/ui"
 import { useTranslations } from "next-intl"
 import { memo } from "react"
-import { useAddCategory } from "../model/hooks"
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/shared/ui/tooltip"
+import { useAddCategory } from "../model/hooks/use-add-category"
 
 interface AddCategoryButtonProps {
   className?: string

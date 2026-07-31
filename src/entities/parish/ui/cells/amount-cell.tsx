@@ -1,4 +1,5 @@
-import { cn, formatUAH, formatUSD, MobileCellLabel, Skeleton } from "@/shared"
+import { cn, formatUAH, formatUSD } from "@/shared/lib"
+import { MobileCellLabel, Skeleton } from "@/shared/ui"
 
 interface AmountCellProps {
   label?: string,

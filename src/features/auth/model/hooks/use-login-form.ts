@@ -8,8 +8,11 @@ import { loginFormSchema, LoginFormValues, } from "../schemas-client";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useAuthStore } from "../auth-store";
 import { requestAuthLogin } from "../../api";
-import { InvalidCredentialsError, NotVerifiedError, ROUTES, useRouter, useUnmountCallback } from "@/shared";
 import { useVerifiedEmail } from "./use-verified-email";
+import { InvalidCredentialsError, NotVerifiedError } from "@/shared/lib";
+import { ROUTES } from "@/shared/constants";
+import { useRouter } from "@/shared/lib/i18n/routing";
+import { useUnmountCallback } from "@/shared/lib/hooks";
 
 export const useLoginForm = () => {
   const router = useRouter()

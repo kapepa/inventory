@@ -5,10 +5,12 @@ import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { toast } from "sonner"
 import { useLocale, useTranslations } from "next-intl"
-import { useCategoriesStore } from "@/entities/category"
-import { AlreadyExistsError, AppLocale, STORAGE_KEYS } from "@/shared"
 import { requestCreateCategory } from "../../api"
 import { createCategoryFormSchema, CategoryFormValues } from "../schemas-client"
+import { STORAGE_KEYS } from "@/shared/constants"
+import { AlreadyExistsError } from "@/shared/lib"
+import { AppLocale } from "@/shared/lib/i18n/config"
+import { useCategoriesStore } from "@/entities/category/model/categories-store"
 
 const ADD_CATEGORY_FORM_DATA = STORAGE_KEYS.ADD_CATEGORY_FORM_DATA
 

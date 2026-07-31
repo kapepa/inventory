@@ -1,10 +1,16 @@
-import { getCategoriesByParishIdCached, getFilteredProductsWideCached, getParishByIdCached } from "@/entities/server";
-import { ProductsExplore } from "@/features";
-import { Container, AppLocale, PAGINATION_PARISHES_DEFAULTS, BackButton, QUERY_PARAMS_KEYS } from "@/shared";
-import { PageHeader, ProductsList } from "@/widgets";
+import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
-import { notFound } from "next/navigation";
+import { PAGINATION_PARISHES_DEFAULTS, QUERY_PARAMS_KEYS } from "@/shared/constants";
+import { BackButton } from "@/shared/ui/back-button";
+import { Container } from "@/shared/ui/container"
+import { AppLocale } from "@/shared/lib/i18n/config";
+import { getCategoriesByParishIdCached } from "@/entities/category/lib/category-service-cached";
+import { getParishByIdCached } from "@/entities/parish/lib/parish-service-cached";
+import { getFilteredProductsWideCached } from "@/entities/product/lib/product-service-cached";
+import { ProductsExplore } from "@/features/products-explore/ui/products-explore";
+import { PageHeader } from "@/widgets/page-header/ui/page-header";
+import { ProductsList } from "@/widgets/products-list/ui/products-list";
 
 export async function generateMetadata({
   params,

@@ -1,12 +1,12 @@
 "use client"
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@radix-ui/react-tabs";
-import { AuthTab } from "../model";
-import { LoginForm } from "@/features";
 import { useState } from "react";
-import { cn } from "@/shared";
 import { useTranslations } from "next-intl";
 import { RegisterFormDynamic } from "@/features/auth/ui/register-form-dynamic";
+import { cn } from "@/shared/lib";
+import { LoginForm } from "@/features/auth/ui/login-form";
+import { AuthTab } from "../model/types";
 
 export const AuthGate = () => {
   const t = useTranslations('auth-gate');

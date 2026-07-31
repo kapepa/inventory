@@ -1,5 +1,0 @@
-export * from "./parish/index"
-export * from "./product/index"
-export * from "./category/index"
-export * from "./upload/index"
-export * from "./user/index"

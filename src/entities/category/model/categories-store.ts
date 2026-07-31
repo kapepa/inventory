@@ -1,16 +1,7 @@
 import { create } from 'zustand';
 import { devtools } from 'zustand/middleware';
 import { CategoryWithTranslations } from './types';
-
-interface CategoriesState {
-  total: number;
-  page: number;
-  newCategory: CategoryWithTranslations | null;
-  addNewCategory: (category: CategoryWithTranslations | null) => void;
-  setPage: (page: number) => void;
-  setTotal: (total: number) => void;
-  setFull: (props: { total: number; page: number }) => void;
-}
+import { CategoriesState } from './types/types';
 
 export const useCategoriesStore = create<CategoriesState>()(
   devtools(

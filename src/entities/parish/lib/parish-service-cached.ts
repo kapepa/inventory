@@ -1,7 +1,8 @@
 import { unstable_cache } from 'next/cache';
 import { getParishById, getParishes, getParishesTotals } from './parish-service';
-import { FetchParishes, FetchParishById } from '../model';
-import { CACHE_ENTITIES, CACHE_REVALIDATE, CACHE_TAGS, createCacheEntityTag, createCacheKey } from '@/shared/server';
+import { CACHE_ENTITIES, CACHE_REVALIDATE, CACHE_TAGS } from '@/shared/constants/cache';
+import { createCacheEntityTag, createCacheKey } from '@/shared/lib/cache-utils';
+import { FetchParishById, FetchParishes, ResponseParishesDTO } from '../model/types';
 
 export const getParishByIdCached = (params: FetchParishById) => {
   const cacheKey = createCacheKey(CACHE_ENTITIES.PARISH, params.id, params.locale!);
@@ -17,7 +18,7 @@ export const getParishByIdCached = (params: FetchParishById) => {
   )();
 };
 
-export const getParishesCached = (params: FetchParishes) => {
+export const getParishesCached = (params: FetchParishes): Promise<ResponseParishesDTO> => {
   const cacheKey = createCacheKey(
     CACHE_TAGS.PARISHES,
     params.page || 1,

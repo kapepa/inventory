@@ -1,6 +1,6 @@
-import { UploadImageError, UploadImageResponse } from '@/entities'
-import { uploadFile } from '@/entities/server'
 import { apiHandler } from '@/app/api/_middleware';
+import { uploadFile } from '@/entities/upload/lib/upload-service';
+import { UploadImageError, UploadImageResponse } from '@/entities/upload/model/types';
 import { NextRequest, NextResponse } from 'next/server'
 
 export const POST = apiHandler(async (request: NextRequest): Promise<NextResponse<UploadImageError | UploadImageResponse>> => {

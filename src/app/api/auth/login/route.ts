@@ -1,9 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { setAuthCookie } from '@/shared/lib/auth';
 import { ZodError } from 'zod';
-import { authLogin } from '@/features/server';
-import { AuthSignIn } from '@/features';
-import { InvalidCredentialsError, NotVerifiedError } from '@/shared/server';
+import { InvalidCredentialsError, NotVerifiedError } from '@/shared/lib/server';
+import { AuthSignIn } from '@/features/auth/model/types';
+import { authLogin } from '@/features/auth/lib/auth-service';
 
 export async function POST(request: NextRequest) {
   try {

@@ -2,8 +2,9 @@
 
 import { useState, useEffect, useCallback, useRef } from "react"
 import { FetchUsersParams, ResponseUsersDTO, UserPublic } from "../types";
-import { PAGINATION_USERS_DEFAULTS, useDebouncedCallback } from "@/shared";
 import { useUsersStore } from "../users-store";
+import { PAGINATION_USERS_DEFAULTS } from "@/shared/constants";
+import { useDebouncedCallback } from "@/shared/lib/hooks";
 
 interface UseInfiniteUsersProps {
   search?: string,

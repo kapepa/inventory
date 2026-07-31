@@ -1,4 +1,4 @@
-import { cn } from "@/shared"
+import { cn } from "@/shared/lib"
 import { memo, ReactNode } from "react"
 
 interface MobileCellLabelProps {

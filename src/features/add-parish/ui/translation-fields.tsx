@@ -1,10 +1,10 @@
 "use client"
 
-import { AppLocale } from "@/shared"
 import { memo, useCallback } from "react"
-import { TranslatableFieldName } from "../model"
 import { TitleField } from "./title-field"
 import { DescriptionField } from "./description-field"
+import { AppLocale } from "@/shared/lib/i18n/config"
+import { TranslatableFieldName } from "../model/schemas-client"
 
 interface TranslationFieldsProps {
   locale: AppLocale

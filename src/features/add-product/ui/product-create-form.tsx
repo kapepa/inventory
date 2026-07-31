@@ -1,7 +1,6 @@
 "use client"
 
-import { useProductTranslation, useProductCreateForm, PhotoFieldRef } from '../model'
-import { AppLocale, FooterBar, Form, SubmitButton, CancelButton, OverlayBody, ScrollArea, Tabs, TabsContent } from '@/shared'
+import { FooterBar, SubmitButton, CancelButton, OverlayBody, ScrollArea, Tabs, TabsContent } from '@/shared/ui'
 import { useLocale, useTranslations } from 'next-intl'
 import { TranslationFields } from './translation-fields'
 import { TranslationTabsHeader } from './translation-tabs-header'
@@ -12,8 +11,13 @@ import { ConditionField } from './condition-field'
 import { PhotoField } from './photo-field'
 import { PriceFields } from './price-fields'
 import { CategoryField } from './category-field'
-import { ProductWithRelationsWide, ProductWithRelationsShort } from '@/entities'
 import { useCallback, useRef } from 'react'
+import { Form } from '@/shared/ui/form'
+import { AppLocale } from '@/shared/lib/i18n/config'
+import { ProductWithRelationsShort, ProductWithRelationsWide } from '@/entities/product/model/types'
+import { PhotoFieldRef } from '../model/types'
+import { useProductCreateForm } from '../model/hooks/use-product-create-form'
+import { useProductTranslation } from '../model/hooks/use-product-translation'
 
 interface ProductCreateFormProps {
   parishId: string

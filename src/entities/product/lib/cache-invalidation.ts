@@ -1,5 +1,6 @@
-import { AppLocale } from '@/shared';
-import { CACHE_ENTITIES, CACHE_TAGS, createCacheEntityTag, createCacheLocalizedPath } from '@/shared/server';
+import { CACHE_ENTITIES, CACHE_TAGS } from '@/shared/constants/cache';
+import { createCacheEntityTag, createCacheLocalizedPath } from '@/shared/lib/cache-utils';
+import { AppLocale } from '@/shared/lib/i18n/config';
 import { revalidateTag, revalidatePath } from 'next/cache';
 
 export function invalidateProductCacheList({ locale }: { locale: AppLocale }) {

@@ -1,4 +1,6 @@
-import { cn, MobileCellLabel, Skeleton, Tooltip, TooltipContent, TooltipText, TooltipTrigger } from "@/shared"
+import { cn } from "@/shared/lib";
+import { MobileCellLabel, Skeleton, TooltipText } from "@/shared/ui"
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/shared/ui/tooltip";
 
 interface TitleCellProps {
   label?: string,

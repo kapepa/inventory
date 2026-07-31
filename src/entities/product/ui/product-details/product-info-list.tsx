@@ -1,9 +1,10 @@
 import { useTranslations } from "next-intl"
-import { cn, DotsDivider } from "@/shared"
 import { ProductStatusView } from "./product-status-view"
 import { ProductBadge } from "./product-badge"
 import { ProductStatus } from "@prisma/client"
 import { memo } from "react"
+import { DotsDivider } from "@/shared/ui"
+import { cn } from "@/shared/lib"
 
 interface ProductInfoListProps {
   className?: string

@@ -1,6 +1,12 @@
-import { validateVerificationToken } from "@/entities/server";
-import { AppLocale, Container, ExpiredError, NotFoundError, QUERY_PARAMS_KEYS, redirect, ROUTES } from "@/shared";
-import { PageHeader, StatusVerifyEmail, VerifyEmailStatus } from "@/widgets";
+import { validateVerificationToken } from "@/entities/verify/lib/create-verification-code";
+import { QUERY_PARAMS_KEYS, ROUTES } from "@/shared/constants";
+import { ExpiredError, NotFoundError } from "@/shared/lib";
+import { AppLocale } from "@/shared/lib/i18n/config";
+import { redirect } from "@/shared/lib/i18n/routing";
+import { Container } from "@/shared/ui";
+import { PageHeader } from "@/widgets/page-header/ui/page-header";
+import { StatusVerifyEmail } from "@/widgets/verify-email-status/model/types";
+import { VerifyEmailStatus } from "@/widgets/verify-email-status/ui/verify-email-status";
 import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 

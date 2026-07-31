@@ -1,7 +1,7 @@
-import { useModalActions } from "@/shared";
 import { useCallback } from "react";
-import { ProductDetailsModalDynamic } from "../../ui";
-import { ProductWithRelationsShort, ProductWithRelationsWide } from "@/entities";
+import { ProductDetailsModalDynamic } from "../../ui/product-details-modal.dynamic";
+import { useModalActions } from "@/shared/ui/modal";
+import { ProductWithRelationsShort, ProductWithRelationsWide } from "@/entities/product/model/types";
 
 type ProductWithRelations = ProductWithRelationsShort | ProductWithRelationsWide
 

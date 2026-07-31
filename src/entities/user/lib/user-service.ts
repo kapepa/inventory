@@ -1,7 +1,7 @@
-import { prisma } from '@/shared/server';
-import { PAGINATION_USERS_DEFAULTS } from "@/shared";
 import { Prisma } from '@prisma/client';
-import { FetchUsers, ResponseUsersDTO } from '../model';
+import { prisma } from "@/shared/lib/prisma";
+import { PAGINATION_USERS_DEFAULTS } from '@/shared/constants';
+import { FetchUsers, ResponseUsersDTO } from '../model/types';
 
 const buildWhereClause = ({ search }: FetchUsers) => {
   const where: Prisma.UserWhereInput = {};

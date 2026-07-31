@@ -1,1 +1,0 @@
-export { useTotalByStore } from "./use-store-selector"

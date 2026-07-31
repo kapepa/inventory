@@ -1,6 +1,6 @@
 "use client";
 
-import { LoaderSpin } from "@/shared";
+import { LoaderSpin } from "@/shared/ui";
 import dynamic from "next/dynamic";
 
 export const WarehouseMapDynamic = dynamic(
