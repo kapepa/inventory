@@ -1,6 +1,8 @@
 import { useMemo } from "react";
-import { fetchProductsWide, requestCategoryProducts, FetchProductsParams } from "@/entities";
 import { ProductsActionMode } from "../types";
+import { requestCategoryProducts } from "@/entities/category/api";
+import { FetchProductsParams } from "@/entities/product/model/types";
+import { fetchProductsWide } from "@/entities/product/api";
 
 interface UseFetchProductsActionParams {
   mode?: ProductsActionMode;

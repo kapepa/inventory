@@ -1,10 +1,13 @@
 "use client"
 
-import { AuthenticatedUser, } from "@/features/auth"
-import { CancelButton, cn, ImageUploadField, ImageUploadFieldRef, ResponsiveImage, SubmitButton, UPLOAD_LIMITS } from "@/shared"
+import { CancelButton, ImageUploadField, ResponsiveImage, SubmitButton } from "@/shared/ui"
 import { memo, useRef } from "react"
-import { useUploadAvatar } from "../model"
 import { useTranslations } from "next-intl"
+import { ImageUploadFieldRef } from "@/shared/types"
+import { cn } from "@/shared/lib"
+import { UPLOAD_LIMITS } from "@/shared/constants"
+import { useUploadAvatar } from "../model/hooks/use-upload-avatar"
+import { AuthenticatedUser } from "@/features/auth/model/types"
 
 interface AvatarUploadProps {
   user: AuthenticatedUser

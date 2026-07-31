@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 import { UseFormReturn } from 'react-hook-form'
 import { ParishFormValues, TranslatableFieldName } from '../schemas-client'
-import { AppLocale } from '@/shared'
+import { AppLocale } from '@/shared/lib/i18n/config'
 
 interface LocaleValidation {
   hasErrors: boolean

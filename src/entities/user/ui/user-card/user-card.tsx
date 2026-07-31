@@ -1,10 +1,10 @@
 "use client"
 
-import { cn } from "@/shared"
-import { UserPublic } from "../../model"
+import { cn } from "@/shared/lib"
 import { EmailUserCell, ImageUserCell, ImageUserCellSkeleton, NameUserCell, NameUserCellSkeleton, EmailUserCellSkeleton } from "../user-cells"
 import { useTranslations } from "next-intl"
 import { memo } from "react"
+import { UserPublic } from "../../model/types"
 
 interface UserCardProps {
   className?: string,

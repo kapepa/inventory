@@ -1,4 +1,6 @@
-import { defaultLocale, NotFoundActions, ROUTES } from '@/shared';
+import { ROUTES } from '@/shared/constants';
+import { defaultLocale } from '@/shared/lib/i18n/config';
+import { NotFoundActions } from '@/shared/ui';
 import { getTranslations } from 'next-intl/server';
 import { headers } from 'next/headers';
 

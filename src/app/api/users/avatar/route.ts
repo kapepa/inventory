@@ -1,10 +1,13 @@
-import { deleteFile, invalidateUserCacheById } from '@/entities/server';
-import { AuthenticatedUser, UploadAvatarType } from '@/features';
-import { uploadAvatar } from '@/features/server';
-import { ForbiddenError, getLocaleFromRequest } from '@/shared/server';
 import { NextRequest, NextResponse } from 'next/server';
 import { apiHandler } from '@/app/api/_middleware';
 import { ZodError } from 'zod';
+import { getLocaleFromRequest } from '@/shared/lib/get-locale-from-request';
+import { ForbiddenError } from '@/shared/lib/server';
+import { AuthenticatedUser } from '@/features/auth/model/types';
+import { UploadAvatarType } from '@/features/upload-avatar/model/types';
+import { uploadAvatar } from '@/features/upload-avatar/lib/upload-avatar-service';
+import { deleteFile } from '@/entities/upload/lib/upload-service';
+import { invalidateUserCacheById } from '@/entities/user/lib/cache-invalidation';
 
 export const PATCH = apiHandler(
   async (request: NextRequest, user: AuthenticatedUser): Promise<NextResponse<{ success: boolean } | { error: string }>> => {

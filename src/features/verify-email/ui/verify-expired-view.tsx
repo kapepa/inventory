@@ -1,9 +1,9 @@
 "use client"
 
-import { SubmitButton } from "@/shared";
+import { SubmitButton } from "@/shared/ui";
 import { useTranslations } from "next-intl";
 import { VerifyCard } from "./verify-card";
-import { useVerifiedEmail } from "@/features/auth";
+import { useVerifiedEmail } from "@/features/auth/model/hooks/use-verified-email";
 
 interface VerifyExpiredViewProps {
   email: string,

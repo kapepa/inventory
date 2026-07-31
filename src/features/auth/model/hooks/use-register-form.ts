@@ -7,8 +7,10 @@ import { toast } from "sonner";
 import { registerFormSchema, RegisterFormValues } from "../schemas-client";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { requestAuthRegister } from "../../api";
-import { AlreadyExistsError, EmailSendError, NotVerifiedError, useRouter, useUnmountCallback } from "@/shared";
 import { useVerifiedEmail } from "./use-verified-email";
+import { AlreadyExistsError, EmailSendError, NotVerifiedError } from "@/shared/lib";
+import { useRouter } from "@/shared/lib/i18n/routing";
+import { useUnmountCallback } from "@/shared/lib/hooks";
 
 export const useRegisterForm = () => {
   const router = useRouter()

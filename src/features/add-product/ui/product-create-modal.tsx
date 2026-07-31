@@ -1,9 +1,9 @@
 "use client"
 
-import { ModalContents, ModalHeader } from '@/shared'
+import { ModalContents, ModalHeader } from '@/shared/ui/modal'
 import { ProductCreateForm } from './product-create-form'
 import { useTranslations } from 'next-intl'
-import { ProductWithRelationsWide, ProductWithRelationsShort } from '@/entities'
+import { ProductWithRelationsShort, ProductWithRelationsWide } from '@/entities/product/model/types'
 
 interface ProductCreateModalProps {
   parishId: string

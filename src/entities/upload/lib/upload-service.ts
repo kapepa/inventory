@@ -1,11 +1,13 @@
-import { UploadImageResponse } from '../model'
-import { extractPublicId, validateFile } from '../lib'
-import { ImageSizes } from '@/shared'
+import { ImageSizes } from '@/shared/types'
+import { UploadImageResponse } from '../model/types'
+import { validateFile } from './validate-file'
+import { extractPublicId } from './extract-public-id'
+
 
 // Dynamic import for Cloudinary to avoid fs module in client bundles
 const getCloudinary = async () => {
   // Dynamic import - Cloudinary will only be imported on the server
-  const cloudinaryModule = await import('../config')
+  const cloudinaryModule = await import('../config/cloudinary')
   return cloudinaryModule.getCloudinary()
 }
 

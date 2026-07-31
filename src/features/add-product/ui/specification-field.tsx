@@ -3,18 +3,10 @@
 import { memo } from "react"
 import { useFormContext } from "react-hook-form"
 import { useTranslations } from "next-intl"
-import {
-  FormField,
-  FormItem,
-  FormLabel,
-  FormControl,
-  FormMessage,
-  Textarea,
-  AppLocale,
-  TranslateWrapperInput,
-  oppositeLocale,
-  VALIDATION_LIMITS,
-} from "@/shared"
+import { Textarea, TranslateWrapperInput } from "@/shared/ui"
+import { VALIDATION_LIMITS } from "@/shared/constants"
+import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/shared/ui/form"
+import { AppLocale, oppositeLocale } from "@/shared/lib/i18n/config"
 
 interface SpecificationFieldProps {
   locale: AppLocale

@@ -1,6 +1,7 @@
-import { AddParishButtonSkeleton } from "@/features";
-import { Container } from "@/shared";
-import { PageHeaderSkeleton, ParishesListSkeleton } from "@/widgets";
+import { AddParishButtonSkeleton } from "@/features/add-parish/ui/add-parish-button";
+import { Container } from "@/shared/ui";
+import { PageHeaderSkeleton } from "@/widgets/page-header/ui/page-header";
+import { ParishesListSkeleton } from "@/widgets/parishes-list/ui/parishes-list";
 
 export default function LoadingParishes() {
   return (

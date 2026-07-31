@@ -1,8 +1,9 @@
-import { InvalidCredentialsError, InvalidInputError, NotFoundError, prisma } from "@/shared/server";
-import { ChangePasswordType } from "../model";
-import { AuthenticatedUser } from "@/features/auth";
-import { comparePassword, hashPassword } from "@/shared";
-import { changePasswordServerSchema } from "../server";
+import { InvalidInputError, NotFoundError, prisma } from "@/shared/lib/server";
+import { InvalidCredentialsError } from "@/shared/lib";
+import { comparePassword, hashPassword } from "@/shared/lib/auth";
+import { ChangePasswordType } from "../model/types";
+import { AuthenticatedUser } from "@/features/auth/model/types";
+import { changePasswordServerSchema } from "../model/schemas-server";
 
 interface ChangePasswordServiceProps {
   body: ChangePasswordType,

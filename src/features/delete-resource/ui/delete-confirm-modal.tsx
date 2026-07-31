@@ -1,15 +1,9 @@
 "use client"
 
 import { useTranslations } from "next-intl";
-import {
-  ModalContents,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
-  CancelButton,
-  SubmitButton
-} from "@/shared";
+import { CancelButton, SubmitButton } from "@/shared/ui";
 import { Trash } from "lucide-react";
+import { ModalBody, ModalContents, ModalFooter, ModalHeader } from "@/shared/ui/modal";
 
 interface DeleteConfirmModalProps {
   title: string;

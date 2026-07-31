@@ -1,6 +1,8 @@
-import { getSessionUserCached } from "@/features/server";
 import { ProvidersAuthClient, ProvidersUIClient } from "../providers-client";
-import { AppLocale, redirect, ROUTES } from "@/shared";
+import { ROUTES } from "@/shared/constants";
+import { redirect } from "@/shared/lib/i18n/routing";
+import { AppLocale } from "@/shared/lib/i18n/config";
+import { getSessionUserCached } from "@/features/auth/lib/auth-service-cached";
 
 export default async function AuthLayout({
   params,

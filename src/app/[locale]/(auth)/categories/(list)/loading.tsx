@@ -1,6 +1,7 @@
-import { AddCategoryButtonSkeleton } from "@/features";
-import { Container } from "@/shared";
-import { CategoriesListSkeleton, PageHeaderSkeleton } from "@/widgets";
+import { AddCategoryButtonSkeleton } from "@/features/add-category/ui";
+import { Container } from "@/shared/ui";
+import { CategoriesListSkeleton } from "@/widgets/categories-list";
+import { PageHeaderSkeleton } from "@/widgets/page-header/ui/page-header";
 
 export default function LoadingCategoriesList() {
   return (

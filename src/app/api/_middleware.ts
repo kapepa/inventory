@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { authorizeRequest, AuthenticatedUser } from '@/features/server';
-import { getAuthToken, verifyToken } from '@/shared/server';
+import { getAuthToken, verifyToken } from '@/shared/lib/auth';
+import { AuthenticatedUser } from '@/features/auth/model/types';
+import { authorizeRequest } from '@/features/auth/lib/auth-service';
 
 type Handler = (req: NextRequest, user: AuthenticatedUser, context?: any) => Promise<NextResponse>;
 

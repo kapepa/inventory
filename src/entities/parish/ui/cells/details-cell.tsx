@@ -1,4 +1,6 @@
-import { Button, cn, MobileCellLabel, Popover, PopoverContent, PopoverTrigger, Skeleton } from "@/shared"
+import { cn } from "@/shared/lib"
+import { Button, MobileCellLabel, Skeleton } from "@/shared/ui"
+import { Popover, PopoverContent, PopoverTrigger } from "@/shared/ui/popover"
 import { Menu } from "lucide-react"
 
 interface DetailsCellProps {

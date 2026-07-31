@@ -1,6 +1,6 @@
+import { useMounted } from "@/shared/lib/hooks";
 import { useAuthStore } from "../auth-store";
 import { useInitialUser } from "./use-initials-user";
-import { useMounted } from "@/shared";
 
 export function useHydratedUser() {
   const initialUser = useInitialUser();

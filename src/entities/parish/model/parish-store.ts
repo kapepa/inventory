@@ -1,17 +1,6 @@
 import { create } from 'zustand';
 import { devtools } from 'zustand/middleware';
-import { ParishesType } from './types';
-
-interface ParishesState {
-  total: number;
-  page: number;
-  activeParishe: ParishesType | null;
-  newParishe: ParishesType | null;
-  addNewParish: (parishe: ParishesType | null) => void;
-  setActiveParishe: (parishe: ParishesType | null) => void;
-  setTotal: (total: number) => void;
-  setPage: (page: number) => void;
-}
+import { ParishesState } from './types/types';
 
 export const useParishesStore = create<ParishesState>()(
   devtools(

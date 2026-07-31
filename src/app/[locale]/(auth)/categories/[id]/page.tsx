@@ -1,6 +1,10 @@
-import { getCategoryByIdCached, getFilteredProductsWideCached } from "@/entities/server";
-import { Container, AppLocale, BackButton, PAGINATION_PARISHES_DEFAULTS, QUERY_PARAMS_KEYS } from "@/shared";
-import { PageHeader, ProductsList } from "@/widgets";
+import { getCategoryByIdCached } from "@/entities/category/lib/category-service-cached";
+import { getFilteredProductsWideCached } from "@/entities/product/lib/product-service-cached";
+import { PAGINATION_PARISHES_DEFAULTS, QUERY_PARAMS_KEYS } from "@/shared/constants";
+import { AppLocale } from "@/shared/lib/i18n/config";
+import { BackButton, Container } from "@/shared/ui";
+import { PageHeader } from "@/widgets/page-header/ui/page-header";
+import { ProductsList } from "@/widgets/products-list/ui/products-list";
 import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";

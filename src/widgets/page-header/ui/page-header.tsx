@@ -1,8 +1,9 @@
 import { memo, ReactNode } from "react"
-import { cn, Skeleton } from "@/shared"
+import { Skeleton } from "@/shared/ui"
 import { CountTotal, CountTotalSkeleton } from "./count-total"
 import { Subtitle, SubtitleSkeleton } from "./subtitle"
-import { StoreType } from "../lib"
+import { cn } from "@/shared/lib"
+import { StoreType } from "../lib/types/types"
 
 interface PageHeaderProps {
   title: string

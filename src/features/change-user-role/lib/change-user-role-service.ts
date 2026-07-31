@@ -1,8 +1,8 @@
-import { ForbiddenError, InvalidInputError, prisma } from "@/shared/server";
-import { ChangeUserRoleType, UserRoleType } from "../model";
-import { AuthenticatedUser } from "@/features/auth";
-import { signToken } from "@/shared";
-import { changeUserRoleServerSchema } from "../server";
+import { ForbiddenError, InvalidInputError, prisma } from "@/shared/lib/server";
+import { signToken } from "@/shared/lib/auth";
+import { ChangeUserRoleType, UserRoleType } from "../model/types";
+import { AuthenticatedUser } from "@/features/auth/model/types";
+import { changeUserRoleServerSchema } from "../model/schemas-server";
 
 interface ChangeUserRoleServiceProps {
   body: ChangeUserRoleType,

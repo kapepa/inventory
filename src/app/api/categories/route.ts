@@ -1,11 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { getCategoriesCached, invalidateCategoriesCacheList } from '@/entities/server';
-import { CategoryWithProductCount, CategoryWithTranslations } from '@/entities';
-import { AlreadyExistsError, ForbiddenError, getLocaleFromRequest } from '@/shared/server';
-import { createCategory } from '@/features/server';
+
 import { ZodError } from 'zod';
-import { AuthenticatedUser } from '@/features';
 import { apiHandler } from '@/app/api/_middleware';
+import { getLocaleFromRequest } from '@/shared/lib/get-locale-from-request';
+import { AlreadyExistsError, ForbiddenError } from '@/shared/lib/server';
+import { getCategoriesCached } from '@/entities/category/lib/category-service-cached';
+import { invalidateCategoriesCacheList } from '@/entities/category/lib/category-invalidation';
+import { CategoryWithProductCount, CategoryWithTranslations } from '@/entities/category/model/types';
+import { AuthenticatedUser } from '@/features/auth/model/types';
+import { createCategory } from '@/features/add-category/lib/category-service';
 
 export const GET = apiHandler(async (request: NextRequest): Promise<NextResponse<CategoryWithTranslations[] | { error: string }>> => {
   try {

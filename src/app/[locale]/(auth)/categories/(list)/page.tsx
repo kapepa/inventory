@@ -1,7 +1,10 @@
-import { getCategoriesWithProductCountCached } from "@/entities/server";
-import { AddCategoryButton, AddCategoryButtonSkeleton } from "@/features";
-import { Container, AppLocale, PAGINATION_CATEGORIES_DEFAULTS, QUERY_PARAMS_KEYS } from "@/shared";
-import { CategoriesList, CategoriesListSkeleton, PageHeader, PageHeaderSkeleton } from "@/widgets";
+import { getCategoriesWithProductCountCached } from "@/entities/category/lib/category-service-cached";
+import { AddCategoryButton } from "@/features/add-category/ui";
+import { PAGINATION_CATEGORIES_DEFAULTS, QUERY_PARAMS_KEYS } from "@/shared/constants";
+import { AppLocale } from "@/shared/lib/i18n/config";
+import { Container } from "@/shared/ui";
+import { CategoriesList } from "@/widgets/categories-list";
+import { PageHeader } from "@/widgets/page-header/ui/page-header";
 import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 

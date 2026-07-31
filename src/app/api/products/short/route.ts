@@ -1,9 +1,9 @@
-import { ResponseProductsShortDTO } from "@/entities";
-import { getFilteredProductsShortCached } from "@/entities/server";
-import { PAGINATION_PRODUCTS_DEFAULTS } from "@/shared";
 import { NextRequest, NextResponse } from "next/server";
 import { apiHandler } from '@/app/api/_middleware';
-import { getLocaleFromRequest } from "@/shared/server";
+import { getLocaleFromRequest } from "@/shared/lib/get-locale-from-request";
+import { PAGINATION_PRODUCTS_DEFAULTS } from "@/shared/constants";
+import { ResponseProductsShortDTO } from "@/entities/product/model/types";
+import { getFilteredProductsShortCached } from "@/entities/product/lib/product-service-cached";
 
 export const GET = apiHandler(async (request: NextRequest): Promise<NextResponse<ResponseProductsShortDTO | { error: string }>> => {
   try {

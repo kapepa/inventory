@@ -3,22 +3,11 @@
 import { memo } from "react"
 import { useFormContext } from "react-hook-form"
 import { useTranslations, useLocale } from "next-intl"
-
-import {
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-  AppLocale,
-} from "@/shared"
-import { useCategories } from "@/entities"
-import { useRestoreFieldFromStorage } from "../model"
+import { FormField, FormItem, FormLabel, FormControl, FormMessage } from "@/shared/ui/form"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/shared/ui/select"
+import { AppLocale } from "@/shared/lib/i18n/config"
+import { useCategories } from "@/entities/category/model/hooks/use-categories"
+import { useRestoreFieldFromStorage } from "../model/hooks/use-category-field-restore"
 
 interface CategoryFieldProps {
   isPending?: boolean

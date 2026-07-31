@@ -1,17 +1,19 @@
 "use client"
 
-import { cn, Skeleton, Thumbnail } from "@/shared"
+import { cn } from "@/shared/lib"
+import { Skeleton, Thumbnail } from "@/shared/ui"
 
 interface PictureCellProps {
   url?: string | null
   alt?: string
   className?: string
+  priority?: boolean
 }
 
-export const PictureCell = ({ url, alt = "product", className }: PictureCellProps) => {
+export const PictureCell = ({ priority = false, url, alt = "product", className }: PictureCellProps) => {
   return (
     <div className={cn("flex items-center justify-center m-auto", className)}>
-      <Thumbnail source={url} alt={alt} className={className} size="md" />
+      <Thumbnail priority={priority} source={url} alt={alt} className={className} size="md" />
     </div>
   )
 }

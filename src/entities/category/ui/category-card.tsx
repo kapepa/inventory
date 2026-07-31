@@ -1,7 +1,9 @@
-import { cn, Link, ROUTES } from "@/shared"
-import { CategoryWithProductCount } from "../model"
+import { cn } from "@/shared/lib"
 import { QuantityCell, TitleCell, DateCell, ActionsCell, TitleCellSkeleton, QuantityCellSkeleton, DateCellSkeleton, ActionsCellSkeleton } from "./cells"
 import { useTranslations } from "next-intl"
+import { ROUTES } from "@/shared/constants"
+import { Link } from "@/shared/lib/i18n/routing"
+import { CategoryWithProductCount } from "../model/types"
 
 interface CategoryCardProps {
   className?: string,

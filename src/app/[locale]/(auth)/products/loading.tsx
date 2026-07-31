@@ -1,6 +1,7 @@
-import { ProductsExploreSkeleton } from "@/features";
-import { Container } from "@/shared";
-import { PageHeaderSkeleton, ProductsListSkeleton } from "@/widgets";
+import { ProductsExploreSkeleton } from "@/features/products-explore/ui/products-explore";
+import { Container } from "@/shared/ui";
+import { PageHeaderSkeleton } from "@/widgets/page-header/ui/page-header";
+import { ProductsListSkeleton } from "@/widgets/products-list/ui/products-list";
 
 export default function LoadingProducts() {
   return (

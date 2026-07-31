@@ -1,5 +1,5 @@
+import { VALIDATION_LIMITS } from '@/shared/constants'
 import { z } from 'zod'
-import { VALIDATION_LIMITS } from '@/shared'
 
 export const avatarUploadServerSchema = z.object({
   image: z

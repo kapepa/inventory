@@ -1,7 +1,10 @@
 'use client';
 
-import { useOnlineUserstStore, useWebSocket, useAuthStore } from '@/features';
-import { SOCKET_EVENTS, UserStatusData } from '@/shared';
+import { useAuthStore } from '@/features/auth/model/auth-store';
+import { useOnlineUserstStore } from '@/features/websocket/model/online-users-store';
+import { useWebSocket } from '@/features/websocket/model/use-websocket';
+import { SOCKET_EVENTS } from '@/shared/constants';
+import { UserStatusData } from '@/shared/types';
 import { useEffect, createContext, useContext, ReactNode } from 'react';
 
 interface WebSocketContextValue {

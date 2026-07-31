@@ -2,7 +2,8 @@
 
 import * as React from "react"
 import { Clock9 } from 'lucide-react'
-import { Skeleton, useLiveTime } from '@/shared'
+import { useLiveTime } from '@/shared/lib/hooks/use-live-time'
+import { Skeleton } from "./skeleton"
 
 // ============ Types ============
 interface LiveTimeContextValue {

@@ -3,8 +3,9 @@
 import { Eraser } from "lucide-react"
 import { Button } from "./button"
 import { Input } from "./input"
-import { cn, useMounted } from "../lib"
+import { cn } from "../lib"
 import { InputHTMLAttributes } from "react"
+import { useMounted } from "../lib/hooks"
 
 interface SearchWithClearProps extends InputHTMLAttributes<HTMLInputElement> {
   className?: string

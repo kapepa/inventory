@@ -1,9 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { deleteParish } from '@/features/server';
-import { AuthenticatedUser } from '@/features';
-import { getParishById, invalidateParishCacheById } from '@/entities/server';
-import { ForbiddenError, getLocaleFromRequest, HasDependenciesError, NotFoundError } from '@/shared/server';
 import { apiHandler } from '@/app/api/_middleware';
+import { ForbiddenError, getLocaleFromRequest, HasDependenciesError, NotFoundError } from '@/shared/lib/server';
+import { AuthenticatedUser } from '@/features/auth/model/types';
+import { getParishById } from '@/entities/parish/lib/parish-service';
+import { deleteParish } from '@/features/delete-resource/lib/parish-service';
+import { invalidateParishCacheById } from '@/entities/parish/lib/cache-invalidation';
 
 export const DELETE = apiHandler(
   async (request: NextRequest, user: AuthenticatedUser, { params }: { params: Promise<{ id: string }> }): Promise<NextResponse<{ success: boolean } | { error: string }>> => {

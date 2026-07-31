@@ -1,4 +1,5 @@
-import { cn, Skeleton, STATUS_DISPLAY_CONFIG } from "@/shared"
+import { cn, STATUS_DISPLAY_CONFIG } from "@/shared/lib"
+import { Skeleton } from "@/shared/ui"
 import { ProductStatus } from "@prisma/client"
 import { memo } from "react"
 

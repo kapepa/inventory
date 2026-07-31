@@ -1,4 +1,5 @@
-import { cn, MobileCellLabel, Skeleton } from "@/shared"
+import { cn } from "@/shared/lib";
+import { MobileCellLabel, Skeleton } from "@/shared/ui"
 import { useTranslations } from "next-intl";
 
 interface CountCellProps {

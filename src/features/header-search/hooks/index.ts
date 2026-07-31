@@ -1,1 +1,0 @@
-export { useGenericSearch } from "./use-generic-search"

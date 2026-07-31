@@ -1,5 +1,7 @@
-import { ProductDetails, ProductWithRelationsWide, ProductWithRelationsShort } from "@/entities";
-import { SubmitButton, ModalBody, ModalContents, ModalFooter, ModalHeader } from "@/shared"
+import { ProductWithRelationsShort, ProductWithRelationsWide } from "@/entities/product/model/types";
+import { ProductDetails } from "@/entities/product/ui/product-details/product-details";
+import { SubmitButton } from "@/shared/ui";
+import { ModalBody, ModalContents, ModalFooter, ModalHeader } from "@/shared/ui/modal";
 import { useTranslations } from "next-intl";
 
 interface ProductDetailsModalProps {

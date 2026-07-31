@@ -1,18 +1,16 @@
-import { changePasswordService } from '@/features/server';
-import { AuthenticatedUser, ChangePasswordDTO, ChangePasswordType } from '@/features';
-import { EmailSendError, InvalidCredentialsError, InvalidInputError, NotFoundError } from '@/shared/server';
 import { NextRequest, NextResponse } from 'next/server';
 import { apiHandler } from '@/app/api/_middleware';
 import { ZodError } from 'zod';
-import { AppLocale, defaultLocale } from '@/shared';
-import { sendChangePasswordEmail } from '@/entities/server';
+import { EmailSendError, getLocaleFromRequest, InvalidCredentialsError, InvalidInputError, NotFoundError } from '@/shared/lib/server';
+import { AuthenticatedUser } from '@/features/auth/model/types';
+import { ChangePasswordDTO, ChangePasswordType } from '@/features/change-password/model/types';
+import { changePasswordService } from '@/features/change-password/lib/change-password-service';
+import { sendChangePasswordEmail } from '@/entities/email/lib/send-change-password-email';
 
 export const PATCH = apiHandler(
   async (request: NextRequest, user: AuthenticatedUser): Promise<NextResponse<ChangePasswordDTO | { error: string }>> => {
     try {
-      const rawLocale = request.headers.get('Accept-Language') || defaultLocale;
-      const locale = (rawLocale.split(',')[0].split('-')[0].trim().toLowerCase()) as AppLocale;
-
+      const locale = getLocaleFromRequest(request);
       const body: ChangePasswordType = await request.json();
 
       await changePasswordService({ user, body });

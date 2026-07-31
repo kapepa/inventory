@@ -1,9 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { deleteCategory } from '@/features/server';
-import { AuthenticatedUser } from '@/features';
-import { getCategoryById, invalidateCategoryCacheById } from '@/entities/server';
-import { ForbiddenError, getLocaleFromRequest, HasDependenciesError, NotFoundError } from '@/shared/server';
 import { apiHandler } from '@/app/api/_middleware';
+import { ForbiddenError, getLocaleFromRequest, HasDependenciesError, NotFoundError } from '@/shared/lib/server';
+import { getCategoryById } from '@/entities/category/lib/category-service';
+import { invalidateCategoryCacheById } from '@/entities/category/lib/category-invalidation';
+import { deleteCategory } from '@/features/delete-resource/lib/category-service';
+import { AuthenticatedUser } from '@/features/auth/model/types';
 
 export const DELETE = apiHandler(async (request: NextRequest, user: AuthenticatedUser, { params }: { params: Promise<{ id: string }> }) => {
   const { id } = await params;

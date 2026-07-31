@@ -3,15 +3,9 @@
 import { memo } from "react"
 import { useFormContext } from "react-hook-form"
 import { useTranslations } from "next-intl"
-import {
-  FormField,
-  FormItem,
-  FormLabel,
-  FormControl,
-  FormMessage,
-  Input,
-  VALIDATION_LIMITS,
-} from "@/shared"
+import { Input } from "@/shared/ui"
+import { VALIDATION_LIMITS } from "@/shared/constants"
+import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/shared/ui/form"
 
 interface OrderFieldProps {
   isPending?: boolean

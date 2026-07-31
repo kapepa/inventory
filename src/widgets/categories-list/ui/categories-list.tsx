@@ -1,8 +1,16 @@
 "use client"
 
-import { useInfiniteCategories, requestCategoriesWithProductCount, CategoryCard, CategoryCardSkeleton, CategoryHeader, CategoryWithProductCount, useCategoriesStore, isCategoryWithProductCount, CategoryHeaderSkeleton } from "@/entities";
-import { useDeleteCategory } from "@/features";
-import { cn, QUERY_PARAMS_KEYS, ScrollArea, useIntersectionObserver, useQueryParam, StateMessage } from "@/shared";
+import { requestCategoriesWithProductCount } from "@/entities/category/api";
+import { useCategoriesStore } from "@/entities/category/model/categories-store";
+import { useInfiniteCategories } from "@/entities/category/model/hooks/use-infinite-categories";
+import { CategoryWithProductCount, isCategoryWithProductCount } from "@/entities/category/model/types";
+import { CategoryCard, CategoryCardSkeleton, CategoryHeader, CategoryHeaderSkeleton } from "@/entities/category/ui";
+import { useDeleteCategory } from "@/features/delete-resource/model/hooks/use-delete-category";
+import { QUERY_PARAMS_KEYS } from "@/shared/constants";
+import { cn } from "@/shared/lib";
+import { useIntersectionObserver } from "@/shared/lib/hooks";
+import { useQueryParam } from "@/shared/lib/hooks/use-query-param";
+import { ScrollArea, StateMessage } from "@/shared/ui";
 import { useTranslations } from "next-intl";
 import { memo, useCallback, useEffect } from "react";
 

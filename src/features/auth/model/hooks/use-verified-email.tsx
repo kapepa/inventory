@@ -1,11 +1,13 @@
 "use client"
 
-import { NotFoundError, useModalActions, useRouter } from "@/shared";
 import { useTranslations } from "next-intl";
 import { useCallback, useTransition } from "react";
 import { toast } from "sonner";
 import { requestResendVerification } from "../../api";
 import { EmailNotVerifiedModalDynamic } from "../../ui/email-not-verified-modal-dynamic";
+import { NotFoundError } from "@/shared/lib";
+import { useModalActions } from "@/shared/ui/modal";
+import { useRouter } from "@/shared/lib/i18n/routing";
 
 interface EmailNotVerifiedModalWrapperProps {
   email: string; onCloseAction: () => void;

@@ -1,13 +1,6 @@
 import { create } from 'zustand';
 import { devtools } from 'zustand/middleware';
-
-interface UsersState {
-  total: number;
-  page: number;
-  setPage: (page: number) => void;
-  setTotal: (total: number) => void;
-  setFull: (props: { total: number; page: number }) => void;
-}
+import { UsersState } from './types/types';
 
 export const useUsersStore = create<UsersState>()(
   devtools(

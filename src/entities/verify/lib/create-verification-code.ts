@@ -1,8 +1,8 @@
-import { ExpiredError, NotFoundError, prisma } from "@/shared/server";
 import crypto from 'crypto';
 import { VerificationCodeInput, VerificationCodeOutput } from "../types";
-import { VERIFICATION_CONFIG } from "@/shared";
-import { email } from "zod";
+import { VERIFICATION_CONFIG } from '@/shared/constants';
+import { prisma } from '@/shared/lib/prisma';
+import { ExpiredError, NotFoundError } from '@/shared/lib/server';
 
 export const createVerificationCode = async ({ email, userId }: VerificationCodeInput): Promise<VerificationCodeOutput> => {
   try {

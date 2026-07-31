@@ -1,11 +1,19 @@
 "use client"
 
 import { useCallback, useEffect } from "react"
-import { ParishWideCard, ParishWithRelationsTotals, useInfiniteParishes, ParishWideHeader, ParishWideCardSkeleton, useParishesStore, isTotalsParish, ParishWideHeaderSkeleton } from "@/entities"
-import { cn, QUERY_PARAMS_KEYS, ScrollArea, StateMessage, useIntersectionObserver, useQueryParam } from "@/shared"
-import { useDeleteParish, useHydratedIsAdmin } from "@/features"
+import { ScrollArea, StateMessage } from "@/shared/ui"
 import { useTranslations } from "next-intl"
 import { fetchParishesTotals } from "@/entities/parish/api/parish-api"
+import { cn } from "@/shared/lib"
+import { QUERY_PARAMS_KEYS } from "@/shared/constants"
+import { useQueryParam } from "@/shared/lib/hooks/use-query-param"
+import { useIntersectionObserver } from "@/shared/lib/hooks"
+import { isTotalsParish, ParishWithRelationsTotals } from "@/entities/parish/model/types"
+import { useHydratedIsAdmin } from "@/features/auth/model/hooks/use-hydrated-user"
+import { useParishesStore } from "@/entities/parish/model/parish-store"
+import { useInfiniteParishes } from "@/entities/parish/model/hooks/use-infinite-parishes"
+import { useDeleteParish } from "@/features/delete-resource/model/hooks/use-delete-parish"
+import { ParishWideCard, ParishWideCardSkeleton, ParishWideHeader, ParishWideHeaderSkeleton } from "@/entities/parish/ui/parish-wide"
 
 const PARISH_GRID_BASE = "items-center grid gap-4 grid-rows-6 grid-cols-2 pb-4 md:min-w-[725px] md:grid-rows-1"
 
@@ -78,7 +86,6 @@ export const ParishesList = ({
         isAdmin={isAdmin}
         className={cn(PARISH_LAYOUT, "hidden md:grid shrink-0")}
       />
-
       <ScrollArea className="flex-1 min-h-0">
         <div className="flex flex-col gap-3 mx-auto pb-6 md:pb-16">
           {parishes.map((parish) => (

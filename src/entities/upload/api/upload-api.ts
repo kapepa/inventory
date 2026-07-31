@@ -1,14 +1,14 @@
-import { axiosInstance } from "@/shared/lib/axios"
+import { axiosClient } from "@/shared/lib/axios/client"
 import { ResponsiveImageSizes } from '../model/types/types'
 import { AxiosError, isCancel } from "axios"
-import { RequestUploadFileParams } from '../model'
+import { RequestUploadFileParams } from "../model/types"
 
 export const requestUploadFile = async ({ file, signal }: RequestUploadFileParams): Promise<ResponsiveImageSizes> => {
   try {
     const formData = new FormData()
     formData.append('file', file)
 
-    const response = await axiosInstance.post<ResponsiveImageSizes>('/upload', formData,
+    const response = await axiosClient.post<ResponsiveImageSizes>('/upload', formData,
       {
         signal,
         headers: {

@@ -1,4 +1,4 @@
-import { EmailSendError } from '@/shared/server';
+import { EmailSendError } from '@/shared/lib/server';
 import { transporter } from '../config/transport';
 import { EmailOptions } from '../model/types/types';
 

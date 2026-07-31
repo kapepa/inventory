@@ -1,12 +1,13 @@
 "use client"
 
-import { ForbiddenError, HasDependenciesError, NotFoundError, useModalActions } from "@/shared";
-import { ParishesType } from "@/entities";
 import { toast } from "sonner";
 import { useTranslations } from "next-intl";
 import { useCallback, useTransition } from "react";
 import { requestDeleteParish } from "../../api";
-import { DeleteConfirmModalDynamic } from "../../ui";
+import { ForbiddenError, HasDependenciesError, NotFoundError } from "@/shared/lib";
+import { useModalActions } from "@/shared/ui/modal";
+import { DeleteConfirmModalDynamic } from "../../ui/delete-confirm-modal-dynamic";
+import { ParishesType } from "@/entities/parish/model/types";
 
 interface DeleteParishModalWrapperProps {
   title: string;

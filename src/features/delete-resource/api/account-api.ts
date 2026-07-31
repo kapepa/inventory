@@ -1,11 +1,11 @@
-import { axiosInstance } from "@/shared/lib/axios"
-import { ForbiddenError } from "@/shared"
+import { axiosClient } from "@/shared/lib/axios/client"
+import { ForbiddenError } from "@/shared/lib"
 import { DeleteAccountResult } from "../model/types"
 import { AxiosError, isCancel } from "axios"
 
 export const requestDeleteAccount = async (signal?: AbortSignal): Promise<DeleteAccountResult> => {
   try {
-    const response = await axiosInstance.delete<DeleteAccountResult>(`/users`, {
+    const response = await axiosClient.delete<DeleteAccountResult>(`/users`, {
       signal,
     })
 

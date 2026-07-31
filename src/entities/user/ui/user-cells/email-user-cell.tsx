@@ -1,4 +1,5 @@
-import { cn, Skeleton } from "@/shared";
+import { Skeleton } from "@/shared/ui";
+import { cn } from "@/shared/lib";
 import { memo } from "react";
 
 interface EmailUserCellProps {

@@ -7,7 +7,8 @@ import { toast } from "sonner";
 import { changePasswordFormSchema, ChangePasswordFormValues } from "../schemas-client";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { requestChangePassword } from "../../api";
-import { InvalidCredentialsError, InvalidInputError, NotFoundError } from "@/shared";
+import { InvalidCredentialsError, InvalidInputError, NotFoundError } from "@/shared/lib";
+
 
 export const useChangePasswordForm = () => {
   const tToast = useTranslations("change-password.toast")

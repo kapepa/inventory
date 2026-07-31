@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useCallback } from 'react';
-import { axiosInstance } from '../axios';
+import { axiosClient } from '../axios/client';
 
 export const useTranslate = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -13,7 +13,7 @@ export const useTranslate = () => {
     setError(null);
 
     try {
-      const response = await axiosInstance.post('/translate', {
+      const response = await axiosClient.post('/translate', {
         text,
         targetLocale,
       });

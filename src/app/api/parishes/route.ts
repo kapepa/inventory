@@ -1,11 +1,14 @@
-import { ParishWithRelationsTotals, ResponseParishesDTO } from '@/entities';
-import { getParishesCached, invalidateParishesCacheList } from '@/entities/server';
-import { createParish, AuthenticatedUser } from '@/features/server';
-import { PAGINATION_PARISHES_DEFAULTS } from '@/shared';
-import { AlreadyExistsError, ForbiddenError, getLocaleFromRequest } from '@/shared/server';
 import { NextRequest, NextResponse } from 'next/server';
 import { apiHandler } from '@/app/api/_middleware';
 import { ZodError } from 'zod';
+import { PAGINATION_PARISHES_DEFAULTS } from '@/shared/constants';
+import { getLocaleFromRequest } from '@/shared/lib/get-locale-from-request';
+import { AlreadyExistsError, ForbiddenError } from '@/shared/lib/server';
+import { ParishWithRelationsTotals, ResponseParishesDTO } from '@/entities/parish/model/types';
+import { getParishesCached } from '@/entities/parish/lib/parish-service-cached';
+import { AuthenticatedUser } from '@/features/auth/model/types';
+import { createParish } from '@/features/add-parish/lib/add-parish-service';
+import { invalidateParishesCacheList } from '@/entities/parish/lib/cache-invalidation';
 
 export const GET = apiHandler(async (request: NextRequest): Promise<NextResponse<ResponseParishesDTO | { error: string }>> => {
   try {

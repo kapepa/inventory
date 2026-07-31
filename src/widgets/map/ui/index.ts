@@ -1,1 +1,0 @@
-export { WarehouseMapDynamic } from "./warehouse-map-dynamic"

@@ -1,6 +1,6 @@
 import { Money } from "@prisma/client";
 import { formatCurrency, Currency } from "@/shared/lib/currency";
-import { ProductWithRelationsShort, ProductWithRelationsWide } from "../model";
+import { ProductWithRelationsShort, ProductWithRelationsWide } from "../model/types";
 
 type ProductType = ProductWithRelationsShort | ProductWithRelationsWide
 

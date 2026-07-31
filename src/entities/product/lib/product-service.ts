@@ -1,7 +1,7 @@
-import { prisma } from '@/shared/server';
-import { FetchProducts, FetchProductsById, ProductStatusCounts, ResponseProductsShortDTO, ResponseProductsWideDTO } from '../model';
-import { PAGINATION_PRODUCTS_DEFAULTS } from '@/shared';
+import { PAGINATION_PRODUCTS_DEFAULTS } from '@/shared/constants';
 import { Prisma, Product } from '@prisma/client';
+import { prisma } from '@/shared/lib/prisma';
+import { FetchProducts, FetchProductsById, ProductStatusCounts, ResponseProductsShortDTO, ResponseProductsWideDTO } from '../model/types';
 
 const buildWhereClause = ({ search, parishId, categoryId, specification, locale }: FetchProducts) => {
   const where: Prisma.ProductWhereInput = {};

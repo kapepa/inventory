@@ -1,9 +1,10 @@
 "use client"
 
-import { CirclePlusButton, cn } from "@/shared";
+import { CirclePlusButton } from "@/shared/ui";
 import { useTranslations } from "next-intl";
-import { useAddProduct } from "../model";
-import { ProductWithRelationsWide, ProductWithRelationsShort } from "@/entities";
+import { cn } from "@/shared/lib";
+import { ProductWithRelationsShort, ProductWithRelationsWide } from "@/entities/product/model/types";
+import { useAddProduct } from "../model/hooks/use-add-product";
 
 interface ProductCreateButtonProps {
   isAuthor?: boolean

@@ -1,4 +1,4 @@
-import { VALIDATION_LIMITS } from "@/shared";
+import { VALIDATION_LIMITS } from "@/shared/constants";
 import { Role } from "@prisma/client";
 import { z } from "zod";
 

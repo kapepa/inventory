@@ -1,9 +1,10 @@
 "use client"
 
 import { useState, useEffect, useCallback, useRef } from "react"
-import { FetchParishesParams } from "@/entities/parish"
-import { PAGINATION_PARISHES_DEFAULTS, useDebouncedCallback } from "@/shared"
+import { useDebouncedCallback } from "@/shared/lib/hooks"
 import { useParishesStore } from "../parish-store"
+import { PAGINATION_PARISHES_DEFAULTS } from "@/shared/constants"
+import { FetchParishesParams } from "../types"
 
 interface FetchResponse<T> {
   data: T[];

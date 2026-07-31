@@ -1,1 +1,0 @@
-export { deleteFile, deleteFiles, uploadFile } from "./upload-service"

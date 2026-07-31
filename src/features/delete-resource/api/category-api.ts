@@ -1,11 +1,11 @@
-import { axiosInstance } from "@/shared/lib/axios"
-import { ForbiddenError, HasDependenciesError, NotFoundError } from "@/shared"
+import { axiosClient } from "@/shared/lib/axios/client"
+import { ForbiddenError, HasDependenciesError, NotFoundError } from "@/shared/lib"
 import { DeleteCategoryParams, DeleteCategoryResult } from "../model/types"
 import { AxiosError, isCancel } from "axios"
 
 export const requestDeleteCategory = async ({ id, signal }: DeleteCategoryParams): Promise<DeleteCategoryResult> => {
   try {
-    const response = await axiosInstance.delete<DeleteCategoryResult>(`/categories/${id}`, {
+    const response = await axiosClient.delete<DeleteCategoryResult>(`/categories/${id}`, {
       signal,
     })
 

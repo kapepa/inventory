@@ -1,8 +1,9 @@
-import { AppLocale, PAGINATION_PARISHES_DEFAULTS } from '@/shared';
-import { prisma } from '@/shared/server';
-import { FetchParishes, ResponseParishesDTO, ResponseParishesTotalsDTO, ParishWithRelationsTotals, ParishWithRelations, FetchParishById } from '../model';
+import { PAGINATION_PARISHES_DEFAULTS } from '@/shared/constants';
 import { Prisma } from '@prisma/client';
 import { getLocale } from 'next-intl/server';
+import { prisma } from '@/shared/lib/prisma';
+import { AppLocale } from '@/shared/lib/i18n/config';
+import { FetchParishById, FetchParishes, ParishWithRelations, ParishWithRelationsTotals, ResponseParishesDTO, ResponseParishesTotalsDTO } from '../model/types';
 
 const buildWhereClause = ({ search = "" }: FetchParishes) => {
   const where: Prisma.ParishWhereInput = search.trim() ? {

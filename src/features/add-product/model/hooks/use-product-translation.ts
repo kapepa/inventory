@@ -2,8 +2,10 @@
 
 import { useMemo, useState, useTransition } from "react"
 import { FieldPath, UseFormReturn } from "react-hook-form"
-import { AppLocale, oppositeLocale, useThrottle, useTranslate } from "@/shared"
 import { ProductCreateFormValues, TranslatableProductFieldName } from "../schemas-client"
+import { AppLocale, oppositeLocale } from "@/shared/lib/i18n/config"
+import { useThrottle } from "@/shared/lib/hooks"
+import { useTranslate } from "@/shared/lib/hooks/use-translate"
 
 export const useProductTranslation = (form: UseFormReturn<ProductCreateFormValues>) => {
   const { translate, isLoading: isTranslatingApi } = useTranslate()

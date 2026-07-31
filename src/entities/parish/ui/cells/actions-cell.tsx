@@ -1,6 +1,6 @@
-import { cn, MobileCellLabel, Skeleton, TrashButton } from "@/shared"
+import { cn } from "@/shared/lib"
+import { MobileCellLabel, Skeleton, TrashButton } from "@/shared/ui"
 import { MouseEvent } from "react"
-
 
 interface ActionsCellProps {
   label?: string,

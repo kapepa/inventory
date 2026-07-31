@@ -1,1 +1,0 @@
-export { useInfiniteProducts } from "./use-infinite-products"

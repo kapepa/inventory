@@ -1,11 +1,13 @@
-import { ResponseUsersDTO } from '@/entities';
-import { getFilteredUsers, invalidateUserCacheById } from '@/entities/server';
-import { AuthenticatedUser } from '@/features';
-import { deleteAccount } from '@/features/server';
-import { PAGINATION_PRODUCTS_DEFAULTS, removeAuthCookie } from '@/shared';
 import { apiHandler } from '@/app/api/_middleware';
 import { NextRequest, NextResponse } from 'next/server';
-import { getLocaleFromRequest } from '@/shared/server';
+import { PAGINATION_PRODUCTS_DEFAULTS } from '@/shared/constants';
+import { getLocaleFromRequest } from '@/shared/lib/get-locale-from-request';
+import { removeAuthCookie } from '@/shared/lib/auth';
+import { getFilteredUsers } from '@/entities/user/lib/user-service';
+import { AuthenticatedUser } from '@/features/auth/model/types';
+import { deleteAccount } from '@/features/delete-resource/lib/account-service';
+import { invalidateUserCacheById } from '@/entities/user/lib/cache-invalidation';
+import { ResponseUsersDTO } from '@/entities/user/model/types';
 
 export const GET = apiHandler(async (request: NextRequest): Promise<NextResponse<ResponseUsersDTO | { error: string }>> => {
   try {

@@ -1,10 +1,10 @@
 "use client"
 
 import { memo } from "react"
-import { ProductWithRelationsWide } from "../../model"
-import { cn, getProductPrimaryPrice } from "@/shared"
+import { cn, getProductPrimaryPrice } from "@/shared/lib"
 import { ActionsProductCell, ActionsProductCellSkeleton, ConditionCell, ConditionCellSkeleton, DotAvailableCell, DotAvailableCellSkeleton, DualCurrencyPrice, DualCurrencyPriceSkeleton, IdentifierCell, IdentifierCellSkeleton, PictureCell, PictureCellSkeleton, RentalCell, RentalCellSkeleton, StatusCell, StatusCellSkeleton } from "../products-cells"
 import { useTranslations } from "next-intl"
+import { ProductWithRelationsWide } from "../../model/types"
 
 interface ProductsWideCardProps {
   product: ProductWithRelationsWide
@@ -30,7 +30,7 @@ export const ProductsWideCard = memo(({ product, isAdmin, className, onDeletePro
       )}
     >
       <DotAvailableCell status={product.status} className="hidden lg:flex" />
-      <PictureCell url={product.photo} alt={title} className="col-span-2 lg:col-auto" />
+      <PictureCell priority={true} url={product.photo} alt={title} className="col-span-2 lg:col-auto" />
       <IdentifierCell title={title} serialNumber={product.serialNumber} className="col-span-2 lg:col-auto" />
       <StatusCell status={product.status} label={t("status")} className="col-end-auto" />
       <RentalCell startDate={product.rental?.startDate} endDate={product.rental?.endDate} label={t("rental")} />

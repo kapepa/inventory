@@ -7,7 +7,10 @@ import { toast } from "sonner";
 import { codeFormSchema, CodeFormValues } from "../schemas-client";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { requestVerifyCodeEmail } from "../../api";
-import { ERROR_CODES, NotFoundError, ROUTES, useRouter, useUnmountCallback } from "@/shared";
+import { NotFoundError } from "@/shared/lib";
+import { ROUTES } from "@/shared/constants";
+import { useRouter } from "@/shared/lib/i18n/routing";
+import { useUnmountCallback } from "@/shared/lib/hooks";
 
 interface UseCodeFormProps {
   email: string,

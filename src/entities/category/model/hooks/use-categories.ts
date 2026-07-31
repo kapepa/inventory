@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react'
 import { requestCategories } from '../../api'
 import { CategoryWithTranslations } from '../types'
-import { AppLocale } from '@/shared'
+import { AppLocale } from '@/shared/lib/i18n/config'
 
 export const useCategories = (locale: AppLocale) => {
   const [categories, setCategories] = useState<CategoryWithTranslations[]>([])

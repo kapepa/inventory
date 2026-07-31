@@ -1,15 +1,15 @@
-import { axiosInstance } from "@/shared/lib/axios"
+import { axiosClient } from "@/shared/lib/axios/client"
 import { RequestCategoriesProductsCountParams, CategoryWithTranslations, RequestCategoriesParams, GetCategoriesWithProductCountDTO } from "../model/types"
 import { AxiosError, isCancel } from "axios"
 import { RequestCategoryProductsParams } from "../model/types/api-params"
-import { ResponseProductsWideDTO } from "@/entities/product"
+import { ResponseProductsWideDTO } from "@/entities/product/model/types"
 
 const fetchCategoriesBase = async <T>(
   endpoint: string,
   { signal, ...queryParams }: & { signal?: AbortSignal }
 ): Promise<T> => {
   try {
-    const response = await axiosInstance.get<T>(endpoint, {
+    const response = await axiosClient.get<T>(endpoint, {
       params: queryParams,
       signal,
     })

@@ -1,19 +1,14 @@
 "use client"
 
 import { useLocale, useTranslations } from "next-intl"
-import {
-  SubmitButton,
-  ModalBody,
-  CancelButton,
-  ModalFooter,
-  Form,
-  AppLocale,
-  Tabs,
-  TabsContent,
-} from "@/shared"
+import { CancelButton, SubmitButton, Tabs, TabsContent } from "@/shared/ui"
 import { TranslationFields } from "./translation-fields"
 import { TranslationTabsHeader } from "./translation-tabs-header"
-import { useAddCategoryForm, useAddCategoryTranslation } from "../model"
+import { ModalBody, ModalFooter } from "@/shared/ui/modal"
+import { Form } from "@/shared/ui/form"
+import { AppLocale } from "@/shared/lib/i18n/config"
+import { useAddCategoryForm } from "../model/hooks/use-add-category-form"
+import { useAddCategoryTranslation } from "../model/hooks/use-add-category-translation"
 
 interface AddCategoryFormProps {
   onCancelAction: () => void

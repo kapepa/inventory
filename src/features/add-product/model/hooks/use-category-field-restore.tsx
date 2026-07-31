@@ -1,7 +1,7 @@
 "use client"
 
 import { CategoryWithTranslations } from "@/entities/category/model/types"
-import { STORAGE_KEYS } from "@/shared"
+import { STORAGE_KEYS } from "@/shared/constants"
 import { useEffect } from "react"
 import { useFormContext } from "react-hook-form"
 

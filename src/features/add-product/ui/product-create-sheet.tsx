@@ -1,10 +1,10 @@
 "use client"
 
-import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/shared'
 import { ProductCreateForm } from './product-create-form'
-import { ProductWithRelations } from '@/entities'
 import { memo } from 'react'
 import { useTranslations } from 'next-intl'
+import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/shared/ui/sheet'
+import { ProductWithRelations } from '@/entities/product/model/types'
 
 interface ProductCreateSheetProps {
   isOpen: boolean

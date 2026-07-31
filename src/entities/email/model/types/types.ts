@@ -1,4 +1,4 @@
-import { AppLocale } from "@/shared";
+import { AppLocale } from "@/shared/lib/i18n/config";
 
 export interface EmailOptions {
   to: string | string[];

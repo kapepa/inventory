@@ -1,5 +1,5 @@
-import { Container } from "@/shared";
-import { PageHeaderSkeleton } from "@/widgets";
+import { Container } from "@/shared/ui";
+import { PageHeaderSkeleton } from "@/widgets/page-header/ui/page-header";
 import { UsersListSkeleton } from "@/widgets/users-list/ui/users-list";
 
 export default function LoadingUsers() {

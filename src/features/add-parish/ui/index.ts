@@ -1,1 +1,0 @@
-export { AddParishButton, AddParishButtonSkeleton } from "./add-parish-button";

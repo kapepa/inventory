@@ -1,9 +1,9 @@
-import { ResponseProductsWideDTO } from "@/entities";
-import { getFilteredProductsWide } from "@/entities/server";
-import { PAGINATION_PRODUCTS_DEFAULTS } from "@/shared";
 import { NextRequest, NextResponse } from "next/server";
 import { apiHandler } from '@/app/api/_middleware';
-import { getLocaleFromRequest } from "@/shared/server";
+import { getLocaleFromRequest } from "@/shared/lib/get-locale-from-request";
+import { PAGINATION_PRODUCTS_DEFAULTS } from "@/shared/constants";
+import { ResponseProductsWideDTO } from "@/entities/product/model/types";
+import { getFilteredProductsWide } from "@/entities/product/lib/product-service";
 
 export const GET = apiHandler(async (request: NextRequest): Promise<NextResponse<ResponseProductsWideDTO | { error: string }>> => {
   try {

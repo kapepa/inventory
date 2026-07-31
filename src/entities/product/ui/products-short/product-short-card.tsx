@@ -1,9 +1,8 @@
-import { cn } from "@/shared"
-import { ProductWithRelationsShort } from "../../model"
+import { cn } from "@/shared/lib"
 import { DotAvailableCell, PictureCell, IdentifierCell, StatusCell, ActionsProductCell } from "../products-cells"
 import { DotAvailableCellSkeleton, IdentifierCellSkeleton, PictureCellSkeleton, StatusCellSkeleton, ActionsProductCellSkeleton } from "../products-cells"
-
 import { memo } from "react"
+import { ProductWithRelationsShort } from "../../model/types"
 
 interface ProductShortCardProps {
   product: ProductWithRelationsShort,
@@ -24,7 +23,7 @@ export const ProductShortCard = memo(
         className={cn("hover:shadow-md transition-all cursor-pointer border-t", className)}
       >
         <DotAvailableCell status={product.status} />
-        <PictureCell url={product.photo} alt={title} />
+        <PictureCell priority={true} url={product.photo} alt={title} />
         <IdentifierCell title={title} serialNumber={product.serialNumber} />
         <StatusCell status={product.status} className="min-w-24 hidden lg:flex" />
         {isAdmin && <ActionsProductCell onDeleteProduct={() => { onDeleteProduct(product) }} isOwner={true} className="hidden lg:flex" />}

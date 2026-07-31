@@ -1,4 +1,4 @@
-import { AppLocale } from "@/shared";
+import { AppLocale } from "@/shared/lib/i18n/config";
 import { Category, CategoryTranslation, Parish, ParishTranslation, Price, Product, ProductStatus, ProductTranslation, Rental, User } from "@prisma/client";
 
 export interface FetchProducts {
@@ -35,4 +35,12 @@ export type ProductStatusKey = keyof typeof ProductStatus;
 
 export interface ProductStatusCounts extends Record<ProductStatusKey, number> {
   total: number;
+}
+
+export interface ProductsState {
+  total: number;
+  page: number;
+  setPage: (page: number) => void;
+  setTotal: (total: number) => void;
+  setFull: (props: { total: number; page: number }) => void;
 }

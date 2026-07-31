@@ -1,11 +1,11 @@
-import { axiosInstance } from "@/shared/lib/axios"
-import { ForbiddenError } from "@/shared";
+import { axiosClient } from "@/shared/lib/axios/client"
 import { AxiosError, isCancel } from "axios"
 import { UploadAvatarParmas } from "../model/types"
+import { ForbiddenError } from "@/shared/lib"
 
 export const requestUploadAvatar = async ({ data, signal }: UploadAvatarParmas): Promise<{ imageUrl: string }> => {
   try {
-    const response = await axiosInstance.patch("/users/avatar", data, { signal })
+    const response = await axiosClient.patch("/users/avatar", data, { signal })
 
     return response.data
   } catch (error) {

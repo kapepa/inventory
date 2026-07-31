@@ -1,6 +1,7 @@
 import { Server, Socket } from 'socket.io';
 import { OnlineUsersService } from './online-users';
-import { SOCKET_EVENTS, UserStatusData } from "@/shared/server"
+import { SOCKET_EVENTS } from '@/shared/constants';
+import { UserStatusData } from '@/shared/types';
 
 export async function handleConnection(io: Server, socket: Socket, userId: string) {
   const onlineUserIds = OnlineUsersService.getAll();

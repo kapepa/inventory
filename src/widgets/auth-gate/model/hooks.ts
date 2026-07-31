@@ -2,8 +2,8 @@
 
 import { useState, useCallback } from "react";
 import { AuthTab } from "./types";
-import { STORAGE_KEYS } from "@/shared";
 import { isAuthTab } from "./guards";
+import { STORAGE_KEYS } from "@/shared/constants";
 
 const AUTH_TAB_STORAGE_KEY = STORAGE_KEYS.AUTH_TAB_STORAGE_KEY
 

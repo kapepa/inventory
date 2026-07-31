@@ -1,8 +1,9 @@
-import { prisma } from "@/shared/server"
+import { PAGINATION_CATEGORIES_DEFAULTS } from "@/shared/constants";
 import { CategoryWithProductCount, CategoryWithTranslations, FetchCategories, FetchCategoryById, GetCategoriesByParishIdParams, GetCategoriesParams, GetCategoriesWithProductCountDTO } from "../model/types"
-import { AppLocale, PAGINATION_CATEGORIES_DEFAULTS } from "@/shared"
+import { prisma } from "@/shared/lib/prisma";
 import { Prisma } from "@prisma/client";
 import { getLocale } from "next-intl/server";
+import { AppLocale } from "@/shared/lib/i18n/config";
 
 const buildWhereClause = ({ search = "" }: FetchCategories) => {
   const where: Prisma.CategoryWhereInput = search.trim() ? {

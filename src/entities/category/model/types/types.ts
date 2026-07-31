@@ -1,5 +1,5 @@
-import { FetchProductsParams } from "@/entities/product";
-import { AppLocale } from "@/shared";
+import { FetchProductsParams } from "@/entities/product/model/types";
+import { AppLocale } from "@/shared/lib/i18n/config";
 import { Category, CategoryTranslation } from "@prisma/client";
 
 export interface FetchCategories {
@@ -26,4 +26,14 @@ export interface CategoryWithProductCount extends CategoryWithTranslations {
 export interface FetchCategoryById {
   id: string,
   locale?: AppLocale,
+}
+
+export interface CategoriesState {
+  total: number;
+  page: number;
+  newCategory: CategoryWithTranslations | null;
+  addNewCategory: (category: CategoryWithTranslations | null) => void;
+  setPage: (page: number) => void;
+  setTotal: (total: number) => void;
+  setFull: (props: { total: number; page: number }) => void;
 }

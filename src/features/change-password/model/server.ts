@@ -1,1 +1,0 @@
-export { changePasswordServerSchema } from "./schemas-server"

@@ -1,8 +1,8 @@
-import { prisma } from '@/shared/server';
-import { ParishFormValues } from '../model';
-import { ParishWithRelationsTotals } from '@/entities';
-import { AlreadyExistsError } from '@/shared';
-import { parishCreateServerSchema } from '../server';
+import { prisma } from '@/shared/lib/prisma';
+import { AlreadyExistsError } from '@/shared/lib/server';
+import { ParishFormValues } from '../model/schemas-client';
+import { ParishWithRelationsTotals } from '@/entities/parish/model/types';
+import { parishCreateServerSchema } from '../model/schemas-server';
 
 export const createParish = async (data: ParishFormValues): Promise<ParishWithRelationsTotals> => {
   const validated = parishCreateServerSchema.parse(data)

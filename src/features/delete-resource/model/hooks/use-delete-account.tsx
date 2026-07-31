@@ -1,12 +1,17 @@
 "use client"
 
-import { ForbiddenError, ROUTES, useModalActions, useRouter, useUnmountCallback } from "@/shared";
+import { ForbiddenError } from "@/shared/lib";
+import { ROUTES } from "@/shared/constants";
 import { useTranslations } from "next-intl";
 import { useCallback, useTransition } from "react";
 import { toast } from "sonner";
-import { AuthenticatedUser, useAuthStore } from "@/features/auth";
 import { requestDeleteAccount } from "../../api";
-import { DeleteConfirmModalDynamic } from "../../ui";
+import { useModalActions } from "@/shared/ui/modal";
+import { useRouter } from "@/shared/lib/i18n/routing";
+import { useUnmountCallback } from "@/shared/lib/hooks";
+import { AuthenticatedUser } from "@/features/auth/model/types";
+import { useAuthStore } from "@/features/auth/model/auth-store";
+import { DeleteConfirmModalDynamic } from "../../ui/delete-confirm-modal-dynamic";
 
 interface DeleteUserModalWrapperProps {
   user: AuthenticatedUser;

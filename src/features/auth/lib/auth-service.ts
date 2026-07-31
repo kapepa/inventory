@@ -1,9 +1,10 @@
 import { prisma } from "@/shared/lib/prisma";
 import { AuthSignIn, AuthSignUp, AuthenticatedUser, ResendVerification } from "../model/types";
-import { loginFormServerSchema, registerFormServerSchema, resendVerificationServerSchema } from "../model/server";
-import { AlreadyExistsError, InvalidCredentialsError, NotFoundError, NotVerifiedError } from "@/shared/server";
-import { comparePassword, COOKIE_KEYS, hashPassword, signToken, verifyToken } from "@/shared";
 import { cookies } from "next/headers";
+import { AlreadyExistsError, InvalidCredentialsError, NotFoundError, NotVerifiedError } from "@/shared/lib/server";
+import { comparePassword, hashPassword, signToken, verifyToken } from "@/shared/lib/auth";
+import { COOKIE_KEYS } from "@/shared/constants";
+import { loginFormServerSchema, registerFormServerSchema, resendVerificationServerSchema } from "../model/schemas-server";
 
 export const authorizeRequest = async ({ id, email }: { id?: string, email?: string }): Promise<AuthenticatedUser | null> => {
   try {

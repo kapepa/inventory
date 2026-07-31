@@ -1,20 +1,9 @@
 "use client"
 
-import {
-  LiveDatetime,
-  LiveDatetimeDate,
-  LiveDatetimeTime,
-  LiveDatetimeWeek,
-  OnlineUsersCount,
-  LiveDatetimeDateSkeleton,
-  LiveDatetimeTimeSkeleton,
-  LiveDatetimeWeekSkeleton,
-  useMounted,
-  OnlineUsersCountSkeleton,
-  WebSocketProvider,
-  cn
-} from "@/shared";
-
+import { useMounted } from "@/shared/lib/hooks";
+import { WebSocketProvider } from "@/shared/lib/providers/websocket-provider";
+import { OnlineUsersCount, OnlineUsersCountSkeleton } from "@/shared/ui";
+import { LiveDatetime, LiveDatetimeDate, LiveDatetimeDateSkeleton, LiveDatetimeTime, LiveDatetimeTimeSkeleton, LiveDatetimeWeek, LiveDatetimeWeekSkeleton } from "@/shared/ui/live-datetime";
 
 interface HeaderBarProps {
   showOnline: boolean,

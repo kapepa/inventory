@@ -1,4 +1,6 @@
-import { cn, Skeleton, Tooltip, TooltipContent, TooltipText, TooltipTrigger } from "@/shared"
+import { cn } from "@/shared/lib"
+import { Skeleton, TooltipText } from "@/shared/ui"
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/shared/ui/tooltip"
 import { memo } from "react"
 
 interface IdentifierCellProps {

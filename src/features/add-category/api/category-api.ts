@@ -1,8 +1,8 @@
-import { axiosInstance } from "@/shared/lib/axios"
-import { AlreadyExistsError } from "@/shared"
-import { CreateCategoryParams } from "../model"
+import { axiosClient } from "@/shared/lib/axios/client"
 import { AxiosError, isCancel } from "axios"
-import { CategoryWithProductCount } from "@/entities"
+import { AlreadyExistsError } from "@/shared/lib"
+import { CategoryWithProductCount } from "@/entities/category/model/types"
+import { CreateCategoryParams } from "../model/types"
 
 export const requestCreateCategory = async ({ data, signal }: CreateCategoryParams): Promise<CategoryWithProductCount> => {
   const payload = {
@@ -11,7 +11,7 @@ export const requestCreateCategory = async ({ data, signal }: CreateCategoryPara
   }
 
   try {
-    const response = await axiosInstance.post<CategoryWithProductCount>('/categories',
+    const response = await axiosClient.post<CategoryWithProductCount>('/categories',
       payload,
       { signal }
     )

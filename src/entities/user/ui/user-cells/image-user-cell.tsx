@@ -1,4 +1,5 @@
-import { cn, ProfileAvatar, Skeleton } from "@/shared";
+import { cn } from "@/shared/lib";
+import { ProfileAvatar, Skeleton } from "@/shared/ui";
 import { memo } from "react";
 
 interface ImageUserCellProps {

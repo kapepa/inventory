@@ -1,4 +1,5 @@
-import { cn, ResponsiveImage } from "@/shared"
+import { cn } from "@/shared/lib"
+import { ResponsiveImage } from "@/shared/ui"
 import { memo } from "react"
 
 interface ProductImageProps {

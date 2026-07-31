@@ -1,4 +1,4 @@
-import { ImageSizes } from "@/shared"
+import { ImageSizes } from "@/shared/types";
 
 export interface UploadImageResponse extends ImageSizes { }
 

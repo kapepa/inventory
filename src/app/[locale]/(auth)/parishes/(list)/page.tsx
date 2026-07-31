@@ -1,7 +1,10 @@
-import { getParishesTotalsCached } from "@/entities/server";
-import { AddParishButton } from "@/features";
-import { Container, AppLocale, PAGINATION_PARISHES_DEFAULTS, QUERY_PARAMS_KEYS } from "@/shared";
-import { PageHeader, ParishesList } from "@/widgets";
+import { getParishesTotalsCached } from "@/entities/parish/lib/parish-service-cached";
+import { AddParishButton } from "@/features/add-parish/ui/add-parish-button";
+import { PAGINATION_PARISHES_DEFAULTS, QUERY_PARAMS_KEYS } from "@/shared/constants";
+import { AppLocale } from "@/shared/lib/i18n/config";
+import { Container } from "@/shared/ui/container";
+import { PageHeader } from "@/widgets/page-header/ui/page-header";
+import { ParishesList } from "@/widgets/parishes-list/ui/parishes-list";
 import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 
@@ -46,7 +49,6 @@ export default async function Parishes({
         action={<AddParishButton />}
         storeType="parishes"
       />
-
       <ParishesList
         initialParishes={initialData.data}
         initialHasMore={initialData.hasMore}

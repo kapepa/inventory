@@ -1,8 +1,8 @@
-import { QUERY_PARAMS_KEYS, ROUTES } from '@/shared';
 import { sendEmail } from './send';
 import { verificationEmailTemplate } from './templates/server';
 import { getTranslations } from 'next-intl/server';
 import { SendVerificationEmailInput } from '../model';
+import { QUERY_PARAMS_KEYS, ROUTES } from '@/shared/constants';
 
 type SendVerificationEmailOutput = { verificationLink: string }
 

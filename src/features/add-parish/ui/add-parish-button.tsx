@@ -1,10 +1,12 @@
 "use client"
 
-import { CirclePlusButton, cn, Skeleton, Tooltip, TooltipContent, TooltipText, TooltipTrigger } from "@/shared"
 import { useTranslations } from "next-intl"
 import { memo } from "react"
-import { useAddParish } from "../model"
-import { useHydratedIsAdmin } from "@/features/auth"
+import { CirclePlusButton, Skeleton, TooltipText } from "@/shared/ui"
+import { cn } from "@/shared/lib"
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/shared/ui/tooltip"
+import { useHydratedIsAdmin } from "@/features/auth/model/hooks/use-hydrated-user"
+import { useAddParish } from "../model/hooks/use-add-parish"
 
 interface AddParishButtonProps {
   className?: string
