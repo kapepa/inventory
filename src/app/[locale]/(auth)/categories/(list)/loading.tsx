@@ -1,4 +1,4 @@
-import { AddCategoryButtonSkeleton } from "@/features/add-category/ui";
+import { AddCategoryButtonSkeleton } from "@/features/add-category/ui/bricks/add-category-button-dynamic";
 import { Container } from "@/shared/ui";
 import { CategoriesListSkeleton } from "@/widgets/categories-list";
 import { PageHeaderSkeleton } from "@/widgets/page-header/ui/page-header";

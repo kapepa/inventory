@@ -1,6 +1,6 @@
 "use client"
 
-import React, { createContext, useContext, useEffect, useState, useCallback, useMemo, memo } from 'react';
+import { createContext, useContext, useEffect, useState, useCallback, useMemo, memo } from 'react';
 
 interface QueryParamValueContextType {
   queryParams: URLSearchParams;

@@ -20,12 +20,21 @@
   "product-details": {
     "serial-number": "Серийный номер",
     "order": "В заказе",
-    "status": "Статус",
-    "condition": "Cостояние",
+    "status-label": "Статус",
+    "condition-label": "Cостояние",
     "category": "Категория",
     "parish": "Приход",
     "rental": "Аренда",
-    "author": "Автор"
+    "author": "Автор",
+    "status": {
+      "status-free": "Свободный",
+      "status-busy": "Занятый",
+      "status-repair": "Ремонт"
+    },
+    "condition": {
+      "new": "Новое",
+      "old": "Б/у"
+    }
   },
   "product-rental": {
     "with": "c",

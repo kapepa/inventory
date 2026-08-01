@@ -20,12 +20,21 @@
   "product-details": {
     "serial-number": "Serial number",
     "order": "In the order",
-    "status": "Status",
-    "condition": "Condition",
+    "status-label": "Status",
+    "condition-label": "Condition",
     "category": "Сategory",
     "parish": "Parish",
     "rental": "Rental",
-    "author": "Author"
+    "author": "Author",
+    "status": {
+      "status-free": "Free",
+      "status-busy": "Busy",
+      "status-repair": "Repair"
+    },
+    "condition": {
+      "new": "New",
+      "old": "Used"
+    }
   },
   "product-rental": {
     "with": "with",

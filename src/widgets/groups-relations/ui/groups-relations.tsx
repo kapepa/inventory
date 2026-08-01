@@ -5,7 +5,7 @@ import { fetchProductsShort } from "@/entities/product/api"
 import { useInfiniteProducts } from "@/entities/product/model/hooks/use-infinite-products"
 import { ProductWithRelationsShort } from "@/entities/product/model/types"
 import { ProductShortCard, ProductShortCardSkeleton, ProductsShortBody, ProductsShortBodySkeleton } from "@/entities/product/ui/products-short"
-import { ProductCreateButton } from "@/features/add-product/ui/product-create-button"
+import { AddProductButton } from "@/features/add-product/ui/add-product-button"
 import { useHydratedIsAdmin } from "@/features/auth/model/hooks/use-hydrated-user"
 import { useDeleteProduct } from "@/features/delete-resource/model/hooks/use-delete-product"
 import { useViewProduct } from "@/features/view-product-details/model/hooks/use-view-product"
@@ -88,7 +88,7 @@ export const GroupsRelations = memo(({ className, initialHasMore, initialProduct
     <div className={cn("flex flex-col h-full min-h-0", className)}>
       <ProductsShortBody
         title={activeParishTitle}
-        actions={isAdmin ? <ProductCreateButton parishId={activeParishId} onSuccessAction={addProduct} /> : null}
+        actions={isAdmin ? <AddProductButton parishId={activeParishId} onSuccessAction={addProduct} /> : null}
         onCloseActions={() => { setActiveParishId(""); clearProducts(); }}
       >
         <div className="flex flex-col">
