@@ -7,7 +7,7 @@ interface ProductBadgeProps {
 }
 
 export const ProductBadge = ({ type, className }: ProductBadgeProps) => {
-  const t = useTranslations('groups.groups-relations.products.condition')
+  const t = useTranslations('products.product-details.condition')
   const condition = PRODUCT_CONDITION_DISPLAY[type ? "NEW" : "OLD"]
 
   return (

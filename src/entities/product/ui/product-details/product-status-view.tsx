@@ -8,7 +8,7 @@ interface ProductStatusViewProps {
 }
 
 export const ProductStatusView = ({ status, className }: ProductStatusViewProps) => {
-  const t = useTranslations('groups.groups-relations.products.status')
+  const t = useTranslations('products.product-details.status')
   const statusView = STATUS_DISPLAY_CONFIG[status];
 
   return (

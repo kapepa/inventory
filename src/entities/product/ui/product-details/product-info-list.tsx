@@ -19,7 +19,6 @@ interface ProductInfoListProps {
 export const ProductInfoList = memo(
   ({ serialNumber, order, status, isNew, className, category, parish }: ProductInfoListProps) => {
     const t = useTranslations('products.product-details')
-    console.log()
 
     return (
       <div className={cn("", className)}>
@@ -34,12 +33,12 @@ export const ProductInfoList = memo(
           <span className="font-semibold px-3 break-all">{order}</span>
         </div>
         <div className="flex justify-between text-sm">
-          <span className="text-chart-2">{t("status")}</span>
+          <span className="text-chart-2">{t("status-label")}</span>
           <DotsDivider className="border-chart-2" />
           <ProductStatusView status={status} />
         </div>
         <div className="flex justify-between text-sm">
-          <span className="text-chart-2">{t("condition")}</span>
+          <span className="text-chart-2">{t("condition-label")}</span>
           <DotsDivider className="border-chart-2" />
           <ProductBadge type={isNew} />
         </div>
