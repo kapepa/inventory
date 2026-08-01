@@ -1,8 +1,7 @@
 import { ArrowBigLeft, Menu } from "lucide-react";
-import { SidebarMobileDynamic } from "./bricks/sidebar-mobile-dynamic";
-import { SidebarDesktopDynamic } from "./bricks/sidebar-desktop-dynamic";
 import { cn } from "@/shared/lib";
 import styles from './sidebar.module.css'
+import { SidebarSwitch } from "./bricks/sidebar-switch";
 
 export const Sidebar = () => {
   const htmlFor = "sidebar-toggle"
@@ -21,8 +20,7 @@ export const Sidebar = () => {
         aria-label="Side Panel"
         className={cn("shadow-right-lg px-10 sm:px-16 z-30 bg-background", styles.sidebar)}
       >
-        <SidebarMobileDynamic className="flex md:hidden" />
-        <SidebarDesktopDynamic className="hidden md:flex" />
+        <SidebarSwitch />
         {/* Label button for switching */}
         <label
           htmlFor={htmlFor}

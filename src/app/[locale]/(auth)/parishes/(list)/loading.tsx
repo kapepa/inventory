@@ -1,4 +1,4 @@
-import { AddParishButtonSkeleton } from "@/features/add-parish/ui/add-parish-button";
+import { AddParishButtonSkeleton } from "@/features/add-parish/ui/bricks/add-parish-button-dynamic";
 import { Container } from "@/shared/ui";
 import { PageHeaderSkeleton } from "@/widgets/page-header/ui/page-header";
 import { ParishesListSkeleton } from "@/widgets/parishes-list/ui/parishes-list";

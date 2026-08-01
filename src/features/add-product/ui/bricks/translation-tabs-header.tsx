@@ -5,24 +5,24 @@ import { useFormContext } from "react-hook-form"
 import { useTranslations } from "next-intl"
 import { TabsList, TabsTrigger } from "@/shared/ui"
 import { cn } from "@/shared/lib"
-import { ParishFormValues } from "../model/schemas-client"
+import { ProductCreateFormValues } from "../../model/schemas-client"
 
 export const TranslationTabsHeader = memo(() => {
-  const t = useTranslations("add-parish.form")
-  const { getValues, formState } = useFormContext<ParishFormValues>()
+  const t = useTranslations("add-product")
+  const { getValues, formState } = useFormContext<ProductCreateFormValues>()
 
   const { errors, submitCount } = formState
 
-  const hasRuErrors = !!(errors.translations?.ru?.title || errors.translations?.ru?.description)
-  const hasEnErrors = !!(errors.translations?.en?.title || errors.translations?.en?.description)
+  const hasRuErrors = !!(errors.translations?.ru?.title || errors.translations?.ru?.specification)
+  const hasEnErrors = !!(errors.translations?.en?.title || errors.translations?.en?.specification)
 
   const ruTitle = getValues("translations.ru.title")
-  const ruDescription = getValues("translations.ru.description")
+  const ruSpecification = getValues("translations.ru.specification")
   const enTitle = getValues("translations.en.title")
-  const enDescription = getValues("translations.en.description")
+  const enSpecification = getValues("translations.en.specification")
 
-  const hasRuEmpty = !ruTitle?.trim() || !ruDescription?.trim()
-  const hasEnEmpty = !enTitle?.trim() || !enDescription?.trim()
+  const hasRuEmpty = !ruTitle?.trim() || !ruSpecification?.trim()
+  const hasEnEmpty = !enTitle?.trim() || !enSpecification?.trim()
 
   const showRu = hasRuErrors || (submitCount > 0 && hasRuEmpty)
   const showEn = hasEnErrors || (submitCount > 0 && hasEnEmpty)
@@ -33,13 +33,13 @@ export const TranslationTabsHeader = memo(() => {
         className={cn("cursor-pointer", showRu && "border-destructive text-destructive")}
         value="ru"
       >
-        {t("russian")}
+        {t("create-form.russian")}
       </TabsTrigger>
       <TabsTrigger
         className={cn("cursor-pointer", showEn && "border-destructive text-destructive")}
         value="en"
       >
-        {t("english")}
+        {t("create-form.english")}
       </TabsTrigger>
     </TabsList>
   )

@@ -1,20 +1,16 @@
-"use client"
-
-import { CirclePlusButton } from "@/shared/ui";
 import { useTranslations } from "next-intl";
-import { cn } from "@/shared/lib";
+import { useAddProduct } from "../../model/hooks/use-add-product";
+import { CirclePlusButton } from "@/shared/ui";
 import { ProductWithRelationsShort, ProductWithRelationsWide } from "@/entities/product/model/types";
-import { useAddProduct } from "../model/hooks/use-add-product";
+import { cn } from "@/shared/lib";
 
-interface ProductCreateButtonProps {
-  isAuthor?: boolean
+interface AddProductButtonContentProps {
   className?: string
-  parishId: string | null
+  parishId: string
   onSuccessAction: (product: ProductWithRelationsWide | ProductWithRelationsShort) => void
 }
 
-export const ProductCreateButton = ({ parishId, className, isAuthor = true, onSuccessAction }: ProductCreateButtonProps) => {
-  if (!isAuthor || !parishId) return null;
+export const AddProductButtonContent = ({ className, parishId, onSuccessAction }: AddProductButtonContentProps) => {
   const t = useTranslations('add-product.buttons');
   const { productCreate, ProductCreateElement } = useAddProduct({ parishId, onSuccessAction })
 
@@ -27,4 +23,4 @@ export const ProductCreateButton = ({ parishId, className, isAuthor = true, onSu
   )
 }
 
-ProductCreateButton.displayName = "ProductCreateButton"
+AddProductButtonContent.displayName = "AddProductButtonContent"

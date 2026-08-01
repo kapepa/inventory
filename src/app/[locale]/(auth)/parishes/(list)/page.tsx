@@ -39,6 +39,7 @@ export default async function Parishes({
     search: searchTerm,
     locale,
   });
+
   const t = await getTranslations({ locale, namespace: "parishes-page" });
 
   return (

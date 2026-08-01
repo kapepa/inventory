@@ -1,6 +1,5 @@
 import 'dotenv/config';
 import { createServer, IncomingMessage, ServerResponse } from 'http';
-import { parse as parseUrl } from 'url';
 import next from 'next';
 import { Server, Socket } from 'socket.io';
 import { parseCookies } from '@/shared/lib';
@@ -18,8 +17,7 @@ const handle = app.getRequestHandler();
 app.prepare().then(() => {
   const httpServer = createServer(async (req: IncomingMessage, res: ServerResponse) => {
     try {
-      const parsedUrl = parseUrl(req.url || '/', true);
-      await handle(req, res, parsedUrl);
+      await handle(req, res);
     } catch (err) {
       console.error('Error occurred handling', req.url, err);
       res.statusCode = 500;

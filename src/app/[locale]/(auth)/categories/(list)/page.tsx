@@ -1,5 +1,5 @@
 import { getCategoriesWithProductCountCached } from "@/entities/category/lib/category-service-cached";
-import { AddCategoryButton } from "@/features/add-category/ui";
+import { AddCategoryButton } from "@/features/add-category/ui/add-category-button";
 import { PAGINATION_CATEGORIES_DEFAULTS, QUERY_PARAMS_KEYS } from "@/shared/constants";
 import { AppLocale } from "@/shared/lib/i18n/config";
 import { Container } from "@/shared/ui";

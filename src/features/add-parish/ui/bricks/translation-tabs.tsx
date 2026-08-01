@@ -5,8 +5,8 @@ import { useTranslations } from "next-intl"
 import { memo } from "react"
 import { cn } from "@/shared/lib"
 import { AppLocale } from "@/shared/lib/i18n/config"
-import { ParishFormValues, TranslatableFieldName } from "../model/schemas-client"
-import { useTranslationTabsValidation } from "../model/hooks/use-translation-tabs-validation"
+import { ParishFormValues, TranslatableFieldName } from "../../model/schemas-client"
+import { useTranslationTabsValidation } from "../../model/hooks/use-translation-tabs-validation"
 
 interface TranslationTabsProps {
   locale: AppLocale,

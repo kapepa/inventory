@@ -1,22 +1,27 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import { QueryParamProvider } from "@/shared/lib/providers/query-param-provider";
 import { ModalProvider } from "@/shared/ui/modal";
-import { TooltipProvider } from "@/shared/ui/tooltip";
 import { ToasterDynamic } from "@/shared/ui/sonner-dynamic";
 import { AuthenticatedUser } from "@/features/auth/model/types";
 import { AuthProvider } from "@/features/auth/lib/auth-provider";
+import { TooltipProvider } from "@/shared/lib/providers/tooltip-provider";
+import { prefetchRadixUI } from "@/shared/lib/prefetch-ui";
 
 export function ProvidersUIClient({ children }: { children: React.ReactNode }) {
+  useEffect(() => {
+    prefetchRadixUI()
+  }, [])
+
   return (
     <QueryParamProvider>
-      <ModalProvider>
-        <TooltipProvider>
+      <TooltipProvider>
+        <ModalProvider>
           {children}
           <ToasterDynamic />
-        </TooltipProvider>
-      </ModalProvider>
+        </ModalProvider>
+      </TooltipProvider>
     </QueryParamProvider >
   );
 }

@@ -1,10 +1,10 @@
 "use client"
 
 import { useCallback } from "react";
-import { AddCategoryModalDynamic } from "../../ui/add-category-modal-dynamic";
 import { useModalQuery } from "@/shared/lib/hooks/use-modal-query";
 import { QUERY_PARAMS_KEYS } from "@/shared/constants";
 import { useModalActions } from "@/shared/ui/modal";
+import { AddCategoryModalDynamic } from "../../ui/bricks/add-category-modal-dynamic";
 
 export const useAddCategory = () => {
   const { openModal, closeModal } = useModalActions();

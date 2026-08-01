@@ -18,7 +18,13 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  // Отключаем полифиллы для современных браузеров
+  compiler: {
+    removeConsole: process.env.NODE_ENV === 'production',
+  },
+  // Настройка SWC для современных браузеров
   experimental: {
+    swcPlugins: [],
     optimizePackageImports: [
       'lucide-react',
       'date-fns',
@@ -28,6 +34,7 @@ const nextConfig: NextConfig = {
       'socket.io-client',
       'leaflet',
       '@radix-ui/react-tabs',
+      '@radix-ui/react-tooltip',
       'sonner',
       'zustand',
       'clsx',
@@ -38,12 +45,16 @@ const nextConfig: NextConfig = {
     webpackBuildWorker: true,
     parallelServerBuildTraces: true,
   },
-  compiler: {
-    removeConsole: process.env.NODE_ENV === 'production',
-  },
   productionBrowserSourceMaps: false,
   generateEtags: true,
   staticPageGenerationTimeout: 120,
+  // Исключаем тяжёлые серверные пакеты из bundle
+  serverExternalPackages: [
+    '@vitalets/google-translate-api',
+    'translate',
+  ],
+  // Дополнительная оптимизация для recharts
+  transpilePackages: ['recharts'],
   webpack: (config, { isServer }) => {
     if (!isServer) {
       config.optimization = {
@@ -66,6 +77,7 @@ const nextConfig: NextConfig = {
             radixui: {
               test: /[\\/]node_modules[\\/]@radix-ui[\\/]/,
               name: 'radix-ui',
+              // chunks: 'async',
               priority: 35,
               reuseExistingChunk: true,
             },

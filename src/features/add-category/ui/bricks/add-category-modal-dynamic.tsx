@@ -3,5 +3,8 @@
 import dynamic from "next/dynamic";
 
 export const AddCategoryModalDynamic = dynamic(() =>
-  import("./add-category-modal").then(mod => mod.AddCategoryModal)
+  import("./add-category-modal").then(mod => mod.AddCategoryModal),
+  {
+    ssr: false,
+  }
 );

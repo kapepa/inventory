@@ -50,13 +50,19 @@ export default async function middleware(request: NextRequest) {
 
   response.headers.set('x-locale', locale)
 
-  // Checking Secure Pages
+  // Оптимизация для bfcache: разрешаем кеширование для публичных страниц
+  const token = getAuthToken(request);
   const isPublicRoute = publicRoutes.some(route =>
     pathname.includes(route)
   );
 
+  if (isPublicRoute && !token) {
+    // Для публичных страниц без авторизации разрешаем bfcache
+    response.headers.set('Cache-Control', 'public, max-age=0, must-revalidate')
+  }
+
+  // Checking Secure Pages
   if (!isPublicRoute) {
-    const token = getAuthToken(request);
     if (!token || !(await verifyToken(token))) {
       // Redirect to the login page
       const locale = pathname.split('/')[1] || 'en';

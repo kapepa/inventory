@@ -2,15 +2,15 @@
 
 import { FooterBar, SubmitButton, CancelButton, OverlayBody, ScrollArea, Tabs, TabsContent } from '@/shared/ui'
 import { useLocale, useTranslations } from 'next-intl'
-import { TranslationFields } from './translation-fields'
-import { TranslationTabsHeader } from './translation-tabs-header'
-import { SerialNumberField } from './serial-number-field'
-import { OrderField } from './order-field'
-import { StatusField } from './status-field'
-import { ConditionField } from './condition-field'
-import { PhotoField } from './photo-field'
-import { PriceFields } from './price-fields'
-import { CategoryField } from './category-field'
+import { TranslationFields } from './bricks/translation-fields'
+import { TranslationTabsHeader } from './bricks/translation-tabs-header'
+import { SerialNumberField } from './bricks/serial-number-field'
+import { OrderField } from './bricks/order-field'
+import { StatusField } from './bricks/status-field'
+import { ConditionField } from './bricks/condition-field'
+import { PhotoField } from './bricks/photo-field'
+import { PriceFields } from './bricks/price-fields'
+import { CategoryField } from './bricks/category-field'
 import { useCallback, useRef } from 'react'
 import { Form } from '@/shared/ui/form'
 import { AppLocale } from '@/shared/lib/i18n/config'
@@ -25,7 +25,7 @@ interface ProductCreateFormProps {
   onSuccessAction: (product: ProductWithRelationsWide | ProductWithRelationsShort) => void
 }
 
-export const ProductCreateForm = ({ parishId, onCancelAction, onSuccessAction }: ProductCreateFormProps) => {
+export const AddProductForm = ({ parishId, onCancelAction, onSuccessAction }: ProductCreateFormProps) => {
   const t = useTranslations("add-product.create-form")
   const locale = useLocale() as AppLocale
   const photoFieldRef = useRef<PhotoFieldRef>(null)
@@ -107,3 +107,5 @@ export const ProductCreateForm = ({ parishId, onCancelAction, onSuccessAction }:
     </>
   )
 }
+
+AddProductForm.displayName = "AddProductForm"

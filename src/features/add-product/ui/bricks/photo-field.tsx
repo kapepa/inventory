@@ -7,7 +7,7 @@ import { ImageUploadField } from "@/shared/ui"
 import { ImageUploadFieldRef } from "@/shared/types"
 import { UPLOAD_LIMITS } from "@/shared/constants"
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/shared/ui/form"
-import { PhotoFieldRef } from "../model/types"
+import { PhotoFieldRef } from "../../model/types"
 
 interface PhotoFieldProps {
   isPending?: boolean

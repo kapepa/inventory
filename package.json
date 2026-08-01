@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "tsx server.ts",
     "build": "next build",
-    "analyze": "cross-env ANALYZE=true next build",
+    "analyze": "cross-env ANALYZE=true next build --webpack",
     "start": "cross-env NODE_ENV=production tsx server.ts",
     "lint": "eslint",
     "db:generate": "npx prisma generate",
@@ -70,6 +70,14 @@
     "tsx": "^4.22.3",
     "typescript": "^5"
   },
+  "browserslist": [
+    "last 2 Chrome versions",
+    "last 2 Firefox versions",
+    "last 2 Safari versions",
+    "last 2 Edge versions",
+    "not IE 11",
+    "not dead"
+  ],
   "prisma": {
     "seed": "tsx prisma/seed.ts"
   }
