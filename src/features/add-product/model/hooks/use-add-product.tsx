@@ -1,11 +1,11 @@
 "use client"
 
 import { useCallback, useState } from 'react'
-import { ProductCreateModalDynamic } from '../../ui/product-create-modal-dynamic';
-import { ProductCreateSheetDynamic } from '../../ui/product-create-sheet-dynamic';
 import { useMediaQuery } from '@/shared/lib/hooks/use-media-query';
 import { useModalActions } from '@/shared/ui/modal';
 import { ProductWithRelations } from '@/entities/product/model/types';
+import { AddProductModalDynamic } from '../../ui/bricks/add-product-modal-dynamic';
+import { AddProductSheetDynamic } from '../../ui/bricks/add-product-sheet-dynamic';
 
 export const useAddProduct = ({ parishId, onSuccessAction }: { parishId: string, onSuccessAction: (product: ProductWithRelations) => void }) => {
   const { openModal, closeModal } = useModalActions();
@@ -14,7 +14,7 @@ export const useAddProduct = ({ parishId, onSuccessAction }: { parishId: string,
 
   const productCreate = useCallback(() => {
     if (isDesktop) {
-      openModal(<ProductCreateModalDynamic
+      openModal(<AddProductModalDynamic
         parishId={parishId}
         onSuccessAction={onSuccessAction}
         onCancelAction={closeModal}
@@ -27,7 +27,7 @@ export const useAddProduct = ({ parishId, onSuccessAction }: { parishId: string,
   }, [parishId, openModal, closeModal, onSuccessAction, isDesktop])
 
   const ProductCreateElement = (
-    <ProductCreateSheetDynamic
+    <AddProductSheetDynamic
       isOpen={isSheetOpen}
       onOpenChangeAction={setIsSheetOpen}
       parishId={parishId}

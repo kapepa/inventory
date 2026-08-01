@@ -1,6 +1,6 @@
 "use client"
 
-import { ProductCreateForm } from './product-create-form'
+import { AddProductForm } from '../add-product-form'
 import { memo } from 'react'
 import { useTranslations } from 'next-intl'
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/shared/ui/sheet'
@@ -13,7 +13,7 @@ interface ProductCreateSheetProps {
   onSuccessAction: (product: ProductWithRelations) => void
 }
 
-export const ProductCreateSheet = memo(({ isOpen, parishId, onOpenChangeAction, onSuccessAction }: ProductCreateSheetProps) => {
+export const AddProductSheet = memo(({ isOpen, parishId, onOpenChangeAction, onSuccessAction }: ProductCreateSheetProps) => {
   const t = useTranslations('add-product.modal.header');
 
   return (
@@ -26,7 +26,7 @@ export const ProductCreateSheet = memo(({ isOpen, parishId, onOpenChangeAction, 
           <SheetTitle>{t("create")}</SheetTitle>
         </SheetHeader>
 
-        <ProductCreateForm
+        <AddProductForm
           parishId={parishId}
           onCancelAction={() => onOpenChangeAction(false)}
           onSuccessAction={onSuccessAction}
@@ -36,4 +36,4 @@ export const ProductCreateSheet = memo(({ isOpen, parishId, onOpenChangeAction, 
   )
 })
 
-ProductCreateSheet.displayName = "ProductCreateSheet"
+AddProductSheet.displayName = "AddProductSheet"

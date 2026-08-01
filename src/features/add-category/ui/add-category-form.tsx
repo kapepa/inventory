@@ -2,8 +2,8 @@
 
 import { useLocale, useTranslations } from "next-intl"
 import { CancelButton, SubmitButton, Tabs, TabsContent } from "@/shared/ui"
-import { TranslationFields } from "./translation-fields"
-import { TranslationTabsHeader } from "./translation-tabs-header"
+import { TranslationFields } from "./bricks/translation-fields"
+import { TranslationTabsHeader } from "./bricks/translation-tabs-header"
 import { ModalBody, ModalFooter } from "@/shared/ui/modal"
 import { Form } from "@/shared/ui/form"
 import { AppLocale } from "@/shared/lib/i18n/config"

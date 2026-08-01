@@ -1,5 +1,7 @@
+"use client"
+
+import { AddCategoryForm } from "../add-category-form"
 import { useTranslations } from "next-intl"
-import { AddCategoryForm } from "./add-category-form"
 import { ModalContents, ModalHeader } from "@/shared/ui/modal"
 
 interface AddCategoryModalProps {

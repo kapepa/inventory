@@ -5,7 +5,7 @@ import { useFormContext } from "react-hook-form"
 import { useTranslations } from "next-intl"
 import { TabsList, TabsTrigger } from "@/shared/ui"
 import { cn } from "@/shared/lib"
-import { CategoryFormValues } from "../model/schemas-client"
+import { CategoryFormValues } from "../../model/schemas-client"
 
 export const TranslationTabsHeader = memo(() => {
   const t = useTranslations("add-parish.form")
