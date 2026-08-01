@@ -1,7 +1,7 @@
 "use client"
 
 import { useMounted } from "@/shared/lib/hooks";
-import { WebSocketProvider } from "@/shared/lib/providers/websocket-provider";
+import { WebSocketProviderDynamic } from "@/shared/lib/providers/websocket-provider-dynamic";
 import { OnlineUsersCount, OnlineUsersCountSkeleton } from "@/shared/ui";
 import { LiveDatetime, LiveDatetimeDate, LiveDatetimeDateSkeleton, LiveDatetimeTime, LiveDatetimeTimeSkeleton, LiveDatetimeWeek, LiveDatetimeWeekSkeleton } from "@/shared/ui/live-datetime";
 
@@ -54,9 +54,9 @@ export const HeaderBar = ({ showOnline, className }: HeaderBarProps) => {
   );
 
   return showOnline ? (
-    <WebSocketProvider>
+    <WebSocketProviderDynamic>
       {content}
-    </WebSocketProvider>
+    </WebSocketProviderDynamic>
   ) : content;
 }
 
