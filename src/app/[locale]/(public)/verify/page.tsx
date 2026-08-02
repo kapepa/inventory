@@ -10,8 +10,6 @@ import { VerifyEmailStatus } from "@/widgets/verify-email-status/ui/verify-email
 import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 
-export const dynamic = 'force-dynamic';
-
 type TokenStatusType = {
   status: StatusVerifyEmail;
   email?: string;
@@ -41,7 +39,7 @@ export default async function Verify({
   const locale = (await params).locale as AppLocale;
   const resolvedSearchParams = await searchParams;
   const token = (resolvedSearchParams[QUERY_PARAMS_KEYS.VERIFY_TOKEN] as string) || "";
-  if (!token) redirect({ href: ROUTES.AUTH, locale });
+  if (!token) redirect({ href: ROUTES.LOGIN, locale });
 
   const t = await getTranslations({ locale, namespace: "verify-page" });
 

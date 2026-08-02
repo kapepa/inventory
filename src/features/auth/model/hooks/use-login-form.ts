@@ -11,10 +11,15 @@ import { requestAuthLogin } from "../../api";
 import { useVerifiedEmail } from "./use-verified-email";
 import { InvalidCredentialsError, NotVerifiedError } from "@/shared/lib";
 import { ROUTES } from "@/shared/constants";
-import { useRouter } from "@/shared/lib/i18n/routing";
 import { useUnmountCallback } from "@/shared/lib/hooks";
+import { AppLocale } from "@/shared/lib/i18n/config";
+import { useRouter } from "next/navigation";
 
-export const useLoginForm = () => {
+interface UseLoginFormProps {
+  locale: AppLocale;
+}
+
+export const useLoginForm = ({ locale }: UseLoginFormProps) => {
   const router = useRouter()
   const tToast = useTranslations("auth.form.toast")
   const tErrors = useTranslations("auth.form.errors")
@@ -36,39 +41,38 @@ export const useLoginForm = () => {
     form.reset(undefined, { keepDefaultValues: true });
   }, [form]);
 
-  const onSubmit = useCallback(
-    (values: LoginFormValues) => {
-      startSubmitTransition(async () => {
-        try {
-          const user = await requestAuthLogin({ data: values })
-          useAuthStore.setState({ user })
-          router.push(ROUTES.PARISHES)
-          setCallback(() => {
-            toast.success(tToast("auth-login-success"))
-          })
-        } catch (error) {
-          if (error instanceof InvalidCredentialsError) {
-            form.setError('email', {
-              type: 'manual',
-              message: tErrors('email-invalid-credentials')
-            }, { shouldFocus: true });
-            form.setError('password', {
-              type: 'manual',
-              message: tErrors('passwords-invalid-credentials')
-            }, { shouldFocus: true });
-            toast.error(tToast('auth-invalid-credentials'));
-          } else if (error instanceof NotVerifiedError) {
-            confirmVerifiedEmail(values.email)
-            toast.error(tToast('auth-email-not-verified'));
-          } else {
-            console.error(error)
-            toast.error(tToast("auth-login-error"))
-          }
+  const onSubmit = useCallback((values: LoginFormValues) => {
+    startSubmitTransition(async () => {
+      try {
+        const user = await requestAuthLogin({ data: values })
+        useAuthStore.setState({ user })
+        router.push(`/${locale}/${ROUTES.PARISHES}`)
+        setCallback(() => {
+          toast.success(tToast("auth-login-success"))
+        })
+      } catch (error) {
+        if (error instanceof InvalidCredentialsError) {
+          form.setError('email', {
+            type: 'manual',
+            message: tErrors('email-invalid-credentials')
+          }, { shouldFocus: true });
+          form.setError('password', {
+            type: 'manual',
+            message: tErrors('passwords-invalid-credentials')
+          }, { shouldFocus: true });
+          toast.error(tToast('auth-invalid-credentials'));
+        } else if (error instanceof NotVerifiedError) {
+          confirmVerifiedEmail(values.email)
+          toast.error(tToast('auth-email-not-verified'));
+        } else {
+          console.error(error)
+          toast.error(tToast("auth-login-error"))
         }
-      })
-    },
-    [tToast, form]
-  )
+      }
+    })
+  }, [locale, router, toast, tErrors, requestAuthLogin, confirmVerifiedEmail])
+
+
 
   const handleSubmit = useMemo(() => form.handleSubmit(onSubmit), [form, onSubmit])
 

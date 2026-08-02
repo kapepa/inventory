@@ -3,11 +3,12 @@ import createIntlMiddleware from 'next-intl/middleware';
 import { routing } from './shared/lib/i18n/routing';
 import { getAuthToken, verifyToken } from './shared/lib/auth';
 import { defaultLocale } from './shared/lib/i18n/config';
+import { ROUTES } from './shared/constants';
 
 const intlMiddleware = createIntlMiddleware(routing);
 
 // Public routes accessible without authorization
-const publicRoutes = ['/auth', '/verify', '/api/auth/login', '/api/auth/register', '/api/verify', '/api/auth/resend-verification', "/api/auth/verify-email"];
+const publicRoutes = ['/register', '/login', '/verify', '/api/auth/login', '/api/auth/register', '/api/verify', '/api/auth/resend-verification', "/api/auth/verify-email"];
 
 // Routes for admins only
 const adminRoutes = ['/admin', '/categories'];
@@ -66,7 +67,7 @@ export default async function middleware(request: NextRequest) {
     if (!token || !(await verifyToken(token))) {
       // Redirect to the login page
       const locale = pathname.split('/')[1] || 'en';
-      return NextResponse.redirect(new URL(`/${locale}/auth`, request.url));
+      return NextResponse.redirect(new URL(`/${locale}/${ROUTES.LOGIN}`, request.url));
     }
   }
 

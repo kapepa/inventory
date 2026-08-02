@@ -1,4 +1,4 @@
-import { ProvidersAuthClient, ProvidersUIClient } from "../providers-client";
+import { ProvidersAuthClient } from "../providers-client";
 import { ROUTES } from "@/shared/constants";
 import { redirect } from "@/shared/lib/i18n/routing";
 import { AppLocale } from "@/shared/lib/i18n/config";
@@ -14,13 +14,11 @@ export default async function AuthLayout({
   const { locale } = await params;
   const user = await getSessionUserCached()
 
-  if (!user) return redirect({ href: ROUTES.AUTH, locale: locale as AppLocale })
+  if (!user) return redirect({ href: ROUTES.LOGIN, locale: locale as AppLocale })
 
   return (
-    <ProvidersUIClient>
-      <ProvidersAuthClient initialUser={user}>
-        {children}
-      </ProvidersAuthClient>
-    </ProvidersUIClient>
+    <ProvidersAuthClient initialUser={user}>
+      {children}
+    </ProvidersAuthClient>
   );
 }

@@ -16,7 +16,7 @@ export const VerifyInvalidView = () => {
         <p className="text-muted-foreground">{t("description")}</p>
       </div>
       <SubmitButton variant="striking-accent">
-        <Link href={ROUTES.AUTH}>
+        <Link href={ROUTES.LOGIN}>
           {t("back-to-auth")}
         </Link>
       </SubmitButton>

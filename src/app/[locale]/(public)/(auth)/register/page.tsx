@@ -1,9 +1,10 @@
+import { RegisterForm } from "@/features/auth/ui/register-form";
+import { ROUTES } from "@/shared/constants/routes";
+import { AppLocale } from "@/shared/lib/i18n/config";
 import { Container } from "@/shared/ui";
 import { AuthGate } from "@/widgets/auth-gate/ui/auth-gate";
 import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
-
-export const dynamic = 'force-dynamic';
 
 export async function generateMetadata({
   params,
@@ -14,15 +15,23 @@ export async function generateMetadata({
   const t = await getTranslations({ locale, namespace: 'metadata' });
 
   return {
-    title: t('auth.title'),
-    description: t('auth.description'),
+    title: t('register.title'),
+    description: t('register.description'),
   };
 }
 
-export default async function Auth() {
+export default async function Register({
+  params,
+}: {
+  params: Promise<{ locale: AppLocale }>;
+}) {
+  const { locale } = await params;
+
   return (
     <Container className="py-6 md:py-16 flex-1 flex flex-col justify-center items-center">
-      <AuthGate />
+      <AuthGate locale={locale} activeTab={ROUTES.REGISTER}>
+        <RegisterForm />
+      </AuthGate>
     </Container>
   );
 }

@@ -44,7 +44,7 @@ export const useCodeForm = ({ email, token }: UseCodeFormProps) => {
       startSubmitTransition(async () => {
         try {
           await requestVerifyCodeEmail({ data: values })
-          router.push(ROUTES.AUTH)
+          router.push(ROUTES.LOGIN)
           setCallback(() => {
             toast.success(tToast("verify-code-success"))
           })
