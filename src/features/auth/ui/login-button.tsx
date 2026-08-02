@@ -27,7 +27,7 @@ export const LoginButton = memo(({ className }: LoginButtonProps) => {
     startTransition(async () => {
       try {
         await requestAuthLogout();
-        router.push(ROUTES.AUTH);
+        router.push(ROUTES.LOGIN);
         setCallback(() => {
           toast.success(t("toast.logout-success"))
           useAuthStore.getState().logout()

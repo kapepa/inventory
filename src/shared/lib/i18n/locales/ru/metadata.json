@@ -31,9 +31,13 @@
     "title": "О нас — Inventory",
     "description": "Просмотр информации о компании."
   },
-  "auth": {
-    "title": "Авторизация — Inventory",
-    "description": "Регистрация и вход в систему."
+  "login": {
+    "title": "Вход пользователя — Inventory",
+    "description": "Вход пользователя."
+  },
+  "register": {
+    "title": "Регистрация — Inventory",
+    "description": "Создание нового аккаунта."
   },
   "verify": {
     "title": "Подтверждение почты — Inventory",

@@ -31,7 +31,7 @@ const DeleteUserModalWrapper = ({
     startTransition(async () => {
       try {
         await requestDeleteAccount();
-        router.push(ROUTES.AUTH);
+        router.push(ROUTES.LOGIN);
         setCallback(() => {
           toast.success(t("toast.success"));
           useAuthStore.getState().logout()

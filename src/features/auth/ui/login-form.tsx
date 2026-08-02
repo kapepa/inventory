@@ -1,14 +1,19 @@
 "use client";
 
-import { CancelButton, Input, SubmitButton } from "@/shared/ui";
+import { CancelButton, Input, Skeleton, SubmitButton } from "@/shared/ui";
 import { useTranslations } from "next-intl";
 import { VALIDATION_LIMITS } from "@/shared/constants";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/shared/ui/form";
 import { useLoginForm } from "../model/hooks/use-login-form";
+import { AppLocale } from "@/shared/lib/i18n/config";
 
-export const LoginForm = () => {
+interface LoginFormProps {
+  locale: AppLocale;
+}
+
+export const LoginForm = ({ locale }: LoginFormProps) => {
   const t = useTranslations("auth.form")
-  const { form, onSubmit, isSubmitting, onReset } = useLoginForm()
+  const { form, onSubmit, isSubmitting, onReset } = useLoginForm({ locale })
 
   return (
     <Form {...form}>
@@ -83,3 +88,26 @@ export const LoginForm = () => {
 };
 
 LoginForm.displayName = "LoginForm"
+
+export const LoginFormSkeleton = () => {
+  return (
+    <div className="space-y-6">
+      <div className="flex flex-col gap-y-8 pb-3 px-6">
+        <div className="flex flex-col gap-y-2">
+          <Skeleton className="w-24 h-4.5" />
+          <Skeleton className="w-full h-10" />
+        </div>
+        <div className="flex flex-col gap-y-2">
+          <Skeleton className="w-24 h-4.5" />
+          <Skeleton className="w-full h-10" />
+        </div>
+      </div>
+      <div className="bg-accent px-6 pt-3.5 pb-3 flex justify-end gap-x-2">
+        <Skeleton className="rounded-full h-10 w-28" />
+        <Skeleton className="rounded-full h-10 w-28" />
+      </div>
+    </div>
+  )
+}
+
+LoginFormSkeleton.displayName = "LoginFormSkeleton"

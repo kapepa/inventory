@@ -3,13 +3,14 @@ import type { NextConfig } from "next";
 
 const withNextIntl = createNextIntlPlugin();
 
-const withBundleAnalyzer = require('@next/bundle-analyzer')({
-  enabled: process.env.ANALYZE === 'true',
-});
+// const withBundleAnalyzer = process.env.ANALYZE === 'true'
+//   ? require('@next/bundle-analyzer')({ enabled: true })
+//   : (config: NextConfig) => config;
 
 const nextConfig: NextConfig = {
   images: {
-    minimumCacheTTL: 60,
+    minimumCacheTTL: 120,
+    formats: ['image/avif', 'image/webp'],
     remotePatterns: [
       {
         protocol: 'https',
@@ -18,21 +19,18 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-  // Отключаем полифиллы для современных браузеров
   compiler: {
     removeConsole: process.env.NODE_ENV === 'production',
   },
+  compress: true,
   // Настройка SWC для современных браузеров
   experimental: {
-    swcPlugins: [],
     optimizePackageImports: [
       'lucide-react',
       'date-fns',
-      'recharts',
       'react-hook-form',
       'zod',
       'socket.io-client',
-      'leaflet',
       '@radix-ui/react-tabs',
       '@radix-ui/react-tooltip',
       'sonner',
@@ -42,19 +40,18 @@ const nextConfig: NextConfig = {
       'tailwind-merge',
     ],
     optimizeCss: true,
-    webpackBuildWorker: true,
-    parallelServerBuildTraces: true,
   },
-  productionBrowserSourceMaps: false,
-  generateEtags: true,
   staticPageGenerationTimeout: 120,
   // Исключаем тяжёлые серверные пакеты из bundle
   serverExternalPackages: [
     '@vitalets/google-translate-api',
     'translate',
+    '@prisma/client',
+    '@prisma/adapter-pg',
+    'nodemailer',
+    'cloudinary',
+    'pg',
   ],
-  // Дополнительная оптимизация для recharts
-  transpilePackages: ['recharts'],
   webpack: (config, { isServer }) => {
     if (!isServer) {
       config.optimization = {
@@ -77,7 +74,7 @@ const nextConfig: NextConfig = {
             radixui: {
               test: /[\\/]node_modules[\\/]@radix-ui[\\/]/,
               name: 'radix-ui',
-              // chunks: 'async',
+              chunks: 'all',
               priority: 35,
               reuseExistingChunk: true,
             },
@@ -132,4 +129,6 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default withBundleAnalyzer(withNextIntl(nextConfig));
+// export default withBundleAnalyzer(withNextIntl(nextConfig));
+
+export default withNextIntl(nextConfig)

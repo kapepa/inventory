@@ -31,9 +31,13 @@
     "title": "About Us — Inventory",
     "description": "View information about the company."
   },
-  "auth": {
-    "title": "Authorization — Inventory",
-    "description": "Registration and Login."
+  "login": {
+    "title": "Login — Inventory",
+    "description": "User Login."
+  },
+  "register": {
+    "title": "Registration — Inventory",
+    "description": "Create a new account."
   },
   "verify": {
     "title": "Email Address Verification — Inventory",

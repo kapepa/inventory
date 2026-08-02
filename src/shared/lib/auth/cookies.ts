@@ -6,7 +6,7 @@ export const setAuthCookie = <T = unknown>(response: NextResponse<T>, token: str
     name: COOKIE_KEYS.AUTH_TOKEN,
     value: token,
     httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
+    secure: false, // secure: process.env.NODE_ENV === 'production'
     sameSite: 'lax',
     maxAge: AUTH_CONFIG.COOKIE_MAX_AGE,
     path: '/',
