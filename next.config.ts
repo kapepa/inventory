@@ -33,14 +33,24 @@ const nextConfig: NextConfig = {
       'socket.io-client',
       '@radix-ui/react-tabs',
       '@radix-ui/react-tooltip',
+      '@radix-ui/react-slot',
+      '@radix-ui/react-label',
+      '@radix-ui/react-popover',
+      '@radix-ui/react-scroll-area',
+      '@radix-ui/react-select',
+      '@radix-ui/react-dialog',
       'sonner',
       'zustand',
       'clsx',
       'class-variance-authority',
       'tailwind-merge',
+      'react-day-picker',
+      'axios',
+      'react-intersection-observer',
     ],
     optimizeCss: true,
   },
+  productionBrowserSourceMaps: false,
   staticPageGenerationTimeout: 120,
   // Исключаем тяжёлые серверные пакеты из bundle
   serverExternalPackages: [
@@ -61,6 +71,7 @@ const nextConfig: NextConfig = {
           chunks: 'all',
           maxInitialRequests: 25,
           minSize: 20000,
+          maxSize: 244000,
           cacheGroups: {
             ...config.optimization?.splitChunks?.cacheGroups,
             // React и связанные библиотеки
@@ -90,6 +101,13 @@ const nextConfig: NextConfig = {
               test: /[\\/]node_modules[\\/]zustand[\\/]/,
               name: 'zustand',
               priority: 35,
+              reuseExistingChunk: true,
+            },
+
+            'ui-vendor': {
+              test: /[\\/]node_modules[\\/](sonner|lucide-react)[\\/]/,
+              name: 'ui-vendor',
+              priority: 28,
               reuseExistingChunk: true,
             },
             // Socket.io (async)
@@ -126,6 +144,33 @@ const nextConfig: NextConfig = {
       };
     }
     return config;
+  },
+  async headers() {
+    // Применяем Cache-Control только в production
+    if (process.env.NODE_ENV !== 'production') {
+      return [];
+    }
+
+    return [
+      {
+        source: '/_next/static/(.*)',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
+      {
+        source: '/static/(.*)',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
+    ];
   },
 };
 
