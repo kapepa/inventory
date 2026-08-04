@@ -1,12 +1,7 @@
 import { cn } from "@/shared/lib";
-import { MobileCellLabel, Skeleton, TooltipText } from "@/shared/ui"
+import { MobileCellLabel, TooltipText } from "@/shared/ui"
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/shared/ui/tooltip";
-
-interface TitleCellProps {
-  label?: string,
-  title: string,
-  className?: string
-}
+import { TitleCellProps } from "../../model/types/types";
 
 export const TitleCell = ({ label, title, className }: TitleCellProps) => {
   return (
@@ -29,14 +24,3 @@ export const TitleCell = ({ label, title, className }: TitleCellProps) => {
 };
 
 TitleCell.displayName = "TitleCell"
-
-export const TitleCellSkeleton = ({ className }: { className?: string }) => {
-  return (
-    <div className={cn("flex flex-col items-center md:items-start gap-y-2", className)}>
-      <Skeleton className="h-5 w-[25%] block md:hidden" />
-      <Skeleton className="h-6 w-[50%]" />
-    </div>
-  )
-}
-
-TitleCellSkeleton.displayName = "TitleCellSkeleton"

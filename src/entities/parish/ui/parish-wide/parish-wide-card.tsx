@@ -1,10 +1,18 @@
 import { memo } from "react"
-import { ActionsCell, ActionsCellSkeleton, AmountCell, AmountCellSkeleton, CountCell, CountCellSkeleton, DateCell, DateCellSkeleton, DetailsCell, DetailsCellSkeleton, TitleCell, TitleCellSkeleton } from "../cells"
 import { useTranslations } from "next-intl"
 import { cn } from "@/shared/lib"
 import { ROUTES } from "@/shared/constants"
 import { Link } from "@/shared/lib/i18n/routing"
 import { ParishWithRelationsTotals } from "../../model/types"
+import { CountCell, CountCellSkeleton } from "../cells/count-cell"
+import { AmountCell, AmountCellSkeleton } from "../cells/amount-cell"
+import { ActionsCell, ActionsCellSkeleton } from "../cells/actions-cell"
+import { DateCellSkeleton } from "../skeleton/date-cell-skeleton"
+import { TitleCellSkeleton } from "../skeleton/title-cell-skeleton"
+import { DetailsCellSkeleton } from "../skeleton/details-cell-skeleton"
+import { DateCellDynamic } from "../dynamic/date-cell-dynamic"
+import { TitleCellDynamic } from "../dynamic/title-cell-dynamic"
+import { DetailsCellDynamic } from "../dynamic/details-cell-dynamic"
 
 const CELL_GENERAL_STYLE = "flex flex-col items-center"
 
@@ -25,10 +33,10 @@ export const ParishWideCard = memo(
         href={`${ROUTES.PARISHES}/${parish.id}`}
         className={cn("px-4 py-2 lg:px-6 lg:py-3 gap-2 border rounded-md bg-card hover:shadow-md transition-all border-chart-1", className)}
       >
-        <TitleCell title={title} label={t("name")} className={cn("col-span-2 md:col-span-1", CELL_GENERAL_STYLE)} />
-        <DetailsCell description={description} label={t("details")} className={CELL_GENERAL_STYLE} />
+        <TitleCellDynamic title={title} label={t("name")} className={cn("col-span-2 md:col-span-1", CELL_GENERAL_STYLE)} />
+        <DetailsCellDynamic description={description} label={t("details")} className={CELL_GENERAL_STYLE} />
         <CountCell count={parish._count.products} label={t("count")} className={cn(CELL_GENERAL_STYLE, "md:items-start")} />
-        <DateCell created={parish.createdAt} delivery={parish.deliveryDate} label={t("date")} className={CELL_GENERAL_STYLE} />
+        <DateCellDynamic created={parish.createdAt} delivery={parish.deliveryDate} label={t("date")} className={CELL_GENERAL_STYLE} />
         <AmountCell sumUAH={parish.totals.uah} sumUSD={parish.totals.usd} label={t("amount")} className={CELL_GENERAL_STYLE} />
         {isAdmin && <ActionsCell isOwner={isAdmin} onDeleteParish={() => { onDeleteParish(parish) }} label={t("delete")} className={CELL_GENERAL_STYLE} />}
       </Link>
@@ -38,8 +46,7 @@ export const ParishWideCard = memo(
 
 ParishWideCard.displayName = "ParishWideCard"
 
-export const ParishWideCardSkeleton = memo(({ isAdmin, className }: { isAdmin?: boolean, className?: string }) => {
-
+export const ParishWideCardSkeleton = ({ isAdmin, className }: { isAdmin?: boolean, className?: string }) => {
   return (
     <div className={cn("px-5 py-3 lg:px-6 lg:py-3.5 gap-2 border rounded-md bg-card border-chart-1", className)}>
       <TitleCellSkeleton className="col-span-2 md:col-span-1" />
@@ -51,6 +58,5 @@ export const ParishWideCardSkeleton = memo(({ isAdmin, className }: { isAdmin?: 
     </div>
   )
 }
-)
 
-ParishWideCard.displayName = "ParishWideCardSkeleton"
+ParishWideCardSkeleton.displayName = "ParishWideCardSkeleton";
