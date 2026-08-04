@@ -6,6 +6,7 @@ import { Input } from "./input"
 import { cn } from "../lib"
 import { InputHTMLAttributes } from "react"
 import { useMounted } from "../lib/hooks"
+import { Skeleton } from "./skeleton"
 
 interface SearchWithClearProps extends InputHTMLAttributes<HTMLInputElement> {
   className?: string
@@ -37,3 +38,9 @@ export const SearchWithClear = ({ maxLength = 100, value, clearInputAction, clas
 }
 
 SearchWithClear.displayName = "SearchWithClear"
+
+export const SearchWithClearSkeleton = ({ className }: { className?: string }) => {
+  return (<Skeleton className={cn("h-8 md:h-11 w-full", className)} />)
+}
+
+SearchWithClearSkeleton.displayName = "SearchWithClearSkeleton"

@@ -1,15 +1,13 @@
 "use client";
 
-import dynamic from "next/dynamic";
-import { ReactNode } from "react";
 
-const WebSocketProviderComponent = dynamic(
+import { OnlineUsersCountSkeleton } from "@/shared/ui/online-users-count-skeleton";
+import dynamic from "next/dynamic";
+
+export const WebSocketProviderDynamic = dynamic(
   () => import("./websocket-provider").then(mod => mod.WebSocketProvider),
   {
+    loading: () => <OnlineUsersCountSkeleton valueZero={true} />,
     ssr: false,
   }
 );
-
-export const WebSocketProviderDynamic = ({ children }: { children: ReactNode }) => {
-  return <WebSocketProviderComponent>{children}</WebSocketProviderComponent>;
-};
