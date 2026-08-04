@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
-import { PAGINATION_PARISHES_DEFAULTS, QUERY_PARAMS_KEYS } from "@/shared/constants";
+import { PAGINATION_PARISHES_DEFAULTS, PAGINATION_PRODUCTS_DEFAULTS, QUERY_PARAMS_KEYS } from "@/shared/constants";
 import { BackButton } from "@/shared/ui/back-button";
 import { Container } from "@/shared/ui/container"
 import { AppLocale } from "@/shared/lib/i18n/config";
@@ -52,8 +52,8 @@ export default async function ParishesId({
       parishId: id,
       categoryId: categoryTerm,
       specification: specification,
-      page: PAGINATION_PARISHES_DEFAULTS.PAGE,
-      limit: PAGINATION_PARISHES_DEFAULTS.LIMIT,
+      page: PAGINATION_PRODUCTS_DEFAULTS.PAGE,
+      limit: PAGINATION_PRODUCTS_DEFAULTS.LIMIT,
     }),
     getCategoriesByParishIdCached({ id, locale })
   ]);
