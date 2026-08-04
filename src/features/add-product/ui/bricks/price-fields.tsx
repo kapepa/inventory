@@ -3,9 +3,10 @@
 import { memo } from "react"
 import { useFormContext } from "react-hook-form"
 import { useTranslations } from "next-intl"
-import { Input } from "@/shared/ui"
+import { Input, InputSkeleton, Skeleton } from "@/shared/ui"
 import { VALIDATION_LIMITS } from "@/shared/constants"
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/shared/ui/form"
+import { cn } from "@/shared/lib"
 
 interface PriceFieldsProps {
   isPending?: boolean
@@ -83,3 +84,20 @@ export const PriceFields = memo(({ isPending }: PriceFieldsProps) => {
 })
 
 PriceFields.displayName = "PriceFields"
+
+export const PriceFieldsSkeleton = ({ className }: { className?: string }) => {
+  return (
+    <div className={cn("grid grid-cols-2 gap-4", className)}>
+      <div className="flex flex-col gap-y-3.5">
+        <Skeleton className="w-1/3 h-4.5" />
+        <InputSkeleton />
+      </div>
+      <div className="flex flex-col gap-y-3.5">
+        <Skeleton className="w-1/3 h-4.5" />
+        <InputSkeleton />
+      </div>
+    </div>
+  )
+}
+
+PriceFieldsSkeleton.displayName = "PriceFieldsSkeleton"

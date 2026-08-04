@@ -5,6 +5,8 @@ import { useFormContext } from "react-hook-form"
 import { useTranslations } from "next-intl"
 import { FormField, FormItem, FormLabel, FormControl, FormMessage } from "@/shared/ui/form"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/shared/ui/select"
+import { InputSkeleton, Skeleton } from "@/shared/ui"
+import { cn } from "@/shared/lib"
 
 interface ConditionFieldProps {
   isPending?: boolean
@@ -44,3 +46,14 @@ export const ConditionField = memo(({ isPending }: ConditionFieldProps) => {
 })
 
 ConditionField.displayName = "ConditionField"
+
+export const ConditionFieldSkeleton = ({ className }: { className?: string }) => {
+  return (
+    <div className={cn("flex flex-col gap-y-3.5", className)}>
+      <Skeleton className="w-1/3 h-4.5" />
+      <InputSkeleton />
+    </div>
+  )
+}
+
+ConditionFieldSkeleton.displayName = "ConditionFieldSkeleton"

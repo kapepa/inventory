@@ -3,10 +3,11 @@
 import { memo } from "react"
 import { useFormContext } from "react-hook-form"
 import { useTranslations } from "next-intl"
-import { Input, TranslateWrapperInput } from "@/shared/ui"
+import { Input, InputSkeleton, Skeleton, TranslateWrapperInput } from "@/shared/ui"
 import { VALIDATION_LIMITS } from "@/shared/constants"
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/shared/ui/form"
 import { AppLocale, oppositeLocale } from "@/shared/lib/i18n/config"
+import { cn } from "@/shared/lib"
 
 interface TitleFieldProps {
   locale: AppLocale
@@ -64,3 +65,15 @@ export const TitleField = memo(({
 })
 
 TitleField.displayName = "TitleField"
+
+export const TitleFieldSkeleton = ({ className }: { className?: string }) => {
+  return (
+    <div className={cn("flex flex-col gap-y-3.5", className)}>
+      <Skeleton className="w-1/3 h-4.5" />
+      <InputSkeleton />
+    </div>
+  )
+}
+
+TitleFieldSkeleton.displayName = "TitleFieldSkeleton"
+

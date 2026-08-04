@@ -3,10 +3,12 @@
 import { memo } from "react"
 import { useFormContext } from "react-hook-form"
 import { useTranslations } from "next-intl"
-import { Textarea, TranslateWrapperInput } from "@/shared/ui"
+import { Skeleton, Textarea, TranslateWrapperInput } from "@/shared/ui"
 import { VALIDATION_LIMITS } from "@/shared/constants"
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/shared/ui/form"
 import { AppLocale, oppositeLocale } from "@/shared/lib/i18n/config"
+import { cn } from "@/shared/lib"
+import { TextareaSkeleton } from "@/shared/ui/textarea"
 
 interface DescriptionFieldProps {
   locale: AppLocale
@@ -60,3 +62,14 @@ export const DescriptionField = memo(({
 })
 
 DescriptionField.displayName = "DescriptionField"
+
+export const DescriptionFieldSkeleton = ({ className }: { className?: string }) => {
+  return (
+    <div className={cn("flex flex-col gap-y-3.5", className)}>
+      <Skeleton className="w-1/3 h-4.5" />
+      <TextareaSkeleton className="min-h-24" />
+    </div>
+  )
+}
+
+DescriptionFieldSkeleton.displayName = "DescriptionFieldSkeleton"
