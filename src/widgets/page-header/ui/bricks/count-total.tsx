@@ -1,11 +1,9 @@
 "use client"
 
 import { memo } from "react";
-import { cn } from "@/shared/lib";
-import { Skeleton } from "@/shared/ui";
 import { useMounted } from "@/shared/lib/hooks";
-import { StoreType } from "../lib/types/types";
-import { useTotalByStore } from "../lib/hooks/use-store-selector";
+import { StoreType } from "../../lib/types/types";
+import { useTotalByStore } from "../../lib/hooks/use-store-selector";
 
 interface CountTotalProps {
   className?: string;
@@ -29,14 +27,3 @@ export const CountTotal = memo(({ fallbackCount, className, storeType }: CountTo
 });
 
 CountTotal.displayName = "CountTotal";
-
-export const CountTotalSkeleton = ({ className }: { className?: string }) => {
-  return (
-    <>
-      <span className="hidden lg:inline">/</span>
-      <Skeleton className={cn("h-9 w-8", className)} />
-    </>
-  );
-};
-
-CountTotalSkeleton.displayName = "CountTotalSkeleton";

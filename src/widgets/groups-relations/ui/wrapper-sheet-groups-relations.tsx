@@ -21,7 +21,7 @@ export const WrapperSheetGroupsRelations = memo((props: WrapperSheetGroupsRelati
   const [activeParishId, setActiveParishId] = useActiveParishId(props.initialParishesId);
   const isDesktop = useMediaQuery("(min-width: 1024px)");
 
-  if (isDesktop) return null
+  if (isDesktop || isDesktop === undefined) return null
 
   return (
     <Sheet

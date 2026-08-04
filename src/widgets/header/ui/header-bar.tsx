@@ -34,7 +34,7 @@ export const HeaderBar = ({ showOnline, className }: HeaderBarProps) => {
     );
   }
 
-  const content = (
+  return (
     <div>
       <LiveDatetime className={className}>
         <div className="grid grid-cols-2 gap-x-3 gap-1 min-w-56">
@@ -44,7 +44,11 @@ export const HeaderBar = ({ showOnline, className }: HeaderBarProps) => {
           </div>
           <div className="flex flex-col gap-y-1 items-stretch">
             <div className="grow">
-              {showOnline && <OnlineUsersCount />}
+              {showOnline && (
+                <WebSocketProviderDynamic>
+                  <OnlineUsersCount />
+                </WebSocketProviderDynamic>
+              )}
             </div>
             <LiveDatetimeTime />
           </div>
@@ -52,12 +56,6 @@ export const HeaderBar = ({ showOnline, className }: HeaderBarProps) => {
       </LiveDatetime>
     </div>
   );
-
-  return showOnline ? (
-    <WebSocketProviderDynamic>
-      {content}
-    </WebSocketProviderDynamic>
-  ) : content;
 }
 
 HeaderBar.displayName = "HeaderBar"

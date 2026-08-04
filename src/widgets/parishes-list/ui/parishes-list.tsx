@@ -1,7 +1,7 @@
 "use client"
 
-import { useCallback, useEffect } from "react"
-import { ScrollArea, StateMessage } from "@/shared/ui"
+import { lazy, useCallback, useEffect, useMemo } from "react"
+import { StateMessageDynamic } from "@/shared/ui-dynamic/state-message-dynamic"
 import { useTranslations } from "next-intl"
 import { fetchParishesTotals } from "@/entities/parish/api/parish-api"
 import { cn } from "@/shared/lib"
@@ -12,20 +12,12 @@ import { isTotalsParish, ParishWithRelationsTotals } from "@/entities/parish/mod
 import { useHydratedIsAdmin } from "@/features/auth/model/hooks/use-hydrated-user"
 import { useParishesStore } from "@/entities/parish/model/parish-store"
 import { useInfiniteParishes } from "@/entities/parish/model/hooks/use-infinite-parishes"
-import { useDeleteParish } from "@/features/delete-resource/model/hooks/use-delete-parish"
-import { ParishWideCard, ParishWideCardSkeleton, ParishWideHeader, ParishWideHeaderSkeleton } from "@/entities/parish/ui/parish-wide"
+import { ParishWideHeader, ParishWideHeaderSkeleton } from "@/entities/parish/ui/parish-wide/parish-wide-header"
+import { getParishLayout } from "./parish-list.styles"
+import { useDeleteParishContext } from "@/shared/lib/providers/delete-parish-context"
+import { ParishWideCard, ParishWideCardSkeleton } from "@/entities/parish/ui/parish-wide/parish-wide-card"
 
-const PARISH_GRID_BASE = "items-center grid gap-4 grid-rows-6 grid-cols-2 pb-4 md:min-w-[725px] md:grid-rows-1"
-
-const PARISH_GRID_LAYOUT = cn(
-  PARISH_GRID_BASE,
-  "md:grid-cols-[6fr_1fr_1fr_2fr_2fr] grid-rows-3"
-);
-
-const PARISH_GRID_LAYOUT_ADMIN = cn(
-  PARISH_GRID_BASE,
-  "md:grid-cols-[6fr_1fr_1fr_2fr_2fr_1fr] grid-rows-4",
-);
+const ScrollArea = lazy(() => import('@/shared/ui/scroll-area').then(module => ({ default: module.ScrollArea })));
 
 interface ParishesListProps {
   className?: string,
@@ -47,7 +39,7 @@ export const ParishesList = ({
     search, initialParishes, initialHasMore, fetchFnAction: fetchParishesTotals
   })
   const { targetRef, isIntersecting } = useIntersectionObserver({ threshold: 0.5, rootMargin: "100px" })
-  const { confirmDeleteParish } = useDeleteParish()
+  const { confirmDelete } = useDeleteParishContext();
 
   useEffect(() => {
     if (isIntersecting && hasMore && !isLoading) {
@@ -63,22 +55,23 @@ export const ParishesList = ({
   }, [newParishe, addParishes, addNewParish])
 
   const handlerDeleteParish = useCallback((parish: ParishWithRelationsTotals) => {
-    confirmDeleteParish(parish, () => removeParishes(parish.id));
-  }, [confirmDeleteParish])
+    confirmDelete(parish, () => removeParishes(parish.id));
+  }, [removeParishes])
+
 
   if (error && !isLoading) return (
-    <StateMessage variant="destructive">
+    <StateMessageDynamic variant="destructive">
       {t("errors.infinite-scroll-error")}
-    </StateMessage>
+    </StateMessageDynamic>
   )
 
   if (!hasMore && !parishes.length) return (
-    <StateMessage>
+    <StateMessageDynamic >
       {t("parishes-empty")}
-    </StateMessage>
+    </StateMessageDynamic>
   )
 
-  const PARISH_LAYOUT = isAdmin ? PARISH_GRID_LAYOUT_ADMIN : PARISH_GRID_LAYOUT
+  const PARISH_LAYOUT = useMemo(() => getParishLayout(isAdmin), [isAdmin])
 
   return (
     <div className={cn("w-full min-h-0 flex flex-col", className)}>
@@ -100,6 +93,7 @@ export const ParishesList = ({
           {(hasMore || isLoading) && (
             <div ref={targetRef} className="flex flex-col gap-3">
               {isLoading && <ParishWideCardSkeleton isAdmin={isAdmin} className={PARISH_LAYOUT} />}
+              {isLoading && <div>1</div>}
             </div>
           )}
         </div>
@@ -110,9 +104,9 @@ export const ParishesList = ({
 
 ParishesList.displayName = "ParishesList"
 
-export const ParishesListSkeleton = ({ className }: ParishesListProps) => {
+export const ParishesListSkeleton = ({ className }: { className?: string }) => {
   const isAdmin = false
-  const PARISH_LAYOUT = PARISH_GRID_LAYOUT
+  const PARISH_LAYOUT = useMemo(() => getParishLayout(isAdmin), [isAdmin])
 
   return (
     <div className={cn("w-full min-h-0 flex flex-col", className)}>
@@ -120,7 +114,7 @@ export const ParishesListSkeleton = ({ className }: ParishesListProps) => {
         isAdmin={isAdmin}
         className={cn(PARISH_LAYOUT, "hidden md:grid shrink-0")}
       />
-      <ScrollArea className="flex-1 min-h-0 w-full mx-auto max-w-lg lg:max-w-full">
+      <div className="flex-1 min-h-0 w-full mx-auto max-w-lg lg:max-w-full overflow-hidden">
         <div className="flex flex-col gap-3 mx-auto pb-6 md:pb-16 w-full">
           {Array.from({ length: 4 }).map((_, index) => (
             <ParishWideCardSkeleton
@@ -130,7 +124,7 @@ export const ParishesListSkeleton = ({ className }: ParishesListProps) => {
             />
           ))}
         </div>
-      </ScrollArea>
+      </div>
     </div>
   )
 }

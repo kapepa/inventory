@@ -1,9 +1,8 @@
 import { memo, ReactNode } from "react"
-import { Skeleton } from "@/shared/ui"
-import { CountTotal, CountTotalSkeleton } from "./count-total"
-import { Subtitle, SubtitleSkeleton } from "./subtitle"
 import { cn } from "@/shared/lib"
 import { StoreType } from "../lib/types/types"
+import { SubtitleDynamic } from "./bricks/subtitle-dynamic"
+import { CountTotaleDynamic } from "./bricks/count-total-dynamic"
 
 interface PageHeaderProps {
   title: string
@@ -30,8 +29,8 @@ export const PageHeader = memo(({ title, subtitle, count, reverse, children, act
           "text-lg md:text-3xl sm:text-xl gap-1 sm:gap-3 lg:flex-row"
         )}>
           <h3 className="lg:truncate text-center lg:text-left max-w-full">{title}</h3>
-          {count !== undefined && <CountTotal fallbackCount={count} storeType={storeType} />}
-          {subtitle && <Subtitle subtitle={subtitle} />}
+          {storeType && count !== undefined && <CountTotaleDynamic fallbackCount={count} storeType={storeType} />}
+          {subtitle && <SubtitleDynamic subtitle={subtitle} />}
         </div>
       </div>
       {children && (
@@ -44,39 +43,3 @@ export const PageHeader = memo(({ title, subtitle, count, reverse, children, act
 })
 
 PageHeader.displayName = "PageHeader"
-
-interface PageHeaderSkeleton {
-  title?: boolean
-  count?: boolean
-  action?: ReactNode
-  subtitle?: boolean
-  children?: ReactNode
-  className?: string
-}
-
-export const PageHeaderSkeleton = ({ title = true, count = true, action, subtitle, children, className }: PageHeaderSkeleton) => {
-  return (
-    <div className={cn("flex flex-col pb-3 items-center lg:items-start w-full", className)}>
-      <div className={cn(
-        "flex items-center w-full",
-        "gap-3 sm:gap-4 flex-col lg:flex-row"
-      )}>
-        {action}
-        <div className={cn(
-          "flex items-center font-semibold min-w-0 flex-col w-full",
-          "text-lg md:text-3xl sm:text-xl gap-4 lg:flex-row"
-        )}>
-          {title && <Skeleton className="h-9 w-32" />}
-          {count && <CountTotalSkeleton />}
-          {subtitle && <SubtitleSkeleton />}
-        </div>
-      </div>
-      {children && (
-        <div className="w-full mt-3">{children}</div>
-      )}
-
-    </div>
-  )
-}
-
-PageHeaderSkeleton.displayName = "PageHeaderSkeleton"
