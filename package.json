@@ -5,6 +5,8 @@
   "scripts": {
     "dev": "tsx server.ts --turbopack",
     "build": "next build",
+    "build:clean": "rd /s /q .next",
+    "build:rebuild": "npm run build:clean && npm run build",
     "analyze": "cross-env ANALYZE=true next build --webpack",
     "start": "cross-env NODE_ENV=production tsx server.ts",
     "lint": "eslint",
