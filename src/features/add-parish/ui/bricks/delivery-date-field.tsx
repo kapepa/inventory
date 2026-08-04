@@ -5,12 +5,12 @@ import { useFormContext } from "react-hook-form"
 import { format } from "date-fns"
 import { CalendarIcon } from "lucide-react"
 import { memo } from "react"
-import { CalendarDynamic } from "@/shared/ui/calendar-dynamic"
+import { CalendarDynamic } from "@/shared/ui-dynamic/calendar-dynamic"
 import { dateFnsLocales } from "@/shared/lib/i18n/date-fns-locales"
 import { cn } from "@/shared/lib"
 import { FormField, FormItem, FormLabel, FormControl, FormMessage } from "@/shared/ui/form"
 import { Popover, PopoverContent, PopoverTrigger } from "@/shared/ui/popover"
-import { Button } from "@/shared/ui"
+import { Button, InputSkeleton, Skeleton } from "@/shared/ui"
 import { AppLocale } from "@/shared/lib/i18n/config"
 
 interface DeliveryDateFieldProps {
@@ -73,3 +73,14 @@ export const DeliveryDateField = memo(
 )
 
 DeliveryDateField.displayName = "DeliveryDateField"
+
+export const DeliveryDateFieldSkeleton = ({ className }: { className?: string }) => {
+  return (
+    <div className={cn("flex flex-col gap-y-2", className)}>
+      <Skeleton className="w-24 h-4.5" />
+      <InputSkeleton />
+    </div >
+  )
+}
+
+DeliveryDateFieldSkeleton.displayName = "DeliveryDateFieldSkeleton"

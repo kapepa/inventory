@@ -1,8 +1,8 @@
-import { AddParishButtonSkeleton } from "@/features/add-parish/ui/bricks/add-parish-button-dynamic";
+import { AddParishButtonSkeleton } from "@/features/add-parish/ui/bricks/add-parish-button-skeleton";
 import { Container } from "@/shared/ui";
 import { GroupsListSkeleton } from "@/widgets/groups-list/ui/groups-list";
 import { GroupsRelationsSkeleton } from "@/widgets/groups-relations/ui/groups-relations";
-import { PageHeaderSkeleton } from "@/widgets/page-header/ui/page-header";
+import { PageHeaderSkeleton } from "@/widgets/page-header/ui/page-header-skeleton";
 
 export default function LoadingGroups() {
   return (

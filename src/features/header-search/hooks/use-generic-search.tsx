@@ -24,7 +24,7 @@ export const useGenericSearch = ({ modalName, placeholder }: UseGenericSearchPro
           onCancelAction={closeQueryModal}
         />
       );
-    }, [openModal]),
+    }, [openModal, modalName, placeholder]),
     onClose: closeModal,
   });
 

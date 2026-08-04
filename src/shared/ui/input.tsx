@@ -3,6 +3,7 @@
 import * as React from "react"
 
 import { cn } from "@/shared/lib/utils"
+import { Skeleton } from "./skeleton"
 
 function Input({ className, type, ...props }: React.ComponentProps<"input">) {
   return (
@@ -18,4 +19,10 @@ function Input({ className, type, ...props }: React.ComponentProps<"input">) {
   )
 }
 
-export { Input }
+function InputSkeleton({ className }: { className?: string }) {
+  return (
+    <Skeleton className={cn("h-8 md:h-10 w-full rounded-lg border border-input", className)} />
+  )
+}
+
+export { Input, InputSkeleton }

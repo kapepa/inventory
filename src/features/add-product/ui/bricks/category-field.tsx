@@ -8,6 +8,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { AppLocale } from "@/shared/lib/i18n/config"
 import { useCategories } from "@/entities/category/model/hooks/use-categories"
 import { useRestoreFieldFromStorage } from "../../model/hooks/use-category-field-restore"
+import { InputSkeleton, Skeleton } from "@/shared/ui"
+import { cn } from "@/shared/lib"
 
 interface CategoryFieldProps {
   isPending?: boolean
@@ -59,3 +61,15 @@ export const CategoryField = memo(({ className, isPending }: CategoryFieldProps)
 })
 
 CategoryField.displayName = "CategoryField"
+
+export const CategoryFieldSkeleton = ({ className }: { className?: string }) => {
+  return (
+    <div className={cn("flex flex-col gap-y-3.5", className)}>
+      <Skeleton className="w-1/3 h-4.5" />
+      <InputSkeleton />
+    </div>
+  )
+}
+
+CategoryFieldSkeleton.displayName = "CategoryFieldSkeleton"
+

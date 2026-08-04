@@ -1,3 +1,5 @@
+"use client"
+
 import { cn } from "@/shared/lib";
 import { Skeleton } from "@/shared/ui"
 import { useTranslations } from "next-intl"
@@ -42,8 +44,6 @@ export const ParishWideHeader = memo(
 ParishWideHeader.displayName = "ParishWideHeader"
 
 export const ParishWideHeaderSkeleton = ({ isAdmin, className }: ParishesWideHeaderProps) => {
-  const t = useTranslations('parish.list.header');
-
   return (
     <div className={cn(
       "px-6 py-3 text-xs font-bold text-muted-foreground uppercase tracking-widest", className
@@ -63,6 +63,9 @@ export const ParishWideHeaderSkeleton = ({ isAdmin, className }: ParishesWideHea
       <div>
         <Skeleton className="h-4 w-16 m-auto" />
       </div>
+      {isAdmin && <div className="text-center">
+        <Skeleton className="h-4 w-16 m-auto" />
+      </div>}
     </div>
   );
 }

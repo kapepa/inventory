@@ -1,7 +1,7 @@
+import { cn } from "@/shared/lib";
 import { Logo } from "@/shared/ui";
 import { Container } from "@/shared/ui/container";
 import { HeaderBar } from "./header-bar";
-import { cn } from "@/shared/lib";
 import { LanguageSwitcherDynamic } from "@/shared/ui/language/language-switcher-dynamic";
 import { CategoriesSearchDynamic, ParishesSearchDynamic, ProductsSearchDynamic, UsersSearchDynamic } from "@/features/header-search/ui/header-search-dynamic";
 

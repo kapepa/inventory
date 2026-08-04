@@ -2,12 +2,12 @@
 
 import { toast } from "sonner";
 import { useTranslations } from "next-intl";
-import { useCallback, useTransition } from "react";
+import { useCallback, useEffect, useTransition } from "react";
 import { requestDeleteParish } from "../../api";
 import { ForbiddenError, HasDependenciesError, NotFoundError } from "@/shared/lib";
 import { useModalActions } from "@/shared/ui/modal";
 import { DeleteConfirmModalDynamic } from "../../ui/delete-confirm-modal-dynamic";
-import { ParishesType } from "@/entities/parish/model/types";
+import { ParishesType, ParishWithRelationsTotals } from "@/entities/parish/model/types";
 
 interface DeleteParishModalWrapperProps {
   title: string;
@@ -78,3 +78,13 @@ export const useDeleteParish = <T extends ParishesType>() => {
 
   return { confirmDeleteParish };
 };
+
+export const DeleteParishWrapper = <T extends ParishesType>({ parish, onSuccess }: { parish: T, onSuccess?: () => void }) => {
+  const { confirmDeleteParish } = useDeleteParish();
+
+  useEffect(() => {
+    confirmDeleteParish(parish, onSuccess);
+  }, [parish, onSuccess, confirmDeleteParish]);
+
+  return null;
+}

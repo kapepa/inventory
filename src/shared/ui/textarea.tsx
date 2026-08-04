@@ -1,6 +1,7 @@
 import * as React from "react"
 
 import { cn } from "@/shared/lib/utils"
+import { Skeleton } from "./skeleton"
 
 function Textarea({ className, ...props }: React.ComponentProps<"textarea">) {
   return (
@@ -15,4 +16,10 @@ function Textarea({ className, ...props }: React.ComponentProps<"textarea">) {
   )
 }
 
-export { Textarea }
+function TextareaSkeleton({ className }: { className?: string }) {
+  return (
+    <Skeleton className={cn("min-h-16 w-full rounded-lg", className)} />
+  )
+}
+
+export { Textarea, TextareaSkeleton }

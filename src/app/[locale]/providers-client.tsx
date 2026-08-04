@@ -2,7 +2,7 @@
 
 import { QueryParamProvider } from "@/shared/lib/providers/query-param-provider";
 import { ModalProvider } from "@/shared/ui/modal";
-import { ToasterDynamic } from "@/shared/ui/sonner-dynamic";
+import { ToasterDynamic } from "@/shared/ui-dynamic/sonner-dynamic";
 import { AuthenticatedUser } from "@/features/auth/model/types";
 import { AuthProvider } from "@/features/auth/lib/auth-provider";
 import { TooltipProvider } from "@/shared/lib/providers/tooltip-provider";

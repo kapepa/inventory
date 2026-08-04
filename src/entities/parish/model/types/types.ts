@@ -6,7 +6,6 @@ export interface FetchParishes {
   limit: number
   search?: string
   locale?: AppLocale
-
 }
 
 export interface ParishWithRelations extends Parish {
@@ -41,4 +40,17 @@ export interface ParishesState {
   setActiveParishe: (parishe: ParishesType | null) => void;
   setTotal: (total: number) => void;
   setPage: (page: number) => void;
+}
+
+export interface TitleCellProps {
+  label?: string,
+  title: string,
+  className?: string
+}
+
+export interface DetailsCellProps {
+  label?: string,
+  title?: string | null,
+  description: string | null,
+  className?: string
 }

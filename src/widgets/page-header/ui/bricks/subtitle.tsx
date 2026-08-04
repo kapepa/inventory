@@ -1,7 +1,7 @@
 "use client"
 
 import { cn } from "@/shared/lib"
-import { Skeleton, TooltipText } from "@/shared/ui"
+import { TooltipText } from "@/shared/ui"
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/shared/ui/tooltip"
 import { memo } from "react"
 
@@ -33,14 +33,3 @@ export const Subtitle = memo(({ subtitle, className }: SubtitleProps) => {
 })
 
 Subtitle.displayName = "Subtitle"
-
-export const SubtitleSkeleton = ({ className }: { className?: string }) => {
-  return (
-    <>
-      <span className="hidden lg:inline">/</span>
-      <Skeleton className={cn("h-9 w-1/2", className)} />
-    </>
-  )
-}
-
-SubtitleSkeleton.displayName = "SubtitleSkeleton"

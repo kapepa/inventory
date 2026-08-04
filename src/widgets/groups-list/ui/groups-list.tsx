@@ -12,7 +12,10 @@ import { ParishWithRelations } from "@/entities/parish/model/types";
 import { useParishesStore } from "@/entities/parish/model/parish-store";
 import { useInfiniteParishes } from "@/entities/parish/model/hooks/use-infinite-parishes";
 import { fetchParishes } from "@/entities/parish/api";
-import { ParishShortCard, ParishShortCardSkeleton, ParishShortHeader } from "@/entities/parish/ui/parish-short";
+import { ParishShortHeader } from "@/entities/parish/ui/parish-short/parish-short-header";
+import { ParishShortCard } from "@/entities/parish/ui/parish-short/parish-short-card";
+import { ParishShortCardSkeleton } from "@/entities/parish/ui/parish-short/parish-short-card-skeleton";
+
 
 interface GroupsListProps {
   className?: string;

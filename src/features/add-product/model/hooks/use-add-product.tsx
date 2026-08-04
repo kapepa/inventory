@@ -14,11 +14,12 @@ export const useAddProduct = ({ parishId, onSuccessAction }: { parishId: string,
 
   const productCreate = useCallback(() => {
     if (isDesktop) {
-      openModal(<AddProductModalDynamic
-        parishId={parishId}
-        onSuccessAction={onSuccessAction}
-        onCancelAction={closeModal}
-      />
+      openModal(
+        <AddProductModalDynamic
+          parishId={parishId}
+          onSuccessAction={onSuccessAction}
+          onCancelAction={closeModal}
+        />
       )
     } else {
       setIsSheetOpen(true)

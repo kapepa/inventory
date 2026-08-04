@@ -15,5 +15,3 @@ export const AddParishButton = ({ className }: AddParishButtonProps) => {
 }
 
 AddParishButton.displayName = "AddParishButton"
-
-

@@ -38,7 +38,7 @@ export const CategorySelector = memo(({ label, initialCategories, className }: C
       >
         <SelectTrigger
           id="category"
-          className="bg-background border-chart-1 w-full max-w-80"
+          className="bg-background border-chart-1 w-full max-w-80 font-bold placeholder:font-bold"
         >
           <SelectValue placeholder={t("placeholder.category")} />
         </SelectTrigger>
