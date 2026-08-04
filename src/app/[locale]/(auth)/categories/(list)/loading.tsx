@@ -1,7 +1,7 @@
-import { AddCategoryButtonSkeleton } from "@/features/add-category/ui/bricks/add-category-button-dynamic";
+import { AddCategoryButtonSkeleton } from "@/features/add-category/ui/bricks/add-category-button-skeleton";
 import { Container } from "@/shared/ui";
 import { CategoriesListSkeleton } from "@/widgets/categories-list";
-import { PageHeaderSkeleton } from "@/widgets/page-header/ui/page-header";
+import { PageHeaderSkeleton } from "@/widgets/page-header/ui/page-header-skeleton";
 
 export default function LoadingCategoriesList() {
   return (
