@@ -3,6 +3,7 @@ import { getFilteredProductsShort, getFilteredProductsWide, getProductById, getP
 import { createCacheEntityTag, createCacheKey } from "@/shared/lib/cache-utils"
 import { CACHE_ENTITIES, CACHE_REVALIDATE, CACHE_TAGS } from "@/shared/constants/cache"
 import { FetchProducts, FetchProductsById } from "../model/types"
+import { PAGINATION_PRODUCTS_DEFAULTS } from "@/shared/constants"
 
 export const getFilteredProductsWideCached = (params: FetchProducts) => {
   const cacheKey = createCacheKey(
@@ -10,7 +11,8 @@ export const getFilteredProductsWideCached = (params: FetchProducts) => {
     params.parishId || 'all',
     params.categoryId || 'all',
     params.specification || 'all',
-    params.page || 1,
+    params.page || PAGINATION_PRODUCTS_DEFAULTS.PAGE,
+    params.limit || PAGINATION_PRODUCTS_DEFAULTS.LIMIT,
     params.search || "all",
     params.locale!
   )
@@ -34,7 +36,10 @@ export const getFilteredProductsShortCached = (params: FetchProducts) => {
   const cacheKey = createCacheKey(
     CACHE_TAGS.PRODUCTS_SHORT,
     params.parishId || 'all',
-    params.page || 1,
+    params.categoryId || 'all',
+    params.specification || 'all',
+    params.page || PAGINATION_PRODUCTS_DEFAULTS.PAGE,
+    params.limit || PAGINATION_PRODUCTS_DEFAULTS.LIMIT,
     params.search || "all",
     params.locale!
   )
