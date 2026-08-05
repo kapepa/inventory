@@ -9,8 +9,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useAuthStore } from "../auth-store";
 import { requestAuthLogin } from "../../api";
 import { useVerifiedEmail } from "./use-verified-email";
-import { InvalidCredentialsError, NotVerifiedError } from "@/shared/lib";
-import { ROUTES } from "@/shared/constants";
+import { InvalidCredentialsError, NotFoundError, NotVerifiedError } from "@/shared/lib/errors";
+import { ROUTES } from "@/shared/constants/routes";
 import { useUnmountCallback } from "@/shared/lib/hooks";
 import { AppLocale } from "@/shared/lib/i18n/config";
 import { useRouter } from "next/navigation";
@@ -51,7 +51,7 @@ export const useLoginForm = ({ locale }: UseLoginFormProps) => {
           toast.success(tToast("auth-login-success"))
         })
       } catch (error) {
-        if (error instanceof InvalidCredentialsError) {
+        if (error instanceof InvalidCredentialsError || error instanceof NotFoundError) {
           form.setError('email', {
             type: 'manual',
             message: tErrors('email-invalid-credentials')
@@ -59,7 +59,7 @@ export const useLoginForm = ({ locale }: UseLoginFormProps) => {
           form.setError('password', {
             type: 'manual',
             message: tErrors('passwords-invalid-credentials')
-          }, { shouldFocus: true });
+          });
           toast.error(tToast('auth-invalid-credentials'));
         } else if (error instanceof NotVerifiedError) {
           confirmVerifiedEmail(values.email)

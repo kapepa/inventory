@@ -1,4 +1,4 @@
-import { cn } from "@/shared/lib"
+import { cn } from "@/shared/lib/utils"
 import { Skeleton } from "@/shared/ui"
 
 export const AddCategoryButtonSkeleton = ({ className }: { className?: string }) => {

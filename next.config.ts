@@ -3,9 +3,9 @@ import type { NextConfig } from "next";
 
 const withNextIntl = createNextIntlPlugin();
 
-// const withBundleAnalyzer = process.env.ANALYZE === 'true'
-//   ? require('@next/bundle-analyzer')({ enabled: true })
-//   : (config: NextConfig) => config;
+const withBundleAnalyzer = process.env.ANALYZE === 'true'
+  ? require('@next/bundle-analyzer')({ enabled: true })
+  : (config: NextConfig) => config;
 
 const nextConfig: NextConfig = {
   images: {
@@ -117,13 +117,6 @@ const nextConfig: NextConfig = {
               chunks: 'async',
               priority: 30,
             },
-            // Leaflet (async)
-            leaflet: {
-              test: /[\\/]node_modules[\\/](leaflet|react-leaflet)[\\/]/,
-              name: 'leaflet',
-              chunks: 'async',
-              priority: 30,
-            },
             // Recharts (async)
             recharts: {
               test: /[\\/]node_modules[\\/]recharts[\\/]/,
@@ -145,35 +138,8 @@ const nextConfig: NextConfig = {
     }
     return config;
   },
-  async headers() {
-    // Применяем Cache-Control только в production
-    if (process.env.NODE_ENV !== 'production') {
-      return [];
-    }
-
-    return [
-      {
-        source: '/_next/static/(.*)',
-        headers: [
-          {
-            key: 'Cache-Control',
-            value: 'public, max-age=31536000, immutable',
-          },
-        ],
-      },
-      {
-        source: '/static/(.*)',
-        headers: [
-          {
-            key: 'Cache-Control',
-            value: 'public, max-age=31536000, immutable',
-          },
-        ],
-      },
-    ];
-  },
 };
 
-// export default withBundleAnalyzer(withNextIntl(nextConfig));
+export default withBundleAnalyzer(withNextIntl(nextConfig));
 
-export default withNextIntl(nextConfig)
+//export default withNextIntl(nextConfig)

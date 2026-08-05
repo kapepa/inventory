@@ -1,6 +1,6 @@
 import { Server, Socket } from 'socket.io';
 import { OnlineUsersService } from './online-users';
-import { SOCKET_EVENTS } from '@/shared/constants';
+import { SOCKET_EVENTS } from '@/shared/constants/socket-events';
 import { UserStatusData } from '@/shared/types';
 
 export async function handleConnection(io: Server, socket: Socket, userId: string) {

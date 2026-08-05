@@ -1,7 +1,8 @@
 import { getCategoriesCached } from "@/entities/category/lib/category-service-cached";
 import { getFilteredProductsWideCached } from "@/entities/product/lib/product-service-cached";
 import { ProductsExplore } from "@/features/products-explore/ui/products-explore";
-import { PAGINATION_PARISHES_DEFAULTS, QUERY_PARAMS_KEYS } from "@/shared/constants";
+import { PAGINATION_PARISHES_DEFAULTS } from "@/shared/constants/pagination";
+import { QUERY_PARAMS_KEYS } from "@/shared/constants/query-params-keys";
 import { AppLocale } from "@/shared/lib/i18n/config";
 import { Container } from "@/shared/ui";
 import { PageHeader } from "@/widgets/page-header/ui/page-header";

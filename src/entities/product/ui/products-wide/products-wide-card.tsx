@@ -1,10 +1,18 @@
 "use client"
 
 import { memo } from "react"
-import { cn, getProductPrimaryPrice } from "@/shared/lib"
-import { ActionsProductCell, ActionsProductCellSkeleton, ConditionCell, ConditionCellSkeleton, DotAvailableCell, DotAvailableCellSkeleton, DualCurrencyPrice, DualCurrencyPriceSkeleton, IdentifierCell, IdentifierCellSkeleton, PictureCell, PictureCellSkeleton, RentalCell, RentalCellSkeleton, StatusCell, StatusCellSkeleton } from "../products-cells"
+import { cn } from "@/shared/lib/utils"
 import { useTranslations } from "next-intl"
 import { ProductWithRelationsWide } from "../../model/types"
+import { getProductPrimaryPrice } from "@/shared/lib/get-product-price"
+import { DotAvailableCell, DotAvailableCellSkeleton } from "../products-cells/dot-available-cell"
+import { PictureCell, PictureCellSkeleton } from "../products-cells/picture-cell"
+import { IdentifierCell, IdentifierCellSkeleton } from "../products-cells/identifier-cell"
+import { StatusCell, StatusCellSkeleton } from "../products-cells/status-cell"
+import { RentalCell, RentalCellSkeleton } from "../products-cells/rental-cell"
+import { ConditionCell, ConditionCellSkeleton } from "../products-cells/condition-cell"
+import { DualCurrencyPrice, DualCurrencyPriceSkeleton } from "../products-cells/dual-currency-pice"
+import { ActionsProductCell, ActionsProductCellSkeleton } from "../products-cells/actions-product-cell"
 
 interface ProductsWideCardProps {
   product: ProductWithRelationsWide

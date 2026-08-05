@@ -1,4 +1,4 @@
-import { IMAGE_MAX_SIZE_BYTES, UPLOAD_LIMITS } from "@/shared/constants";
+import { IMAGE_MAX_SIZE_BYTES, UPLOAD_LIMITS } from "@/shared/constants/upload-limits";
 
 export const validateFile = (file: File): void => {
   if (!UPLOAD_LIMITS.ALLOWED_TYPES.includes(file.type as any)) {

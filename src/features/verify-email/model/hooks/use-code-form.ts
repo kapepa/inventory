@@ -7,8 +7,8 @@ import { toast } from "sonner";
 import { codeFormSchema, CodeFormValues } from "../schemas-client";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { requestVerifyCodeEmail } from "../../api";
-import { NotFoundError } from "@/shared/lib";
-import { ROUTES } from "@/shared/constants";
+import { ROUTES } from "@/shared/constants/routes";
+import { NotFoundError } from "@/shared/lib/errors";
 import { useRouter } from "@/shared/lib/i18n/routing";
 import { useUnmountCallback } from "@/shared/lib/hooks";
 

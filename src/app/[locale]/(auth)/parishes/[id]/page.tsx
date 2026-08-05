@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
-import { PAGINATION_PARISHES_DEFAULTS, PAGINATION_PRODUCTS_DEFAULTS, QUERY_PARAMS_KEYS } from "@/shared/constants";
+import { PAGINATION_PRODUCTS_DEFAULTS } from "@/shared/constants/pagination";
 import { BackButton } from "@/shared/ui/back-button";
 import { Container } from "@/shared/ui/container"
 import { AppLocale } from "@/shared/lib/i18n/config";
@@ -11,6 +11,7 @@ import { getFilteredProductsWideCached } from "@/entities/product/lib/product-se
 import { ProductsExplore } from "@/features/products-explore/ui/products-explore";
 import { PageHeader } from "@/widgets/page-header/ui/page-header";
 import { ProductsList } from "@/widgets/products-list/ui/products-list";
+import { QUERY_PARAMS_KEYS } from "@/shared/constants/query-params-keys";
 
 export async function generateMetadata({
   params,

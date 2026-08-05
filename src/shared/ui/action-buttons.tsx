@@ -1,7 +1,7 @@
 import { ButtonHTMLAttributes, ReactNode } from "react";
 import { Button, buttonVariants } from "./button";
 import { VariantProps } from "class-variance-authority";
-import { cn } from "../lib";
+import { cn } from "../lib/utils";
 import { Loader } from "lucide-react";
 
 interface CancelButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {

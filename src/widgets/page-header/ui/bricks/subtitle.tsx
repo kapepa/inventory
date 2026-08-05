@@ -1,6 +1,6 @@
 "use client"
 
-import { cn } from "@/shared/lib"
+import { cn } from "@/shared/lib/utils";
 import { TooltipText } from "@/shared/ui"
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/shared/ui/tooltip"
 import { memo } from "react"

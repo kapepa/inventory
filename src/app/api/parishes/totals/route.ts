@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { apiHandler } from '@/app/api/_middleware';;
-import { PAGINATION_PARISHES_DEFAULTS } from '@/shared/constants';
+import { PAGINATION_PARISHES_DEFAULTS } from '@/shared/constants/pagination';
 import { getLocaleFromRequest } from '@/shared/lib/get-locale-from-request';
 import { ResponseParishesTotalsDTO } from '@/entities/parish/model/types';
 import { getParishesTotalsCached } from '@/entities/parish/lib/parish-service-cached';

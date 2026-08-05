@@ -2,7 +2,7 @@
 
 import { useCallback } from "react";
 import { useModalQuery } from "@/shared/lib/hooks/use-modal-query";
-import { QUERY_PARAMS_KEYS } from "@/shared/constants";
+import { QUERY_PARAMS_KEYS } from "@/shared/constants/query-params-keys";
 import { useModalActions } from "@/shared/ui/modal";
 import { AddParishModalDynamic } from "../../ui/bricks/add-parish-modal-dynamic";
 

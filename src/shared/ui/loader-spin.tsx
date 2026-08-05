@@ -1,5 +1,5 @@
 import { Loader2, LucideProps } from "lucide-react"
-import { cn } from "../lib"
+import { cn } from "../lib/utils"
 
 interface LoaderSpinProps extends LucideProps {
   className?: string,

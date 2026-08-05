@@ -3,7 +3,7 @@
 import { SubmitButton } from "@/shared/ui";
 import { useTranslations } from "next-intl";
 import { VerifyCard } from "./verify-card";
-import { ROUTES } from "@/shared/constants";
+import { ROUTES } from "@/shared/constants/routes";
 import { Link } from "@/shared/lib/i18n/routing";
 
 export const VerifyInvalidView = () => {

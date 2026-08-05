@@ -1,4 +1,4 @@
-import { cn } from "@/shared/lib";
+import { cn } from "@/shared/lib/utils";
 import { MobileCellLabel, Skeleton } from "@/shared/ui"
 import { useTranslations } from "next-intl";
 

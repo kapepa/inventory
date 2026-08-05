@@ -4,10 +4,10 @@ import { toast } from "sonner";
 import { useTranslations } from "next-intl";
 import { useCallback, useEffect, useTransition } from "react";
 import { requestDeleteParish } from "../../api";
-import { ForbiddenError, HasDependenciesError, NotFoundError } from "@/shared/lib";
+import { ForbiddenError, HasDependenciesError, NotFoundError } from "@/shared/lib/errors";
 import { useModalActions } from "@/shared/ui/modal";
 import { DeleteConfirmModalDynamic } from "../../ui/delete-confirm-modal-dynamic";
-import { ParishesType, ParishWithRelationsTotals } from "@/entities/parish/model/types";
+import { ParishesType } from "@/entities/parish/model/types";
 
 interface DeleteParishModalWrapperProps {
   title: string;

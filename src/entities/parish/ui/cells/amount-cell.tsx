@@ -1,4 +1,5 @@
-import { cn, formatUAH, formatUSD } from "@/shared/lib"
+import { formatUAH, formatUSD } from "@/shared/lib/currency";
+import { cn } from "@/shared/lib/utils"
 import { MobileCellLabel, Skeleton } from "@/shared/ui"
 
 interface AmountCellProps {

@@ -1,8 +1,8 @@
 "use client"
 
 import { CategoryWithTranslations } from "@/entities/category/model/types"
-import { QUERY_PARAMS_KEYS } from "@/shared/constants"
-import { cn } from "@/shared/lib"
+import { QUERY_PARAMS_KEYS } from "@/shared/constants/query-params-keys"
+import { cn } from "@/shared/lib/utils"
 import { useMounted } from "@/shared/lib/hooks"
 import { useSearchParam } from "@/shared/lib/hooks/use-search-param"
 import { Skeleton } from "@/shared/ui"

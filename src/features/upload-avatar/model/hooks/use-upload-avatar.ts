@@ -5,10 +5,11 @@ import { requestUploadAvatar } from "../../api"
 import { toast } from "sonner"
 import { useTranslations } from "next-intl"
 import { ImageUploadFieldRef } from "@/shared/types"
-import { ForbiddenError, formatResponsiveImage } from "@/shared/lib"
+import { ForbiddenError } from "@/shared/lib/errors"
 import { AuthenticatedUser } from "@/features/auth/model/types"
 import { useUpload } from "@/entities/upload/model/hooks/use-upload"
 import { useAuthStore } from "@/features/auth/model/auth-store"
+import { formatResponsiveImage } from "@/shared/lib/image-utils"
 
 interface UseUploadAvatarProps {
   user: AuthenticatedUser,

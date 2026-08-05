@@ -1,6 +1,6 @@
 import { axiosClient } from "@/shared/lib/axios/client"
 import { AxiosError, isCancel } from "axios"
-import { AlreadyExistsError } from "@/shared/lib"
+import { AlreadyExistsError } from "@/shared/lib/errors"
 import { CategoryWithProductCount } from "@/entities/category/model/types"
 import { CreateCategoryParams } from "../model/types"
 

@@ -3,7 +3,7 @@
 import { ReactNode, useCallback } from "react"
 import { Button } from "./button"
 import { Languages } from "lucide-react"
-import { cn } from "../lib"
+import { cn } from "../lib/utils"
 import { Tooltip, TooltipContent, TooltipTrigger } from "./tooltip"
 import { TooltipText } from "./tooltip-text"
 import { Loader } from "./loader"

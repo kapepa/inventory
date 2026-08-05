@@ -4,7 +4,7 @@ import { memo } from "react"
 import { useFormContext } from "react-hook-form"
 import { useTranslations } from "next-intl"
 import { TabsList, TabsTrigger } from "@/shared/ui"
-import { cn } from "@/shared/lib"
+import { cn } from "@/shared/lib/utils"
 import { ParishFormValues } from "../../model/schemas-client"
 
 export const TranslationTabsHeader = memo(() => {

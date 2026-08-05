@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { apiHandler } from '@/app/api/_middleware';
 import { getLocaleFromRequest } from "@/shared/lib/get-locale-from-request";
-import { PAGINATION_PRODUCTS_DEFAULTS } from "@/shared/constants";
+import { PAGINATION_PRODUCTS_DEFAULTS } from "@/shared/constants/pagination";
 import { ResponseProductsShortDTO } from "@/entities/product/model/types";
 import { getFilteredProductsShortCached } from "@/entities/product/lib/product-service-cached";
 

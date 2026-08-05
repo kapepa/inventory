@@ -1,5 +1,5 @@
 import { ArrowBigLeft, Menu } from "lucide-react";
-import { cn } from "@/shared/lib";
+import { cn } from "@/shared/lib/utils";
 import styles from './sidebar.module.css'
 import { SidebarSwitch } from "./bricks/sidebar-switch";
 

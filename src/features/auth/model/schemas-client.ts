@@ -1,4 +1,4 @@
-import { VALIDATION_LIMITS } from "@/shared/constants";
+import { VALIDATION_LIMITS } from "@/shared/constants/validation";
 import { z } from "zod";
 
 type TranslationFunction = (key: string) => string

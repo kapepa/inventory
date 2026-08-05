@@ -1,6 +1,6 @@
 import { axiosClient } from "@/shared/lib/axios/client"
 import { AxiosError, isCancel } from "axios"
-import { AlreadyExistsError, EmailSendError, InvalidCredentialsError, NotFoundError, NotVerifiedError } from "@/shared/lib";
+import { AlreadyExistsError, EmailSendError, InvalidCredentialsError, NotFoundError, NotVerifiedError } from "@/shared/lib/errors";
 import { AuthenticatedUser, AuthSignInParmas, AuthSignUpParmas, ResendVerificationParmas } from "../model/types";
 
 export const requestAuthLogin = async ({ signal, data }: AuthSignInParmas): Promise<AuthenticatedUser> => {
@@ -19,6 +19,10 @@ export const requestAuthLogin = async ({ signal, data }: AuthSignInParmas): Prom
 
       if (error.response?.status === 403) {
         throw new NotVerifiedError();
+      }
+
+      if (error.response?.status === 404) {
+        throw new NotFoundError("Email");
       }
 
       throw new Error(error.response?.data?.error || "Something went wrong requestAuthLogin");

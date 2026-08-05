@@ -6,8 +6,8 @@ import { useInfiniteCategories } from "@/entities/category/model/hooks/use-infin
 import { CategoryWithProductCount, isCategoryWithProductCount } from "@/entities/category/model/types";
 import { CategoryCard, CategoryCardSkeleton, CategoryHeader, CategoryHeaderSkeleton } from "@/entities/category/ui";
 import { useDeleteCategory } from "@/features/delete-resource/model/hooks/use-delete-category";
-import { QUERY_PARAMS_KEYS } from "@/shared/constants";
-import { cn } from "@/shared/lib";
+import { QUERY_PARAMS_KEYS } from "@/shared/constants/query-params-keys";
+import { cn } from "@/shared/lib/utils";
 import { useIntersectionObserver } from "@/shared/lib/hooks";
 import { useQueryParam } from "@/shared/lib/hooks/use-query-param";
 import { ScrollArea, StateMessage } from "@/shared/ui";

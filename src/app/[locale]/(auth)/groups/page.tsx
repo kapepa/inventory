@@ -1,7 +1,8 @@
 import { getParishesCached } from "@/entities/parish/lib/parish-service-cached";
 import { getFilteredProductsShortCached } from "@/entities/product/lib/product-service-cached";
 import { AddParishButton } from "@/features/add-parish/ui/add-parish-button";
-import { PAGINATION_PARISHES_DEFAULTS, PAGINATION_PRODUCTS_DEFAULTS, QUERY_PARAMS_KEYS } from "@/shared/constants";
+import { PAGINATION_PARISHES_DEFAULTS, PAGINATION_PRODUCTS_DEFAULTS } from "@/shared/constants/pagination";
+import { QUERY_PARAMS_KEYS } from "@/shared/constants/query-params-keys";
 import { AppLocale } from "@/shared/lib/i18n/config";
 import { Container } from "@/shared/ui";
 import { GroupsList } from "@/widgets/groups-list/ui/groups-list";

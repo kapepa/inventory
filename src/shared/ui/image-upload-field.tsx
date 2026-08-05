@@ -7,7 +7,7 @@ import { cn } from "../lib/utils"
 import { useImageUpload } from "../lib/hooks/use-image-upload"
 import { useTranslations } from "next-intl"
 import { ImageUploadFieldRef } from "../types"
-import { UPLOAD_LIMITS } from "../constants"
+import { UPLOAD_LIMITS } from "../constants/upload-limits"
 
 interface ImageUploadFieldProps {
   disabled?: boolean

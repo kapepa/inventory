@@ -1,4 +1,4 @@
-import { cn } from "@/shared/lib";
+import { cn } from "@/shared/lib/utils";
 import { MobileCellLabel, Skeleton } from "@/shared/ui"
 import { format } from 'date-fns';
 import { ru, enUS } from 'date-fns/locale';
@@ -27,3 +27,15 @@ export const DateCell = ({ label, created, delivery, className }: DateCellProps)
 }
 
 DateCell.displayName = "DateCell"
+
+export const DateCellSkeleton = ({ className }: { className?: string }) => {
+  return (
+    <div className={cn("flex flex-col items-center gap-y-2", className)}>
+      <Skeleton className="h-5 w-[60%] block md:hidden" />
+      <Skeleton className="h-4 w-[30%]" />
+      <Skeleton className="h-5 w-[60%]" />
+    </div>
+  )
+}
+
+DateCellSkeleton.displayName = "DateCellSkeleton"

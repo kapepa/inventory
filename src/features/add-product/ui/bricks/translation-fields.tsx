@@ -5,7 +5,7 @@ import { TitleField, TitleFieldSkeleton } from "./title-field"
 import { SpecificationField, SpecificationFieldSkeleton } from "./specification-field"
 import { AppLocale } from "@/shared/lib/i18n/config"
 import { TranslatableProductFieldName } from "../../model/schemas-client"
-import { cn } from "@/shared/lib"
+import { cn } from "@/shared/lib/utils"
 
 interface TranslationFieldsProps {
   locale: AppLocale

@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect, useCallback, useRef } from "react"
-import { PAGINATION_PRODUCTS_DEFAULTS } from "@/shared/constants";
+import { PAGINATION_PRODUCTS_DEFAULTS } from "@/shared/constants/pagination";
 import { useDebouncedCallback } from "@/shared/lib/hooks";
 import { FetchProductsParams } from "../types";
 import { useProductsStore } from "../products-store";

@@ -1,6 +1,6 @@
 import crypto from 'crypto';
 import { VerificationCodeInput, VerificationCodeOutput } from "../types";
-import { VERIFICATION_CONFIG } from '@/shared/constants';
+import { VERIFICATION_CONFIG } from '@/shared/constants/verification';
 import { prisma } from '@/shared/lib/prisma';
 import { ExpiredError, NotFoundError } from '@/shared/lib/server';
 

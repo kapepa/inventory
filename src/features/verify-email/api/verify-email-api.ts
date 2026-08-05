@@ -1,6 +1,6 @@
 import { axiosClient } from "@/shared/lib/axios/client"
 import { AxiosError, isCancel } from "axios"
-import { NotFoundError } from "@/shared/lib";
+import { NotFoundError } from "@/shared/lib/errors";
 import { VerifyCodeEmailParams } from "../model/types";
 
 export const requestVerifyCodeEmail = async ({ signal, data }: VerifyCodeEmailParams): Promise<void> => {

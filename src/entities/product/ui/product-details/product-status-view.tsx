@@ -1,4 +1,5 @@
-import { cn, STATUS_DISPLAY_CONFIG } from "@/shared/lib"
+import { STATUS_DISPLAY_CONFIG } from "@/shared/lib/get-status-display";
+import { cn } from "@/shared/lib/utils"
 import { ProductStatus } from "@prisma/client"
 import { useTranslations } from "next-intl";
 

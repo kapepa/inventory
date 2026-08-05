@@ -1,7 +1,7 @@
 "use client"
 
-import { QUERY_PARAMS_KEYS } from "@/shared/constants"
-import { cn } from "@/shared/lib"
+import { QUERY_PARAMS_KEYS } from "@/shared/constants/query-params-keys"
+import { cn } from "@/shared/lib/utils"
 import { useSearchParam } from "@/shared/lib/hooks/use-search-param"
 import { SearchWithClear, Skeleton } from "@/shared/ui"
 import { useTranslations } from "next-intl"

@@ -1,13 +1,13 @@
 import { Prisma } from '@prisma/client';
 import { prisma } from "@/shared/lib/prisma";
-import { PAGINATION_USERS_DEFAULTS } from '@/shared/constants';
+import { PAGINATION_USERS_DEFAULTS } from '@/shared/constants/pagination';
 import { FetchUsers, ResponseUsersDTO } from '../model/types';
 
 const buildWhereClause = ({ search }: FetchUsers) => {
   const where: Prisma.UserWhereInput = {};
   if (search) where.name = {
     contains: search,
-    mode: 'insensitive'
+    startsWith: 'insensitive'
   };
 
   return where;

@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { apiHandler } from '@/app/api/_middleware';
 import { ZodError } from 'zod';
-import { PAGINATION_PARISHES_DEFAULTS } from '@/shared/constants';
+import { PAGINATION_PARISHES_DEFAULTS } from '@/shared/constants/pagination';
 import { getLocaleFromRequest } from '@/shared/lib/get-locale-from-request';
 import { AlreadyExistsError, ForbiddenError } from '@/shared/lib/server';
 import { ParishWithRelationsTotals, ResponseParishesDTO } from '@/entities/parish/model/types';

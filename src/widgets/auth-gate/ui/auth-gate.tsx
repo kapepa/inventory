@@ -1,9 +1,9 @@
-import { cn } from "@/shared/lib";
+import { cn } from "@/shared/lib/utils";
 import { Button, Skeleton } from "@/shared/ui";
 import { AppLocale } from "@/shared/lib/i18n/config";
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/shared/lib/i18n/routing";
-import { ROUTES } from "@/shared/constants";
+import { ROUTES } from "@/shared/constants/routes";
 
 type ActiveTabType = typeof ROUTES.REGISTER | typeof ROUTES.LOGIN;
 

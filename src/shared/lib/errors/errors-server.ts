@@ -1,4 +1,4 @@
-import { ERROR_CODES } from "@/shared/constants";
+import { ERROR_CODES } from "@/shared/constants/error-codes";
 
 export class AlreadyExistsError extends Error {
   public readonly code = ERROR_CODES.ALREADY_EXISTS;

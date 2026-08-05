@@ -1,11 +1,11 @@
 "use client"
 
-import { lazy, useCallback, useEffect, useMemo } from "react"
+import { useCallback, useEffect, useMemo } from "react"
 import { StateMessageDynamic } from "@/shared/ui-dynamic/state-message-dynamic"
 import { useTranslations } from "next-intl"
 import { fetchParishesTotals } from "@/entities/parish/api/parish-api"
-import { cn } from "@/shared/lib"
-import { QUERY_PARAMS_KEYS } from "@/shared/constants"
+import { cn } from "@/shared/lib/utils";
+import { QUERY_PARAMS_KEYS } from "@/shared/constants/query-params-keys"
 import { useQueryParam } from "@/shared/lib/hooks/use-query-param"
 import { useIntersectionObserver } from "@/shared/lib/hooks"
 import { isTotalsParish, ParishWithRelationsTotals } from "@/entities/parish/model/types"
@@ -16,8 +16,7 @@ import { ParishWideHeader, ParishWideHeaderSkeleton } from "@/entities/parish/ui
 import { getParishLayout } from "./parish-list.styles"
 import { useDeleteParishContext } from "@/shared/lib/providers/delete-parish-context"
 import { ParishWideCard, ParishWideCardSkeleton } from "@/entities/parish/ui/parish-wide/parish-wide-card"
-
-const ScrollArea = lazy(() => import('@/shared/ui/scroll-area').then(module => ({ default: module.ScrollArea })));
+import { ScrollArea } from "@/shared/ui/scroll-area"
 
 interface ParishesListProps {
   className?: string,
@@ -93,7 +92,6 @@ export const ParishesList = ({
           {(hasMore || isLoading) && (
             <div ref={targetRef} className="flex flex-col gap-3">
               {isLoading && <ParishWideCardSkeleton isAdmin={isAdmin} className={PARISH_LAYOUT} />}
-              {isLoading && <div>1</div>}
             </div>
           )}
         </div>

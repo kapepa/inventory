@@ -1,6 +1,7 @@
 import { getParishesTotalsCached } from "@/entities/parish/lib/parish-service-cached";
 import { AddParishButton } from "@/features/add-parish/ui/add-parish-button";
-import { PAGINATION_PARISHES_DEFAULTS, QUERY_PARAMS_KEYS } from "@/shared/constants";
+import { PAGINATION_PARISHES_DEFAULTS } from "@/shared/constants/pagination";
+import { QUERY_PARAMS_KEYS } from "@/shared/constants/query-params-keys";
 import { AppLocale } from "@/shared/lib/i18n/config";
 import { Container } from "@/shared/ui/container";
 import { PageHeader } from "@/widgets/page-header/ui/page-header";

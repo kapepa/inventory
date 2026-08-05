@@ -1,12 +1,14 @@
 "use client"
 
+import { cn } from "../lib/utils"
 import Image from "next/image"
-import { cn, isMultipleSources, isSingleSource, parseResponsiveImage } from "@/shared/lib"
 import { ImageIcon } from "lucide-react"
 import { Skeleton } from "@/shared/ui/skeleton"
 import { memo, useState } from "react"
 import { ImageSource, MultipleImageSources, ResponsiveImageProps } from "../types"
-import { BREAKPOINTS } from "../constants"
+import { BREAKPOINTS } from "../constants/breakpoints"
+import { parseResponsiveImage } from "../lib/image-utils"
+import { isMultipleSources, isSingleSource } from "../lib/image-guards"
 
 // Maps aspect ratio variants to Tailwind classes
 const aspectRatioMap = {

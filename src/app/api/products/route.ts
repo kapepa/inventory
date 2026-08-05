@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { apiHandler } from '@/app/api/_middleware';
 import { ZodError } from 'zod';
 import { getLocaleFromRequest } from '@/shared/lib/get-locale-from-request';
-import { PAGINATION_PRODUCTS_DEFAULTS } from '@/shared/constants';
+import { PAGINATION_PRODUCTS_DEFAULTS } from '@/shared/constants/pagination';
 import { AlreadyExistsError, ForbiddenError } from '@/shared/lib/server';
 import { ProductWithRelationsShort, ResponseProductsShortDTO } from '@/entities/product/model/types';
 import { getFilteredProductsShortCached } from '@/entities/product/lib/product-service-cached';

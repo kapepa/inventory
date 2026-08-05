@@ -1,5 +1,4 @@
-import { memo } from "react";
-import { cn } from "../lib";
+import { cn } from "../lib/utils";
 import { X } from "lucide-react";
 import { Skeleton } from "./skeleton";
 

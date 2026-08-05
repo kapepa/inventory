@@ -1,7 +1,7 @@
 "use client"
 
 import { ProductStatusCounts } from "@/entities/product/model/types";
-import { cn } from "@/shared/lib";
+import { cn } from "@/shared/lib/utils";
 import { ChartConfig, ChartContainer } from "@/shared/ui/chart";
 import { useTranslations } from "next-intl";
 import { Bar, BarChart, CartesianGrid, XAxis } from "recharts";

@@ -4,7 +4,7 @@ import { memo, useCallback } from "react"
 import { TitleField, TitleFieldSkeleton } from "./title-field"
 import { AppLocale } from "@/shared/lib/i18n/config"
 import { CategoryTranslatableFieldName } from "../../model/schemas-client"
-import { cn } from "@/shared/lib"
+import { cn } from "@/shared/lib/utils"
 
 interface TranslationFieldsProps {
   locale: AppLocale

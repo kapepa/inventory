@@ -1,8 +1,11 @@
-import { cn } from "@/shared/lib"
-import { DotAvailableCell, PictureCell, IdentifierCell, StatusCell, ActionsProductCell } from "../products-cells"
-import { DotAvailableCellSkeleton, IdentifierCellSkeleton, PictureCellSkeleton, StatusCellSkeleton, ActionsProductCellSkeleton } from "../products-cells"
+import { cn } from "@/shared/lib/utils"
 import { memo } from "react"
 import { ProductWithRelationsShort } from "../../model/types"
+import { DotAvailableCell, DotAvailableCellSkeleton } from "../products-cells/dot-available-cell"
+import { PictureCell, PictureCellSkeleton } from "../products-cells/picture-cell"
+import { IdentifierCell, IdentifierCellSkeleton } from "../products-cells/identifier-cell"
+import { StatusCell, StatusCellSkeleton } from "../products-cells/status-cell"
+import { ActionsProductCell, ActionsProductCellSkeleton } from "../products-cells/actions-product-cell"
 
 interface ProductShortCardProps {
   product: ProductWithRelationsShort,
