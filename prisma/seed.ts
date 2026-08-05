@@ -2,6 +2,7 @@ import { PrismaClient } from '@prisma/client';
 import { PrismaPg } from '@prisma/adapter-pg';
 import { Pool } from 'pg';
 import bcrypt from 'bcryptjs';
+import { AUTH_CONFIG } from '@/shared/constants/auth';
 
 // Setup adapter for Prisma 7
 const pool = new Pool({
@@ -15,7 +16,7 @@ const prisma = new PrismaClient({
 });
 
 async function hashPassword(password: string): Promise<string> {
-  const salt = await bcrypt.genSalt(10);
+  const salt = await bcrypt.genSalt(AUTH_CONFIG.SALT_ROUNDS);
   return bcrypt.hash(password, salt);
 }
 
@@ -43,9 +44,9 @@ async function main() {
   // ============================================
   console.log('\n📝 Creating users...');
 
-  const adminPassword = await hashPassword('admin123456');
-  const user1Password = await hashPassword('john123456');
-  const user2Password = await hashPassword('jane123456');
+  const adminPassword = await hashPassword('Admin123456!');
+  const user1Password = await hashPassword('John123456!');
+  const user2Password = await hashPassword('Jane123456!');
 
   const admin = await prisma.user.upsert({
     where: { email: 'admin@example.com' },
@@ -55,6 +56,7 @@ async function main() {
       email: 'admin@example.com',
       password: adminPassword,
       role: 'ADMIN',
+      verifiedAt: new Date()
     },
   });
 
@@ -66,6 +68,7 @@ async function main() {
       email: 'john.doe@example.com',
       password: user1Password,
       role: 'USER',
+      verifiedAt: new Date()
     },
   });
 
@@ -77,13 +80,14 @@ async function main() {
       email: 'jane.smith@example.com',
       password: user2Password,
       role: 'USER',
+      verifiedAt: new Date()
     },
   });
 
   console.log(`   ✅ Users created:`);
-  console.log(`      - ${admin.name} (${admin.email}) / Password: admin123456`);
-  console.log(`      - ${john.name} (${john.email}) / Password: john123456`);
-  console.log(`      - ${jane.name} (${jane.email}) / Password: jane123456`);
+  console.log(`      - ${admin.name} (${admin.email}) / Password: Admin123456!`);
+  console.log(`      - ${john.name} (${john.email}) / Password: John123456!`);
+  console.log(`      - ${jane.name} (${jane.email}) / Password: Jane123456!`);
 
   // ============================================
   // 2. CREATE PARISHES
@@ -169,7 +173,6 @@ async function main() {
       { userId: jane.id, parishId: parish2.id },
       { userId: admin.id, parishId: parish3.id },
     ],
-    skipDuplicates: true,
   });
 
   console.log(`   ✅ User-parish relationships created`);

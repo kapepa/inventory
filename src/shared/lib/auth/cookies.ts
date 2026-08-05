@@ -1,4 +1,5 @@
-import { AUTH_CONFIG, COOKIE_KEYS } from '@/shared/constants';
+import { AUTH_CONFIG } from '@/shared/constants/auth';
+import { COOKIE_KEYS } from '@/shared/constants/cookies';
 import { NextRequest, NextResponse } from 'next/server';
 
 export const setAuthCookie = <T = unknown>(response: NextResponse<T>, token: string) => {

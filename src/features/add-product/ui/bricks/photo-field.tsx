@@ -5,10 +5,10 @@ import { useFormContext } from "react-hook-form"
 import { useTranslations } from "next-intl"
 import { ImageUploadField, Skeleton } from "@/shared/ui"
 import { ImageUploadFieldRef } from "@/shared/types"
-import { UPLOAD_LIMITS } from "@/shared/constants"
+import { UPLOAD_LIMITS } from "@/shared/constants/upload-limits"
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/shared/ui/form"
 import { PhotoFieldRef } from "../../model/types"
-import { cn } from "@/shared/lib"
+import { cn } from "@/shared/lib/utils"
 
 interface PhotoFieldProps {
   isPending?: boolean

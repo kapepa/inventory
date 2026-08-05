@@ -4,9 +4,9 @@ import { memo } from "react"
 import { useFormContext } from "react-hook-form"
 import { useTranslations } from "next-intl"
 import { Input, InputSkeleton, Skeleton } from "@/shared/ui"
-import { VALIDATION_LIMITS } from "@/shared/constants"
+import { VALIDATION_LIMITS } from "@/shared/constants/validation"
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/shared/ui/form"
-import { cn } from "@/shared/lib"
+import { cn } from "@/shared/lib/utils"
 
 interface SerialNumberFieldProps {
   isPending?: boolean

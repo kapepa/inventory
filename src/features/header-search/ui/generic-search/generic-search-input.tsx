@@ -1,6 +1,6 @@
 "use client"
 
-import { cn } from "@/shared/lib";
+import { cn } from "@/shared/lib/utils";
 import { useSearchParam } from "@/shared/lib/hooks/use-search-param";
 import { QueryParamsValue } from "@/shared/types";
 import { SearchWithClear } from "@/shared/ui";

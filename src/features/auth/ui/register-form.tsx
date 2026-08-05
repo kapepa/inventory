@@ -2,7 +2,7 @@
 
 import { CancelButton, Input, Skeleton, SubmitButton } from "@/shared/ui";
 import { useTranslations } from "next-intl";
-import { VALIDATION_LIMITS } from "@/shared/constants";
+import { VALIDATION_LIMITS } from "@/shared/constants/validation";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/shared/ui/form";
 import { useRegisterForm } from "../model/hooks/use-register-form";
 

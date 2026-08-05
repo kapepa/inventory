@@ -4,8 +4,8 @@ import { CancelButton, ImageUploadField, ResponsiveImage, SubmitButton } from "@
 import { memo, useRef } from "react"
 import { useTranslations } from "next-intl"
 import { ImageUploadFieldRef } from "@/shared/types"
-import { cn } from "@/shared/lib"
-import { UPLOAD_LIMITS } from "@/shared/constants"
+import { cn } from "@/shared/lib/utils"
+import { UPLOAD_LIMITS } from "@/shared/constants/upload-limits"
 import { useUploadAvatar } from "../model/hooks/use-upload-avatar"
 import { AuthenticatedUser } from "@/features/auth/model/types"
 

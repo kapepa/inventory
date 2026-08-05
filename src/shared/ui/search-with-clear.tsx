@@ -3,7 +3,7 @@
 import { Eraser } from "lucide-react"
 import { Button } from "./button"
 import { Input } from "./input"
-import { cn } from "../lib"
+import { cn } from "../lib/utils"
 import { InputHTMLAttributes } from "react"
 import { useMounted } from "../lib/hooks"
 import { Skeleton } from "./skeleton"

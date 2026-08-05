@@ -1,4 +1,4 @@
-import { cn } from "@/shared/lib"
+import { cn } from "@/shared/lib/utils"
 import { SpecificationInput, SpecificationInputSkeleton } from "./specification-input"
 import { CategorySelector, CategorySelectorSkeleton } from "./category-selector"
 import { useTranslations } from "next-intl"

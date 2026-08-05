@@ -1,6 +1,6 @@
 "use client"
 
-import { cn } from "@/shared/lib";
+import { cn } from "@/shared/lib/utils";
 import { Skeleton } from "@/shared/ui"
 import { useTranslations } from "next-intl"
 import { memo } from "react"

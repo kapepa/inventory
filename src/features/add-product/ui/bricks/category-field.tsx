@@ -9,7 +9,7 @@ import { AppLocale } from "@/shared/lib/i18n/config"
 import { useCategories } from "@/entities/category/model/hooks/use-categories"
 import { useRestoreFieldFromStorage } from "../../model/hooks/use-category-field-restore"
 import { InputSkeleton, Skeleton } from "@/shared/ui"
-import { cn } from "@/shared/lib"
+import { cn } from "@/shared/lib/utils"
 
 interface CategoryFieldProps {
   isPending?: boolean

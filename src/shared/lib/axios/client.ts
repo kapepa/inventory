@@ -1,6 +1,6 @@
 'use client';
 
-import { STORAGE_KEYS } from '@/shared/constants';
+import { STORAGE_KEYS } from '@/shared/constants/storage-keys';
 import axios, { AxiosInstance, InternalAxiosRequestConfig, AxiosError } from 'axios';
 
 class AxiosClient {

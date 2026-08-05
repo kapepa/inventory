@@ -1,7 +1,7 @@
 import { CancelButton, Input, SubmitButton } from "@/shared/ui"
 import { memo } from "react"
 import { useTranslations } from "next-intl"
-import { VALIDATION_LIMITS } from "@/shared/constants"
+import { VALIDATION_LIMITS } from "@/shared/constants/validation"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/shared/ui/form"
 import { useCodeForm } from "../model/hooks/use-code-form"
 

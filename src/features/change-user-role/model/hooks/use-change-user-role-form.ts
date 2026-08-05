@@ -8,7 +8,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { requestChangeUserRole } from "../../api";
 import { changeUserRoleFormSchema, ChangeUserRoleFormValues } from "../schemas-client";
 import { UserRoleType } from "../types";
-import { ForbiddenError, InvalidInputError } from "@/shared/lib";
+import { ForbiddenError, InvalidInputError } from "@/shared/lib/errors";
 import { useAuthStore } from "@/features/auth/model/auth-store";
 
 interface UseChangeUserRoleFormProps {

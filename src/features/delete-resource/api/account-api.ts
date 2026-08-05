@@ -1,5 +1,5 @@
 import { axiosClient } from "@/shared/lib/axios/client"
-import { ForbiddenError } from "@/shared/lib"
+import { ForbiddenError } from "@/shared/lib/errors"
 import { DeleteAccountResult } from "../model/types"
 import { AxiosError, isCancel } from "axios"
 

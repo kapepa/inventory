@@ -1,10 +1,10 @@
 "use client"
 
 import { useEffect } from "react";
-import { cn } from "../lib";
+import { cn } from "../lib/utils";
 import { Button } from "./button";
 import { Container } from "./container";
-import { ROUTES } from "../constants";
+import { ROUTES } from "../constants/routes";;
 import { useTranslations } from "next-intl";
 import { useRouter } from "../lib/i18n/routing";
 

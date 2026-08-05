@@ -9,10 +9,11 @@ import { ProductStatus } from "@prisma/client"
 import { useSyncFormWithStorage } from "./use-sync-form-with-storage"
 import { requestСreateProduct } from "../../api"
 import { ProductCreate } from "../types"
-import { STORAGE_KEYS } from "@/shared/constants"
-import { AlreadyExistsError, formatResponsiveImage } from "@/shared/lib"
+import { STORAGE_KEYS } from "@/shared/constants/storage-keys"
+import { AlreadyExistsError } from "@/shared/lib/errors"
 import { ProductWithRelations } from "@/entities/product/model/types"
 import { useUpload } from "@/entities/upload/model/hooks/use-upload"
+import { formatResponsiveImage } from "@/shared/lib/image-utils"
 
 const ADD_PRODUCT_FORM_DATA = STORAGE_KEYS.ADD_PRODUCT_FORM_DATA
 

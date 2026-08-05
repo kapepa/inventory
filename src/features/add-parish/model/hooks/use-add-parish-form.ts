@@ -1,5 +1,5 @@
 "use client"
-import { useCallback, useMemo, useTransition, useEffect } from "react"
+import { useCallback, useMemo, useTransition, useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { toast } from "sonner"
@@ -7,9 +7,10 @@ import { useLocale, useTranslations } from "next-intl"
 import { requestCreateParish } from "../../api"
 import { createParishFormSchema, ParishFormValues } from "../schemas-client"
 import { useParishesStore } from "@/entities/parish/model/parish-store"
-import { STORAGE_KEYS } from "@/shared/constants"
-import { AlreadyExistsError } from "@/shared/lib"
+import { STORAGE_KEYS } from "@/shared/constants/storage-keys"
+import { AlreadyExistsError } from "@/shared/lib/errors"
 import { AppLocale } from "@/shared/lib/i18n/config"
+import { useDebounce } from "@/shared/lib/hooks/use-debounce"
 
 const ADD_PARISH_FORM_DATA = STORAGE_KEYS.ADD_PARISH_FORM_DATA
 
@@ -19,6 +20,8 @@ export const useAddParishForm = (closeModalAction: () => void) => {
   const tErrors = useTranslations("add-parish.form.errors")
   const [isSubmitting, startSubmitTransition] = useTransition()
   const addNewParish = useParishesStore((state) => state.addNewParish)
+  const [formValues, setFormValues] = useState<ParishFormValues | null>(null);
+  const debouncedFormValues = useDebounce(formValues, 500);
 
   const form = useForm<ParishFormValues>({
     resolver: zodResolver(createParishFormSchema(tErrors)),
@@ -48,13 +51,20 @@ export const useAddParishForm = (closeModalAction: () => void) => {
     }
   }, [form]);
 
-  // Save data to sessionStorage on change
+  // Watch form changes and update state
   useEffect(() => {
     const subscription = form.watch((values) => {
-      sessionStorage.setItem(ADD_PARISH_FORM_DATA, JSON.stringify(values));
+      setFormValues(values as ParishFormValues);
     });
     return () => subscription.unsubscribe();
   }, [form]);
+
+  // Save debounced values to sessionStorage
+  useEffect(() => {
+    if (debouncedFormValues) {
+      sessionStorage.setItem(ADD_PARISH_FORM_DATA, JSON.stringify(debouncedFormValues));
+    }
+  }, [debouncedFormValues]);
 
   const onReset = useCallback(() => {
     form.reset(undefined, { keepDefaultValues: true });

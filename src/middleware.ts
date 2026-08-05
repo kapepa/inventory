@@ -3,7 +3,7 @@ import createIntlMiddleware from 'next-intl/middleware';
 import { routing } from './shared/lib/i18n/routing';
 import { getAuthToken, verifyToken } from './shared/lib/auth';
 import { defaultLocale } from './shared/lib/i18n/config';
-import { ROUTES } from './shared/constants';
+import { ROUTES } from './shared/constants/routes';
 
 const intlMiddleware = createIntlMiddleware(routing);
 

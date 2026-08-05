@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback, useRef } from "react"
 import { useCategoriesStore } from "../categories-store";
 import { RequestCategoriesProductsCountParams } from "../types";
-import { PAGINATION_PRODUCTS_DEFAULTS } from "@/shared/constants";
+import { PAGINATION_PRODUCTS_DEFAULTS } from "@/shared/constants/pagination";
 import { useDebouncedCallback } from "@/shared/lib/hooks";
 
 interface FetchResponse<T> {

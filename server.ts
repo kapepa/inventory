@@ -2,8 +2,8 @@ import 'dotenv/config';
 import { createServer, IncomingMessage, ServerResponse } from 'http';
 import next from 'next';
 import { Server, Socket } from 'socket.io';
-import { parseCookies } from '@/shared/lib';
-import { COOKIE_KEYS } from '@/shared/constants';
+import { parseCookies } from '@/shared/lib/parse-cookies';
+import { COOKIE_KEYS } from '@/shared/constants/cookies';
 import { verifyToken } from '@/shared/lib/auth';
 import { handleConnection } from '@/features/websocket/model/connection-handler';
 

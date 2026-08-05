@@ -1,4 +1,4 @@
-import { PAGINATION_PRODUCTS_DEFAULTS } from '@/shared/constants';
+import { PAGINATION_PRODUCTS_DEFAULTS } from '@/shared/constants/pagination';
 import { Prisma, Product } from '@prisma/client';
 import { prisma } from '@/shared/lib/prisma';
 import { FetchProducts, FetchProductsById, ProductStatusCounts, ResponseProductsShortDTO, ResponseProductsWideDTO } from '../model/types';
@@ -14,7 +14,7 @@ const buildWhereClause = ({ search, parishId, categoryId, specification, locale 
         locale,
         title: {
           contains: search,
-          mode: 'insensitive',
+          startsWith: 'insensitive',
         },
       },
     };
@@ -26,7 +26,7 @@ const buildWhereClause = ({ search, parishId, categoryId, specification, locale 
         locale,
         specification: {
           contains: specification,
-          mode: 'insensitive',
+          startsWith: 'insensitive',
         },
       },
     };

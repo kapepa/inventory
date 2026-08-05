@@ -1,4 +1,4 @@
-import { PAGINATION_CATEGORIES_DEFAULTS } from "@/shared/constants";
+import { PAGINATION_CATEGORIES_DEFAULTS } from "@/shared/constants/pagination";
 import { CategoryWithProductCount, CategoryWithTranslations, FetchCategories, FetchCategoryById, GetCategoriesByParishIdParams, GetCategoriesParams, GetCategoriesWithProductCountDTO } from "../model/types"
 import { prisma } from "@/shared/lib/prisma";
 import { Prisma } from "@prisma/client";
@@ -10,7 +10,7 @@ const buildWhereClause = ({ search = "" }: FetchCategories) => {
     translations: {
       some: {
         OR: [
-          { title: { contains: search.trim(), mode: 'insensitive' } },
+          { title: { contains: search.trim(), startsWith: 'insensitive' } },
         ]
       }
     }

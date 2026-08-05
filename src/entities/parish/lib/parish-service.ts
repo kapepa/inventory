@@ -1,4 +1,4 @@
-import { PAGINATION_PARISHES_DEFAULTS } from '@/shared/constants';
+import { PAGINATION_PARISHES_DEFAULTS } from '@/shared/constants/pagination';
 import { Prisma } from '@prisma/client';
 import { getLocale } from 'next-intl/server';
 import { prisma } from '@/shared/lib/prisma';
@@ -10,8 +10,8 @@ const buildWhereClause = ({ search = "" }: FetchParishes) => {
     translations: {
       some: {
         OR: [
-          { title: { contains: search.trim(), mode: 'insensitive' } },
-          { description: { contains: search.trim(), mode: 'insensitive' } }
+          { title: { contains: search.trim(), startsWith: 'insensitive' } },
+          { description: { contains: search.trim(), startsWith: 'insensitive' } }
         ]
       }
     }

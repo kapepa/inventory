@@ -1,5 +1,5 @@
 import { InvalidInputError, NotFoundError, prisma } from "@/shared/lib/server";
-import { InvalidCredentialsError } from "@/shared/lib";
+import { InvalidCredentialsError } from "@/shared/lib/errors";
 import { comparePassword, hashPassword } from "@/shared/lib/auth";
 import { ChangePasswordType } from "../model/types";
 import { AuthenticatedUser } from "@/features/auth/model/types";

@@ -3,7 +3,7 @@
 import { useTranslations } from "next-intl";
 import { memo } from "react";
 import { CirclePlusButton, TooltipText } from "@/shared/ui";
-import { cn } from "@/shared/lib";
+import { cn } from "@/shared/lib/utils";
 import { useAddParish } from "../../model/hooks/use-add-parish";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/shared/ui/tooltip";
 

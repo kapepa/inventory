@@ -2,7 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import { SubmitButton } from "@/shared/ui";
-import { cn } from "@/shared/lib";
+import { cn } from "@/shared/lib/utils";
 import { AuthenticatedUser } from "@/features/auth/model/types";
 import { useDeleteUser } from "../model/hooks/use-delete-account";
 

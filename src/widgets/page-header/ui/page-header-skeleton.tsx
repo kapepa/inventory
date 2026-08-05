@@ -1,4 +1,4 @@
-import { cn } from "@/shared/lib"
+import { cn } from "@/shared/lib/utils";
 import { Skeleton } from "@/shared/ui"
 import { CountTotalSkeleton } from "./bricks/count-total-skeleton"
 import { SubtitleSkeleton } from "./bricks/subtitle-skeleton"

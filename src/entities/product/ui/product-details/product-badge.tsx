@@ -1,4 +1,5 @@
-import { cn, PRODUCT_CONDITION_DISPLAY } from "@/shared/lib"
+import { PRODUCT_CONDITION_DISPLAY } from "@/shared/lib/get-condition-display"
+import { cn } from "@/shared/lib/utils"
 import { useTranslations } from "next-intl"
 
 interface ProductBadgeProps {

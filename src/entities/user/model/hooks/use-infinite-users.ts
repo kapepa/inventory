@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback, useRef } from "react"
 import { FetchUsersParams, ResponseUsersDTO, UserPublic } from "../types";
 import { useUsersStore } from "../users-store";
-import { PAGINATION_USERS_DEFAULTS } from "@/shared/constants";
+import { PAGINATION_USERS_DEFAULTS } from "@/shared/constants/pagination";
 import { useDebouncedCallback } from "@/shared/lib/hooks";
 
 interface UseInfiniteUsersProps {

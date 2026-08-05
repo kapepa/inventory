@@ -3,7 +3,7 @@ import { getFilteredProductsShort, getFilteredProductsWide, getProductById, getP
 import { createCacheEntityTag, createCacheKey } from "@/shared/lib/cache-utils"
 import { CACHE_ENTITIES, CACHE_REVALIDATE, CACHE_TAGS } from "@/shared/constants/cache"
 import { FetchProducts, FetchProductsById } from "../model/types"
-import { PAGINATION_PRODUCTS_DEFAULTS } from "@/shared/constants"
+import { PAGINATION_PRODUCTS_DEFAULTS } from "@/shared/constants/pagination"
 
 export const getFilteredProductsWideCached = (params: FetchProducts) => {
   const cacheKey = createCacheKey(

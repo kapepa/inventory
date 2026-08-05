@@ -1,7 +1,7 @@
 import { axiosClient } from "@/shared/lib/axios/client"
 import { AxiosError, isCancel } from "axios"
 import { ChangePasswordDTO, ChangePasswordParams } from "../model/types";
-import { InvalidCredentialsError, InvalidInputError, NotFoundError } from "@/shared/lib";
+import { InvalidCredentialsError, InvalidInputError, NotFoundError } from "@/shared/lib/errors";
 
 export const requestChangePassword = async ({ signal, data }: ChangePasswordParams): Promise<ChangePasswordDTO> => {
   try {

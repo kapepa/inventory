@@ -3,8 +3,8 @@
 import { ScrollArea, StateMessage } from "@/shared/ui"
 import { useTranslations } from "next-intl"
 import { memo, useCallback, useEffect } from "react"
-import { cn } from "@/shared/lib"
-import { QUERY_PARAMS_KEYS } from "@/shared/constants"
+import { cn } from "@/shared/lib/utils";
+import { QUERY_PARAMS_KEYS } from "@/shared/constants/query-params-keys"
 import { useQueryParam } from "@/shared/lib/hooks/use-query-param"
 import { useIntersectionObserver } from "@/shared/lib/hooks"
 import { ProductWithRelationsWide } from "@/entities/product/model/types"

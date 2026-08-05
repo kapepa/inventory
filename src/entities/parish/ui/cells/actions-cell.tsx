@@ -1,4 +1,4 @@
-import { cn } from "@/shared/lib"
+import { cn } from "@/shared/lib/utils"
 import { MobileCellLabel, Skeleton, TrashButton } from "@/shared/ui"
 import { MouseEvent } from "react"
 

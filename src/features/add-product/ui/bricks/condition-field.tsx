@@ -6,7 +6,7 @@ import { useTranslations } from "next-intl"
 import { FormField, FormItem, FormLabel, FormControl, FormMessage } from "@/shared/ui/form"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/shared/ui/select"
 import { InputSkeleton, Skeleton } from "@/shared/ui"
-import { cn } from "@/shared/lib"
+import { cn } from "@/shared/lib/utils"
 
 interface ConditionFieldProps {
   isPending?: boolean

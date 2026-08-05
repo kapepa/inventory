@@ -1,10 +1,10 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { ScrollArea, StateMessage } from "@/shared/ui";
+import { ScrollArea } from "@/shared/ui/scroll-area";
 import { memo, useCallback, useEffect } from "react";
-import { cn } from "@/shared/lib";
-import { QUERY_PARAMS_KEYS } from "@/shared/constants";
+import { cn } from "@/shared/lib/utils";
+import { QUERY_PARAMS_KEYS } from "@/shared/constants/query-params-keys";
 import { useIntersectionObserver, useThrottle } from "@/shared/lib/hooks";
 import { useQueryParam } from "@/shared/lib/hooks/use-query-param";
 import { useActiveParishId } from "@/shared/lib/hooks/use-active-parish-id";
@@ -15,7 +15,7 @@ import { fetchParishes } from "@/entities/parish/api";
 import { ParishShortHeader } from "@/entities/parish/ui/parish-short/parish-short-header";
 import { ParishShortCard } from "@/entities/parish/ui/parish-short/parish-short-card";
 import { ParishShortCardSkeleton } from "@/entities/parish/ui/parish-short/parish-short-card-skeleton";
-
+import { StateMessageDynamic } from "@/shared/ui-dynamic/state-message-dynamic";
 
 interface GroupsListProps {
   className?: string;
@@ -65,15 +65,15 @@ export const GroupsList = memo(({
   }, [activeParishId, parishes, setActiveParishe])
 
   if (error && !isLoading) return (
-    <StateMessage variant="destructive" >
+    <StateMessageDynamic variant="destructive" >
       {t("errors.parishes")}
-    </StateMessage>
+    </StateMessageDynamic>
   )
 
   if (!hasMore && !parishes.length) return (
-    <StateMessage>
+    <StateMessageDynamic>
       {t("parishes-empty")}
-    </StateMessage>
+    </StateMessageDynamic>
   )
 
   return (

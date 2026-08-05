@@ -1,6 +1,7 @@
 import { validateVerificationToken } from "@/entities/verify/lib/create-verification-code";
-import { QUERY_PARAMS_KEYS, ROUTES } from "@/shared/constants";
-import { ExpiredError, NotFoundError } from "@/shared/lib";
+import { QUERY_PARAMS_KEYS } from "@/shared/constants/query-params-keys";
+import { ROUTES } from "@/shared/constants/routes";
+import { ExpiredError, NotFoundError } from "@/shared/lib/errors";
 import { AppLocale } from "@/shared/lib/i18n/config";
 import { redirect } from "@/shared/lib/i18n/routing";
 import { Container } from "@/shared/ui";

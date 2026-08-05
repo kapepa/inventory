@@ -1,8 +1,8 @@
 'use client'
 
 import { useHydratedIsAdmin } from "@/features/auth/model/hooks/use-hydrated-user";
-import { ROUTES } from "@/shared/constants";
-import { cn } from "@/shared/lib"
+import { ROUTES } from "@/shared/constants/routes";
+import { cn } from "@/shared/lib/utils";
 import { usePathname } from "@/shared/lib/i18n/routing";
 import { NavLink, Skeleton } from "@/shared/ui";
 import { BadgeInfo, Building2, ClipboardList, GroupIcon, LucideIcon, Settings, TextAlignStart, UsersRound } from "lucide-react";

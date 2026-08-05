@@ -4,7 +4,7 @@ import { ProductBadge } from "./product-badge"
 import { ProductStatus } from "@prisma/client"
 import { memo } from "react"
 import { DotsDivider } from "@/shared/ui"
-import { cn } from "@/shared/lib"
+import { cn } from "@/shared/lib/utils"
 
 interface ProductInfoListProps {
   className?: string

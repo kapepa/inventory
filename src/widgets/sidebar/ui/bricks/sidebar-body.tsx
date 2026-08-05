@@ -1,7 +1,7 @@
 import { SidebarUser, SidebarUserSkeleton } from "./sidebar-user"
 import { SidebarNav, SidebarNavSkeleton } from "./sidebar-nav"
 import { LanguageSwitcher, LanguageSwitcherSkeleton } from "@/shared/ui/language/language-switcher"
-import { cn } from "@/shared/lib"
+import { cn } from "@/shared/lib/utils";
 import { memo } from "react"
 
 export const SidebarBody = memo(({ className }: { className?: string }) => {

@@ -8,7 +8,7 @@ import { registerFormSchema, RegisterFormValues } from "../schemas-client";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { requestAuthRegister } from "../../api";
 import { useVerifiedEmail } from "./use-verified-email";
-import { AlreadyExistsError, EmailSendError, NotVerifiedError } from "@/shared/lib";
+import { AlreadyExistsError, EmailSendError, NotVerifiedError } from "@/shared/lib/errors";
 import { useRouter } from "@/shared/lib/i18n/routing";
 import { useUnmountCallback } from "@/shared/lib/hooks";
 

@@ -2,7 +2,7 @@
 
 import { Button } from "./button";
 import { ChevronLeft } from "lucide-react";
-import { cn } from "../lib";
+import { cn } from "../lib/utils";
 import { HTMLAttributes } from "react";
 import { Skeleton } from "./skeleton";
 import { useRouter } from "../lib/i18n/routing";

@@ -1,6 +1,6 @@
 "use client"
 
-import { cn } from "@/shared/lib"
+import { cn } from "@/shared/lib/utils"
 import { Skeleton, Thumbnail } from "@/shared/ui"
 
 interface PictureCellProps {

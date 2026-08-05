@@ -3,7 +3,7 @@ import { AuthSignIn, AuthSignUp, AuthenticatedUser, ResendVerification } from ".
 import { cookies } from "next/headers";
 import { AlreadyExistsError, InvalidCredentialsError, NotFoundError, NotVerifiedError } from "@/shared/lib/server";
 import { comparePassword, hashPassword, signToken, verifyToken } from "@/shared/lib/auth";
-import { COOKIE_KEYS } from "@/shared/constants";
+import { COOKIE_KEYS } from "@/shared/constants/cookies";
 import { loginFormServerSchema, registerFormServerSchema, resendVerificationServerSchema } from "../model/schemas-server";
 
 export const authorizeRequest = async ({ id, email }: { id?: string, email?: string }): Promise<AuthenticatedUser | null> => {
@@ -81,7 +81,7 @@ export const authLogin = async (body: AuthSignIn): Promise<{ user: Authenticated
         verifiedAt: true,
       }
     });
-    if (!existingUser) throw new InvalidCredentialsError();
+    if (!existingUser) throw new NotFoundError("Email");
 
     const { password, verifiedAt, ...user } = existingUser;
     const isPasswordValid = await comparePassword(validated.password, password);
@@ -96,6 +96,10 @@ export const authLogin = async (body: AuthSignIn): Promise<{ user: Authenticated
 
     return { user, token }
   } catch (error) {
+
+    if (error instanceof NotFoundError) {
+      throw error;
+    }
     if (error instanceof InvalidCredentialsError) {
       throw error;
     }

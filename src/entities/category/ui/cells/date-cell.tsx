@@ -1,4 +1,4 @@
-import { cn } from '@/shared/lib';
+import { cn } from "@/shared/lib/utils";
 import { MobileCellLabel, Skeleton } from '@/shared/ui';
 import { format } from 'date-fns';
 import { ru, enUS } from 'date-fns/locale';

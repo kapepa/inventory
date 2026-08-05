@@ -1,4 +1,4 @@
-import { cn } from "@/shared/lib";
+import { cn } from "@/shared/lib/utils";
 import { Logo } from "@/shared/ui";
 import { Container } from "@/shared/ui/container";
 import { HeaderBar } from "./header-bar";

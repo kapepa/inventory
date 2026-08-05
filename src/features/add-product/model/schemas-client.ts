@@ -1,6 +1,6 @@
 import { z } from 'zod'
 import { ProductStatus } from '@prisma/client'
-import { VALIDATION_LIMITS } from '@/shared/constants'
+import { VALIDATION_LIMITS } from '@/shared/constants/validation'
 
 type TranslationFunction = (key: string) => string
 

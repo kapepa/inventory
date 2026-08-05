@@ -1,7 +1,7 @@
 import { HTMLAttributes } from "react"
 import { Button } from "./button"
 import { Trash } from "lucide-react"
-import { cn } from "../lib"
+import { cn } from "../lib/utils"
 
 interface TrashButtonProps extends HTMLAttributes<HTMLButtonElement> { }
 

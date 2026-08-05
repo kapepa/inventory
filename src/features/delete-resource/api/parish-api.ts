@@ -1,5 +1,5 @@
 import { axiosClient } from "@/shared/lib/axios/client"
-import { ForbiddenError, HasDependenciesError, NotFoundError } from "@/shared/lib"
+import { ForbiddenError, HasDependenciesError, NotFoundError } from "@/shared/lib/errors"
 import { DeleteParishesParams, DeleteParishResult } from "../model/types"
 import { AxiosError, isCancel } from "axios"
 

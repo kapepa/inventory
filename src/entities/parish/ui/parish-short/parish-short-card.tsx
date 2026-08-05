@@ -1,14 +1,12 @@
 "use client"
 
-import { cn } from "@/shared/lib";
+import { cn } from "@/shared/lib/utils";
 import { memo } from "react";
 import { ChevronRight } from "lucide-react";
 import { ParishWithRelations } from "../../model/types";
 import { CountCell, CountCellSkeleton } from "../cells/count-cell";
-import { DateCellDynamic } from "../dynamic/date-cell-dynamic";
-import { DateCellSkeleton } from "../skeleton/date-cell-skeleton";
-import { DetailsCellSkeleton } from "../skeleton/details-cell-skeleton";
-import { DetailsCellDynamic } from "../dynamic/details-cell-dynamic";
+import { DetailsCell, DetailsCellSkeleton } from "../cells/details-cell";
+import { DateCell, DateCellSkeleton } from "../cells/date-cell";
 
 interface ParishShortCardProps {
   className?: string,
@@ -39,9 +37,9 @@ export const ParishShortCard = memo(
         className={cn("border rounded-md bg-card hover:shadow-md transition-all cursor-pointer w-full flex overflow-hidden border-chart-1")}
       >
         <div className={cn("px-2 py-3 grow", className)}>
-          <DetailsCellDynamic title={title} description={description} />
+          <DetailsCell title={title} description={description} />
           <CountCell count={parish._count.products} />
-          <DateCellDynamic created={parish.createdAt} delivery={parish.deliveryDate} />
+          <DateCell created={parish.createdAt} delivery={parish.deliveryDate} />
         </div>
         <div className="hidden sm:block w-12 md:w-14">
           <ActiveChevron isActive={isActive} />

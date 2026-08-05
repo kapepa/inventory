@@ -1,7 +1,7 @@
 "use client"
 
-import { ForbiddenError } from "@/shared/lib";
-import { ROUTES } from "@/shared/constants";
+import { ForbiddenError } from "@/shared/lib/errors";
+import { ROUTES } from "@/shared/constants/routes";
 import { useTranslations } from "next-intl";
 import { useCallback, useTransition } from "react";
 import { toast } from "sonner";

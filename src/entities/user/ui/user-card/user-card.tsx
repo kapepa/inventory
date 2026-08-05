@@ -1,6 +1,6 @@
 "use client"
 
-import { cn } from "@/shared/lib"
+import { cn } from "@/shared/lib/utils"
 import { EmailUserCell, ImageUserCell, ImageUserCellSkeleton, NameUserCell, NameUserCellSkeleton, EmailUserCellSkeleton } from "../user-cells"
 import { useTranslations } from "next-intl"
 import { memo } from "react"

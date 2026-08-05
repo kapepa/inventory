@@ -1,5 +1,5 @@
 import { ProvidersAuthClient } from "../providers-client";
-import { ROUTES } from "@/shared/constants";
+import { ROUTES } from "@/shared/constants/routes";
 import { redirect } from "@/shared/lib/i18n/routing";
 import { AppLocale } from "@/shared/lib/i18n/config";
 import { getSessionUserCached } from "@/features/auth/lib/auth-service-cached";

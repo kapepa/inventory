@@ -2,7 +2,7 @@
 
 import { useHydratedUser } from "@/features/auth/model/hooks/use-hydrated-user"
 import { LoginButton, LoginButtonSkeleton } from "@/features/auth/ui/login-button"
-import { cn } from "@/shared/lib"
+import { cn } from "@/shared/lib/utils";
 import { ProfileAvatar, ProfileAvatarSkeleton } from "@/shared/ui"
 import { memo } from "react"
 

@@ -1,7 +1,7 @@
 import { unstable_cache } from 'next/cache';
 import { cookies } from 'next/headers';
 import { getUserByIdInternal } from './auth-service';
-import { COOKIE_KEYS } from '@/shared/constants';
+import { COOKIE_KEYS } from '@/shared/constants/cookies';
 import { CACHE_REVALIDATE, CACHE_TAGS } from '@/shared/constants/cache';
 import { verifyToken } from '@/shared/lib/auth';
 

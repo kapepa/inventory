@@ -1,5 +1,5 @@
 import { memo, ReactNode } from "react"
-import { cn } from "@/shared/lib"
+import { cn } from "@/shared/lib/utils";
 import { StoreType } from "../lib/types/types"
 import { SubtitleDynamic } from "./bricks/subtitle-dynamic"
 import { CountTotaleDynamic } from "./bricks/count-total-dynamic"

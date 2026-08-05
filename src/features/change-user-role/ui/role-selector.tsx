@@ -4,7 +4,7 @@ import { CancelButton, SubmitButton } from "@/shared/ui";
 import { useTranslations } from "next-intl";
 import { memo } from "react";
 import { Info } from 'lucide-react';
-import { cn } from "@/shared/lib";
+import { cn } from "@/shared/lib/utils";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/shared/ui/form";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/shared/ui/tooltip";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/shared/ui/select";

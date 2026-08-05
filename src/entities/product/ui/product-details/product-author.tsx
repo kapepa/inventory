@@ -1,4 +1,4 @@
-import { cn } from "@/shared/lib"
+import { cn } from "@/shared/lib/utils"
 import { useTranslations } from "next-intl"
 import { memo } from "react"
 

@@ -4,7 +4,7 @@ import { useTranslations } from "next-intl";
 import { useCallback, useTransition } from "react";
 import { toast } from "sonner";
 import { requestDeleteProduct } from "../../api";
-import { ForbiddenError, NotFoundError } from "@/shared/lib";
+import { ForbiddenError, NotFoundError } from "@/shared/lib/errors";
 import { useModalActions } from "@/shared/ui/modal";
 import { DeleteConfirmModalDynamic } from "../../ui/delete-confirm-modal-dynamic";
 import { ProductWithRelations } from "@/entities/product/model/types";

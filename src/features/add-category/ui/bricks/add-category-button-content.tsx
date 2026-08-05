@@ -3,7 +3,7 @@ import { memo } from "react";
 import { useAddCategory } from "../../model/hooks/use-add-category";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/shared/ui/tooltip";
 import { CirclePlusButton, TooltipText } from "@/shared/ui";
-import { cn } from "@/shared/lib";
+import { cn } from "@/shared/lib/utils";
 
 export const AddCategoryButtonContent = memo(({ className }: { className?: string }) => {
   const t = useTranslations('add-category');

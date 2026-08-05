@@ -1,6 +1,6 @@
 import { apiHandler } from '@/app/api/_middleware';
 import { NextRequest, NextResponse } from 'next/server';
-import { PAGINATION_PRODUCTS_DEFAULTS } from '@/shared/constants';
+import { PAGINATION_PRODUCTS_DEFAULTS } from '@/shared/constants/pagination';
 import { getLocaleFromRequest } from '@/shared/lib/get-locale-from-request';
 import { removeAuthCookie } from '@/shared/lib/auth';
 import { getFilteredUsers } from '@/entities/user/lib/user-service';

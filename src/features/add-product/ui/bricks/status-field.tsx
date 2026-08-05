@@ -7,7 +7,7 @@ import { ProductStatus } from "@prisma/client"
 import { FormField, FormItem, FormLabel, FormControl } from "@/shared/ui/form"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/shared/ui/select"
 import { InputSkeleton, Skeleton } from "@/shared/ui"
-import { cn } from "@/shared/lib"
+import { cn } from "@/shared/lib/utils"
 
 interface StatusFieldProps {
   isPending?: boolean

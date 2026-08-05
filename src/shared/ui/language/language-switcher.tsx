@@ -7,10 +7,10 @@ import { ChevronDown, GlobeIcon } from "lucide-react";
 import { Button } from "../button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "../dropdown-menu";
 import { memo, useEffect } from "react";
-import { STORAGE_KEYS } from "../../constants";
 import { useLocale } from "next-intl";
 import { useSearchParams } from "next/navigation";
 import { Skeleton } from "../skeleton";
+import { STORAGE_KEYS } from "@/shared/constants/storage-keys";
 
 interface LanguageSwitcherProps {
   className?: string

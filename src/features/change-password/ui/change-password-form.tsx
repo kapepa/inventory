@@ -3,8 +3,8 @@
 import { CancelButton, Input, SubmitButton } from "@/shared/ui";
 import { useTranslations } from "next-intl";
 import { memo } from "react";
-import { VALIDATION_LIMITS } from "@/shared/constants";
-import { cn } from "@/shared/lib";
+import { VALIDATION_LIMITS } from "@/shared/constants/validation";
+import { cn } from "@/shared/lib/utils";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/shared/ui/form";
 import { useChangePasswordForm } from "../model/hooks/use-change-password-form";
 

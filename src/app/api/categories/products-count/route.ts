@@ -1,5 +1,5 @@
 import { getCategoriesWithProductCountCached } from '@/entities/category/lib/category-service-cached';
-import { PAGINATION_CATEGORIES_DEFAULTS } from '@/shared/constants';
+import { PAGINATION_CATEGORIES_DEFAULTS } from '@/shared/constants/pagination';
 import { getLocaleFromRequest } from '@/shared/lib/get-locale-from-request';
 import { NextRequest, NextResponse } from 'next/server';
 

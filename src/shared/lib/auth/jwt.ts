@@ -1,4 +1,4 @@
-import { AUTH_CONFIG } from '@/shared/constants';
+import { AUTH_CONFIG } from '@/shared/constants/auth';
 import { SignJWT, jwtVerify } from 'jose';
 
 const JWT_SECRET = new TextEncoder().encode(
