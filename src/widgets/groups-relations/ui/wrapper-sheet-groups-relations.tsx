@@ -10,6 +10,7 @@ import { useMediaQuery } from "@/shared/lib/hooks";
 import { ProductWithRelationsShort } from "@/entities/product/model/types";
 
 interface WrapperSheetGroupsRelationsProps {
+  isAdmin: boolean,
   initialHasMore?: boolean;
   initialProducts?: ProductWithRelationsShort[];
   initialParishesId: string | null;

@@ -9,7 +9,6 @@ import { QUERY_PARAMS_KEYS } from "@/shared/constants/query-params-keys"
 import { useQueryParam } from "@/shared/lib/hooks/use-query-param"
 import { useIntersectionObserver } from "@/shared/lib/hooks"
 import { isTotalsParish, ParishWithRelationsTotals } from "@/entities/parish/model/types"
-import { useHydratedIsAdmin } from "@/features/auth/model/hooks/use-hydrated-user"
 import { useParishesStore } from "@/entities/parish/model/parish-store"
 import { useInfiniteParishes } from "@/entities/parish/model/hooks/use-infinite-parishes"
 import { ParishWideHeader, ParishWideHeaderSkeleton } from "@/entities/parish/ui/parish-wide/parish-wide-header"
@@ -19,18 +18,19 @@ import { ParishWideCard, ParishWideCardSkeleton } from "@/entities/parish/ui/par
 import { ScrollArea } from "@/shared/ui/scroll-area"
 
 interface ParishesListProps {
+  isAdmin: boolean,
   className?: string,
   initialParishes?: ParishWithRelationsTotals[],
   initialHasMore?: boolean,
 }
 
 export const ParishesList = ({
+  isAdmin,
   className,
   initialParishes = [],
   initialHasMore = true,
 }: ParishesListProps) => {
   const t = useTranslations('parishes-list');
-  const isAdmin = useHydratedIsAdmin();
   const [search] = useQueryParam(QUERY_PARAMS_KEYS.PARISHES_SEARCH);
   const newParishe = useParishesStore((state) => state.newParishe)
   const addNewParish = useParishesStore((state) => state.addNewParish)

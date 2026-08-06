@@ -8,3 +8,18 @@ export const DeleteParishDynamic = dynamic(
   })),
   { ssr: false }
 );
+
+export const DeleteProductDynamic = dynamic(
+  () => import("./use-delete-product").then(m => ({
+    default: m.DeleteProductWrapper
+  })),
+  { ssr: false }
+);
+
+
+export const DeleteCategoryDynamic = dynamic(
+  () => import("./use-delete-category").then(m => ({
+    default: m.DeleteCategoryhWrapper
+  })),
+  { ssr: false }
+);

@@ -1,4 +1,5 @@
 "use client"
+
 import { createContext, useContext, useState, useCallback, ReactNode } from "react";
 import { ParishWithRelationsTotals } from "@/entities/parish/model/types";
 import { DeleteParishDynamic } from "@/features/delete-resource/model/hooks/delete-dynamic";

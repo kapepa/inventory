@@ -1,12 +1,17 @@
+"use client"
+
 import { useTranslations } from "next-intl";
-import { memo } from "react";
 import { useAddCategory } from "../../model/hooks/use-add-category";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/shared/ui/tooltip";
 import { CirclePlusButton, TooltipText } from "@/shared/ui";
 import { cn } from "@/shared/lib/utils";
 
-export const AddCategoryButtonContent = memo(({ className }: { className?: string }) => {
-  const t = useTranslations('add-category');
+interface AddCategoryButtonContentProps {
+  label: string
+  className?: string
+}
+
+export const AddCategoryButtonContent = ({ label, className }: AddCategoryButtonContentProps) => {
   const { openAddCategoryModal } = useAddCategory();
 
   return (
@@ -19,9 +24,9 @@ export const AddCategoryButtonContent = memo(({ className }: { className?: strin
       </TooltipTrigger>
       <TooltipContent className="bg-chart-2 border-chart-2">
         <TooltipText>
-          {t("buttons.create")}
+          {label}
         </TooltipText>
       </TooltipContent>
     </Tooltip>
   )
-})
+}

@@ -1,1 +1,0 @@
-export { CategoriesList, CategoriesListSkeleton } from "./categories-list";

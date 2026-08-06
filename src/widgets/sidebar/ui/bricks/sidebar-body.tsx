@@ -5,7 +5,6 @@ import { cn } from "@/shared/lib/utils";
 import { memo } from "react"
 
 export const SidebarBody = memo(({ className }: { className?: string }) => {
-  console.log("SidebarBody rendered")
   return (
     <div className={cn("flex flex-col justify-center items-center h-full", className)}>
       <div className="pb-10 md:pb-20 flex flex-col gap-y-6 md:gap-y-10">

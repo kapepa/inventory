@@ -1,18 +1,20 @@
 "use client"
 
+import { useCallback, useEffect } from "react";
 import { requestCategoriesWithProductCount } from "@/entities/category/api";
 import { useCategoriesStore } from "@/entities/category/model/categories-store";
 import { useInfiniteCategories } from "@/entities/category/model/hooks/use-infinite-categories";
 import { CategoryWithProductCount, isCategoryWithProductCount } from "@/entities/category/model/types";
-import { CategoryCard, CategoryCardSkeleton, CategoryHeader, CategoryHeaderSkeleton } from "@/entities/category/ui";
-import { useDeleteCategory } from "@/features/delete-resource/model/hooks/use-delete-category";
 import { QUERY_PARAMS_KEYS } from "@/shared/constants/query-params-keys";
 import { cn } from "@/shared/lib/utils";
 import { useIntersectionObserver } from "@/shared/lib/hooks";
 import { useQueryParam } from "@/shared/lib/hooks/use-query-param";
-import { ScrollArea, StateMessage } from "@/shared/ui";
+import { ScrollArea } from "@/shared/ui/scroll-area";
 import { useTranslations } from "next-intl";
-import { memo, useCallback, useEffect } from "react";
+import { StateMessageDynamic } from "@/shared/ui-dynamic/state-message-dynamic";
+import { useDeleteCategoryContext } from "@/shared/lib/providers/category-parish-context";
+import { CategoryHeader, CategoryHeaderSkeleton } from "@/entities/category/ui/category-header";
+import { CategoryCard, CategoryCardSkeleton } from "@/entities/category/ui/category-card";
 
 interface CategoriesListProps {
   className?: string
@@ -22,7 +24,7 @@ interface CategoriesListProps {
 
 const CARD_CLASS = "grid grid-cols-[1fr_1fr] lg:grid-cols-[8fr_1fr_2fr_1fr] items-center gap-4";
 
-export const CategoriesList = memo(({ className, initialHasMore, initialCategories }: CategoriesListProps) => {
+export const CategoriesList = ({ className, initialHasMore, initialCategories }: CategoriesListProps) => {
   const t = useTranslations('categories-list');
   const [search] = useQueryParam(QUERY_PARAMS_KEYS.CATEGORIES_SEARCH)
   const { newCategory, addNewCategory } = useCategoriesStore()
@@ -30,11 +32,11 @@ export const CategoriesList = memo(({ className, initialHasMore, initialCategori
     { search, initialHasMore, initialCategories, fetchFnAction: requestCategoriesWithProductCount }
   )
   const { targetRef, isIntersecting } = useIntersectionObserver({ threshold: 0.5, rootMargin: "100px" })
-  const { confirmDeleteCategory } = useDeleteCategory()
+  const { confirmCategoryDelete } = useDeleteCategoryContext()
 
   const handlerDeleteProduct = useCallback((category: CategoryWithProductCount) => {
-    confirmDeleteCategory(category, () => { removeCategory(category.id) });
-  }, [, removeCategory])
+    confirmCategoryDelete(category, () => { removeCategory(category.id) });
+  }, [removeCategory])
 
   useEffect(() => {
     if (isIntersecting && hasMore && !isLoading) {
@@ -50,15 +52,15 @@ export const CategoriesList = memo(({ className, initialHasMore, initialCategori
   }, [newCategory, addCategory, addNewCategory])
 
   if (error && !isLoading) return (
-    <StateMessage variant="destructive" >
+    <StateMessageDynamic variant="destructive" >
       {t("errors.infinite-scroll-error")}
-    </StateMessage>
+    </StateMessageDynamic>
   )
 
   if (!hasMore && !categories.length) return (
-    <StateMessage>
+    <StateMessageDynamic>
       {t("categories-empty")}
-    </StateMessage>
+    </StateMessageDynamic>
   )
 
   return (
@@ -83,7 +85,7 @@ export const CategoriesList = memo(({ className, initialHasMore, initialCategori
       </ScrollArea>
     </div>
   );
-})
+}
 
 CategoriesList.displayName = "CategoriesList"
 

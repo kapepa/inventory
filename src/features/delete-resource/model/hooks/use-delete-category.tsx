@@ -1,7 +1,7 @@
 "use client"
 
 import { useTranslations } from "next-intl";
-import { useCallback, useTransition } from "react";
+import { useCallback, useEffect, useTransition } from "react";
 import { toast } from "sonner";
 import { requestDeleteCategory } from "../../api";
 import { ForbiddenError, HasDependenciesError, NotFoundError } from "@/shared/lib/errors";
@@ -79,7 +79,17 @@ export const useDeleteCategory = <T extends CategoryWithProductCount>() => {
         onSuccess={onSuccess}
       />
     );
-  }, [closeModal, openModal, t]);
+  }, [closeModal, openModal]);
 
   return { confirmDeleteCategory };
 };
+
+export const DeleteCategoryhWrapper = <T extends CategoryWithProductCount>({ category, onSuccess }: { category: T, onSuccess?: () => void }) => {
+  const { confirmDeleteCategory } = useDeleteCategory();
+
+  useEffect(() => {
+    confirmDeleteCategory(category, onSuccess);
+  }, [category, onSuccess, confirmDeleteCategory]);
+
+  return null;
+}
