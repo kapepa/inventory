@@ -1,9 +1,10 @@
 "use client"
 
-import { cn } from "@/shared/lib/utils"
-import { ScrollArea, Skeleton, TooltipText, XButtonClose, XButtonCloseSkeleton } from "@/shared/ui"
-import { Tooltip, TooltipContent, TooltipTrigger } from "@/shared/ui/tooltip"
 import { memo, ReactNode } from "react"
+import { cn } from "@/shared/lib/utils"
+import { ScrollArea } from "@/shared/ui/scroll-area"
+import { Skeleton, TooltipText, XButtonClose, XButtonCloseSkeleton } from "@/shared/ui"
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/shared/ui/tooltip"
 
 interface ProductsShortBodyProps {
   title: string,

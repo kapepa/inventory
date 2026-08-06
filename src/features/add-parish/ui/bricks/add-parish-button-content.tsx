@@ -1,6 +1,5 @@
 "use client";
 
-import { useTranslations } from "next-intl";
 import { memo } from "react";
 import { CirclePlusButton, TooltipText } from "@/shared/ui";
 import { cn } from "@/shared/lib/utils";
@@ -8,11 +7,11 @@ import { useAddParish } from "../../model/hooks/use-add-parish";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/shared/ui/tooltip";
 
 interface AddParishButtonContentProps {
+  label: string;
   className?: string;
 }
 
-export const AddParishButtonContent = memo(({ className }: AddParishButtonContentProps) => {
-  const t = useTranslations('add-parish');
+export const AddParishButtonContent = memo(({ label, className }: AddParishButtonContentProps) => {
   const { openAddParishModal } = useAddParish();
 
   return (
@@ -25,7 +24,7 @@ export const AddParishButtonContent = memo(({ className }: AddParishButtonConten
       </TooltipTrigger>
       <TooltipContent className="bg-chart-2 border-chart-2">
         <TooltipText>
-          {t("parishes-created-btn.create")}
+          {label}
         </TooltipText>
       </TooltipContent>
     </Tooltip>

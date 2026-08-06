@@ -74,7 +74,7 @@ export const useDeleteParish = <T extends ParishesType>() => {
         onSuccess={onSuccess}
       />
     );
-  }, [closeModal, openModal, t]);
+  }, [closeModal, openModal]);
 
   return { confirmDeleteParish };
 };

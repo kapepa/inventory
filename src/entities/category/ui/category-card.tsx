@@ -1,9 +1,12 @@
 import { cn } from "@/shared/lib/utils"
-import { QuantityCell, TitleCell, DateCell, ActionsCell, TitleCellSkeleton, QuantityCellSkeleton, DateCellSkeleton, ActionsCellSkeleton } from "./cells"
 import { useTranslations } from "next-intl"
 import { ROUTES } from "@/shared/constants/routes"
 import { Link } from "@/shared/lib/i18n/routing"
 import { CategoryWithProductCount } from "../model/types"
+import { TitleCell, TitleCellSkeleton } from "./cells/title-cell"
+import { QuantityCell, QuantityCellSkeleton } from "./cells/quantity-cell"
+import { DateCell, DateCellSkeleton } from "./cells/date-cell"
+import { ActionsCell, ActionsCellSkeleton } from "./cells/actions-cell"
 
 interface CategoryCardProps {
   className?: string,
@@ -32,7 +35,7 @@ CategoryCard.displayName = "CategoryCard"
 
 export const CategoryCardSkeleton = ({ className }: { className?: string }) => {
   return (
-    <div className={cn("px-4 py-2 lg:px-6 lg:py-3 gap-2 border rounded-md bg-card hover:shadow-md transition-all border-chart-1 w-full", className)}>
+    <div className={cn("px-4 py-2 lg:px-6 lg:py-3.5 gap-2 border rounded-md bg-card hover:shadow-md transition-all border-chart-1 w-full", className)}>
       <TitleCellSkeleton className="col-span-2 lg:col-span-1" />
       <QuantityCellSkeleton />
       <DateCellSkeleton />

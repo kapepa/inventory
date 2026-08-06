@@ -1,17 +1,16 @@
-"use client"
-
-import { useHydratedIsAdmin } from "@/features/auth/model/hooks/use-hydrated-user"
-import { AddCategoryButtonDynamic } from "./bricks/add-category-button-dynamic"
+import { AppLocale } from "@/shared/lib/i18n/config";
+import { AddCategoryButtonContent } from "./bricks/add-category-button-content";
+import { getTranslations } from "next-intl/server";
 
 interface AddCategoryButtonProps {
+  locale: AppLocale
   className?: string
 }
 
-export const AddCategoryButton = ({ className }: AddCategoryButtonProps) => {
-  const isAdmin = useHydratedIsAdmin()
-  if (!isAdmin) return null;
+export const AddCategoryButton = async ({ locale, className }: AddCategoryButtonProps) => {
+  const t = await getTranslations({ locale, namespace: "add-category" });
 
-  return <AddCategoryButtonDynamic className={className} />
+  return <AddCategoryButtonContent label={t("buttons.create")} className={className} />
 }
 
 AddCategoryButton.displayName = "AddCategoryButton"

@@ -12,6 +12,7 @@ import { ProductsExplore } from "@/features/products-explore/ui/products-explore
 import { PageHeader } from "@/widgets/page-header/ui/page-header";
 import { ProductsList } from "@/widgets/products-list/ui/products-list";
 import { QUERY_PARAMS_KEYS } from "@/shared/constants/query-params-keys";
+import { getSessionUserCached } from "@/features/auth/lib/auth-service-cached";
 
 export async function generateMetadata({
   params,
@@ -43,15 +44,16 @@ export default async function ParishesId({
 }) {
   const { id, locale } = await params;
   const resolvedSearchParams = await searchParams;
-  const categoryTerm = (resolvedSearchParams[QUERY_PARAMS_KEYS.CATEGORY] as string) || "";
+  const categoryId = (resolvedSearchParams[QUERY_PARAMS_KEYS.CATEGORY] as string) || "";
   const specification = (resolvedSearchParams[QUERY_PARAMS_KEYS.SPECIFICATION] as string) || "";
 
-  const [parish, products, categories] = await Promise.all([
+  const [user, parish, products, categories] = await Promise.all([
+    getSessionUserCached(),
     getParishByIdCached({ id, locale }),
     getFilteredProductsWideCached({
       locale,
       parishId: id,
-      categoryId: categoryTerm,
+      categoryId,
       specification: specification,
       page: PAGINATION_PRODUCTS_DEFAULTS.PAGE,
       limit: PAGINATION_PRODUCTS_DEFAULTS.LIMIT,
@@ -62,12 +64,15 @@ export default async function ParishesId({
 
   const t = await getTranslations({ locale, namespace: "parishes-id-page" });
   const { title, description } = parish.translations[0]
+  const isAdmin = user?.role === "ADMIN";
 
   return (
     <Container className="pt-6 md:pt-16 flex-1 flex flex-col min-h-0">
       <ProductsExplore
-        initialCategories={categories}
+        locale={locale}
         className="pb-3"
+        categoryId={categoryId}
+        initialCategories={categories}
       />
       <PageHeader
         title={t("header-title")}
@@ -79,6 +84,7 @@ export default async function ParishesId({
         {description}
       </PageHeader>
       <ProductsList
+        isAdmin={isAdmin}
         initialParishId={id}
         initialProducts={products.data}
         initialHasMore={products.hasMore}

@@ -96,7 +96,7 @@ export const GroupsList = memo(({
           }
           {(hasMore || isLoading) && (
             <div ref={targetRef} className="w-full h-18 flex items-center justify-center">
-              {isLoading && <ParishShortCardSkeleton className={CARD_CLASS} />}
+              {isLoading && <ParishShortCardSkeleton className={cn(CARD_CLASS, "h-18 w-full")} />}
             </div>
           )}
         </div>
@@ -119,7 +119,7 @@ export const GroupsListSkeleton = ({ className }: { className?: string }) => {
             Array.from({ length: 3 }).map((_, index) => (
               <ParishShortCardSkeleton
                 key={`groups-list-skeleton-${index}`}
-                className={CARD_CLASS}
+                className="h-18"
               />
             ))
           }

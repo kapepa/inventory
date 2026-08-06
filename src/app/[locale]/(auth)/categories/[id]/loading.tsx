@@ -1,6 +1,6 @@
 import { BackButtonSkeleton, Container } from "@/shared/ui";
 import { PageHeaderSkeleton } from "@/widgets/page-header/ui/page-header-skeleton";
-import { ProductsListSkeleton } from "@/widgets/products-list/ui/products-list";
+import { ProductsListSkeleton } from "@/widgets/products-list/ui/products-list-skeleton";
 
 export default function LoadingCategoriesId() {
   return (

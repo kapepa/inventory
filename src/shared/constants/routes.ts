@@ -11,3 +11,5 @@ export const ROUTES = {
   VERIFY: '/verify',
   NOT_FOUND: '/not-found',
 } as const;
+
+export type RoutePath = (typeof ROUTES)[keyof typeof ROUTES];

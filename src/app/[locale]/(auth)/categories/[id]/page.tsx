@@ -1,5 +1,6 @@
 import { getCategoryByIdCached } from "@/entities/category/lib/category-service-cached";
 import { getFilteredProductsWideCached } from "@/entities/product/lib/product-service-cached";
+import { getSessionUserCached } from "@/features/auth/lib/auth-service-cached";
 import { PAGINATION_PARISHES_DEFAULTS } from "@/shared/constants/pagination";
 import { QUERY_PARAMS_KEYS } from "@/shared/constants/query-params-keys";
 import { AppLocale } from "@/shared/lib/i18n/config";
@@ -40,7 +41,8 @@ export default async function CategoriesId({
   const searchTerm = (resolvedSearchParams[QUERY_PARAMS_KEYS.PRODUCTS_SEARCH] as string) || "";
   const locale = getParams.locale as AppLocale;
 
-  const [category, products] = await Promise.all([
+  const [user, category, products] = await Promise.all([
+    getSessionUserCached(),
     getCategoryByIdCached({ id, locale: locale as AppLocale }),
     getFilteredProductsWideCached({
       categoryId: id,
@@ -53,6 +55,7 @@ export default async function CategoriesId({
 
   const t = await getTranslations({ locale, namespace: "categories-id-page" });
   const { title } = category.translations[0]
+  const isAdmin = user?.role === "ADMIN";
 
   return (
     <Container className="pt-6 md:pt-16 flex-1 flex flex-col min-h-0">
@@ -63,6 +66,7 @@ export default async function CategoriesId({
         storeType="products"
       />
       <ProductsList
+        isAdmin={isAdmin}
         initialHasMore={products.hasMore}
         initialProducts={products.data}
         initialParishId={null}

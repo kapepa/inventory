@@ -1,7 +1,7 @@
 "use client"
 
 import { useTranslations } from "next-intl";
-import { useCallback, useTransition } from "react";
+import { useCallback, useEffect, useTransition } from "react";
 import { toast } from "sonner";
 import { requestDeleteProduct } from "../../api";
 import { ForbiddenError, NotFoundError } from "@/shared/lib/errors";
@@ -72,7 +72,17 @@ export const useDeleteProduct = <T extends ProductWithRelations>() => {
         onSuccess={onSuccess}
       />
     );
-  }, [closeModal, openModal, t]);
+  }, [closeModal, openModal]);
 
   return { confirmDeleteProduct };
 };
+
+export const DeleteProductWrapper = <T extends ProductWithRelations>({ product, onSuccess }: { product: T, onSuccess?: () => void }) => {
+  const { confirmDeleteProduct } = useDeleteProduct();
+
+  useEffect(() => {
+    confirmDeleteProduct(product, onSuccess);
+  }, [product, onSuccess, confirmDeleteProduct]);
+
+  return null;
+}

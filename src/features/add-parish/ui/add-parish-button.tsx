@@ -1,18 +1,16 @@
-"use client"
-
-import { memo } from "react"
-import { useHydratedIsAdmin } from "@/features/auth/model/hooks/use-hydrated-user"
-import { AddParishButtonDynamic } from "./bricks/add-parish-button-dynamic"
+import { AppLocale } from "@/shared/lib/i18n/config"
+import { getTranslations } from "next-intl/server"
+import { AddParishButtonContent } from "./bricks/add-parish-button-content"
 
 interface AddParishButtonProps {
+  locale: AppLocale
   className?: string
 }
 
-export const AddParishButton = memo(({ className }: AddParishButtonProps) => {
-  const isAdmin = useHydratedIsAdmin()
-  if (!isAdmin) return null;
+export const AddParishButton = async ({ locale, className }: AddParishButtonProps) => {
+  const t = await getTranslations({ locale, namespace: "add-parish" });
 
-  return <AddParishButtonDynamic className={className} />;
-})
+  return <AddParishButtonContent label={t("parishes-created-btn.create")} className={className} />;
+}
 
 AddParishButton.displayName = "AddParishButton"
