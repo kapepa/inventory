@@ -1,6 +1,5 @@
 "use client";
 
-import { memo } from "react";
 import { CirclePlusButton, TooltipText } from "@/shared/ui";
 import { cn } from "@/shared/lib/utils";
 import { useAddParish } from "../../model/hooks/use-add-parish";
@@ -11,7 +10,7 @@ interface AddParishButtonContentProps {
   className?: string;
 }
 
-export const AddParishButtonContent = memo(({ label, className }: AddParishButtonContentProps) => {
+export const AddParishButtonContent = ({ label, className }: AddParishButtonContentProps) => {
   const { openAddParishModal } = useAddParish();
 
   return (
@@ -29,6 +28,6 @@ export const AddParishButtonContent = memo(({ label, className }: AddParishButto
       </TooltipContent>
     </Tooltip>
   );
-});
+};
 
 AddParishButtonContent.displayName = "AddParishButtonContent";

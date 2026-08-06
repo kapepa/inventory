@@ -1,5 +1,5 @@
 import { ProductWithRelationsShort, ProductWithRelationsWide } from "@/entities/product/model/types";
-import { AddProductButtonContent } from "./bricks/add-product-button-content";
+import { AddProductButtonDynamic } from "./bricks/add-product-button-dynamic";
 
 interface AddProductButtonProps {
   className?: string
@@ -11,7 +11,7 @@ export const AddProductButton = ({ parishId, className, onSuccessAction }: AddPr
   if (!parishId) return null;
 
   return (
-    <AddProductButtonContent
+    <AddProductButtonDynamic
       parishId={parishId}
       className={className}
       onSuccessAction={onSuccessAction}
