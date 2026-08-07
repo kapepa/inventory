@@ -1,9 +1,9 @@
 "use client";
 
-import { CancelButton, SubmitButton } from "@/shared/ui";
-import { useTranslations } from "next-intl";
 import { memo } from "react";
 import { Info } from 'lucide-react';
+import { CancelButton, SubmitButton } from "@/shared/ui";
+import { useTranslations } from "next-intl";
 import { cn } from "@/shared/lib/utils";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/shared/ui/form";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/shared/ui/tooltip";
@@ -16,7 +16,7 @@ interface RoleSelectorProps {
   className?: string;
 }
 
-export const RoleSelector = memo(({
+export const RoleSelector = ({
   user,
   className,
 }: RoleSelectorProps) => {
@@ -95,6 +95,6 @@ export const RoleSelector = memo(({
       </Form>
     </div>
   );
-});
+};
 
 RoleSelector.displayName = "RoleSelector"

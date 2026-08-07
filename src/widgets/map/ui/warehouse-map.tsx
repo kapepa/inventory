@@ -1,17 +1,21 @@
-"use client";
+import { AppLocale } from "@/shared/lib/i18n/config";
+import { cn } from "@/shared/lib/utils";
+import { getTranslations } from "next-intl/server";
 
-import { useTranslations } from "next-intl";
+interface WarehouseMapProps {
+  locale: AppLocale
+  className?: string,
+}
 
-export const WarehouseMap = function () {
-  const t = useTranslations('house-map');
+export const WarehouseMap = async ({ locale, className }: WarehouseMapProps) => {
+  const t = await getTranslations({ locale, namespace: "house-map" });
 
   const lat = 46.4825;
   const lon = 30.7233;
-  const zoom = 13;
 
   return (
     <div
-      className="w-full h-full rounded-lg overflow-hidden border border-border shadow-sm min-h-75"
+      className={cn("w-full h-full rounded-lg overflow-hidden border border-border shadow-sm min-h-75", className)}
       role="img"
       aria-label={t("marker")}
     >

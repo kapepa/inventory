@@ -5,7 +5,7 @@ import { ParishWithRelationsTotals } from "@/entities/parish/model/types";
 import { DeleteParishDynamic } from "@/features/delete-resource/model/hooks/delete-dynamic";
 
 interface DeleteParishContextValue {
-  confirmDelete: (parish: ParishWithRelationsTotals, onSuccess: () => void) => void;
+  confirmParishDelete: (parish: ParishWithRelationsTotals, onSuccess: () => void) => void;
 }
 
 const DeleteParishContext = createContext<DeleteParishContextValue | null>(null);
@@ -16,12 +16,12 @@ export const DeleteParishProvider = ({ children }: { children: ReactNode }) => {
     onSuccess: () => void;
   } | null>(null);
 
-  const confirmDelete = useCallback((parish: ParishWithRelationsTotals, onSuccess: () => void) => {
+  const confirmParishDelete = useCallback((parish: ParishWithRelationsTotals, onSuccess: () => void) => {
     setDeleteTarget({ parish, onSuccess });
   }, []);
 
   return (
-    <DeleteParishContext.Provider value={{ confirmDelete }}>
+    <DeleteParishContext.Provider value={{ confirmParishDelete }}>
       {children}
 
       {/* Dynamically Loaded Removal Component */}

@@ -7,6 +7,6 @@ export const AddProductButtonDynamic = dynamic(
   () => import("./add-product-button-content").then(mod => mod.AddProductButtonContent),
   {
     loading: () => <AddProductButtonSkeleton />,
-    ssr: true,
+    ssr: false,
   }
 );

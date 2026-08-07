@@ -10,9 +10,8 @@ import { useViewProduct } from "@/features/view-product-details/model/hooks/use-
 import { cn } from "@/shared/lib/utils";
 import { useIntersectionObserver } from "@/shared/lib/hooks"
 import { useActiveParishId } from "@/shared/lib/hooks/use-active-parish-id"
-import { LoaderSpin } from "@/shared/ui"
+import { LoaderSpin, StateMessage } from "@/shared/ui"
 import { useTranslations } from "next-intl"
-import { StateMessageDynamic } from "@/shared/ui-dynamic/state-message-dynamic"
 import { getRelationshLayout } from "./relations-grid-layout-styles"
 import { ProductsShortBody } from "@/entities/product/ui/products-short/products-short-body"
 import { ProductShortCard, ProductShortCardSkeleton } from "@/entities/product/ui/products-short/product-short-card"
@@ -66,15 +65,15 @@ export const GroupsRelations = memo(({ isAdmin, className, initialHasMore, initi
   }, [isIntersecting, hasMore, isLoading, loadMore])
 
   if (!activeParishId) return (
-    <StateMessageDynamic>
+    <StateMessage>
       {t("parishes-not-selected")}
-    </StateMessageDynamic>
+    </StateMessage>
   )
 
   if (error && !isLoading && !error.includes("cancel")) return (
-    <StateMessageDynamic variant="destructive">
+    <StateMessage variant="destructive">
       {t("parishes-error")}
-    </StateMessageDynamic>
+    </StateMessage>
   )
 
   if (isLoading && products.length === 0) return (

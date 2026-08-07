@@ -1,5 +1,3 @@
-"use client";
-
 import { QueryParamProvider } from "@/shared/lib/providers/query-param-provider";
 import { ModalProvider } from "@/shared/ui/modal";
 import { ToasterDynamic } from "@/shared/ui-dynamic/sonner-dynamic";

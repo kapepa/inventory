@@ -15,7 +15,7 @@ import { fetchParishes } from "@/entities/parish/api";
 import { ParishShortHeader } from "@/entities/parish/ui/parish-short/parish-short-header";
 import { ParishShortCard } from "@/entities/parish/ui/parish-short/parish-short-card";
 import { ParishShortCardSkeleton } from "@/entities/parish/ui/parish-short/parish-short-card-skeleton";
-import { StateMessageDynamic } from "@/shared/ui-dynamic/state-message-dynamic";
+import { StateMessage } from "@/shared/ui";
 
 interface GroupsListProps {
   className?: string;
@@ -65,15 +65,15 @@ export const GroupsList = memo(({
   }, [activeParishId, parishes, setActiveParishe])
 
   if (error && !isLoading) return (
-    <StateMessageDynamic variant="destructive" >
+    <StateMessage variant="destructive" >
       {t("errors.parishes")}
-    </StateMessageDynamic>
+    </StateMessage>
   )
 
   if (!hasMore && !parishes.length) return (
-    <StateMessageDynamic>
+    <StateMessage>
       {t("parishes-empty")}
-    </StateMessageDynamic>
+    </StateMessage>
   )
 
   return (

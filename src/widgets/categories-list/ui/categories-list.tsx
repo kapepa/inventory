@@ -11,10 +11,10 @@ import { useIntersectionObserver } from "@/shared/lib/hooks";
 import { useQueryParam } from "@/shared/lib/hooks/use-query-param";
 import { ScrollArea } from "@/shared/ui/scroll-area";
 import { useTranslations } from "next-intl";
-import { StateMessageDynamic } from "@/shared/ui-dynamic/state-message-dynamic";
-import { useDeleteCategoryContext } from "@/shared/lib/providers/category-parish-context";
+import { useDeleteCategoryContext } from "@/shared/lib/providers/delete-category-context";
 import { CategoryHeader, CategoryHeaderSkeleton } from "@/entities/category/ui/category-header";
 import { CategoryCard, CategoryCardSkeleton } from "@/entities/category/ui/category-card";
+import { StateMessage } from "@/shared/ui";
 
 interface CategoriesListProps {
   className?: string
@@ -52,15 +52,15 @@ export const CategoriesList = ({ className, initialHasMore, initialCategories }:
   }, [newCategory, addCategory, addNewCategory])
 
   if (error && !isLoading) return (
-    <StateMessageDynamic variant="destructive" >
+    <StateMessage variant="destructive" >
       {t("errors.infinite-scroll-error")}
-    </StateMessageDynamic>
+    </StateMessage>
   )
 
   if (!hasMore && !categories.length) return (
-    <StateMessageDynamic>
+    <StateMessage>
       {t("categories-empty")}
-    </StateMessageDynamic>
+    </StateMessage>
   )
 
   return (

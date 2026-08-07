@@ -14,8 +14,8 @@ import { ProductsWideCard, ProductsWideCardSkeleton } from "@/entities/product/u
 import { ProductsActionMode } from "../model/types"
 import { useFetchProductsAction } from "../model/hooks/use-fetch-products-action"
 import { useDeleteProductContext } from "@/shared/lib/providers/delete-product-context";
-import { StateMessageDynamic } from "@/shared/ui-dynamic/state-message-dynamic";
 import { getProductsLayout } from "./products-grid-layout-styles";
+import { StateMessage } from "@/shared/ui";
 
 interface ProductsListProps {
   mode?: ProductsActionMode
@@ -51,15 +51,15 @@ export const ProductsList = ({ isAdmin, initialParishId, initialProducts, initia
   }, [isIntersecting, hasMore, isLoading, loadMore])
 
   if (error && !isLoading) return (
-    <StateMessageDynamic variant="destructive">
+    <StateMessage variant="destructive">
       {t("errors.infinite-scroll-error")}
-    </StateMessageDynamic>
+    </StateMessage>
   )
 
   if (!hasMore && !products.length) return (
-    <StateMessageDynamic>
+    <StateMessage>
       {t("products-empty")}
-    </StateMessageDynamic>
+    </StateMessage>
   )
 
   const PRODUCTD_LAYOUT = useMemo(() => getProductsLayout(isAdmin), [isAdmin])

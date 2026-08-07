@@ -1,3 +1,4 @@
+import { getSessionUserCached } from "@/features/auth/lib/auth-service-cached";
 import { AppLocale } from "@/shared/lib/i18n/config";
 import { Container, ScrollArea } from "@/shared/ui";
 import { PageHeader } from "@/widgets/page-header/ui/page-header";
@@ -26,6 +27,9 @@ export default async function Settings({
 }) {
   const locale = (await params).locale as AppLocale;
   const t = await getTranslations({ locale, namespace: "settings-page" });
+  const user = await getSessionUserCached();
+
+  if (!user) return null
 
   return (
     <ScrollArea className="flex-1 min-h-0">
@@ -33,7 +37,9 @@ export default async function Settings({
         <PageHeader
           title={t("header-title")}
         />
-        <SettingsPanel />
+        <SettingsPanel
+          user={user}
+        />
       </Container>
     </ScrollArea>
   );
