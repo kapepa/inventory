@@ -2,7 +2,6 @@
 
 import { CancelButton, Input, SubmitButton } from "@/shared/ui";
 import { useTranslations } from "next-intl";
-import { memo } from "react";
 import { VALIDATION_LIMITS } from "@/shared/constants/validation";
 import { cn } from "@/shared/lib/utils";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/shared/ui/form";
@@ -12,7 +11,7 @@ interface ChangePasswordFormProps {
   className?: string
 }
 
-export const ChangePasswordForm = memo(({ className }: ChangePasswordFormProps) => {
+export const ChangePasswordForm = ({ className }: ChangePasswordFormProps) => {
   const t = useTranslations("change-password")
   const { form, onSubmit, isSubmitting, onReset } = useChangePasswordForm()
 
@@ -111,6 +110,6 @@ export const ChangePasswordForm = memo(({ className }: ChangePasswordFormProps) 
       </Form>
     </div>
   );
-});
+};
 
 ChangePasswordForm.displayName = "ChangePasswordForm"

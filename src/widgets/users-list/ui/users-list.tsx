@@ -8,9 +8,10 @@ import { QUERY_PARAMS_KEYS } from "@/shared/constants/query-params-keys";
 import { cn } from "@/shared/lib/utils";
 import { useIntersectionObserver } from "@/shared/lib/hooks";
 import { useQueryParam } from "@/shared/lib/hooks/use-query-param";
-import { ScrollArea, StateMessage } from "@/shared/ui";
+import { ScrollArea } from "@/shared/ui/scroll-area";
 import { useTranslations } from "next-intl";
 import { useEffect } from "react";
+import { StateMessage } from "@/shared/ui";
 
 const CARD_CLASS = cn(
   "grid grid-cols-1",

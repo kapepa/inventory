@@ -26,8 +26,8 @@ export const CategoryChart = ({ className, statusCounts }: CategoryChartProps) =
     { status: t("repair"), value: statusCounts.REPAIR, },
   ]
   return (
-    <div className={cn("flex flex-col gap-y-2", className)}>
-      <ChartContainer config={chartConfig} className="w-full">
+    <div className={cn("flex flex-col gap-y-2 h-full max-w-150", className)}>
+      <ChartContainer config={chartConfig} className="w-full relative flex-1 min-h-0">
         <BarChart accessibilityLayer data={chartData}>
           <CartesianGrid vertical={false} />
           <XAxis

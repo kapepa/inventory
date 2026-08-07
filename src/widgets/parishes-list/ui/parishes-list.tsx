@@ -1,7 +1,6 @@
 "use client"
 
 import { useCallback, useEffect, useMemo } from "react"
-import { StateMessageDynamic } from "@/shared/ui-dynamic/state-message-dynamic"
 import { useTranslations } from "next-intl"
 import { fetchParishesTotals } from "@/entities/parish/api/parish-api"
 import { cn } from "@/shared/lib/utils";
@@ -16,6 +15,7 @@ import { getParishLayout } from "./parish-list.styles"
 import { useDeleteParishContext } from "@/shared/lib/providers/delete-parish-context"
 import { ParishWideCard, ParishWideCardSkeleton } from "@/entities/parish/ui/parish-wide/parish-wide-card"
 import { ScrollArea } from "@/shared/ui/scroll-area"
+import { StateMessage } from "@/shared/ui";
 
 interface ParishesListProps {
   isAdmin: boolean,
@@ -38,7 +38,7 @@ export const ParishesList = ({
     search, initialParishes, initialHasMore, fetchFnAction: fetchParishesTotals
   })
   const { targetRef, isIntersecting } = useIntersectionObserver({ threshold: 0.5, rootMargin: "100px" })
-  const { confirmDelete } = useDeleteParishContext();
+  const { confirmParishDelete } = useDeleteParishContext();
 
   useEffect(() => {
     if (isIntersecting && hasMore && !isLoading) {
@@ -54,20 +54,20 @@ export const ParishesList = ({
   }, [newParishe, addParishes, addNewParish])
 
   const handlerDeleteParish = useCallback((parish: ParishWithRelationsTotals) => {
-    confirmDelete(parish, () => removeParishes(parish.id));
+    confirmParishDelete(parish, () => removeParishes(parish.id));
   }, [removeParishes])
 
 
   if (error && !isLoading) return (
-    <StateMessageDynamic variant="destructive">
+    <StateMessage variant="destructive">
       {t("errors.infinite-scroll-error")}
-    </StateMessageDynamic>
+    </StateMessage>
   )
 
   if (!hasMore && !parishes.length) return (
-    <StateMessageDynamic >
+    <StateMessage >
       {t("parishes-empty")}
-    </StateMessageDynamic>
+    </StateMessage>
   )
 
   const PARISH_LAYOUT = useMemo(() => getParishLayout(isAdmin), [isAdmin])

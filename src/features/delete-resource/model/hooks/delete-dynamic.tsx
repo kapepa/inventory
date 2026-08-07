@@ -23,3 +23,10 @@ export const DeleteCategoryDynamic = dynamic(
   })),
   { ssr: false }
 );
+
+export const DeleteAccountDynamic = dynamic(
+  () => import("./use-delete-account").then(m => ({
+    default: m.DeleteAccounthWrapper
+  })),
+  { ssr: false }
+);

@@ -3,7 +3,7 @@
 import { ForbiddenError } from "@/shared/lib/errors";
 import { ROUTES } from "@/shared/constants/routes";
 import { useTranslations } from "next-intl";
-import { useCallback, useTransition } from "react";
+import { useCallback, useEffect, useTransition } from "react";
 import { toast } from "sonner";
 import { requestDeleteAccount } from "../../api";
 import { useModalActions } from "@/shared/ui/modal";
@@ -62,7 +62,7 @@ const DeleteUserModalWrapper = ({
 export const useDeleteUser = () => {
   const { openModal, closeModal } = useModalActions();
 
-  const confirmDeleteUser = useCallback((user: AuthenticatedUser) => {
+  const confirmDeleteUser = useCallback((user: AuthenticatedUser, onSuccess?: () => void) => {
     openModal(
       <DeleteUserModalWrapper
         user={user}
@@ -73,3 +73,13 @@ export const useDeleteUser = () => {
 
   return { confirmDeleteUser };
 };
+
+export const DeleteAccounthWrapper = <T extends AuthenticatedUser>({ user, onSuccess }: { user: T, onSuccess?: () => void }) => {
+  const { confirmDeleteUser } = useDeleteUser();
+
+  useEffect(() => {
+    confirmDeleteUser(user, onSuccess);
+  }, [user, onSuccess, confirmDeleteUser]);
+
+  return null;
+}

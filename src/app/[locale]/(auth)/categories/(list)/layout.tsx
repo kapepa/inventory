@@ -1,4 +1,4 @@
-import { DeleteCategoryProvider } from "@/shared/lib/providers/category-parish-context";
+import { DeleteCategoryProvider } from "@/shared/lib/providers/delete-category-context";
 import { Header } from "@/widgets/header/ui/Header";
 import { Sidebar } from "@/widgets/sidebar/ui/sidebar";
 
