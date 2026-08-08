@@ -7,7 +7,7 @@ const buildWhereClause = ({ search }: FetchUsers) => {
   const where: Prisma.UserWhereInput = {};
   if (search) where.name = {
     contains: search,
-    startsWith: 'insensitive'
+    mode: 'insensitive'
   };
 
   return where;

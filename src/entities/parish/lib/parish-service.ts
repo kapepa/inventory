@@ -10,8 +10,8 @@ const buildWhereClause = ({ search = "" }: FetchParishes) => {
     translations: {
       some: {
         OR: [
-          { title: { contains: search.trim(), startsWith: 'insensitive' } },
-          { description: { contains: search.trim(), startsWith: 'insensitive' } }
+          { title: { contains: search.trim(), mode: 'insensitive' } },
+          { description: { contains: search.trim(), mode: 'insensitive' } }
         ]
       }
     }
@@ -52,6 +52,9 @@ export const getParishesTotals = async (params: FetchParishes): Promise<Response
       prisma.parish.count({ where })
     ]);
 
+    if (total === 0 || parishes.length === 0) {
+      return { data: [], total: 0, hasMore: false };
+    }
 
     const data: ParishWithRelationsTotals[] = parishes.map((parish) => {
       const allPrices = parish.products.flatMap(product => product.prices);
@@ -92,6 +95,10 @@ export const getParishes = async (params: FetchParishes): Promise<ResponseParish
       }),
       prisma.parish.count()
     ]);
+
+    if (total === 0 || parishes.length === 0) {
+      return { data: [], total: 0, hasMore: false };
+    }
 
     return { data: parishes, total, hasMore: page * limit < total };
   } catch (error) {

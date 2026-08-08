@@ -50,6 +50,8 @@ export const ProductsList = ({ isAdmin, initialParishId, initialProducts, initia
     }
   }, [isIntersecting, hasMore, isLoading, loadMore])
 
+  const PRODUCTD_LAYOUT = useMemo(() => getProductsLayout(isAdmin), [isAdmin])
+
   if (error && !isLoading) return (
     <StateMessage variant="destructive">
       {t("errors.infinite-scroll-error")}
@@ -61,8 +63,6 @@ export const ProductsList = ({ isAdmin, initialParishId, initialProducts, initia
       {t("products-empty")}
     </StateMessage>
   )
-
-  const PRODUCTD_LAYOUT = useMemo(() => getProductsLayout(isAdmin), [isAdmin])
 
   return (
     <div className="flex-1 min-h-0 flex flex-col w-full">

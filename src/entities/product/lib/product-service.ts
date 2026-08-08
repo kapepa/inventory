@@ -14,7 +14,7 @@ const buildWhereClause = ({ search, parishId, categoryId, specification, locale 
         locale,
         title: {
           contains: search,
-          startsWith: 'insensitive',
+          mode: 'insensitive',
         },
       },
     };
@@ -26,7 +26,7 @@ const buildWhereClause = ({ search, parishId, categoryId, specification, locale 
         locale,
         specification: {
           contains: specification,
-          startsWith: 'insensitive',
+          mode: 'insensitive',
         },
       },
     };
