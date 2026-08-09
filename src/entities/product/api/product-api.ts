@@ -24,6 +24,7 @@ const fetchProductsBase = async <T>(endpoint: string, { search = "", signal, ...
 
     throw new Error(`Failed to fetch products from ${endpoint}`)
   }
+
 }
 
 export const fetchProductsShort = (params: FetchProductsParams) =>

@@ -17,6 +17,7 @@ import { ProductsShortBody } from "@/entities/product/ui/products-short/products
 import { ProductShortCard, ProductShortCardSkeleton } from "@/entities/product/ui/products-short/product-short-card"
 import { useDeleteProductContext } from "@/shared/lib/providers/delete-product-context"
 
+
 interface GroupsRelationsProps {
   isAdmin: boolean,
   className?: string,
@@ -35,7 +36,7 @@ export const GroupsRelations = memo(({ isAdmin, className, initialHasMore, initi
     parishId: activeParishId, initialProducts, initialHasMore, fetchFnAction: fetchProductsShort
   });
   const { targetRef, isIntersecting } = useIntersectionObserver({ threshold: 0.5, rootMargin: "100px" })
-  const { confirmProductDelete } = useDeleteProductContext()
+  const { confirmProductDelete } = useDeleteProductContext();
   const { productDetails } = useViewProduct()
 
   const activeParishTitle = storeActiveParisheTitle ? storeActiveParisheTitle : initialParishTitle;

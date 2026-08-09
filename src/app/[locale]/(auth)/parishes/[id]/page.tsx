@@ -66,6 +66,7 @@ export default async function ParishesId({
   const { title, description } = parish.translations[0]
   const isAdmin = user?.role === "ADMIN";
 
+
   return (
     <Container className="pt-6 md:pt-16 flex-1 flex flex-col min-h-0">
       <ProductsExplore

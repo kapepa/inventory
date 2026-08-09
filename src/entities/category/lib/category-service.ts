@@ -10,7 +10,7 @@ const buildWhereClause = ({ search = "" }: FetchCategories) => {
     translations: {
       some: {
         OR: [
-          { title: { contains: search.trim(), startsWith: 'insensitive' } },
+          { title: { contains: search.trim(), mode: 'insensitive' } },
         ]
       }
     }

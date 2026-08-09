@@ -12,7 +12,7 @@ import { useParishesStore } from "@/entities/parish/model/parish-store"
 import { useInfiniteParishes } from "@/entities/parish/model/hooks/use-infinite-parishes"
 import { ParishWideHeader, ParishWideHeaderSkeleton } from "@/entities/parish/ui/parish-wide/parish-wide-header"
 import { getParishLayout } from "./parish-list.styles"
-import { useDeleteParishContext } from "@/shared/lib/providers/delete-parish-context"
+import { useDeleteParishContext } from "@/shared/lib/providers/delete-parish-context";
 import { ParishWideCard, ParishWideCardSkeleton } from "@/entities/parish/ui/parish-wide/parish-wide-card"
 import { ScrollArea } from "@/shared/ui/scroll-area"
 import { StateMessage } from "@/shared/ui";

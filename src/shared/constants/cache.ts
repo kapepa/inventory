@@ -1,5 +1,5 @@
 export const CACHE_REVALIDATE = {
-  FAST: 60, // 1 m        
+  FAST: 120, // 2 m        
   NORMAL: 600, // 10 m
   SLOW: 1800, // 30 m
   STATIC: 3600, // 1 h

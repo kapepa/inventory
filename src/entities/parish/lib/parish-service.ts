@@ -10,8 +10,8 @@ const buildWhereClause = ({ search = "" }: FetchParishes) => {
     translations: {
       some: {
         OR: [
-          { title: { contains: search.trim(), startsWith: 'insensitive' } },
-          { description: { contains: search.trim(), startsWith: 'insensitive' } }
+          { title: { contains: search.trim(), mode: 'insensitive' } },
+          { description: { contains: search.trim(), mode: 'insensitive' } }
         ]
       }
     }
@@ -30,18 +30,11 @@ export const getParishesTotals = async (params: FetchParishes): Promise<Response
       prisma.parish.findMany({
         where,
         include: {
-          translations: {
-            where: { locale }
-          },
+          translations: { where: { locale } },
           _count: { select: { products: true } },
           products: {
             select: {
-              prices: {
-                select: {
-                  value: true,
-                  symbol: true
-                }
-              }
+              prices: true
             }
           }
         },
@@ -52,18 +45,16 @@ export const getParishesTotals = async (params: FetchParishes): Promise<Response
       prisma.parish.count({ where })
     ]);
 
+    if (total === 0 || parishes.length === 0) {
+      return { data: [], total: 0, hasMore: false };
+    }
 
-    const data: ParishWithRelationsTotals[] = parishes.map((parish) => {
-      const allPrices = parish.products.flatMap(product => product.prices);
+    const data = parishes.map((parish) => {
+      const allPrices = parish.products.flatMap(p => p.prices);
       const totals = {
-        usd: allPrices
-          .filter(p => p.symbol === 'USD')
-          .reduce((sum, p) => sum + p.value, 0),
-        uah: allPrices
-          .filter(p => p.symbol === 'UAH')
-          .reduce((sum, p) => sum + p.value, 0),
+        usd: allPrices.filter(p => p.symbol === 'USD').reduce((sum, p) => sum + p.value, 0),
+        uah: allPrices.filter(p => p.symbol === 'UAH').reduce((sum, p) => sum + p.value, 0),
       };
-
       const { products, ...rest } = parish;
       return { ...rest, totals };
     });
@@ -92,6 +83,10 @@ export const getParishes = async (params: FetchParishes): Promise<ResponseParish
       }),
       prisma.parish.count()
     ]);
+
+    if (total === 0 || parishes.length === 0) {
+      return { data: [], total: 0, hasMore: false };
+    }
 
     return { data: parishes, total, hasMore: page * limit < total };
   } catch (error) {

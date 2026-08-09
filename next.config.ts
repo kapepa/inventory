@@ -1,11 +1,11 @@
 import createNextIntlPlugin from 'next-intl/plugin';
 import type { NextConfig } from "next";
 
-const withNextIntl = createNextIntlPlugin();
+const withNextIntl = createNextIntlPlugin('./src/i18n/request.ts');
 
-const withBundleAnalyzer = process.env.ANALYZE === 'true'
-  ? require('@next/bundle-analyzer')({ enabled: true })
-  : (config: NextConfig) => config;
+// const withBundleAnalyzer = process.env.ANALYZE === 'true'
+//   ? require('@next/bundle-analyzer')({ enabled: true })
+//   : (config: NextConfig) => config;
 
 const nextConfig: NextConfig = {
   images: {
@@ -48,6 +48,7 @@ const nextConfig: NextConfig = {
       'axios',
       'react-intersection-observer',
     ],
+    inlineCss: true,
     optimizeCss: true,
   },
   productionBrowserSourceMaps: false,
@@ -171,6 +172,6 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default withBundleAnalyzer(withNextIntl(nextConfig));
+// export default withBundleAnalyzer(withNextIntl(nextConfig));
 
-//export default withNextIntl(nextConfig)
+export default withNextIntl(nextConfig)

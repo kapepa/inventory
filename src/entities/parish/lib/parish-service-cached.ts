@@ -6,7 +6,13 @@ import { FetchParishById, FetchParishes, ResponseParishesDTO } from '../model/ty
 import { PAGINATION_PARISHES_DEFAULTS } from '@/shared/constants/pagination';
 
 export const getParishByIdCached = (params: FetchParishById) => {
-  const cacheKey = createCacheKey(CACHE_ENTITIES.PARISH, params.id, params.locale!);
+  const cacheKey = createCacheKey(
+    CACHE_ENTITIES.PARISH,
+    params.id,
+    params.locale!,
+    params.categoryId || 'no-category',
+    params.specification || 'no-spec'
+  );
   const entityTag = createCacheEntityTag(CACHE_ENTITIES.PARISH, params.id);
 
   return unstable_cache(

@@ -1,5 +1,6 @@
-import { getParishesTotalsCached } from "@/entities/parish/lib/parish-service-cached";
+import { getTranslations } from "next-intl/server";
 import { AddParishButton } from "@/features/add-parish/ui/add-parish-button";
+import { getParishesTotalsCached } from "@/entities/parish/lib/parish-service-cached";
 import { getSessionUserCached } from "@/features/auth/lib/auth-service-cached";
 import { PAGINATION_PARISHES_DEFAULTS } from "@/shared/constants/pagination";
 import { QUERY_PARAMS_KEYS } from "@/shared/constants/query-params-keys";
@@ -8,7 +9,6 @@ import { Container } from "@/shared/ui/container";
 import { PageHeader } from "@/widgets/page-header/ui/page-header";
 import { ParishesList } from "@/widgets/parishes-list/ui/parishes-list";
 import { Metadata } from "next";
-import { getTranslations } from "next-intl/server";
 
 export async function generateMetadata({
   params,
@@ -28,10 +28,11 @@ export default async function Parishes({
   params,
   searchParams,
 }: {
-  params: Promise<{ locale: string }>,
+  params: Promise<{ locale: AppLocale }>,
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>
 }) {
-  const locale = (await params).locale as AppLocale;
+  const timeStart = Date.now()
+  const { locale } = await params;
   const resolvedSearchParams = await searchParams;
   const searchTerm = (resolvedSearchParams[QUERY_PARAMS_KEYS.PARISHES_SEARCH] as string) || "";
 

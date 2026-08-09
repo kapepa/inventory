@@ -33,13 +33,11 @@ export default async function Users({
   const resolvedSearchParams = await searchParams;
   const usersTerm = (resolvedSearchParams[QUERY_PARAMS_KEYS.USERS_SEARCH] as string) || "";
 
-  const [users] = await Promise.all([
-    getFilteredUsersCached({
-      search: usersTerm,
-      limit: PAGINATION_USERS_DEFAULTS.LIMIT,
-      page: PAGINATION_USERS_DEFAULTS.PAGE,
-    })
-  ])
+  const users = await getFilteredUsersCached({
+    search: usersTerm,
+    limit: PAGINATION_USERS_DEFAULTS.LIMIT,
+    page: PAGINATION_USERS_DEFAULTS.PAGE,
+  })
 
   const t = await getTranslations({ locale, namespace: "users-page" });
 

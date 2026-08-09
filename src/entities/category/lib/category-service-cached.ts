@@ -8,6 +8,7 @@ import {
 import { FetchCategories, FetchCategoryById, GetCategoriesByParishIdParams, GetCategoriesParams } from '../model/types';
 import { createCacheEntityTag, createCacheKey } from '@/shared/lib/cache-utils';
 import { CACHE_ENTITIES, CACHE_REVALIDATE, CACHE_TAGS } from '@/shared/constants/cache';
+import { PAGINATION_PRODUCTS_DEFAULTS } from '@/shared/constants/pagination';
 
 export const getCategoriesCached = (params: GetCategoriesParams) => {
   const cacheKey = createCacheKey(
@@ -50,7 +51,7 @@ export const getCategoriesByParishIdCached = (params: GetCategoriesByParishIdPar
 export const getCategoriesWithProductCountCached = (params: FetchCategories) => {
   const cacheKey = createCacheKey(
     CACHE_TAGS.CATEGORIES_PRODUCTS_COUNT,
-    params.page || 1,
+    params.page || PAGINATION_PRODUCTS_DEFAULTS.PAGE,
     params.search || 'all',
     params.locale!
   );
