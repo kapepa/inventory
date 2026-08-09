@@ -30,18 +30,11 @@ export const getParishesTotals = async (params: FetchParishes): Promise<Response
       prisma.parish.findMany({
         where,
         include: {
-          translations: {
-            where: { locale }
-          },
+          translations: { where: { locale } },
           _count: { select: { products: true } },
           products: {
             select: {
-              prices: {
-                select: {
-                  value: true,
-                  symbol: true
-                }
-              }
+              prices: true
             }
           }
         },
@@ -56,17 +49,12 @@ export const getParishesTotals = async (params: FetchParishes): Promise<Response
       return { data: [], total: 0, hasMore: false };
     }
 
-    const data: ParishWithRelationsTotals[] = parishes.map((parish) => {
-      const allPrices = parish.products.flatMap(product => product.prices);
+    const data = parishes.map((parish) => {
+      const allPrices = parish.products.flatMap(p => p.prices);
       const totals = {
-        usd: allPrices
-          .filter(p => p.symbol === 'USD')
-          .reduce((sum, p) => sum + p.value, 0),
-        uah: allPrices
-          .filter(p => p.symbol === 'UAH')
-          .reduce((sum, p) => sum + p.value, 0),
+        usd: allPrices.filter(p => p.symbol === 'USD').reduce((sum, p) => sum + p.value, 0),
+        uah: allPrices.filter(p => p.symbol === 'UAH').reduce((sum, p) => sum + p.value, 0),
       };
-
       const { products, ...rest } = parish;
       return { ...rest, totals };
     });

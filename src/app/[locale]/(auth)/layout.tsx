@@ -3,6 +3,7 @@ import { ROUTES } from "@/shared/constants/routes";
 import { redirect } from "@/shared/lib/i18n/routing";
 import { AppLocale } from "@/shared/lib/i18n/config";
 import { getSessionUserCached } from "@/features/auth/lib/auth-service-cached";
+import { Sidebar } from "@/widgets/sidebar/ui/sidebar";
 
 export default async function AuthLayout({
   params,
@@ -18,7 +19,10 @@ export default async function AuthLayout({
 
   return (
     <ProvidersAuthClient initialUser={user}>
-      {children}
+      <div className="flex flex-col h-screen overflow-hidden">
+        <Sidebar />
+        {children}
+      </div>
     </ProvidersAuthClient>
   );
 }

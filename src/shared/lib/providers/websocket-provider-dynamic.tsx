@@ -1,6 +1,5 @@
 "use client";
 
-
 import { OnlineUsersCountSkeleton } from "@/shared/ui/online-users-count-skeleton";
 import dynamic from "next/dynamic";
 
