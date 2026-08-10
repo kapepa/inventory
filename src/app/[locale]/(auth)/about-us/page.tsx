@@ -3,9 +3,9 @@ import { Metadata } from "next";
 import { BackButton, Container, ScrollArea } from "@/shared/ui";
 import { AppLocale } from "@/shared/lib/i18n/config";
 import { getProductStatusCountsCached } from "@/entities/product/lib/product-service-cached";
-import { CategoryChartDynamic } from "@/widgets/category-chart/ui/category-chart-dynamic";
 import { PageHeader } from "@/widgets/page-header/ui/page-header";
 import { WarehouseMap } from "@/widgets/map/ui/warehouse-map";
+import { CategoryChart } from "@/widgets/category-chart/ui/category-chart";
 
 export async function generateMetadata({
   params,
@@ -45,7 +45,7 @@ export default async function AboutUs({
           </p>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
             <WarehouseMap locale={locale} className="w-full m-auto min-h-75" />
-            <CategoryChartDynamic statusCounts={statusCounts} className="w-full m-auto min-h-75" />
+            <CategoryChart locale={locale} statusCounts={statusCounts} className="w-full m-auto min-h-75" />
           </div>
         </div>
       </ScrollArea>

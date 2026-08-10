@@ -1,8 +1,8 @@
-import { LoginForm, LoginFormSkeleton } from "@/features/auth/ui/login-form";
+import { LoginForm } from "@/features/auth/ui/login-form";
 import { ROUTES } from "@/shared/constants/routes";
 import { AppLocale } from "@/shared/lib/i18n/config";
-import { Container } from "@/shared/ui";
-import { AuthGate, AuthGateSkeleton } from "@/widgets/auth-gate/ui/auth-gate";
+import { Container } from "@/shared/ui/container";
+import { AuthGate } from "@/widgets/auth-gate/ui/auth-gate";
 import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 

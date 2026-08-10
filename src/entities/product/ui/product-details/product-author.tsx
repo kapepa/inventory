@@ -1,13 +1,14 @@
+"use client"
+
 import { cn } from "@/shared/lib/utils"
 import { useTranslations } from "next-intl"
-import { memo } from "react"
 
 interface ProductAuthorProps {
   name: string
   classNamne?: string
 }
 
-export const ProductAuthor = memo(({ name, classNamne }: ProductAuthorProps) => {
+export const ProductAuthor = ({ name, classNamne }: ProductAuthorProps) => {
   const t = useTranslations('products.product-details')
 
   return (
@@ -16,6 +17,6 @@ export const ProductAuthor = memo(({ name, classNamne }: ProductAuthorProps) => 
       <span className="break-all">{name}</span>
     </div>
   )
-})
+}
 
 ProductAuthor.displayName = "ProductAuthor"

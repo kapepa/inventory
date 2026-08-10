@@ -1,9 +1,8 @@
 import Image from "next/image";
-import { memo } from "react";
 import { ROUTES } from "../constants/routes";
 import { Link } from "../lib/i18n/routing";
 
-export const Logo = memo(
+export const Logo =
   () => {
     return (
       <Link
@@ -14,9 +13,11 @@ export const Logo = memo(
           <Image
             src="/svgs/shield-user.svg"
             alt="Logo"
-            fill
+            width={64}
+            height={64}
             priority
-            className="object-contain"
+            fetchPriority="high"
+            className="object-contain w-full h-full"
           />
         </div>
         <span className="font-bold  text-base md:text-lg text-accent">
@@ -25,4 +26,3 @@ export const Logo = memo(
       </Link>
     );
   }
-)

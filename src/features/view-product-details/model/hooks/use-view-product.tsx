@@ -1,6 +1,6 @@
 import { useCallback } from "react";
 import { ProductDetailsModalDynamic } from "../../ui/product-details-modal.dynamic";
-import { useModalActions } from "@/shared/ui/modal";
+import { useModalActions } from "@/shared/ui/modal/modal-context";
 import { ProductWithRelationsShort, ProductWithRelationsWide } from "@/entities/product/model/types";
 
 type ProductWithRelations = ProductWithRelationsShort | ProductWithRelationsWide

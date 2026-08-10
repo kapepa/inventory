@@ -1,20 +1,18 @@
-"use client"
-
 import { cn } from "@/shared/lib/utils"
-import { useTranslations } from "next-intl"
-import { memo } from "react"
 import { UserPublic } from "../../model/types"
-import { ImageUserCell, ImageUserCellSkeleton } from "../user-cells/image-user-cell"
-import { NameUserCell, NameUserCellSkeleton } from "../user-cells/name-user-cell"
-import { EmailUserCell, EmailUserCellSkeleton } from "../user-cells/email-user-cell"
+import { ImageUserCell } from "../user-cells/image-user-cell"
+import { NameUserCell } from "../user-cells/name-user-cell"
+import { EmailUserCell } from "../user-cells/email-user-cell"
+import { useTranslations } from "next-intl"
 
 interface UserCardProps {
   className?: string,
   user: UserPublic,
 }
 
-export const UserCard = memo(({ className, user }: UserCardProps) => {
+export function UserCard({ className, user }: UserCardProps) {
   const t = useTranslations('user.user-card');
+
   return (
     <div
       className={cn(
@@ -30,27 +28,4 @@ export const UserCard = memo(({ className, user }: UserCardProps) => {
       </div>
     </div>
   )
-})
-
-UserCard.displayName = "UserCard"
-
-export const UserCardSkeleton = memo(({ className }: { className?: string }) => {
-  return (
-    <div
-      className={cn(
-        "border rounded-md bg-card hover:shadow-md transition-all w-full border-chart-1",
-        "px-4 lg:px-6 py-3 lg:py-4 gap-3",
-        className
-      )}
-    >
-      <ImageUserCellSkeleton className="mx-auto" />
-      <div className="flex flex-col items-center justify-center gap-2">
-        <NameUserCellSkeleton />
-        <EmailUserCellSkeleton />
-      </div>
-    </div>
-  )
 }
-)
-
-UserCardSkeleton.displayName = "UserCardSkeleton"

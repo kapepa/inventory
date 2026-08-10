@@ -1,5 +1,5 @@
 import { cn } from "@/shared/lib/utils";
-import { Skeleton } from "@/shared/ui"
+import { Skeleton } from "@/shared/ui/skeleton"
 import { CountTotalSkeleton } from "./bricks/count-total-skeleton"
 import { SubtitleSkeleton } from "./bricks/subtitle-skeleton"
 import { ReactNode } from "react"
@@ -33,7 +33,6 @@ export const PageHeaderSkeleton = ({ title = true, count = true, action, subtitl
       {children && (
         <div className="w-full mt-3">{children}</div>
       )}
-
     </div>
   )
 }

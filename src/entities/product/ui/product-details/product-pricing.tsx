@@ -6,7 +6,7 @@ interface ProductPricingProps {
   prices: { UAH: string | number | undefined, USD: string | number | undefined }
 }
 
-export const ProductPricing = memo(({ prices, className }: ProductPricingProps) => {
+export const ProductPricing = ({ prices, className }: ProductPricingProps) => {
   const { UAH, USD } = prices
 
   return (
@@ -16,6 +16,5 @@ export const ProductPricing = memo(({ prices, className }: ProductPricingProps) 
     </div>
   )
 }
-)
 
 ProductPricing.displayName = "ProductPricing"

@@ -1,5 +1,5 @@
 import { cn } from "@/shared/lib/utils";
-import { MobileCellLabel, Skeleton, TrashButton } from "@/shared/ui";
+import { MobileCellLabel, TrashButton } from "@/shared/ui";
 import { MouseEvent } from "react"
 
 interface ActionsCellProps {
@@ -31,13 +31,3 @@ export const ActionsCell = ({ label, isOwner, className, onDeleteCategory }: Act
 }
 
 ActionsCell.displayName = "ActionsCell"
-
-export const ActionsCellSkeleton = ({ className }: { className?: string }) => {
-  return (
-    <div className={cn("flex flex-col items-center gap-y-2", className)}>
-      <Skeleton className="h-5 w-[20%] block md:hidden" />
-      <Skeleton className="size-8" />
-    </div>
-  )
-}
-ActionsCellSkeleton.displayName = "ActionsCellSkeleton"

@@ -8,7 +8,7 @@ interface ProductImageProps {
   source: string
 }
 
-export const ProductImage = memo(
+export const ProductImage =
   ({ alt, source, className }: ProductImageProps) => {
     return (
       <ResponsiveImage
@@ -22,6 +22,6 @@ export const ProductImage = memo(
       />
     )
   }
-)
+
 
 ProductImage.displayName = "ProductImage"

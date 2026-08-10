@@ -2,7 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import { CancelButton, SubmitButton } from "@/shared/ui";
-import { ModalBody, ModalContents, ModalFooter, ModalHeader } from "@/shared/ui/modal";
+import { ModalBody, ModalContents, ModalFooter, ModalHeader } from "@/shared/ui/modal/modal-contents";
 
 interface EmailNotVerifiedModalProps {
   email: string

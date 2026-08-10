@@ -1,9 +1,8 @@
 "use client"
 
-import { AddCategoryForm, AddCategoryFormSkeleton } from "../add-category-form"
+import { AddCategoryForm } from "../add-category-form"
 import { useTranslations } from "next-intl"
-import { ModalContents, ModalHeader } from "@/shared/ui/modal"
-import { Skeleton } from "@/shared/ui"
+import { ModalContents, ModalHeader } from "@/shared/ui/modal/modal-contents"
 
 interface AddCategoryModalProps {
   onCancelAction: () => void

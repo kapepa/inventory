@@ -1,15 +1,16 @@
+"use client"
+
 import { cn } from "@/shared/lib/utils"
-import { useLocale, useTranslations } from "next-intl";
 import { ru, enUS } from 'date-fns/locale';
-import { memo } from "react"
 import { format } from 'date-fns';
+import { useLocale, useTranslations } from "next-intl";
 
 interface ProductRentalProps {
   className?: string,
   rental: { startDate: Date, endDate: Date }
 }
 
-export const ProductRental = memo(({ rental, className }: ProductRentalProps) => {
+export function ProductRental({ rental, className }: ProductRentalProps) {
   const locale = useLocale();
   const dateLocale = locale === 'ru' ? ru : enUS;
   const t = useTranslations('products');
@@ -38,6 +39,4 @@ export const ProductRental = memo(({ rental, className }: ProductRentalProps) =>
       </div>
     </div>
   )
-})
-
-ProductRental.displayName = "ProductRental"
+}

@@ -1,5 +1,5 @@
 import { cn } from "@/shared/lib/utils"
-import { MobileCellLabel, Skeleton } from "@/shared/ui"
+import { MobileCellLabel } from "@/shared/ui"
 import { useTranslations } from "next-intl";
 
 interface ConditionCellProps {
@@ -21,14 +21,3 @@ export const ConditionCell = ({ label, condition, className }: ConditionCellProp
 }
 
 ConditionCell.displayName = "ConditionCell"
-
-export const ConditionCellSkeleton = ({ className }: { className?: string }) => {
-  return (
-    <div className={cn("flex flex-col justify-center items-center", className)}>
-      <Skeleton className="h-3.5 w-20 block lg:hidden mb-2" />
-      <Skeleton className="h-6 w-14" />
-    </div>
-  )
-}
-
-ConditionCellSkeleton.displayName = "ConditionCellSkeleton"

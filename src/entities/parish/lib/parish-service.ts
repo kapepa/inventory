@@ -3,7 +3,7 @@ import { Prisma } from '@prisma/client';
 import { getLocale } from 'next-intl/server';
 import { prisma } from '@/shared/lib/prisma';
 import { AppLocale } from '@/shared/lib/i18n/config';
-import { FetchParishById, FetchParishes, ParishWithRelations, ParishWithRelationsTotals, ResponseParishesDTO, ResponseParishesTotalsDTO } from '../model/types';
+import { FetchParishById, FetchParishes, ParishWithRelations, ResponseParishesDTO, ResponseParishesTotalsDTO } from '../model/types';
 
 const buildWhereClause = ({ search = "" }: FetchParishes) => {
   const where: Prisma.ParishWhereInput = search.trim() ? {

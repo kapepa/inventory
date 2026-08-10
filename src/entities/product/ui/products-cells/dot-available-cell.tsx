@@ -1,15 +1,14 @@
 import { STATUS_DISPLAY_CONFIG } from "@/shared/lib/get-status-display"
 import { cn } from "@/shared/lib/utils"
-import { Skeleton } from "@/shared/ui"
+import { Skeleton } from "@/shared/ui/skeleton"
 import { ProductStatus } from "@prisma/client"
-import { memo } from "react"
 
 interface DotAvailableCellProps {
   className?: string
   status: ProductStatus
 }
 
-export const DotAvailableCell = memo(({ className, status }: DotAvailableCellProps) => {
+export const DotAvailableCell = ({ className, status }: DotAvailableCellProps) => {
   const config = STATUS_DISPLAY_CONFIG[status] || STATUS_DISPLAY_CONFIG;
 
   return (
@@ -17,16 +16,6 @@ export const DotAvailableCell = memo(({ className, status }: DotAvailableCellPro
       <div className={cn("w-3 h-3 rounded-full", config.bgClass)}></div>
     </div>
   )
-})
+}
 
 DotAvailableCell.displayName = "DotAvailableCell"
-
-export const DotAvailableCellSkeleton = memo(({ className }: { className?: string }) => {
-  return (
-    <div className={cn("flex justify-center items-center", className)}>
-      <Skeleton className="w-3 h-3 rounded-full" />
-    </div>
-  )
-})
-
-DotAvailableCellSkeleton.displayName = "DotAvailableCellSkeleton"

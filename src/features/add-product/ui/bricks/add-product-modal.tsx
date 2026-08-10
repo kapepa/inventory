@@ -1,7 +1,7 @@
 "use client"
 
 import { AddProductForm } from '../add-product-form'
-import { ModalContents, ModalHeader } from '@/shared/ui/modal'
+import { ModalContents, ModalHeader } from '@/shared/ui/modal/modal-contents'
 import { useTranslations } from 'next-intl'
 import { ProductWithRelationsShort, ProductWithRelationsWide } from '@/entities/product/model/types'
 

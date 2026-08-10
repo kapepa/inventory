@@ -1,5 +1,5 @@
 import { cn } from "@/shared/lib/utils"
-import { MenuButton, MobileCellLabel, Skeleton } from "@/shared/ui"
+import { MenuButton, MobileCellLabel } from "@/shared/ui"
 import { Popover, PopoverContent, PopoverTrigger } from "@/shared/ui/popover"
 import { DetailsCellProps } from "../../model/types/types"
 
@@ -28,14 +28,3 @@ export const DetailsCell = ({ label, title, description, className }: DetailsCel
 }
 
 DetailsCell.displayName = "DetailsCell";
-
-export const DetailsCellSkeleton = ({ className }: { className?: string }) => {
-  return (
-    <div className={cn("flex flex-col items-center gap-y-2", className)} >
-      <Skeleton className="h-5 w-[25%] block md:hidden" />
-      <Skeleton className="size-10 lg:size-11 rounded-full" />
-    </div>
-  )
-}
-
-DetailsCellSkeleton.displayName = "DetailsCellSkeleton"

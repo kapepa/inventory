@@ -1,8 +1,8 @@
 "use client"
 
 import { useMediaQuery } from "@/shared/lib/hooks";
-import { SidebarMobileDynamic } from "./sidebar-mobile-dynamic";
 import { SidebarDesktopDynamic } from "./sidebar-desktop-dynamic";
+import { SidebarMobileDynamic } from "./sidebar-mobile-dynamic";
 
 export const SidebarSwitch = () => {
   const isDesktop = useMediaQuery("(min-width: 768px)");

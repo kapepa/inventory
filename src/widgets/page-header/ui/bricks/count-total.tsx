@@ -19,7 +19,7 @@ export const CountTotal = memo(({ fallbackCount, className, storeType }: CountTo
   return (
     <>
       <span className="hidden lg:inline">/</span>
-      <span className={className}>{fallbackCount}</span>
+      <span className={className}>{displayTotal}</span>
     </>
   );
 });

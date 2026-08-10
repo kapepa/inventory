@@ -51,10 +51,9 @@ export const useChangeUserRoleForm = ({ userId, currentRole }: UseChangeUserRole
             }
           })
 
-          useAuthStore.getState().setUser({
-            ...useAuthStore.getState().user!,
-            role,
-          })
+          useAuthStore.setState((state) => ({
+            user: state.user ? { ...state.user, role } : null
+          }));
 
           form.setValue("role", role)
 

@@ -66,6 +66,7 @@ export default async function CategoriesId({
         storeType="products"
       />
       <ProductsList
+        locale={locale}
         isAdmin={isAdmin}
         initialHasMore={products.hasMore}
         initialProducts={products.data}

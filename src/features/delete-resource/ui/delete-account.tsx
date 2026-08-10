@@ -5,14 +5,14 @@ import { SubmitButton } from "@/shared/ui";
 import { cn } from "@/shared/lib/utils";
 import { AuthenticatedUser } from "@/features/auth/model/types";
 import { useCallback } from "react";
-import { useDeleteAccountContext } from "@/shared/lib/providers/delete-account-context";
+import { DeleteAccountProvider, useDeleteAccountContext } from "@/shared/lib/providers/delete-account-context";
 
 interface DeleteAccountProps {
   user: AuthenticatedUser,
   className?: string,
 }
 
-export const DeleteAccount = ({ user, className }: DeleteAccountProps) => {
+export const DeleteAccountInner = ({ user, className }: DeleteAccountProps) => {
   const t = useTranslations('delete-account');
   const { confirmAccountDelete } = useDeleteAccountContext()
 
@@ -35,5 +35,15 @@ export const DeleteAccount = ({ user, className }: DeleteAccountProps) => {
     </div>
   );
 };
+
+DeleteAccountInner.displayName = "DeleteAccountInner";
+
+export const DeleteAccount = (props: DeleteAccountProps) => {
+  return (
+    <DeleteAccountProvider>
+      <DeleteAccountInner {...props} />
+    </DeleteAccountProvider>
+  )
+}
 
 DeleteAccount.displayName = "DeleteAccount";

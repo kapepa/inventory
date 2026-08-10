@@ -4,9 +4,9 @@ import { cn } from "@/shared/lib/utils";
 import { memo } from "react";
 import { ChevronRight } from "lucide-react";
 import { ParishWithRelations } from "../../model/types";
-import { CountCell, CountCellSkeleton } from "../cells/count-cell";
-import { DetailsCell, DetailsCellSkeleton } from "../cells/details-cell";
-import { DateCell, DateCellSkeleton } from "../cells/date-cell";
+import { CountCell } from "../cells/count-cell";
+import { DetailsCell } from "../cells/details-cell";
+import { DateCell } from "../cells/date-cell";
 
 interface ParishShortCardProps {
   className?: string,
@@ -51,18 +51,3 @@ export const ParishShortCard = memo(
 )
 
 ParishShortCard.displayName = 'ParishShortCard';
-
-export const ParishShortCardSkeleton = memo(({ className }: { className?: string }) => {
-  return (
-    <div className="border rounded-md bg-card w-full flex border-chart-1">
-      <div className={cn("grow px-2 py-3.5", className)}>
-        <DetailsCellSkeleton />
-        <CountCellSkeleton />
-        <DateCellSkeleton />
-      </div>
-      <div className="w-12 md:w-14"></div>
-    </div>
-  )
-})
-
-ParishShortCardSkeleton.displayName = "ParishShortCardSkeleton"

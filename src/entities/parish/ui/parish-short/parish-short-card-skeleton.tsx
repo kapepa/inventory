@@ -1,9 +1,13 @@
 import { cn } from "@/shared/lib/utils";
-import { Skeleton } from "@/shared/ui";
+import { Loader, Skeleton } from "@/shared/ui";
 
 export const ParishShortCardSkeleton = ({ className }: { className?: string }) => {
   return (
-    <Skeleton className={cn("h-24 w-full", className)} />
+    <Skeleton
+      className={cn("h-18.5 border rounded-md bg-card hover:shadow-md border-chart-1 w-full flex justify-center items-center", className)}
+    >
+      <Loader className="size-8" />
+    </Skeleton>
   )
 }
 

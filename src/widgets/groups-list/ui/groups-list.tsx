@@ -96,7 +96,7 @@ export const GroupsList = memo(({
           }
           {(hasMore || isLoading) && (
             <div ref={targetRef} className="w-full h-18 flex items-center justify-center">
-              {isLoading && <ParishShortCardSkeleton className={cn(CARD_CLASS, "h-18 w-full")} />}
+              {isLoading && <ParishShortCardSkeleton />}
             </div>
           )}
         </div>
@@ -106,28 +106,3 @@ export const GroupsList = memo(({
 })
 
 GroupsList.displayName = 'GroupsList';
-
-export const GroupsListSkeleton = ({ className }: { className?: string }) => {
-  return (
-    <div className={cn("flex flex-col h-full min-h-0 gap-y-3", className)}>
-      <ParishShortHeader
-        className={cn(CARD_CLASS)}
-      />
-      <ScrollArea className="flex-1 min-h-0">
-        <div className="flex flex-col gap-y-3 pb-6 md:pb-16">
-          {
-            Array.from({ length: 3 }).map((_, index) => (
-              <ParishShortCardSkeleton
-                key={`groups-list-skeleton-${index}`}
-                className="h-18"
-              />
-            ))
-          }
-        </div>
-      </ScrollArea>
-    </div>
-  );
-}
-
-GroupsListSkeleton.displayName = 'GroupsListSkeleton';
-

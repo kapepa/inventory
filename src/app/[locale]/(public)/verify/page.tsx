@@ -4,7 +4,7 @@ import { ROUTES } from "@/shared/constants/routes";
 import { ExpiredError, NotFoundError } from "@/shared/lib/errors";
 import { AppLocale } from "@/shared/lib/i18n/config";
 import { redirect } from "@/shared/lib/i18n/routing";
-import { Container } from "@/shared/ui";
+import { Container } from "@/shared/ui/container";
 import { PageHeader } from "@/widgets/page-header/ui/page-header";
 import { StatusVerifyEmail } from "@/widgets/verify-email-status/model/types";
 import { VerifyEmailStatus } from "@/widgets/verify-email-status/ui/verify-email-status";

@@ -1,10 +1,10 @@
 "use client";
 
-import { memo } from "react";
 import { useTranslations } from "next-intl";
 import { QUERY_PARAMS_KEYS } from "@/shared/constants/query-params-keys";
 import { GenericSearchInput, GenericSearchResponsive } from "./generic-search";
 import { useGenericSearch } from "../hooks/use-generic-search";
+import { memo } from "react";
 
 interface ParishesSearchProps {
   className?: string
@@ -30,7 +30,7 @@ export const ParishesSearch = memo(({ className }: ParishesSearchProps) => {
       />
     </GenericSearchResponsive>
   );
-}
-)
+})
+
 
 ParishesSearch.displayName = "ParishesSearch"

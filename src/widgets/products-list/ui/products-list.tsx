@@ -10,15 +10,18 @@ import { useIntersectionObserver } from "@/shared/lib/hooks"
 import { ProductWithRelationsWide } from "@/entities/product/model/types"
 import { useInfiniteProducts } from "@/entities/product/model/hooks/use-infinite-products"
 import { useViewProduct } from "@/features/view-product-details/model/hooks/use-view-product"
-import { ProductsWideCard, ProductsWideCardSkeleton } from "@/entities/product/ui/products-wide"
 import { ProductsActionMode } from "../model/types"
 import { useFetchProductsAction } from "../model/hooks/use-fetch-products-action"
-import { useDeleteProductContext } from "@/shared/lib/providers/delete-product-context";
+import { DeleteProductProvider, useDeleteProductContext } from "@/shared/lib/providers/delete-product-context";
 import { getProductsLayout } from "./products-grid-layout-styles";
 import { StateMessage } from "@/shared/ui";
+import { ProductsWideCard } from "@/entities/product/ui/products-wide/products-wide-card";
+import { ProductsWideCardSkeleton } from "@/entities/product/ui/products-wide/products-wide-card-skeletob";
+import { AppLocale } from "@/shared/lib/i18n/config";
 
 interface ProductsListProps {
   mode?: ProductsActionMode
+  locale: AppLocale
   isAdmin: boolean
   className?: string
   initialcategoryId?: string
@@ -27,7 +30,7 @@ interface ProductsListProps {
   initialHasMore: boolean,
 }
 
-export const ProductsList = ({ isAdmin, initialParishId, initialProducts, initialHasMore, initialcategoryId, className, mode }: ProductsListProps) => {
+export const ProductsListInner = ({ locale, isAdmin, initialParishId, initialProducts, initialHasMore, initialcategoryId, className, mode }: ProductsListProps) => {
   const t = useTranslations('products-list');
   const [search] = useQueryParam(QUERY_PARAMS_KEYS.PRODUCTS_SEARCH)
   const [categoryId] = useQueryParam(QUERY_PARAMS_KEYS.CATEGORY);
@@ -72,6 +75,7 @@ export const ProductsList = ({ isAdmin, initialParishId, initialProducts, initia
             products.map((product) => (
               <ProductsWideCard
                 key={product.id}
+                locale={locale}
                 product={product}
                 isAdmin={isAdmin}
                 onDeleteProduct={handlerDeleteProduct}
@@ -82,12 +86,22 @@ export const ProductsList = ({ isAdmin, initialParishId, initialProducts, initia
           }
           {(hasMore || isLoading) && (
             <div ref={targetRef} className="w-full h-auto flex items-center justify-center min-h-14">
-              {isLoading && <ProductsWideCardSkeleton isAdmin={isAdmin} className={PRODUCTD_LAYOUT} />}
+              {isLoading && <ProductsWideCardSkeleton />}
             </div>
           )}
         </div>
       </ScrollArea>
     </div>
+  )
+}
+
+ProductsListInner.displayName = "ProductsListInner"
+
+export const ProductsList = (props: ProductsListProps) => {
+  return (
+    <DeleteProductProvider>
+      <ProductsListInner {...props} />
+    </DeleteProductProvider>
   )
 }
 

@@ -1,11 +1,11 @@
 import { cn } from "@/shared/lib/utils"
 import { memo } from "react"
 import { ProductWithRelationsShort } from "../../model/types"
-import { DotAvailableCell, DotAvailableCellSkeleton } from "../products-cells/dot-available-cell"
-import { PictureCell, PictureCellSkeleton } from "../products-cells/picture-cell"
-import { IdentifierCell, IdentifierCellSkeleton } from "../products-cells/identifier-cell"
-import { StatusCell, StatusCellSkeleton } from "../products-cells/status-cell"
-import { ActionsProductCell, ActionsProductCellSkeleton } from "../products-cells/actions-product-cell"
+import { DotAvailableCell } from "../products-cells/dot-available-cell"
+import { PictureCell } from "../products-cells/picture-cell"
+import { IdentifierCell } from "../products-cells/identifier-cell"
+import { StatusCell } from "../products-cells/status-cell"
+import { ActionsProductCell } from "../products-cells/actions-product-cell"
 
 interface ProductShortCardProps {
   product: ProductWithRelationsShort,
@@ -36,17 +36,3 @@ export const ProductShortCard = memo(
 )
 
 ProductShortCard.displayName = "ProductShortCard"
-
-export const ProductShortCardSkeleton = ({ isAdmin, className }: { isAdmin?: boolean, className?: string, }) => {
-  return (
-    <div className={cn("border-t w-full", className)}>
-      <DotAvailableCellSkeleton />
-      <PictureCellSkeleton />
-      <IdentifierCellSkeleton />
-      <StatusCellSkeleton className="hidden lg:flex" />
-      {isAdmin && <ActionsProductCellSkeleton className="hidden lg:flex" />}
-    </div>
-  )
-}
-
-ProductShortCardSkeleton.displayName = "ProductShortCardSkeleton"

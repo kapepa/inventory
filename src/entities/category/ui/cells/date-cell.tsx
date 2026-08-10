@@ -1,5 +1,5 @@
 import { cn } from "@/shared/lib/utils";
-import { MobileCellLabel, Skeleton } from '@/shared/ui';
+import { MobileCellLabel } from '@/shared/ui';
 import { format } from 'date-fns';
 import { ru, enUS } from 'date-fns/locale';
 import { useLocale } from 'next-intl';
@@ -25,14 +25,3 @@ export const DateCell = ({ label, created, className }: DateCellProps) => {
 }
 
 DateCell.displayName = "DateCell"
-
-export const DateCellSkeleton = ({ className }: { className?: string }) => {
-  return (
-    <div className={cn("flex flex-col items-center self-baseline lg:self-auto gap-y-2", className)}>
-      <Skeleton className="h-5 w-[60%] block lg:hidden" />
-      <Skeleton className="h-5 w-[60%]" />
-    </div>
-  )
-}
-
-DateCellSkeleton.displayName = "DateCellSkeleton"

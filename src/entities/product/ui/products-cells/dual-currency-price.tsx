@@ -25,16 +25,3 @@ export const DualCurrencyPrice = ({ label, sumUAH, sumUSD, className }: DualCurr
 }
 
 DualCurrencyPrice.displayName = "DualCurrencyPrice"
-
-export const DualCurrencyPriceSkeleton = ({ className }: { className?: string }) => {
-
-  return (
-    <div className={cn("flex flex-col justify-center items-center gap-y-2", className)}>
-      <Skeleton className="h-3.5 w-20 block lg:hidden mb-2" />
-      <Skeleton className="h-4 w-16" />
-      <Skeleton className="h-6 w-28" />
-    </div>
-  )
-}
-
-DualCurrencyPriceSkeleton.displayName = "DualCurrencyPriceSkeleton"

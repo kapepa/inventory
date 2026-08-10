@@ -1,10 +1,11 @@
 "use client"
 
 import { memo, useCallback } from "react"
-import { TitleField, TitleFieldSkeleton } from "./title-field"
+import { TitleField } from "./title-field"
 import { AppLocale } from "@/shared/lib/i18n/config"
 import { CategoryTranslatableFieldName } from "../../model/schemas-client"
 import { cn } from "@/shared/lib/utils"
+import { TitleFieldSkeleton } from "./title-field-skeleton"
 
 interface TranslationFieldsProps {
   locale: AppLocale

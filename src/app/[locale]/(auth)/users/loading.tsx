@@ -1,4 +1,4 @@
-import { Container } from "@/shared/ui";
+import { Container } from "@/shared/ui/container";
 import { PageHeaderSkeleton } from "@/widgets/page-header/ui/page-header-skeleton";
 import { UsersListSkeleton } from "@/widgets/users-list/ui/users-list";
 

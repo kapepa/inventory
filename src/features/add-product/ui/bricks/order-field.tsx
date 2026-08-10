@@ -3,10 +3,9 @@
 import { memo } from "react"
 import { useFormContext } from "react-hook-form"
 import { useTranslations } from "next-intl"
-import { Input, InputSkeleton, Skeleton } from "@/shared/ui"
+import { Input } from "@/shared/ui"
 import { VALIDATION_LIMITS } from "@/shared/constants/validation"
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/shared/ui/form"
-import { cn } from "@/shared/lib/utils"
 
 interface OrderFieldProps {
   isPending?: boolean
@@ -47,14 +46,3 @@ export const OrderField = memo(({ isPending }: OrderFieldProps) => {
 })
 
 OrderField.displayName = "OrderField"
-
-export const OrderFieldSkeleton = ({ className }: { className?: string }) => {
-  return (
-    <div className={cn("flex flex-col gap-y-3.5", className)}>
-      <Skeleton className="w-1/3 h-4.5" />
-      <InputSkeleton />
-    </div>
-  )
-}
-
-OrderFieldSkeleton.displayName = "OrderFieldSkeleton"

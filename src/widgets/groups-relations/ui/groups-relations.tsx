@@ -1,6 +1,6 @@
 "use client"
 
-import { memo, useCallback, useEffect, useMemo } from "react"
+import { useCallback, useEffect, useMemo } from "react"
 import { useParishesStore } from "@/entities/parish/model/parish-store"
 import { fetchProductsShort } from "@/entities/product/api"
 import { useInfiniteProducts } from "@/entities/product/model/hooks/use-infinite-products"
@@ -14,9 +14,9 @@ import { LoaderSpin, StateMessage } from "@/shared/ui"
 import { useTranslations } from "next-intl"
 import { getRelationshLayout } from "./relations-grid-layout-styles"
 import { ProductsShortBody } from "@/entities/product/ui/products-short/products-short-body"
-import { ProductShortCard, ProductShortCardSkeleton } from "@/entities/product/ui/products-short/product-short-card"
-import { useDeleteProductContext } from "@/shared/lib/providers/delete-product-context"
-
+import { ProductShortCard } from "@/entities/product/ui/products-short/product-short-card"
+import { DeleteProductProvider, useDeleteProductContext } from "@/shared/lib/providers/delete-product-context"
+import { ProductShortCardSkeleton } from "@/entities/product/ui/products-short/product-short-card-skeleton"
 
 interface GroupsRelationsProps {
   isAdmin: boolean,
@@ -27,7 +27,7 @@ interface GroupsRelationsProps {
   initialParishTitle: string
 }
 
-export const GroupsRelations = memo(({ isAdmin, className, initialHasMore, initialProducts, initialParishesId, initialParishTitle }: GroupsRelationsProps) => {
+export const GroupsRelationsInner = ({ isAdmin, className, initialHasMore, initialProducts, initialParishesId, initialParishTitle }: GroupsRelationsProps) => {
   const t = useTranslations('groups-relations');
   const activeParishe = useParishesStore((state) => state.activeParishe)
   const storeActiveParisheTitle = activeParishe?.translations[0]?.title
@@ -105,7 +105,7 @@ export const GroupsRelations = memo(({ isAdmin, className, initialHasMore, initi
           }
           {(hasMore || isLoading) && (
             <div ref={targetRef} className="w-full h-16 flex items-center justify-center">
-              {isLoading && <ProductShortCardSkeleton isAdmin={isAdmin} className={GROUPS_LAYOUT} />}
+              {isLoading && <ProductShortCardSkeleton />}
             </div>
           )}
           {(!hasMore && !products.length) && (
@@ -117,6 +117,16 @@ export const GroupsRelations = memo(({ isAdmin, className, initialHasMore, initi
       </ProductsShortBody>
     </div>
   )
-})
+}
+
+GroupsRelationsInner.displayName = "GroupsRelationsInner"
+
+export const GroupsRelations = (props: GroupsRelationsProps) => {
+  return (
+    <DeleteProductProvider>
+      <GroupsRelationsInner {...props} />
+    </DeleteProductProvider>
+  )
+}
 
 GroupsRelations.displayName = "GroupsRelations"

@@ -3,9 +3,9 @@ import type { NextConfig } from "next";
 
 const withNextIntl = createNextIntlPlugin('./src/i18n/request.ts');
 
-// const withBundleAnalyzer = process.env.ANALYZE === 'true'
-//   ? require('@next/bundle-analyzer')({ enabled: true })
-//   : (config: NextConfig) => config;
+const withBundleAnalyzer = process.env.ANALYZE === 'true'
+  ? require('@next/bundle-analyzer')({ enabled: true })
+  : (config: NextConfig) => config;
 
 const nextConfig: NextConfig = {
   images: {
@@ -23,7 +23,6 @@ const nextConfig: NextConfig = {
     removeConsole: process.env.NODE_ENV === 'production',
   },
   compress: true,
-  // Настройка SWC для современных браузеров
   experimental: {
     optimizePackageImports: [
       'lucide-react',
@@ -32,6 +31,7 @@ const nextConfig: NextConfig = {
       'zod',
       'socket.io-client',
       '@radix-ui/react-tabs',
+      '@radix-ui/react-dropdown-menu',
       '@radix-ui/react-tooltip',
       '@radix-ui/react-slot',
       '@radix-ui/react-label',
@@ -149,13 +149,6 @@ const nextConfig: NextConfig = {
               chunks: 'async',
               priority: 30,
             },
-            // Recharts (async)
-            recharts: {
-              test: /[\\/]node_modules[\\/]recharts[\\/]/,
-              name: 'recharts',
-              chunks: 'async',
-              priority: 30,
-            },
             // Общие vendor библиотеки
             commons: {
               test: /[\\/]node_modules[\\/]/,
@@ -172,6 +165,6 @@ const nextConfig: NextConfig = {
   },
 };
 
-// export default withBundleAnalyzer(withNextIntl(nextConfig));
+export default withBundleAnalyzer(withNextIntl(nextConfig));
 
-export default withNextIntl(nextConfig)
+// export default withNextIntl(nextConfig)
