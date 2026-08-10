@@ -1,7 +1,7 @@
 import { sendEmail } from './send';
 import { verificationEmailTemplate } from './templates/server';
 import { getTranslations } from 'next-intl/server';
-import { SendVerificationEmailInput } from '../model';
+import { SendVerificationEmailInput } from '../model/types';
 import { QUERY_PARAMS_KEYS } from '@/shared/constants/query-params-keys';
 import { ROUTES } from '@/shared/constants/routes';
 

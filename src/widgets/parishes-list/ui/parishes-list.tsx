@@ -1,6 +1,6 @@
 "use client"
 
-import { useCallback, useEffect, useMemo } from "react"
+import { memo, useCallback, useEffect, useMemo } from "react"
 import { useTranslations } from "next-intl"
 import { fetchParishesTotals } from "@/entities/parish/api/parish-api"
 import { cn } from "@/shared/lib/utils";
@@ -10,12 +10,12 @@ import { useIntersectionObserver } from "@/shared/lib/hooks"
 import { isTotalsParish, ParishWithRelationsTotals } from "@/entities/parish/model/types"
 import { useParishesStore } from "@/entities/parish/model/parish-store"
 import { useInfiniteParishes } from "@/entities/parish/model/hooks/use-infinite-parishes"
-import { ParishWideHeader, ParishWideHeaderSkeleton } from "@/entities/parish/ui/parish-wide/parish-wide-header"
-import { getParishLayout } from "./parish-list.styles"
-import { useDeleteParishContext } from "@/shared/lib/providers/delete-parish-context";
-import { ParishWideCard, ParishWideCardSkeleton } from "@/entities/parish/ui/parish-wide/parish-wide-card"
+import { getParishLayout } from "./parishes-list.styles"
+import { DeleteParishProvider, useDeleteParishContext } from "@/shared/lib/providers/delete-parish-context";
+import { ParishWideCard } from "@/entities/parish/ui/parish-wide/parish-wide-card"
 import { ScrollArea } from "@/shared/ui/scroll-area"
 import { StateMessage } from "@/shared/ui";
+import { ParishWideCardSkeleton } from "@/entities/parish/ui/parish-wide/parish-wide-card-skeleton";
 
 interface ParishesListProps {
   isAdmin: boolean,
@@ -24,7 +24,7 @@ interface ParishesListProps {
   initialHasMore?: boolean,
 }
 
-export const ParishesList = ({
+export const ParishesListInner = memo(({
   isAdmin,
   className,
   initialParishes = [],
@@ -73,58 +73,33 @@ export const ParishesList = ({
   const PARISH_LAYOUT = useMemo(() => getParishLayout(isAdmin), [isAdmin])
 
   return (
-    <div className={cn("w-full min-h-0 flex flex-col", className)}>
-      <ParishWideHeader
-        isAdmin={isAdmin}
-        className={cn(PARISH_LAYOUT, "hidden md:grid shrink-0")}
-      />
-      <ScrollArea className="flex-1 min-h-0">
-        <div className="flex flex-col gap-3 mx-auto pb-6 md:pb-16">
-          {parishes.map((parish) => (
-            <ParishWideCard
-              key={parish.id}
-              parish={parish}
-              isAdmin={isAdmin}
-              onDeleteParish={handlerDeleteParish}
-              className={PARISH_LAYOUT}
-            />
-          ))}
-          {(hasMore || isLoading) && (
-            <div ref={targetRef} className="flex flex-col gap-3">
-              {isLoading && <ParishWideCardSkeleton isAdmin={isAdmin} className={PARISH_LAYOUT} />}
-            </div>
-          )}
-        </div>
-      </ScrollArea>
-    </div>
-  )
-}
-
-ParishesList.displayName = "ParishesList"
-
-export const ParishesListSkeleton = ({ className }: { className?: string }) => {
-  const isAdmin = false
-  const PARISH_LAYOUT = useMemo(() => getParishLayout(isAdmin), [isAdmin])
-
-  return (
-    <div className={cn("w-full min-h-0 flex flex-col", className)}>
-      <ParishWideHeaderSkeleton
-        isAdmin={isAdmin}
-        className={cn(PARISH_LAYOUT, "hidden md:grid shrink-0")}
-      />
-      <div className="flex-1 min-h-0 w-full mx-auto max-w-lg lg:max-w-full overflow-hidden">
-        <div className="flex flex-col gap-3 mx-auto pb-6 md:pb-16 w-full">
-          {Array.from({ length: 4 }).map((_, index) => (
-            <ParishWideCardSkeleton
-              key={`parishes-list-skeleton-${index}`}
-              isAdmin={isAdmin}
-              className={PARISH_LAYOUT}
-            />
-          ))}
-        </div>
+    <ScrollArea className={cn("flex-1 min-h-0", className)}>
+      <div className="flex flex-col gap-3 mx-auto pb-6 md:pb-16">
+        {parishes.map((parish) => (
+          <ParishWideCard
+            key={parish.id}
+            parish={parish}
+            isAdmin={isAdmin}
+            onDeleteParish={handlerDeleteParish}
+            className={PARISH_LAYOUT}
+          />
+        ))}
+        {(hasMore || isLoading) && (
+          <div ref={targetRef} className="flex flex-col gap-3">
+            {isLoading && <ParishWideCardSkeleton />}
+          </div>
+        )}
       </div>
-    </div>
+    </ScrollArea>
+  )
+})
+
+ParishesListInner.displayName = "ParishesListInner"
+
+export const ParishesList = (props: ParishesListProps) => {
+  return (
+    <DeleteParishProvider>
+      <ParishesListInner {...props} />
+    </DeleteParishProvider>
   )
 }
-
-ParishesListSkeleton.displayName = "ParishesListSkeleton"

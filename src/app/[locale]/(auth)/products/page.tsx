@@ -5,7 +5,7 @@ import { ProductsExplore } from "@/features/products-explore/ui/products-explore
 import { PAGINATION_PARISHES_DEFAULTS } from "@/shared/constants/pagination";
 import { QUERY_PARAMS_KEYS } from "@/shared/constants/query-params-keys";
 import { AppLocale } from "@/shared/lib/i18n/config";
-import { Container } from "@/shared/ui";
+import { Container } from "@/shared/ui/container";
 import { PageHeader } from "@/widgets/page-header/ui/page-header";
 import { ProductsList } from "@/widgets/products-list/ui/products-list";
 import { Metadata } from "next";
@@ -66,6 +66,7 @@ export default async function Products({
         storeType="products"
       />
       <ProductsList
+        locale={locale}
         isAdmin={isAdmin}
         initialParishId={null}
         initialProducts={products.data}

@@ -31,13 +31,3 @@ export const ActionsCell = ({ label, isOwner, className, onDeleteParish }: Actio
 }
 
 ActionsCell.displayName = "ActionsCell"
-
-export const ActionsCellSkeleton = ({ className }: { className?: string }) => {
-  return (
-    <div className={cn("flex flex-col items-center gap-y-2", className)}>
-      <Skeleton className="h-5 w-[20%] block md:hidden" />
-      <Skeleton className="size-8" />
-    </div>
-  )
-}
-ActionsCellSkeleton.displayName = "ActionsCellSkeleton"

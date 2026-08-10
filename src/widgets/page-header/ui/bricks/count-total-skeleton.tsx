@@ -1,5 +1,5 @@
 import { cn } from "@/shared/lib/utils";
-import { Skeleton } from "@/shared/ui";
+import { Skeleton } from "@/shared/ui/skeleton";
 
 export const CountTotalSkeleton = ({ className }: { className?: string }) => {
   return (

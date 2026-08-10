@@ -2,7 +2,7 @@
 
 import { useCallback, useState } from 'react'
 import { useMediaQuery } from '@/shared/lib/hooks/use-media-query';
-import { useModalActions } from '@/shared/ui/modal';
+import { useModalActions } from '@/shared/ui/modal/modal-context';
 import { ProductWithRelations } from '@/entities/product/model/types';
 import { AddProductModalDynamic } from '../../ui/bricks/add-product-modal-dynamic';
 import { AddProductSheetDynamic } from '../../ui/bricks/add-product-sheet-dynamic';

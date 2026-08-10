@@ -78,9 +78,3 @@ export const LanguageSwitcher = ({ className }: Omit<LanguageSwitcherProps, 'loc
 
   return <LanguageSwitcherInner className={className} locale={locale} pathname={pathname} searchParams={searchParams} />;
 };
-
-export const LanguageSwitcherSkeleton = ({ className }: { className?: string }) => {
-  return (
-    <Skeleton className={cn("w-28 h-7", className)} />
-  )
-}

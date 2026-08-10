@@ -1,1 +1,0 @@
-export { ProductsWideCard, ProductsWideCardSkeleton } from "./products-wide-card"

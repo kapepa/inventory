@@ -1,11 +1,10 @@
 "use client"
 
 import { memo, useCallback } from "react"
-import { TitleField, TitleFieldSkeleton } from "./title-field"
-import { DescriptionField, DescriptionFieldSkeleton } from "./description-field"
+import { TitleField } from "./title-field"
+import { DescriptionField } from "./description-field"
 import { AppLocale } from "@/shared/lib/i18n/config"
 import { TranslatableFieldName } from "../../model/schemas-client"
-import { cn } from "@/shared/lib/utils"
 
 interface TranslationFieldsProps {
   locale: AppLocale
@@ -50,15 +49,3 @@ export const TranslationFields = memo(({
 })
 
 TranslationFields.displayName = "TranslationFields"
-
-export const TranslationFieldsSkeleton = ({ className }: { className?: string }) => {
-  return (
-    <div className={cn("space-y-9", className)}>
-      <TitleFieldSkeleton />
-      <DescriptionFieldSkeleton />
-    </div>
-  )
-}
-
-TranslationFieldsSkeleton.displayName = "TranslationFieldsSkeleton"
-

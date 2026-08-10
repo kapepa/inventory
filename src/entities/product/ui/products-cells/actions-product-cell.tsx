@@ -31,15 +31,3 @@ export const ActionsProductCell = memo(({ label, isOwner, onDeleteProduct, class
 })
 
 ActionsProductCell.displayName = "ActionsProductCell"
-
-export const ActionsProductCellSkeleton = memo(({ className }: { className?: string }) => {
-  return (
-    <div className={cn("flex flex-col justify-center items-center", className)}>
-      <Skeleton className="h-3.5 w-20 block lg:hidden mb-2" />
-      <Skeleton className="size-8" />
-    </div>
-  )
-})
-
-ActionsProductCellSkeleton.displayName = "ActionsProductCellSkeleton"
-

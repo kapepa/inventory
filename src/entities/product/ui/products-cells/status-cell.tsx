@@ -1,9 +1,8 @@
 import { STATUS_DISPLAY_CONFIG } from "@/shared/lib/get-status-display"
 import { cn } from "@/shared/lib/utils"
-import { MobileCellLabel, Skeleton } from "@/shared/ui"
+import { MobileCellLabel } from "@/shared/ui"
 import { ProductStatus } from "@prisma/client"
 import { useTranslations } from "next-intl"
-import { memo } from "react"
 
 interface StatusCellProps {
   className?: string
@@ -11,7 +10,7 @@ interface StatusCellProps {
   label?: string
 }
 
-export const StatusCell = memo(({ label, status, className }: StatusCellProps) => {
+export const StatusCell = ({ label, status, className }: StatusCellProps) => {
   const t = useTranslations('groups-relations.products.status')
   const config = STATUS_DISPLAY_CONFIG[status] || STATUS_DISPLAY_CONFIG.FREE
 
@@ -22,18 +21,5 @@ export const StatusCell = memo(({ label, status, className }: StatusCellProps) =
     </div>
   )
 }
-)
 
 StatusCell.displayName = "StatusCell"
-
-export const StatusCellSkeleton = memo(({ className }: { className?: string }) => {
-  return (
-    <div className={cn("flex flex-col justify-center items-center", className)}>
-      <Skeleton className="h-3.5 w-20 block lg:hidden mb-2" />
-      <Skeleton className="h-6 w-20" />
-    </div>
-  )
-}
-)
-
-StatusCellSkeleton.displayName = "StatusCellSkeleton"

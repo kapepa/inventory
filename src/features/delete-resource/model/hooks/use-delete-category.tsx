@@ -5,7 +5,7 @@ import { useCallback, useEffect, useTransition } from "react";
 import { toast } from "sonner";
 import { requestDeleteCategory } from "../../api";
 import { ForbiddenError, HasDependenciesError, NotFoundError } from "@/shared/lib/errors";
-import { useModalActions } from "@/shared/ui/modal";
+import { useModalActions } from "@/shared/ui/modal/modal-context";
 import { CategoryWithProductCount } from "@/entities/category/model/types";
 import { DeleteConfirmModalDynamic } from "../../ui/delete-confirm-modal-dynamic";
 

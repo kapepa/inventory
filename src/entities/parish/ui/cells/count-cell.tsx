@@ -1,5 +1,5 @@
 import { cn } from "@/shared/lib/utils";
-import { MobileCellLabel, Skeleton } from "@/shared/ui"
+import { MobileCellLabel } from "@/shared/ui"
 import { useTranslations } from "next-intl";
 
 interface CountCellProps {
@@ -24,15 +24,3 @@ export const CountCell = ({ label, count, className }: CountCellProps) => {
 }
 
 CountCell.displayName = "CountCell"
-
-export const CountCellSkeleton = ({ className }: { className?: string }) => {
-  return (
-    <div className={cn("flex flex-col items-center gap-y-2", className)}>
-      <Skeleton className="h-5 w-[25%] block md:hidden" />
-      <Skeleton className="h-5 w-8" />
-      <Skeleton className="h-4 w-[50%]" />
-    </div>
-  )
-}
-
-CountCellSkeleton.displayName = "CountCellSkeleton"

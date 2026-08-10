@@ -85,6 +85,7 @@ export default async function ParishesId({
         {description}
       </PageHeader>
       <ProductsList
+        locale={locale}
         isAdmin={isAdmin}
         initialParishId={id}
         initialProducts={products.data}

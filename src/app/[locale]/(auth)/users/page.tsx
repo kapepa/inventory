@@ -2,9 +2,9 @@ import { getFilteredUsersCached } from "@/entities/user/lib/user-service-cached"
 import { PAGINATION_USERS_DEFAULTS } from "@/shared/constants/pagination";
 import { QUERY_PARAMS_KEYS } from "@/shared/constants/query-params-keys";
 import { AppLocale } from "@/shared/lib/i18n/config";
-import { Container } from "@/shared/ui";
+import { Container } from "@/shared/ui/container";
 import { PageHeader } from "@/widgets/page-header/ui/page-header";
-import { UsersList } from "@/widgets/users-list";
+import { UsersList } from "@/widgets/users-list/ui/users-list";
 import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 

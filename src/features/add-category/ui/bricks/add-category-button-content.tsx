@@ -1,6 +1,5 @@
 "use client"
 
-import { useTranslations } from "next-intl";
 import { useAddCategory } from "../../model/hooks/use-add-category";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/shared/ui/tooltip";
 import { CirclePlusButton, TooltipText } from "@/shared/ui";

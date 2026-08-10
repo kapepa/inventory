@@ -1,6 +1,6 @@
-import { LoginFormSkeleton } from "@/features/auth/ui/login-form";
-import { Container } from "@/shared/ui";
-import { AuthGateSkeleton } from "@/widgets/auth-gate/ui/auth-gate";
+import { LoginFormSkeleton } from "@/features/auth/ui/login-form-skeleton";
+import { AuthGateSkeleton } from "@/widgets/auth-gate/ui/auth-gate-skeleton";
+import { Container } from "@/shared/ui/container";
 
 export default function LoadingLogin() {
   return (

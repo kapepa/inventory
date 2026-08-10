@@ -4,13 +4,12 @@ import { ROUTES } from "@/shared/constants/routes"
 import { Link } from "@/shared/lib/i18n/routing"
 import { ParishWithRelationsTotals } from "../../model/types"
 import { cn } from "@/shared/lib/utils"
-import { CountCell, CountCellSkeleton } from "../cells/count-cell"
-import { AmountCell, AmountCellSkeleton } from "../cells/amount-cell"
-import { ActionsCell, ActionsCellSkeleton } from "../cells/actions-cell"
-import { TitleCell, TitleCellSkeleton } from "../cells/title-cell"
-import { DetailsCell, DetailsCellSkeleton } from "../cells/details-cell"
-import { DateCell, DateCellSkeleton } from "../cells/date-cell"
-
+import { CountCell } from "../cells/count-cell"
+import { AmountCell } from "../cells/amount-cell"
+import { ActionsCell } from "../cells/actions-cell"
+import { TitleCell } from "../cells/title-cell"
+import { DetailsCell } from "../cells/details-cell"
+import { DateCell } from "../cells/date-cell"
 
 const CELL_GENERAL_STYLE = "flex flex-col items-center"
 
@@ -43,18 +42,3 @@ export const ParishWideCard = memo(
 )
 
 ParishWideCard.displayName = "ParishWideCard"
-
-export const ParishWideCardSkeleton = ({ isAdmin, className }: { isAdmin?: boolean, className?: string }) => {
-  return (
-    <div className={cn("px-5 py-3 lg:px-6 lg:py-3.5 gap-2 border rounded-md bg-card border-chart-1", className)}>
-      <TitleCellSkeleton className="col-span-2 md:col-span-1" />
-      <DetailsCellSkeleton />
-      <CountCellSkeleton />
-      <DateCellSkeleton />
-      <AmountCellSkeleton />
-      {isAdmin && <ActionsCellSkeleton />}
-    </div>
-  )
-}
-
-ParishWideCardSkeleton.displayName = "ParishWideCardSkeleton";

@@ -1,6 +1,6 @@
-import { ModalContents, ModalHeader } from "@/shared/ui/modal"
-import { AddParishFormSkeleton } from "../add-parish-form"
-import { Skeleton } from "@/shared/ui"
+import { ModalContents, ModalHeader } from "@/shared/ui/modal/modal-contents"
+import { AddParishFormSkeleton } from "../add-parish-form-skeleton"
+import { Skeleton } from "@/shared/ui/skeleton"
 
 export const AddParishModalSkeleton = () => {
   return (

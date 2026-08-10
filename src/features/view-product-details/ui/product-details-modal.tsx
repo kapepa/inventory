@@ -1,7 +1,7 @@
 import { ProductWithRelationsShort, ProductWithRelationsWide } from "@/entities/product/model/types";
 import { ProductDetails } from "@/entities/product/ui/product-details/product-details";
 import { SubmitButton } from "@/shared/ui";
-import { ModalBody, ModalContents, ModalFooter, ModalHeader } from "@/shared/ui/modal";
+import { ModalBody, ModalContents, ModalFooter, ModalHeader } from "@/shared/ui/modal/modal-contents";
 import { useTranslations } from "next-intl";
 
 interface ProductDetailsModalProps {

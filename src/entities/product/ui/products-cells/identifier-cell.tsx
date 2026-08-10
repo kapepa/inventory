@@ -31,17 +31,3 @@ export const IdentifierCell = memo(({ title, serialNumber, className }: Identifi
 )
 
 IdentifierCell.displayName = "IdentifierCell"
-
-export const IdentifierCellSkeleton = memo(({ className }: { className?: string }) => {
-  return (
-    <div className={cn("flex flex-col gap-y-1 mt-1 items-center lg:items-start", className)}>
-      <Skeleton className="h-5 w-[50%]" />
-      <div className="flex items-start gap-1 text-sm text-muted-foreground">
-        <Skeleton className="h-4 w-12" />
-      </div>
-    </div>
-  )
-}
-)
-
-IdentifierCellSkeleton.displayName = "IdentifierCellSkeleton"

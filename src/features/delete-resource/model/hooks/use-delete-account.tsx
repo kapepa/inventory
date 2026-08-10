@@ -6,7 +6,7 @@ import { useTranslations } from "next-intl";
 import { useCallback, useEffect, useTransition } from "react";
 import { toast } from "sonner";
 import { requestDeleteAccount } from "../../api";
-import { useModalActions } from "@/shared/ui/modal";
+import { useModalActions } from "@/shared/ui/modal/modal-context";
 import { useRouter } from "@/shared/lib/i18n/routing";
 import { useUnmountCallback } from "@/shared/lib/hooks";
 import { AuthenticatedUser } from "@/features/auth/model/types";

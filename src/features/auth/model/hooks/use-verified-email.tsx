@@ -6,7 +6,7 @@ import { toast } from "sonner";
 import { requestResendVerification } from "../../api";
 import { EmailNotVerifiedModalDynamic } from "../../ui/email-not-verified-modal-dynamic";
 import { NotFoundError } from "@/shared/lib/errors";
-import { useModalActions } from "@/shared/ui/modal";
+import { useModalActions } from "@/shared/ui/modal/modal-context";
 import { useRouter } from "@/shared/lib/i18n/routing";
 
 interface EmailNotVerifiedModalWrapperProps {

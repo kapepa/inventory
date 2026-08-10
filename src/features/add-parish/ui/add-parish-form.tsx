@@ -1,11 +1,11 @@
 "use client"
 
 import { useLocale, useTranslations } from "next-intl"
-import { CancelButton, Skeleton, SubmitButton, Tabs, TabsContent } from "@/shared/ui"
-import { TranslationFields, TranslationFieldsSkeleton } from "./bricks/translation-fields"
-import { DeliveryDateField, DeliveryDateFieldSkeleton } from "./bricks/delivery-date-field"
+import { CancelButton, SubmitButton, Tabs, TabsContent } from "@/shared/ui"
+import { TranslationFields } from "./bricks/translation-fields"
+import { DeliveryDateField } from "./bricks/delivery-date-field"
 import { TranslationTabsHeader } from "./bricks/translation-tabs-header"
-import { ModalBody, ModalFooter } from "@/shared/ui/modal"
+import { ModalBody, ModalFooter } from "@/shared/ui/modal/modal-contents"
 import { Form } from "@/shared/ui/form"
 import { AppLocale } from "@/shared/lib/i18n/config"
 import { useAddParishForm } from "../model/hooks/use-add-parish-form"
@@ -88,23 +88,3 @@ export const AddParishForm = ({ onCancelAction }: AddParishFormProps) => {
 }
 
 AddParishForm.displayName = "AddParishForm"
-
-export const AddParishFormSkeleton = () => {
-  return (
-    <>
-      <ModalBody>
-        <Skeleton className="h-8 w-full" />
-        <div className="flex flex-col w-full mt-2 mb-8.5 gap-6 md:gap-7 md:pb-7">
-          <TranslationFieldsSkeleton />
-          <DeliveryDateFieldSkeleton />
-        </div>
-      </ModalBody>
-      <ModalFooter>
-        <Skeleton className="h-11 w-full rounded-full" />
-        <Skeleton className="h-11 w-full rounded-full" />
-      </ModalFooter>
-    </>
-  )
-}
-
-AddParishFormSkeleton.displayName = "AddParishFormSkeleton"

@@ -1,7 +1,7 @@
+import { SendConfirmationEmailInput } from '../model/types';
 import { sendEmail } from './send';
 import { confirmationEmailTemplate } from './templates/server';
 import { getTranslations } from 'next-intl/server';
-import { SendConfirmationEmailInput } from '../model';
 
 export async function sendConfirmationEmail({ email, name, locale }: SendConfirmationEmailInput): Promise<void> {
   const t = await getTranslations({ locale, namespace: 'email.send-confirmation-email' });

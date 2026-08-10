@@ -1,20 +1,20 @@
 import { cn } from "@/shared/lib/utils";
-import { Skeleton } from "@/shared/ui";
-import { useTranslations } from "next-intl";
-import { memo } from "react";
+import { getTranslations } from "next-intl/server";
 
 interface CategoryHeaderProps {
   className?: string;
 }
 
-export const CategoryHeader = memo(({ className }: CategoryHeaderProps) => {
-  const t = useTranslations('category.header');
+const CARD_CLASS = "grid grid-cols-[1fr_1fr] lg:grid-cols-[8fr_1fr_2fr_1fr] items-center gap-4";
+
+export const CategoryHeader = async ({ className }: CategoryHeaderProps) => {
+  const t = await getTranslations('category.header');
 
   return (
     <div className={cn(
-      "px-6 py-3 text-xs font-bold text-muted-foreground uppercase tracking-widest",
+      "px-6 py-3 text-xs font-bold text-muted-foreground uppercase tracking-widest hidden lg:grid",
+      CARD_CLASS,
       className,
-      "hidden lg:grid"
     )}>
       <div><span>{t('name')}</span></div>
       <div><span>{t('quantity')}</span></div>
@@ -22,23 +22,6 @@ export const CategoryHeader = memo(({ className }: CategoryHeaderProps) => {
       <div className="text-center"><span>{t('delete')}</span></div>
     </div>
   );
-})
-
-CategoryHeader.displayName = 'CategoryHeader';
-
-export const CategoryHeaderSkeleton = ({ className }: { className?: string }) => {
-  return (
-    <div className={cn(
-      "px-6 py-3 text-xs font-bold text-muted-foreground uppercase tracking-widest",
-      className,
-      "hidden lg:grid"
-    )}>
-      <div><Skeleton className="h-5 w-40" /></div>
-      <div><Skeleton className="h-5 w-24" /></div>
-      <div><Skeleton className="h-5 w-20 m-auto" /></div>
-      <div><Skeleton className="h-5 w-20 m-auto" /></div>
-    </div>
-  );
 }
 
-CategoryHeaderSkeleton.displayName = 'CategoryHeaderSkeleton';
+CategoryHeader.displayName = 'CategoryHeader';

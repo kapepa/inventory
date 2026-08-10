@@ -5,16 +5,18 @@ import { cn } from "@/shared/lib/utils"
 import { useTranslations } from "next-intl"
 import { ProductWithRelationsWide } from "../../model/types"
 import { getProductPrimaryPrice } from "@/shared/lib/get-product-price"
-import { DotAvailableCell, DotAvailableCellSkeleton } from "../products-cells/dot-available-cell"
-import { PictureCell, PictureCellSkeleton } from "../products-cells/picture-cell"
-import { IdentifierCell, IdentifierCellSkeleton } from "../products-cells/identifier-cell"
-import { StatusCell, StatusCellSkeleton } from "../products-cells/status-cell"
-import { RentalCell, RentalCellSkeleton } from "../products-cells/rental-cell"
-import { ConditionCell, ConditionCellSkeleton } from "../products-cells/condition-cell"
-import { DualCurrencyPrice, DualCurrencyPriceSkeleton } from "../products-cells/dual-currency-pice"
-import { ActionsProductCell, ActionsProductCellSkeleton } from "../products-cells/actions-product-cell"
+import { DotAvailableCell } from "../products-cells/dot-available-cell"
+import { PictureCell } from "../products-cells/picture-cell"
+import { IdentifierCell } from "../products-cells/identifier-cell"
+import { StatusCell } from "../products-cells/status-cell"
+import { RentalCell } from "../products-cells/rental-cell"
+import { ConditionCell } from "../products-cells/condition-cell"
+import { DualCurrencyPrice } from "../products-cells/dual-currency-price"
+import { ActionsProductCell } from "../products-cells/actions-product-cell"
+import { AppLocale } from "@/shared/lib/i18n/config"
 
 interface ProductsWideCardProps {
+  locale: AppLocale,
   product: ProductWithRelationsWide
   isAdmin?: boolean
   className?: string
@@ -22,7 +24,7 @@ interface ProductsWideCardProps {
   onDeleteProduct: (products: ProductWithRelationsWide) => void
 }
 
-export const ProductsWideCard = memo(({ product, isAdmin, className, onDeleteProduct, openProductModal }: ProductsWideCardProps) => {
+export const ProductsWideCard = memo(({ locale, product, isAdmin, className, onDeleteProduct, openProductModal }: ProductsWideCardProps) => {
   const { title } = product.translations[0];
   const { USD, UAH } = getProductPrimaryPrice(product.prices)
   const t = useTranslations('products.products-wide');
@@ -41,7 +43,7 @@ export const ProductsWideCard = memo(({ product, isAdmin, className, onDeletePro
       <PictureCell priority={true} url={product.photo} alt={title} className="col-span-2 lg:col-auto" />
       <IdentifierCell title={title} serialNumber={product.serialNumber} className="col-span-2 lg:col-auto" />
       <StatusCell status={product.status} label={t("status")} className="col-end-auto" />
-      <RentalCell startDate={product.rental?.startDate} endDate={product.rental?.endDate} label={t("rental")} />
+      <RentalCell locale={locale} startDate={product.rental?.startDate} endDate={product.rental?.endDate} label={t("rental")} />
       <ConditionCell condition={product.isNew} label={t("condition")} />
       <DualCurrencyPrice sumUSD={USD} sumUAH={UAH} label={t("price")} />
       {isAdmin && <ActionsProductCell onDeleteProduct={() => { onDeleteProduct(product) }} isOwner={true} label={t("actions")} />}
@@ -50,25 +52,3 @@ export const ProductsWideCard = memo(({ product, isAdmin, className, onDeletePro
 })
 
 ProductsWideCard.displayName = "ProductsWideCard"
-
-export const ProductsWideCardSkeleton = memo(({ isAdmin, className }: { isAdmin?: boolean, className?: string }) => {
-  return (
-    <div
-      className={cn(
-        "px-4 py-2 lg:px-6 lg:py-3 gap-2 border rounded-md bg-card hover:shadow-md transition-all border-chart-1 w-full",
-        className)
-      }
-    >
-      <DotAvailableCellSkeleton className="hidden lg:flex" />
-      <PictureCellSkeleton className="col-span-2 lg:col-span-1" />
-      <IdentifierCellSkeleton className="col-span-2 lg:col-span-1" />
-      <StatusCellSkeleton />
-      <RentalCellSkeleton />
-      <ConditionCellSkeleton />
-      <DualCurrencyPriceSkeleton />
-      {isAdmin && <ActionsProductCellSkeleton />}
-    </div>
-  )
-})
-
-ProductsWideCardSkeleton.displayName = "ProductsWideCardSkeleton"

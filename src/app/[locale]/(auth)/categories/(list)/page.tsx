@@ -4,11 +4,12 @@ import { AddCategoryButton } from "@/features/add-category/ui/add-category-butto
 import { PAGINATION_CATEGORIES_DEFAULTS } from "@/shared/constants/pagination";
 import { QUERY_PARAMS_KEYS } from "@/shared/constants/query-params-keys";
 import { AppLocale } from "@/shared/lib/i18n/config";
-import { Container } from "@/shared/ui";
+import { Container } from "@/shared/ui/container";
 import { CategoriesList } from "@/widgets/categories-list/ui/categories-list";
 import { PageHeader } from "@/widgets/page-header/ui/page-header";
 import { Metadata } from "next";
 import { getSessionUserCached } from "@/features/auth/lib/auth-service-cached";
+import { CategoryHeader } from "@/entities/category/ui/category-header";
 
 export async function generateMetadata({
   params,
@@ -56,10 +57,13 @@ export default async function Categories({
         action={isAdmin && <AddCategoryButton locale={locale} />}
         storeType="categories"
       />
-      <CategoriesList
-        initialHasMore={categories.hasMore}
-        initialCategories={categories.data}
-      />
+      <div className="flex-1 min-h-0 flex flex-col">
+        <CategoryHeader className="hidden lg:grid" />
+        <CategoriesList
+          initialHasMore={categories.hasMore}
+          initialCategories={categories.data}
+        />
+      </div>
     </Container>
   );
 }

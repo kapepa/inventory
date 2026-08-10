@@ -3,7 +3,7 @@
 import { fetchUsers } from "@/entities/user/api";
 import { useInfiniteUsers } from "@/entities/user/model/hooks";
 import { UserPublic } from "@/entities/user/model/types";
-import { UserCard, UserCardSkeleton } from "@/entities/user/ui/user-card/user-card";
+import { UserCard } from "@/entities/user/ui/user-card/user-card";
 import { QUERY_PARAMS_KEYS } from "@/shared/constants/query-params-keys";
 import { cn } from "@/shared/lib/utils";
 import { useIntersectionObserver } from "@/shared/lib/hooks";
@@ -12,6 +12,7 @@ import { ScrollArea } from "@/shared/ui/scroll-area";
 import { useTranslations } from "next-intl";
 import { useEffect } from "react";
 import { StateMessage } from "@/shared/ui";
+import { UserCardSkeleton } from "@/entities/user/ui/user-card/user-card-skeleton";
 
 const CARD_CLASS = cn(
   "grid grid-cols-1",
@@ -83,7 +84,6 @@ export const UsersListSkeleton = ({ className }: { className?: string }) => {
             Array.from({ length: 3 }).map((_, index) => (
               <UserCardSkeleton
                 key={`users-list-skeleton-${index}`}
-                className={cn("", CARD_CLASS)}
               />
             ))
           }

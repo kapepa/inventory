@@ -1,6 +1,6 @@
-import { Skeleton } from "@/shared/ui"
-import { ModalContents, ModalHeader } from "@/shared/ui/modal"
-import { AddProductFormSkeleton } from "../add-product-form"
+import { Skeleton } from "@/shared/ui/skeleton"
+import { ModalContents, ModalHeader } from "@/shared/ui/modal/modal-contents"
+import { AddProductFormSkeleton } from "../add-product-form-skeleton"
 
 export const AddProductModalSkeleton = () => {
   return (

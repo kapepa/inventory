@@ -1,16 +1,14 @@
-"use client"
-
-import { useTranslations } from "next-intl";
 import { VerifyCard } from "./verify-card";
 import { VerifyCodeForm } from "./verify-code-form";
+import { getTranslations } from "next-intl/server";
 
 interface VerifyValidViewProps {
   token: string,
   email: string,
 }
 
-export const VerifyValidView = ({ token, email }: VerifyValidViewProps) => {
-  const t = useTranslations("verify-email.verify-valid-view");
+export const VerifyValidView = async ({ token, email }: VerifyValidViewProps) => {
+  const t = await getTranslations("verify-email.verify-valid-view");
 
   return (
     <VerifyCard className="flex flex-col items-center gap-6">

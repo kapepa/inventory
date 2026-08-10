@@ -1,4 +1,4 @@
-import { memo, ReactNode } from "react"
+import { ReactNode } from "react"
 import { cn } from "@/shared/lib/utils";
 import { StoreType } from "../lib/types/types"
 import { SubtitleDynamic } from "./bricks/subtitle-dynamic"
@@ -15,7 +15,7 @@ interface PageHeaderProps {
   storeType?: StoreType
 }
 
-export const PageHeader = memo(({ title, subtitle, count, reverse, children, action, className, storeType }: PageHeaderProps) => {
+export const PageHeader = ({ title, subtitle, count, reverse, children, action, className, storeType }: PageHeaderProps) => {
   return (
     <div className={cn("flex flex-col pb-3 items-center lg:items-start w-full", className)}>
       <div className={cn(
@@ -40,6 +40,6 @@ export const PageHeader = memo(({ title, subtitle, count, reverse, children, act
       )}
     </div>
   )
-})
+}
 
 PageHeader.displayName = "PageHeader"

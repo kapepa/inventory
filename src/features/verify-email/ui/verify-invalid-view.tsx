@@ -1,13 +1,11 @@
-"use client"
-
 import { SubmitButton } from "@/shared/ui";
-import { useTranslations } from "next-intl";
 import { VerifyCard } from "./verify-card";
 import { ROUTES } from "@/shared/constants/routes";
 import { Link } from "@/shared/lib/i18n/routing";
+import { getTranslations } from "next-intl/server";
 
-export const VerifyInvalidView = () => {
-  const t = useTranslations("verify-email.verify-invalid-view");
+export const VerifyInvalidView = async () => {
+  const t = await getTranslations("verify-email.verify-invalid-view");
 
   return (
     <VerifyCard className="flex flex-col items-center gap-6 text-center">

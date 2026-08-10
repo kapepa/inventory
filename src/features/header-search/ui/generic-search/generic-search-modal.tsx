@@ -4,7 +4,7 @@ import { CancelButton } from "@/shared/ui";
 import { useTranslations } from "next-intl";
 import { GenericSearchInput } from "./generic-search-input";
 import { QueryParamsValue } from "@/shared/types";
-import { ModalBody, ModalContents, ModalFooter, ModalHeader } from "@/shared/ui/modal";
+import { ModalBody, ModalContents, ModalFooter, ModalHeader } from "@/shared/ui/modal/modal-contents";
 
 interface GenericSearchModalProps {
   queryKey: QueryParamsValue

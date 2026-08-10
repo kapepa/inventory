@@ -1,6 +1,6 @@
-import { RegisterFormSkeleton } from "@/features/auth/ui/register-form";
-import { Container } from "@/shared/ui";
-import { AuthGateSkeleton } from "@/widgets/auth-gate/ui/auth-gate";
+import { RegisterFormSkeleton } from "@/features/auth/ui/register-form-skeleton";
+import { Container } from "@/shared/ui/container";
+import { AuthGateSkeleton } from "@/widgets/auth-gate/ui/auth-gate-skeleton";
 
 export default function LoadingRegister() {
   return (

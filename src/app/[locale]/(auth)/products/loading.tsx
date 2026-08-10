@@ -1,5 +1,5 @@
-import { ProductsExploreSkeleton } from "@/features/products-explore/ui/products-explore";
-import { Container } from "@/shared/ui";
+import { ProductsExploreSkeleton } from "@/features/products-explore/ui/products-explore-skeleton";
+import { Container } from "@/shared/ui/container";
 import { PageHeaderSkeleton } from "@/widgets/page-header/ui/page-header-skeleton";
 import { ProductsListSkeleton } from "@/widgets/products-list/ui/products-list-skeleton";
 

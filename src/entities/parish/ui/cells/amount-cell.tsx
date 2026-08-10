@@ -1,6 +1,6 @@
 import { formatUAH, formatUSD } from "@/shared/lib/currency";
 import { cn } from "@/shared/lib/utils"
-import { MobileCellLabel, Skeleton } from "@/shared/ui"
+import { MobileCellLabel } from "@/shared/ui"
 
 interface AmountCellProps {
   label?: string,
@@ -25,15 +25,3 @@ export const AmountCell = ({ label, sumUAH, sumUSD, className }: AmountCellProps
 }
 
 AmountCell.displayName = "AmountCell"
-
-export const AmountCellSkeleton = ({ className }: { className?: string }) => {
-  return (
-    <div className={cn("flex flex-col items-center gap-y-2", className)}>
-      <Skeleton className="h-5 w-[30%] block md:hidden" />
-      <Skeleton className="h-4 w-[40%]" />
-      <Skeleton className="h-5 w-[50%]" />
-    </div>
-  )
-}
-
-AmountCellSkeleton.displayName = "AmountCellSkeleton"

@@ -5,7 +5,7 @@ import { useTranslations } from "next-intl";
 import { useCallback, useEffect, useTransition } from "react";
 import { requestDeleteParish } from "../../api";
 import { ForbiddenError, HasDependenciesError, NotFoundError } from "@/shared/lib/errors";
-import { useModalActions } from "@/shared/ui/modal";
+import { useModalActions } from "@/shared/ui/modal/modal-context";
 import { DeleteConfirmModalDynamic } from "../../ui/delete-confirm-modal-dynamic";
 import { ParishesType } from "@/entities/parish/model/types";
 

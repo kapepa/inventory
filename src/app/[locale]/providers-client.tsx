@@ -1,5 +1,5 @@
 import { QueryParamProvider } from "@/shared/lib/providers/query-param-provider";
-import { ModalProvider } from "@/shared/ui/modal";
+import { ModalProvider } from "@/shared/ui/modal/modal-context";
 import { ToasterDynamic } from "@/shared/ui-dynamic/sonner-dynamic";
 import { AuthenticatedUser } from "@/features/auth/model/types";
 import { AuthProvider } from "@/features/auth/lib/auth-provider";

@@ -4,13 +4,14 @@ import { useMounted } from "@/shared/lib/hooks";
 import { WebSocketProviderDynamic } from "@/shared/lib/providers/websocket-provider-dynamic";
 import { OnlineUsersCount, OnlineUsersCountSkeleton } from "@/shared/ui";
 import { LiveDatetime, LiveDatetimeDate, LiveDatetimeDateSkeleton, LiveDatetimeTime, LiveDatetimeTimeSkeleton, LiveDatetimeWeek, LiveDatetimeWeekSkeleton } from "@/shared/ui/live-datetime";
+import { memo } from "react";
 
 interface HeaderBarProps {
   showOnline: boolean,
   className?: string
 }
 
-export const HeaderBar = ({ showOnline, className }: HeaderBarProps) => {
+export const HeaderBar = memo(({ showOnline, className }: HeaderBarProps) => {
   const mounted = useMounted();
 
   if (!mounted) {
@@ -56,6 +57,6 @@ export const HeaderBar = ({ showOnline, className }: HeaderBarProps) => {
       </LiveDatetime>
     </div>
   );
-}
+})
 
 HeaderBar.displayName = "HeaderBar"

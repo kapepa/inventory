@@ -1,10 +1,8 @@
-"use client"
-
 import { useCallback } from "react";
 import { QueryParamsValue } from "@/shared/types";
 import { useModalQuery } from "@/shared/lib/hooks/use-modal-query";
 import { GenericSearchModalDynamic } from "../ui/generic-search/generic-search-modal-dynamic";
-import { useModalActions } from "@/shared/ui/modal";
+import { useModalActions } from "@/shared/ui/modal/modal-context";
 
 interface UseGenericSearchProps {
   modalName: QueryParamsValue,

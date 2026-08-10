@@ -1,7 +1,7 @@
 import { RegisterForm } from "@/features/auth/ui/register-form";
 import { ROUTES } from "@/shared/constants/routes";
 import { AppLocale } from "@/shared/lib/i18n/config";
-import { Container } from "@/shared/ui";
+import { Container } from "@/shared/ui/container";
 import { AuthGate } from "@/widgets/auth-gate/ui/auth-gate";
 import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";

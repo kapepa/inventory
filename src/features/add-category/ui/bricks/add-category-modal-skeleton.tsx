@@ -1,6 +1,6 @@
-import { ModalContents, ModalHeader } from "@/shared/ui/modal"
-import { AddCategoryFormSkeleton } from "../add-category-form"
-import { Skeleton } from "@/shared/ui"
+import { ModalContents, ModalHeader } from "@/shared/ui/modal/modal-contents"
+import { Skeleton } from "@/shared/ui/skeleton"
+import { AddCategoryFormSkeleton } from "../add-category-form-skeleton"
 
 export const AddCategoryModalSkeleton = () => {
   return (

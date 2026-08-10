@@ -3,7 +3,7 @@
 import { useCallback } from "react";
 import { useModalQuery } from "@/shared/lib/hooks/use-modal-query";
 import { QUERY_PARAMS_KEYS } from "@/shared/constants/query-params-keys";
-import { useModalActions } from "@/shared/ui/modal";
+import { useModalActions } from "@/shared/ui/modal/modal-context";
 import { AddCategoryModalDynamic } from "../../ui/bricks/add-category-modal-dynamic";
 
 export const useAddCategory = () => {
