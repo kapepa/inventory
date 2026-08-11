@@ -1,5 +1,6 @@
 import { cn } from "@/shared/lib/utils";
-import { MobileCellLabel, TrashButton } from "@/shared/ui";
+import { MobileCellLabel } from "@/shared/ui/mobile-cell-label";
+import { TrashButton } from "@/shared/ui/trash-button";
 import { MouseEvent } from "react"
 
 interface ActionsCellProps {

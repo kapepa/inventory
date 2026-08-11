@@ -1,11 +1,13 @@
 import { getTranslations } from "next-intl/server";
 import { Metadata } from "next";
-import { BackButton, Container, ScrollArea } from "@/shared/ui";
 import { AppLocale } from "@/shared/lib/i18n/config";
 import { getProductStatusCountsCached } from "@/entities/product/lib/product-service-cached";
 import { PageHeader } from "@/widgets/page-header/ui/page-header";
 import { WarehouseMap } from "@/widgets/map/ui/warehouse-map";
 import { CategoryChart } from "@/widgets/category-chart/ui/category-chart";
+import { Container } from "@/shared/ui/container";
+import { BackButton } from "@/shared/ui/back-button";
+import { ScrollArea } from "@/shared/ui/scroll-area";
 
 export async function generateMetadata({
   params,

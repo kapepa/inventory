@@ -2,11 +2,11 @@ import { ProductInfoList } from "./product-info-list";
 import { ProductPricing } from "./product-pricing";
 import { ProductHeader } from "./product-header";
 import { ProductImage } from "./product-image";
-import { ScrollArea } from "@/shared/ui";
 import { ProductRental } from "./product-rental";
 import { ProductAuthor } from "./product-author";
 import { hasCategory, hasParish, hasRental, hasUser, ProductWithRelationsShort, ProductWithRelationsWide } from "../../model/types";
 import { getProductPrimaryPrice } from "@/shared/lib/get-product-price";
+import { ScrollArea } from "@/shared/ui/scroll-area";
 
 interface ProductDetailsProps {
   product: ProductWithRelationsWide | ProductWithRelationsShort

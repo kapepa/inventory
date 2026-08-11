@@ -8,10 +8,10 @@ import { requestAuthLogout } from "../api";
 import { toast } from "sonner";
 import { cn } from "@/shared/lib/utils";
 import { ROUTES } from "@/shared/constants/routes";
-import { Button, Skeleton } from "@/shared/ui";
 import { useRouter } from "@/shared/lib/i18n/routing";
-import { useUnmountCallback } from "@/shared/lib/hooks";
+import { useUnmountCallback } from "@/shared/lib/hooks/use-unmount-callback";
 import { useAuthStore } from "../model/auth-store";
+import { Button } from "@/shared/ui/button";
 
 interface LoginButtonProps {
   className?: string
@@ -75,11 +75,3 @@ export const LoginButton = memo(({ className }: LoginButtonProps) => {
 })
 
 LoginButton.displayName = "LoginButton"
-
-export const LoginButtonSkeleton = ({ className }: { className?: string }) => {
-  return (
-    <Skeleton className={cn("size-14 rounded-full", className)} />
-  )
-}
-
-LoginButtonSkeleton.displayName = "LoginButtonSkeleton"

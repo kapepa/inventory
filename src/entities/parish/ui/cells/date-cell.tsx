@@ -1,5 +1,5 @@
 import { cn } from "@/shared/lib/utils";
-import { MobileCellLabel, Skeleton } from "@/shared/ui"
+import { MobileCellLabel } from "@/shared/ui/mobile-cell-label";
 import { format } from 'date-fns';
 import { ru, enUS } from 'date-fns/locale';
 import { useLocale } from 'next-intl';

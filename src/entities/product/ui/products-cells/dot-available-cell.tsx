@@ -1,6 +1,5 @@
 import { STATUS_DISPLAY_CONFIG } from "@/shared/lib/get-status-display"
 import { cn } from "@/shared/lib/utils"
-import { Skeleton } from "@/shared/ui/skeleton"
 import { ProductStatus } from "@prisma/client"
 
 interface DotAvailableCellProps {

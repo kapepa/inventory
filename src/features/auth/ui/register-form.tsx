@@ -1,13 +1,17 @@
 "use client";
 
-import { CancelButton, Input, SubmitButton } from "@/shared/ui";
-import { useTranslations } from "next-intl";
+import { Input } from "@/shared/ui/input";
+import { CancelButton, SubmitButton } from "@/shared/ui/action-buttons";
 import { VALIDATION_LIMITS } from "@/shared/constants/validation";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/shared/ui/form";
 import { useRegisterForm } from "../model/hooks/use-register-form";
+import { RegisterFormLabels } from "../model/types/types";
 
-export const RegisterForm = () => {
-  const t = useTranslations("auth.form")
+interface RegisterFormProps {
+  labels: RegisterFormLabels
+}
+
+export const RegisterForm = ({ labels }: RegisterFormProps) => {
   const { form, onSubmit, isSubmitting, onReset } = useRegisterForm()
 
   return (
@@ -18,11 +22,11 @@ export const RegisterForm = () => {
             name="name"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>{t('labels.name')}</FormLabel>
+                <FormLabel>{labels.nameLabel}</FormLabel>
                 <FormControl>
                   <Input
                     type="text"
-                    placeholder={t('placeholders.name')}
+                    placeholder={labels.namePlaceholder}
                     {...field}
                     value={field.value ?? ''}
                     // We allow +1 character so that Zod can detect when the limit is exceeded and display an error
@@ -41,11 +45,11 @@ export const RegisterForm = () => {
             name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>{t('labels.email')}</FormLabel>
+                <FormLabel>{labels.emailLabel}</FormLabel>
                 <FormControl>
                   <Input
                     type="email"
-                    placeholder={t('placeholders.email')}
+                    placeholder={labels.emailPlaceholder}
                     {...field}
                     value={field.value ?? ''}
                     // We allow +1 character so that Zod can detect when the limit is exceeded and display an error
@@ -64,11 +68,11 @@ export const RegisterForm = () => {
             name="password"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>{t('labels.password')}</FormLabel>
+                <FormLabel>{labels.passwordLabel}</FormLabel>
                 <FormControl>
                   <Input
                     type="password"
-                    placeholder={t('placeholders.password')}
+                    placeholder={labels.passwordPlaceholder}
                     {...field}
                     value={field.value ?? ''}
                     // We allow +1 character so that Zod can detect when the limit is exceeded and display an error
@@ -87,11 +91,11 @@ export const RegisterForm = () => {
             name="confirmPassword"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>{t('labels.confirm-password')}</FormLabel>
+                <FormLabel>{labels.confirmPasswordLabel}</FormLabel>
                 <FormControl>
                   <Input
                     type="password"
-                    placeholder={t('placeholders.confirm-password')}
+                    placeholder={labels.confirmPasswordPlaceholder}
                     {...field}
                     value={field.value ?? ''}
                     // We allow +1 character so that Zod can detect when the limit is exceeded and display an error
@@ -112,7 +116,7 @@ export const RegisterForm = () => {
             onClick={onReset}
             disabled={isSubmitting}
           >
-            {t("buttons.reset")}
+            {labels.resetButton}
           </CancelButton>
           <SubmitButton
             type="submit"
@@ -120,7 +124,7 @@ export const RegisterForm = () => {
             isLoading={isSubmitting}
             disabled={isSubmitting}
           >
-            {t("buttons.sign-up")}
+            {labels.signUpButton}
           </SubmitButton>
         </div>
       </form>

@@ -70,10 +70,11 @@ const nextConfig: NextConfig = {
         splitChunks: {
           ...config.optimization?.splitChunks,
           chunks: 'all',
-          maxInitialRequests: 25,
+          maxInitialRequests: 10,
+          maxAsyncRequests: 15,
           minSize: 20000,
-          maxSize: 150000, // Уменьшили с 244KB до 150KB
-          enforceSizeThreshold: 200000, // Жесткий лимит 200KB
+          maxSize: 160000,
+          enforceSizeThreshold: 160000,
           cacheGroups: {
             ...config.optimization?.splitChunks?.cacheGroups,
             // React и связанные библиотеки

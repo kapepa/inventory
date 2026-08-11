@@ -1,26 +1,26 @@
 "use client";
 
-import { memo } from "react";
 import { Info } from 'lucide-react';
-import { CancelButton, SubmitButton } from "@/shared/ui";
-import { useTranslations } from "next-intl";
+import { CancelButton, SubmitButton } from "@/shared/ui/action-buttons";
 import { cn } from "@/shared/lib/utils";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/shared/ui/form";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/shared/ui/tooltip";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/shared/ui/select";
 import { AuthenticatedUser } from "@/features/auth/model/types";
 import { useChangeUserRoleForm } from "../model/hooks/use-change-user-role-form";
+import { RoleSelectorLabels } from '../model/types/types';
 
 interface RoleSelectorProps {
   user: AuthenticatedUser
+  labels: RoleSelectorLabels;
   className?: string;
 }
 
 export const RoleSelector = ({
   user,
+  labels,
   className,
 }: RoleSelectorProps) => {
-  const t = useTranslations("change-user-role")
   const { form, onSubmit, isSubmitting, onReset } = useChangeUserRoleForm({ userId: user.id, currentRole: user.role })
 
   return (
@@ -28,7 +28,7 @@ export const RoleSelector = ({
       className={cn("bg-background rounded-sm overflow-hidden", className)}
     >
       <h3 className="text-center my-5 px-6 font-semibold text-muted-foreground">
-        {t("title")} {user.name}
+        {labels.title} {user.name}
       </h3>
       <Form {...form}>
         <form onSubmit={onSubmit} className="space-y-4">
@@ -38,13 +38,13 @@ export const RoleSelector = ({
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>
-                    {t('labels.role')}
+                    {labels.roleLabel}
                     <Tooltip>
                       <TooltipTrigger>
                         <Info className="text-accent" size={18} strokeWidth={2} />
                       </TooltipTrigger>
                       <TooltipContent>
-                        {t("info")}
+                        {labels.infoText}
                       </TooltipContent>
                     </Tooltip>
                   </FormLabel>
@@ -55,15 +55,15 @@ export const RoleSelector = ({
                   >
                     <FormControl>
                       <SelectTrigger className="w-full">
-                        <SelectValue placeholder={t('placeholders.select-role')} />
+                        <SelectValue placeholder={labels.selectPlaceholder} />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
                       <SelectItem value="USER">
-                        {t('roles.user')}
+                        {labels.roleUser}
                       </SelectItem>
                       <SelectItem value="ADMIN">
-                        {t('roles.admin')}
+                        {labels.roleAdmin}
                       </SelectItem>
                     </SelectContent>
                   </Select>
@@ -80,7 +80,7 @@ export const RoleSelector = ({
               onClick={onReset}
               disabled={isSubmitting}
             >
-              {t("buttons.reset")}
+              {labels.resetButton}
             </CancelButton>
             <SubmitButton
               type="submit"
@@ -88,7 +88,7 @@ export const RoleSelector = ({
               isLoading={isSubmitting}
               disabled={isSubmitting}
             >
-              {t("buttons.change-role")}
+              {labels.changeRoleButton}
             </SubmitButton>
           </div>
         </form>

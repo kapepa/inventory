@@ -1,5 +1,7 @@
 import { ProductsExploreSkeleton } from "@/features/products-explore/ui/products-explore-skeleton";
-import { BackButtonSkeleton, Container, Skeleton } from "@/shared/ui";
+import { BackButtonSkeleton } from "@/shared/ui/back-button";
+import { Container } from "@/shared/ui/container";
+import { Skeleton } from "@/shared/ui/skeleton";
 import { PageHeaderSkeleton } from "@/widgets/page-header/ui/page-header-skeleton";
 import { ProductsListSkeleton } from "@/widgets/products-list/ui/products-list-skeleton";
 

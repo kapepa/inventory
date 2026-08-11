@@ -1,7 +1,7 @@
 "use client"
 
 import { useTranslations } from "next-intl";
-import { useCallback, useMemo, useTransition } from "react";
+import { useCallback, useTransition } from "react";
 import { useForm } from "react-hook-form"
 import { toast } from "sonner";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -24,7 +24,7 @@ export const useChangeUserRoleForm = ({ userId, currentRole }: UseChangeUserRole
 
   const form = useForm<ChangeUserRoleFormValues>({
     resolver: zodResolver(changeUserRoleFormSchema(tErrors)),
-    mode: "onChange",
+    mode: "onBlur",
     reValidateMode: "onChange",
     defaultValues: {
       userId,
@@ -79,15 +79,10 @@ export const useChangeUserRoleForm = ({ userId, currentRole }: UseChangeUserRole
     [tToast, tErrors, form]
   )
 
-  const handleSubmit = useMemo(() => form.handleSubmit(onSubmit), [form, onSubmit])
-
-  return useMemo(
-    () => ({
-      form,
-      isSubmitting,
-      onSubmit: handleSubmit,
-      onReset,
-    }),
-    [form, isSubmitting, handleSubmit, onReset]
-  )
+  return {
+    form,
+    isSubmitting,
+    onSubmit: form.handleSubmit(onSubmit),
+    onReset,
+  }
 }

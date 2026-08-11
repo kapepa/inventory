@@ -6,12 +6,12 @@ import { UserPublic } from "@/entities/user/model/types";
 import { UserCard } from "@/entities/user/ui/user-card/user-card";
 import { QUERY_PARAMS_KEYS } from "@/shared/constants/query-params-keys";
 import { cn } from "@/shared/lib/utils";
-import { useIntersectionObserver } from "@/shared/lib/hooks";
+import { useIntersectionObserver } from "@/shared/lib/hooks/use-intersection-observer";
 import { useQueryParam } from "@/shared/lib/hooks/use-query-param";
 import { ScrollArea } from "@/shared/ui/scroll-area";
 import { useTranslations } from "next-intl";
 import { useEffect } from "react";
-import { StateMessage } from "@/shared/ui";
+import { StateMessage } from "@/shared/ui/state-message";
 import { UserCardSkeleton } from "@/entities/user/ui/user-card/user-card-skeleton";
 
 const CARD_CLASS = cn(
@@ -74,23 +74,3 @@ export const UsersList = ({ className, initialUsers, initialHasMore }: UsersList
 };
 
 UsersList.displayName = "UsersList";
-
-export const UsersListSkeleton = ({ className }: { className?: string }) => {
-  return (
-    <div className="flex-1 min-h-0 flex flex-col w-full max-w-2xl m-auto">
-      <ScrollArea className="flex-1 min-h-0 w-full mx-auto max-w-lg lg:max-w-full">
-        <div className={cn("flex flex-col gap-3 pb-6 md:pb-16", className)}>
-          {
-            Array.from({ length: 3 }).map((_, index) => (
-              <UserCardSkeleton
-                key={`users-list-skeleton-${index}`}
-              />
-            ))
-          }
-        </div>
-      </ScrollArea>
-    </div>
-  );
-};
-
-UsersListSkeleton.displayName = "UsersListSkeleton";

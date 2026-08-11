@@ -1,8 +1,9 @@
 "use client"
 
-import { useMounted } from "@/shared/lib/hooks";
+import { useMounted } from "@/shared/lib/hooks/use-mounted";
 import { WebSocketProviderDynamic } from "@/shared/lib/providers/websocket-provider-dynamic";
-import { OnlineUsersCount, OnlineUsersCountSkeleton } from "@/shared/ui";
+import { OnlineUsersCount } from "@/shared/ui/online-users-count";
+import { OnlineUsersCountSkeleton } from "@/shared/ui/online-users-count-skeleton";
 import { LiveDatetime, LiveDatetimeDate, LiveDatetimeDateSkeleton, LiveDatetimeTime, LiveDatetimeTimeSkeleton, LiveDatetimeWeek, LiveDatetimeWeekSkeleton } from "@/shared/ui/live-datetime";
 import { memo } from "react";
 

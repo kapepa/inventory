@@ -1,6 +1,6 @@
 "use client"
 
-import { useCallback, useMemo, useTransition, useEffect } from "react"
+import { useCallback, useTransition, useEffect } from "react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { toast } from "sonner"
@@ -23,7 +23,8 @@ export const useAddCategoryForm = (closeModalAction: () => void) => {
 
   const form = useForm<CategoryFormValues>({
     resolver: zodResolver(createCategoryFormSchema(tErrors)),
-    mode: "onChange",
+    mode: "onBlur",
+    reValidateMode: "onChange",
     defaultValues: {
       translations: {
         ru: { locale: "ru", title: "", },
@@ -87,18 +88,10 @@ export const useAddCategoryForm = (closeModalAction: () => void) => {
     [startSubmitTransition, closeModalAction, t, addNewCategory, form, tErrors, locale]
   )
 
-  const handleSubmit = useMemo(
-    () => form.handleSubmit(onSubmit),
-    [form, onSubmit]
-  )
-
-  return useMemo(
-    () => ({
-      form,
-      isSubmitting,
-      onReset,
-      onSubmit: handleSubmit,
-    }),
-    [form, isSubmitting, handleSubmit]
-  )
+  return {
+    form,
+    isSubmitting,
+    onReset,
+    onSubmit: form.handleSubmit(onSubmit),
+  }
 }

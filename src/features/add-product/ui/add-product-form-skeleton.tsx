@@ -1,4 +1,3 @@
-import { FooterBar, OverlayBody, Skeleton } from "@/shared/ui"
 import { TranslationFieldsSkeleton } from "./bricks/translation-fields-skeleton"
 import { SerialNumberFieldSkeleton } from "./bricks/serial-number-field-skeleton"
 import { OrderFieldSkeleton } from "./bricks/order-field-skeleton"
@@ -7,6 +6,9 @@ import { ConditionFieldSkeleton } from "./bricks/condition-field-skeleton"
 import { CategoryFieldSkeleton } from "./bricks/category-field-skeleton"
 import { PhotoFieldSkeleton } from "./bricks/photo-field-skeleton"
 import { PriceFieldsSkeleton } from "./bricks/price-fields-skeleton"
+import { OverlayBody } from "@/shared/ui/overlay-body"
+import { Skeleton } from "@/shared/ui/skeleton"
+import { FooterBar } from "@/shared/ui/footer-bar"
 
 export const AddProductFormSkeleton = () => {
   return (

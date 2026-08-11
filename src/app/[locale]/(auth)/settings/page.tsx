@@ -1,6 +1,7 @@
 import { getSessionUserCached } from "@/features/auth/lib/auth-service-cached";
 import { AppLocale } from "@/shared/lib/i18n/config";
-import { Container, ScrollArea } from "@/shared/ui";
+import { Container } from "@/shared/ui/container";
+import { ScrollArea } from "@/shared/ui/scroll-area";
 import { PageHeader } from "@/widgets/page-header/ui/page-header";
 import { SettingsPanel } from "@/widgets/settings-panel";
 import { Metadata } from "next";

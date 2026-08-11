@@ -8,7 +8,7 @@ import { toast } from "sonner";
 import { requestDeleteAccount } from "../../api";
 import { useModalActions } from "@/shared/ui/modal/modal-context";
 import { useRouter } from "@/shared/lib/i18n/routing";
-import { useUnmountCallback } from "@/shared/lib/hooks";
+import { useUnmountCallback } from "@/shared/lib/hooks/use-unmount-callback";
 import { AuthenticatedUser } from "@/features/auth/model/types";
 import { useAuthStore } from "@/features/auth/model/auth-store";
 import { DeleteConfirmModalDynamic } from "../../ui/delete-confirm-modal-dynamic";

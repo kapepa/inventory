@@ -1,5 +1,5 @@
 import { cn } from "@/shared/lib/utils";
-import { Button, Skeleton } from "@/shared/ui";
+import { Button } from "@/shared/ui/button";
 import { AppLocale } from "@/shared/lib/i18n/config";
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/shared/lib/i18n/routing";

@@ -1,7 +1,7 @@
 "use client"
 
 import { useTranslations } from "next-intl";
-import { CancelButton, SubmitButton } from "@/shared/ui";
+import { CancelButton, SubmitButton } from "@/shared/ui/action-buttons";
 import { Trash } from "lucide-react";
 import { ModalBody, ModalContents, ModalFooter, ModalHeader } from "@/shared/ui/modal/modal-contents";
 

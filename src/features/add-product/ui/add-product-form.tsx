@@ -1,6 +1,5 @@
 "use client"
 
-import { FooterBar, SubmitButton, CancelButton, OverlayBody, ScrollArea, Tabs, TabsContent } from '@/shared/ui'
 import { useLocale, useTranslations } from 'next-intl'
 import { TranslationFields } from './bricks/translation-fields'
 import { SerialNumberField } from './bricks/serial-number-field'
@@ -18,6 +17,11 @@ import { PhotoFieldRef } from '../model/types'
 import { useProductCreateForm } from '../model/hooks/use-product-create-form'
 import { useProductTranslation } from '../model/hooks/use-product-translation'
 import { TranslationTabsHeader } from './bricks/translation-tabs-header'
+import { ScrollArea } from '@/shared/ui/scroll-area'
+import { OverlayBody } from '@/shared/ui/overlay-body'
+import { Tabs, TabsContent } from '@/shared/ui/tabs'
+import { FooterBar } from '@/shared/ui/footer-bar'
+import { CancelButton, SubmitButton } from '@/shared/ui/action-buttons'
 
 
 interface ProductCreateFormProps {

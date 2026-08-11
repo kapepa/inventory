@@ -1,17 +1,19 @@
-import { CancelButton, Input, SubmitButton } from "@/shared/ui"
+
 import { memo } from "react"
-import { useTranslations } from "next-intl"
 import { VALIDATION_LIMITS } from "@/shared/constants/validation"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/shared/ui/form"
 import { useCodeForm } from "../model/hooks/use-code-form"
+import { Input } from "@/shared/ui/input"
+import { CancelButton, SubmitButton } from "@/shared/ui/action-buttons"
+import { VerifyCodeFormLabels } from "../model/types/types"
 
 interface VerifyCodeFormProps {
   token: string,
   email: string,
+  labels: VerifyCodeFormLabels
 }
 
-export const VerifyCodeForm = memo(({ email, token }: VerifyCodeFormProps) => {
-  const t = useTranslations("verify-email.verify-code-form")
+export const VerifyCodeForm = memo(({ email, token, labels }: VerifyCodeFormProps) => {
   const { form, onReset, onSubmit, isSubmitting } = useCodeForm({ email, token });
 
   return (
@@ -22,11 +24,11 @@ export const VerifyCodeForm = memo(({ email, token }: VerifyCodeFormProps) => {
             name="code"
             render={({ field }) => (
               <FormItem className="flex flex-col items-center">
-                <FormLabel>{t('labels.code')}</FormLabel>
+                <FormLabel>{labels.codeLabel}</FormLabel>
                 <FormControl>
                   <Input
                     type="text"
-                    placeholder={t('placeholders.code')}
+                    placeholder={labels.codePlaceholder}
                     {...field}
                     value={field.value ?? ''}
                     // We allow +1 character so that Zod can detect when the limit is exceeded and display an error
@@ -53,7 +55,7 @@ export const VerifyCodeForm = memo(({ email, token }: VerifyCodeFormProps) => {
             onClick={onReset}
             disabled={isSubmitting}
           >
-            {t("buttons.reset")}
+            {labels.resetButton}
           </CancelButton>
           <SubmitButton
             type="submit"
@@ -61,7 +63,7 @@ export const VerifyCodeForm = memo(({ email, token }: VerifyCodeFormProps) => {
             isLoading={isSubmitting}
             disabled={isSubmitting}
           >
-            {t("buttons.send")}
+            {labels.sendButton}
           </SubmitButton>
         </div>
       </form>

@@ -1,7 +1,7 @@
 "use client"
 
 import { useTranslations } from "next-intl";
-import { useCallback, useMemo, useTransition } from "react";
+import { useCallback, useTransition } from "react";
 import { useForm } from "react-hook-form"
 import { toast } from "sonner";
 import { loginFormSchema, LoginFormValues, } from "../schemas-client";
@@ -11,7 +11,7 @@ import { requestAuthLogin } from "../../api";
 import { useVerifiedEmail } from "./use-verified-email";
 import { InvalidCredentialsError, NotFoundError, NotVerifiedError } from "@/shared/lib/errors";
 import { ROUTES } from "@/shared/constants/routes";
-import { useUnmountCallback } from "@/shared/lib/hooks";
+import { useUnmountCallback } from "@/shared/lib/hooks/use-unmount-callback";
 import { AppLocale } from "@/shared/lib/i18n/config";
 import { useRouter } from "next/navigation";
 
@@ -29,7 +29,7 @@ export const useLoginForm = ({ locale }: UseLoginFormProps) => {
 
   const form = useForm<LoginFormValues>({
     resolver: zodResolver(loginFormSchema(tErrors)),
-    mode: "onChange",
+    mode: "onBlur",
     reValidateMode: "onChange",
     defaultValues: {
       email: "",
@@ -72,17 +72,10 @@ export const useLoginForm = ({ locale }: UseLoginFormProps) => {
     })
   }, [locale, router, toast, tErrors, requestAuthLogin, confirmVerifiedEmail])
 
-
-
-  const handleSubmit = useMemo(() => form.handleSubmit(onSubmit), [form, onSubmit])
-
-  return useMemo(
-    () => ({
-      form,
-      isSubmitting,
-      onSubmit: handleSubmit,
-      onReset,
-    }),
-    [form, isSubmitting, handleSubmit, onReset]
-  )
+  return {
+    form,
+    isSubmitting,
+    onSubmit: form.handleSubmit(onSubmit),
+    onReset,
+  }
 }

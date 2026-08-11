@@ -1,11 +1,8 @@
 import { getTranslations } from "next-intl/server"
 import { cn } from "@/shared/lib/utils"
-import { Skeleton } from "@/shared/ui/skeleton"
 import { AppLocale } from "@/shared/lib/i18n/config"
 import { CategoryWithTranslations } from "@/entities/category/model/types"
-import { CategorySelectorSkeleton } from "./bricks/category-selector-skeleton"
 import { CategorySelectorDynamic } from "./bricks/category-selector-dynamic"
-import { SpecificationInputSkeleton } from "./bricks/specification-input-skeleton"
 import { SpecificationInputDynamic } from "./bricks/specification-input-dynamic"
 
 interface ProductsExploreProps {

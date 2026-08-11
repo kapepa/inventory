@@ -1,25 +1,26 @@
 "use client";
 
-import { CancelButton, Input, SubmitButton } from "@/shared/ui";
-import { useTranslations } from "next-intl";
+import { Input } from "@/shared/ui/input";
+import { CancelButton, SubmitButton } from "@/shared/ui/action-buttons";
 import { VALIDATION_LIMITS } from "@/shared/constants/validation";
 import { cn } from "@/shared/lib/utils";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/shared/ui/form";
 import { useChangePasswordForm } from "../model/hooks/use-change-password-form";
+import { ChangePasswordFormLabels } from "../model/types/types";
 
 interface ChangePasswordFormProps {
-  className?: string
+  labels: ChangePasswordFormLabels;
+  className?: string;
 }
 
-export const ChangePasswordForm = ({ className }: ChangePasswordFormProps) => {
-  const t = useTranslations("change-password")
+export const ChangePasswordForm = ({ labels, className }: ChangePasswordFormProps) => {
   const { form, onSubmit, isSubmitting, onReset } = useChangePasswordForm()
 
   return (
     <div
       className={cn("bg-background rounded-sm overflow-hidden", className)}
     >
-      <h3 className="text-center my-5 px-6 font-semibold text-muted-foreground">{t("title")}</h3>
+      <h3 className="text-center my-5 px-6 font-semibold text-muted-foreground">{labels.title}</h3>
       <Form {...form}>
         <form onSubmit={onSubmit} className="space-y-4">
           <div className="flex flex-col gap-y-6 pb-3 px-6">
@@ -27,11 +28,11 @@ export const ChangePasswordForm = ({ className }: ChangePasswordFormProps) => {
               name="currentPassword"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>{t('labels.current-password')}</FormLabel>
+                  <FormLabel>{labels.currentPasswordLabel}</FormLabel>
                   <FormControl>
                     <Input
                       type="password"
-                      placeholder={t('placeholders.current-password')}
+                      placeholder={labels.currentPasswordPlaceholder}
                       {...field}
                       value={field.value ?? ''}
                       maxLength={VALIDATION_LIMITS.PASSWORD_MAX_LENGTH + 1}
@@ -49,11 +50,11 @@ export const ChangePasswordForm = ({ className }: ChangePasswordFormProps) => {
               name="newPassword"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>{t('labels.new-password')}</FormLabel>
+                  <FormLabel>{labels.newPasswordLabel}</FormLabel>
                   <FormControl>
                     <Input
                       type="password"
-                      placeholder={t('placeholders.new-password')}
+                      placeholder={labels.newPasswordPlaceholder}
                       {...field}
                       value={field.value ?? ''}
                       maxLength={VALIDATION_LIMITS.PASSWORD_MAX_LENGTH + 1}
@@ -71,11 +72,11 @@ export const ChangePasswordForm = ({ className }: ChangePasswordFormProps) => {
               name="confirmPassword"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>{t('labels.confirm-password')}</FormLabel>
+                  <FormLabel>{labels.confirmPasswordLabel}</FormLabel>
                   <FormControl>
                     <Input
                       type="password"
-                      placeholder={t('placeholders.confirm-password')}
+                      placeholder={labels.confirmPasswordPlaceholder}
                       {...field}
                       value={field.value ?? ''}
                       maxLength={VALIDATION_LIMITS.PASSWORD_MAX_LENGTH + 1}
@@ -95,7 +96,7 @@ export const ChangePasswordForm = ({ className }: ChangePasswordFormProps) => {
               onClick={onReset}
               disabled={isSubmitting}
             >
-              {t("buttons.reset")}
+              {labels.resetButton}
             </CancelButton>
             <SubmitButton
               type="submit"
@@ -103,7 +104,7 @@ export const ChangePasswordForm = ({ className }: ChangePasswordFormProps) => {
               isLoading={isSubmitting}
               disabled={isSubmitting}
             >
-              {t("buttons.change-password")}
+              {labels.changePasswordButton}
             </SubmitButton>
           </div>
         </form>

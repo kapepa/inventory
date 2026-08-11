@@ -3,9 +3,9 @@
 import { QUERY_PARAMS_KEYS } from "@/shared/constants/query-params-keys"
 import { cn } from "@/shared/lib/utils"
 import { useSearchParam } from "@/shared/lib/hooks/use-search-param"
-import { SearchWithClear, Skeleton } from "@/shared/ui"
 import { useTranslations } from "next-intl"
 import { memo } from "react"
+import { SearchWithClear } from "@/shared/ui/search-with-clear"
 
 interface SpecificationInputProps {
   label?: string

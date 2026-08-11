@@ -1,6 +1,6 @@
 import { ROUTES } from '@/shared/constants/routes';
 import { defaultLocale } from '@/shared/lib/i18n/config';
-import { NotFoundActions } from '@/shared/ui';
+import { NotFoundActions } from '@/shared/ui/not-found-actions';
 import { getTranslations } from 'next-intl/server';
 import { headers } from 'next/headers';
 

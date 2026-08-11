@@ -1,6 +1,7 @@
 import { cn } from "@/shared/lib/utils";
-import { MobileCellLabel, TooltipText } from "@/shared/ui"
+import { MobileCellLabel } from "@/shared/ui/mobile-cell-label";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/shared/ui/tooltip";
+import { TooltipText } from "@/shared/ui/tooltip-text";
 
 interface TitleCellProps {
   label?: string,

@@ -1,5 +1,5 @@
 import { cn } from "@/shared/lib/utils";
-import { ProfileAvatar } from "@/shared/ui";
+import { ProfileAvatar } from "@/shared/ui/profile-avatar";
 
 interface ImageUserCellProps {
   url?: string | null;

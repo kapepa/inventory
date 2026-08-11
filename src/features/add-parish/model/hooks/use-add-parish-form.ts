@@ -1,5 +1,5 @@
 "use client"
-import { useCallback, useMemo, useTransition, useEffect, useState } from "react"
+import { useCallback, useTransition, useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { toast } from "sonner"
@@ -25,7 +25,8 @@ export const useAddParishForm = (closeModalAction: () => void) => {
 
   const form = useForm<ParishFormValues>({
     resolver: zodResolver(createParishFormSchema(tErrors)),
-    mode: "onChange",
+    mode: "onBlur",
+    reValidateMode: "onChange",
     defaultValues: {
       deliveryDate: new Date(),
       translations: {
@@ -106,18 +107,10 @@ export const useAddParishForm = (closeModalAction: () => void) => {
     [startSubmitTransition, closeModalAction, t, addNewParish, locale]
   )
 
-  const handleSubmit = useMemo(
-    () => form.handleSubmit(onSubmit),
-    [form, onSubmit]
-  )
-
-  return useMemo(
-    () => ({
-      form,
-      isSubmitting,
-      onReset,
-      onSubmit: handleSubmit,
-    }),
-    [form, onReset, isSubmitting, handleSubmit]
-  )
+  return {
+    form,
+    isSubmitting,
+    onReset,
+    onSubmit: form.handleSubmit(onSubmit),
+  }
 }

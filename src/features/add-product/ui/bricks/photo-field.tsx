@@ -3,7 +3,7 @@
 import { forwardRef, memo, useImperativeHandle, useRef } from "react"
 import { useFormContext } from "react-hook-form"
 import { useTranslations } from "next-intl"
-import { ImageUploadField } from "@/shared/ui"
+import { ImageUploadField } from "@/shared/ui/image-upload-field"
 import { ImageUploadFieldRef } from "@/shared/types"
 import { UPLOAD_LIMITS } from "@/shared/constants/upload-limits"
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/shared/ui/form"

@@ -1,6 +1,6 @@
-import { LoginButtonSkeleton } from "@/features/auth/ui/login-button"
+import { LoginButtonSkeleton } from "@/features/auth/ui/login-button-skeleton"
 import { cn } from "@/shared/lib/utils"
-import { ProfileAvatarSkeleton } from "@/shared/ui"
+import { ProfileAvatarSkeleton } from "@/shared/ui/profile-avatar"
 
 export const SidebarUserSkeleton = ({ className }: { className?: string }) => {
   return (

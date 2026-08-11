@@ -1,6 +1,5 @@
 import { cn } from "@/shared/lib/utils"
-import { ResponsiveImage } from "@/shared/ui"
-import { memo } from "react"
+import { ResponsiveImage } from "@/shared/ui/responsive-image"
 
 interface ProductImageProps {
   className?: string

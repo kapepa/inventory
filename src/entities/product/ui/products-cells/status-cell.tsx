@@ -1,6 +1,6 @@
 import { STATUS_DISPLAY_CONFIG } from "@/shared/lib/get-status-display"
 import { cn } from "@/shared/lib/utils"
-import { MobileCellLabel } from "@/shared/ui"
+import { MobileCellLabel } from "@/shared/ui/mobile-cell-label"
 import { ProductStatus } from "@prisma/client"
 import { useTranslations } from "next-intl"
 

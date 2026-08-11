@@ -1,6 +1,6 @@
 "use client"
 
-import { CancelButton } from "@/shared/ui";
+import { CancelButton } from "@/shared/ui/action-buttons";
 import { useTranslations } from "next-intl";
 import { GenericSearchInput } from "./generic-search-input";
 import { QueryParamsValue } from "@/shared/types";

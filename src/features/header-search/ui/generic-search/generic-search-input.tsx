@@ -3,7 +3,7 @@
 import { cn } from "@/shared/lib/utils";
 import { useSearchParam } from "@/shared/lib/hooks/use-search-param";
 import { QueryParamsValue } from "@/shared/types";
-import { SearchWithClear } from "@/shared/ui";
+import { SearchWithClear } from "@/shared/ui/search-with-clear";
 import { InputHTMLAttributes, memo } from "react";
 
 interface GenericSearchInputProps extends InputHTMLAttributes<HTMLInputElement> {

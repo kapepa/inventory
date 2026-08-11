@@ -1,4 +1,4 @@
-import { SubmitButton } from "@/shared/ui";
+import { SubmitButton } from "@/shared/ui/action-buttons";
 import { VerifyCard } from "./verify-card";
 import { ROUTES } from "@/shared/constants/routes";
 import { Link } from "@/shared/lib/i18n/routing";

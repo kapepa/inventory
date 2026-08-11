@@ -1,8 +1,8 @@
 import { useTranslations } from "next-intl";
 import { useAddProduct } from "../../model/hooks/use-add-product";
-import { CirclePlusButton } from "@/shared/ui";
 import { ProductWithRelationsShort, ProductWithRelationsWide } from "@/entities/product/model/types";
 import { cn } from "@/shared/lib/utils";
+import { CirclePlusButton } from "@/shared/ui/circle-plus-button";
 
 interface AddProductButtonContentProps {
   className?: string

@@ -1,5 +1,5 @@
 import { cn } from "@/shared/lib/utils"
-import { Button } from "@/shared/ui"
+import { Button } from "@/shared/ui/button"
 import { Search } from "lucide-react"
 import { ReactNode } from "react"
 

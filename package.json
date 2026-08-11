@@ -13,8 +13,6 @@
     "analyze": "cross-env ANALYZE=true next build --webpack",
     "start": "cross-env NODE_ENV=production tsx server.ts",
     "start:prod": "NODE_ENV=production tsx server.ts",
-    "start:docker": "docker-compose --profile prod up app-prod",
-    "start:docker:stop": "docker-compose --profile prod down",
     "lint": "eslint",
     "docker:up": "docker-compose up -d",
     "docker:down": "docker-compose --profile dev --profile prod down",

@@ -3,7 +3,7 @@
 import { memo } from "react"
 import { useFormContext } from "react-hook-form"
 import { useTranslations } from "next-intl"
-import { Input } from "@/shared/ui"
+import { Input } from "@/shared/ui/input"
 import { VALIDATION_LIMITS } from "@/shared/constants/validation"
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/shared/ui/form"
 

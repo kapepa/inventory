@@ -1,13 +1,14 @@
 "use client"
 
-import { CancelButton } from "@/shared/ui";
+
 import { GroupsRelations } from "./groups-relations";
 import { memo } from "react";
 import { useTranslations } from "next-intl";
 import { Sheet, SheetClose, SheetContent, SheetFooter, SheetHeader, SheetTitle } from "@/shared/ui/sheet";
 import { useActiveParishId } from "@/shared/lib/hooks/use-active-parish-id";
-import { useMediaQuery } from "@/shared/lib/hooks";
+import { useMediaQuery } from "@/shared/lib/hooks/use-media-query";
 import { ProductWithRelationsShort } from "@/entities/product/model/types";
+import { CancelButton } from "@/shared/ui/action-buttons";
 
 interface WrapperSheetGroupsRelationsProps {
   isAdmin: boolean,

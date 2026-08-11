@@ -1,20 +1,22 @@
 "use client"
 
-import { CancelButton, ImageUploadField, ResponsiveImage, SubmitButton } from "@/shared/ui"
 import { useRef } from "react"
-import { useTranslations } from "next-intl"
 import { ImageUploadFieldRef } from "@/shared/types"
 import { cn } from "@/shared/lib/utils"
 import { UPLOAD_LIMITS } from "@/shared/constants/upload-limits"
 import { useUploadAvatar } from "../model/hooks/use-upload-avatar"
 import { AuthenticatedUser } from "@/features/auth/model/types"
+import { ResponsiveImage } from "@/shared/ui/responsive-image"
+import { ImageUploadField } from "@/shared/ui/image-upload-field"
+import { CancelButton, SubmitButton } from "@/shared/ui/action-buttons"
+import { AvatarUploadLabels } from "../model/types/types"
 
 interface AvatarUploadProps {
-  user: AuthenticatedUser
+  user: AuthenticatedUser;
+  labels: AvatarUploadLabels;
 }
 
-export const AvatarUpload = ({ user }: AvatarUploadProps) => {
-  const t = useTranslations("avatar-upload")
+export const AvatarUpload = ({ user, labels }: AvatarUploadProps) => {
   const refImageUpload = useRef<ImageUploadFieldRef>(null)
   const {
     error, isLoading, currentUrl, selectedFile, setError, handleCancel, openFileDialog, handleFileChange, handleUpload
@@ -24,7 +26,7 @@ export const AvatarUpload = ({ user }: AvatarUploadProps) => {
     <div className="flex flex-col items-center gap-4">
       <div className="text-center">
         <h3 className="font-semibold text-muted-foreground">{user.name}</h3>
-        <span className="text-muted-foreground text-sm">{t("descriptions")}</span>
+        <span className="text-muted-foreground text-sm">{labels.description}</span>
       </div>
       <div className="flex flex-col items-center">
         <div
@@ -62,7 +64,7 @@ export const AvatarUpload = ({ user }: AvatarUploadProps) => {
           disabled={isLoading || !selectedFile}
           onClick={handleCancel}
         >
-          {t("buttons.reset")}
+          {labels.resetButton}
         </CancelButton>
         <SubmitButton
           variant="striking-accent"
@@ -71,7 +73,7 @@ export const AvatarUpload = ({ user }: AvatarUploadProps) => {
           disabled={!selectedFile}
           onClick={handleUpload}
         >
-          {t("buttons.send")}
+          {labels.sendButton}
         </SubmitButton>
       </div>
     </div>

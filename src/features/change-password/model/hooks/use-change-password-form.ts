@@ -1,14 +1,13 @@
 "use client"
 
 import { useTranslations } from "next-intl";
-import { useCallback, useMemo, useTransition } from "react";
+import { useCallback, useTransition } from "react";
 import { useForm } from "react-hook-form"
 import { toast } from "sonner";
 import { changePasswordFormSchema, ChangePasswordFormValues } from "../schemas-client";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { requestChangePassword } from "../../api";
 import { InvalidCredentialsError, InvalidInputError, NotFoundError } from "@/shared/lib/errors";
-
 
 export const useChangePasswordForm = () => {
   const tToast = useTranslations("change-password.toast")
@@ -17,7 +16,7 @@ export const useChangePasswordForm = () => {
 
   const form = useForm<ChangePasswordFormValues>({
     resolver: zodResolver(changePasswordFormSchema(tErrors)),
-    mode: "onChange",
+    mode: "onBlur",
     reValidateMode: "onChange",
     defaultValues: {
       currentPassword: "",
@@ -71,15 +70,10 @@ export const useChangePasswordForm = () => {
     [tToast, tErrors, form]
   )
 
-  const handleSubmit = useMemo(() => form.handleSubmit(onSubmit), [form, onSubmit])
-
-  return useMemo(
-    () => ({
-      form,
-      isSubmitting,
-      onSubmit: handleSubmit,
-      onReset,
-    }),
-    [form, isSubmitting, handleSubmit, onReset]
-  )
+  return {
+    form,
+    isSubmitting,
+    onSubmit: form.handleSubmit(onSubmit),
+    onReset,
+  }
 }

@@ -3,7 +3,7 @@
 import { useHydratedUser } from "@/features/auth/model/hooks/use-hydrated-user"
 import { LoginButton } from "@/features/auth/ui/login-button"
 import { cn } from "@/shared/lib/utils";
-import { ProfileAvatar } from "@/shared/ui"
+import { ProfileAvatar } from "@/shared/ui/profile-avatar"
 import { memo } from "react"
 
 interface SidebarUserProps {
