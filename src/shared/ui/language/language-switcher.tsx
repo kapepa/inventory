@@ -9,7 +9,6 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import { memo, useEffect } from "react";
 import { useLocale } from "next-intl";
 import { useSearchParams } from "next/navigation";
-import { Skeleton } from "../skeleton";
 import { STORAGE_KEYS } from "@/shared/constants/storage-keys";
 
 interface LanguageSwitcherProps {

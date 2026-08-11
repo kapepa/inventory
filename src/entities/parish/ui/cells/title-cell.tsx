@@ -1,7 +1,8 @@
 import { cn } from "@/shared/lib/utils";
-import { MobileCellLabel, TooltipText } from "@/shared/ui"
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/shared/ui/tooltip";
 import { TitleCellProps } from "../../model/types/types";
+import { MobileCellLabel } from "@/shared/ui/mobile-cell-label";
+import { TooltipText } from "@/shared/ui/tooltip-text";
 
 export const TitleCell = ({ label, title, className }: TitleCellProps) => {
   return (

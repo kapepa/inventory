@@ -5,7 +5,7 @@ import { Button } from "./button"
 import { Input } from "./input"
 import { cn } from "../lib/utils"
 import { InputHTMLAttributes } from "react"
-import { useMounted } from "../lib/hooks"
+import { useMounted } from "../lib/hooks/use-mounted"
 import { Skeleton } from "./skeleton"
 
 interface SearchWithClearProps extends InputHTMLAttributes<HTMLInputElement> {

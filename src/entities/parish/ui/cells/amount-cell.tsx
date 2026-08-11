@@ -1,6 +1,6 @@
 import { formatUAH, formatUSD } from "@/shared/lib/currency";
 import { cn } from "@/shared/lib/utils"
-import { MobileCellLabel } from "@/shared/ui"
+import { MobileCellLabel } from "@/shared/ui/mobile-cell-label"
 
 interface AmountCellProps {
   label?: string,

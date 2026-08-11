@@ -3,7 +3,7 @@
 import { useMemo, useState, useTransition } from "react"
 import { FieldPath, UseFormReturn } from "react-hook-form"
 import { CategoryFormValues, CategoryTranslatableFieldName } from "../schemas-client"
-import { useThrottle } from "@/shared/lib/hooks"
+import { useThrottle } from "@/shared/lib/hooks/use-throttle"
 import { AppLocale, oppositeLocale } from "@/shared/lib/i18n/config"
 import { useTranslate } from "@/shared/lib/hooks/use-translate"
 

@@ -1,5 +1,5 @@
 import { cn } from "@/shared/lib/utils"
-import { Skeleton, Thumbnail } from "@/shared/ui"
+import { Thumbnail } from "@/shared/ui/thumbnail"
 
 interface PictureCellProps {
   url?: string | null

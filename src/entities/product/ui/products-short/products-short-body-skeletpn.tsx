@@ -1,5 +1,6 @@
 import { cn } from "@/shared/lib/utils"
-import { Skeleton, XButtonCloseSkeleton } from "@/shared/ui"
+import { Skeleton } from "@/shared/ui/skeleton"
+import { XButtonCloseSkeleton } from "@/shared/ui/x-button-close"
 import { ReactNode } from "react"
 
 export const ProductsShortBodySkeleton = ({ children, className }: { children: ReactNode, className?: string }) => {

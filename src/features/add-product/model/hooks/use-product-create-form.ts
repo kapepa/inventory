@@ -25,7 +25,7 @@ export const useProductCreateForm = (parishId: string, closeModalAction: () => v
 
   const form = useForm<ProductCreateFormValues>({
     resolver: zodResolver(productCreateFormSchema(tErrors)),
-    mode: "onChange",
+    mode: "onBlur",
     reValidateMode: "onChange",
     defaultValues: {
       parishId,
@@ -119,15 +119,10 @@ export const useProductCreateForm = (parishId: string, closeModalAction: () => v
     [upload, closeModalAction, t, form]
   )
 
-  const handleSubmit = useMemo(() => form.handleSubmit(onSubmit), [form, onSubmit])
-
-  return useMemo(
-    () => ({
-      form,
-      isSubmitting,
-      onReset,
-      onSubmit: handleSubmit,
-    }),
-    [form, isSubmitting, onReset, handleSubmit]
-  )
+  return {
+    form,
+    isSubmitting,
+    onReset,
+    onSubmit: form.handleSubmit(onSubmit),
+  }
 }

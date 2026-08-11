@@ -4,7 +4,7 @@ import { useHydratedIsAdmin } from "@/features/auth/model/hooks/use-hydrated-use
 import { ROUTES } from "@/shared/constants/routes";
 import { cn } from "@/shared/lib/utils";
 import { usePathname } from "@/shared/lib/i18n/routing";
-import { NavLink, Skeleton } from "@/shared/ui";
+import { NavLink } from "@/shared/ui/nav-link";
 import { BadgeInfo, Building2, ClipboardList, GroupIcon, LucideIcon, Settings, TextAlignStart, UsersRound } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { memo, useMemo } from "react";

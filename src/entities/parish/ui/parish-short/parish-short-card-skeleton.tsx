@@ -1,5 +1,6 @@
 import { cn } from "@/shared/lib/utils";
-import { Loader, Skeleton } from "@/shared/ui";
+import { Loader } from "@/shared/ui/loader";
+import { Skeleton } from "@/shared/ui/skeleton";
 
 export const ParishShortCardSkeleton = ({ className }: { className?: string }) => {
   return (

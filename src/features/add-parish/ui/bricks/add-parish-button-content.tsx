@@ -1,9 +1,10 @@
 "use client";
 
-import { CirclePlusButton, TooltipText } from "@/shared/ui";
 import { cn } from "@/shared/lib/utils";
 import { useAddParish } from "../../model/hooks/use-add-parish";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/shared/ui/tooltip";
+import { CirclePlusButton } from "@/shared/ui/circle-plus-button";
+import { TooltipText } from "@/shared/ui/tooltip-text";
 
 interface AddParishButtonContentProps {
   label: string;

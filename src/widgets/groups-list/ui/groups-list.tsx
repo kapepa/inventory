@@ -5,7 +5,7 @@ import { ScrollArea } from "@/shared/ui/scroll-area";
 import { memo, useCallback, useEffect } from "react";
 import { cn } from "@/shared/lib/utils";
 import { QUERY_PARAMS_KEYS } from "@/shared/constants/query-params-keys";
-import { useIntersectionObserver, useThrottle } from "@/shared/lib/hooks";
+import { useIntersectionObserver } from "@/shared/lib/hooks/use-intersection-observer";
 import { useQueryParam } from "@/shared/lib/hooks/use-query-param";
 import { useActiveParishId } from "@/shared/lib/hooks/use-active-parish-id";
 import { ParishWithRelations } from "@/entities/parish/model/types";
@@ -15,7 +15,8 @@ import { fetchParishes } from "@/entities/parish/api";
 import { ParishShortHeader } from "@/entities/parish/ui/parish-short/parish-short-header";
 import { ParishShortCard } from "@/entities/parish/ui/parish-short/parish-short-card";
 import { ParishShortCardSkeleton } from "@/entities/parish/ui/parish-short/parish-short-card-skeleton";
-import { StateMessage } from "@/shared/ui";
+import { StateMessage } from "@/shared/ui/state-message";
+import { useThrottle } from "@/shared/lib/hooks/use-throttle";
 
 interface GroupsListProps {
   className?: string;

@@ -1,5 +1,5 @@
 import { cn } from "@/shared/lib/utils"
-import { MobileCellLabel } from "@/shared/ui"
+import { MobileCellLabel } from "@/shared/ui/mobile-cell-label";
 import { useTranslations } from "next-intl";
 
 interface ConditionCellProps {

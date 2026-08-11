@@ -1,7 +1,7 @@
 "use client"
 
 import { useTranslations } from "next-intl";
-import { useCallback, useMemo, useTransition } from "react";
+import { useCallback, useTransition } from "react";
 import { useForm } from "react-hook-form"
 import { toast } from "sonner";
 import { codeFormSchema, CodeFormValues } from "../schemas-client";
@@ -10,7 +10,7 @@ import { requestVerifyCodeEmail } from "../../api";
 import { ROUTES } from "@/shared/constants/routes";
 import { NotFoundError } from "@/shared/lib/errors";
 import { useRouter } from "@/shared/lib/i18n/routing";
-import { useUnmountCallback } from "@/shared/lib/hooks";
+import { useUnmountCallback } from "@/shared/lib/hooks/use-unmount-callback";
 
 interface UseCodeFormProps {
   email: string,
@@ -26,7 +26,7 @@ export const useCodeForm = ({ email, token }: UseCodeFormProps) => {
 
   const form = useForm<CodeFormValues>({
     resolver: zodResolver(codeFormSchema(tErrors)),
-    mode: "onChange",
+    mode: "onBlur",
     reValidateMode: "onChange",
     defaultValues: {
       email,
@@ -65,15 +65,10 @@ export const useCodeForm = ({ email, token }: UseCodeFormProps) => {
     [tToast, form]
   )
 
-  const handleSubmit = useMemo(() => form.handleSubmit(onSubmit), [form, onSubmit])
-
-  return useMemo(
-    () => ({
-      form,
-      isSubmitting,
-      onSubmit: handleSubmit,
-      onReset,
-    }),
-    [form, isSubmitting, handleSubmit, onReset]
-  )
+  return {
+    form,
+    isSubmitting,
+    onSubmit: form.handleSubmit(onSubmit),
+    onReset,
+  }
 }

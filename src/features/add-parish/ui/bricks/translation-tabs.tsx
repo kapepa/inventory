@@ -1,4 +1,3 @@
-import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/shared/ui"
 import { TranslationFields } from "./translation-fields"
 import { useFormContext } from "react-hook-form"
 import { useTranslations } from "next-intl"
@@ -7,6 +6,7 @@ import { cn } from "@/shared/lib/utils"
 import { AppLocale } from "@/shared/lib/i18n/config"
 import { ParishFormValues, TranslatableFieldName } from "../../model/schemas-client"
 import { useTranslationTabsValidation } from "../../model/hooks/use-translation-tabs-validation"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/shared/ui/tabs"
 
 interface TranslationTabsProps {
   locale: AppLocale,

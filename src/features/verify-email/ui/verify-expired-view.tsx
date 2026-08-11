@@ -1,17 +1,13 @@
-"use client"
-
-import { SubmitButton } from "@/shared/ui";
-import { useTranslations } from "next-intl";
 import { VerifyCard } from "./verify-card";
-import { useVerifiedEmail } from "@/features/auth/model/hooks/use-verified-email";
+import { getTranslations } from "next-intl/server";
+import { VerifyExpiredBtn } from "./verify-expired-btn";
 
 interface VerifyExpiredViewProps {
   email: string,
 }
 
-export const VerifyExpiredView = ({ email }: VerifyExpiredViewProps) => {
-  const t = useTranslations("verify-email.verify-expired-view");
-  const { confirmVerifiedEmail } = useVerifiedEmail()
+export const VerifyExpiredView = async ({ email }: VerifyExpiredViewProps) => {
+  const t = await getTranslations("verify-email.verify-expired-view");
 
   return (
     <VerifyCard className="flex flex-col items-center gap-6 text-center">
@@ -21,12 +17,7 @@ export const VerifyExpiredView = ({ email }: VerifyExpiredViewProps) => {
           {t("description", { email })}
         </p>
       </div>
-      <SubmitButton
-        onClick={() => { confirmVerifiedEmail(email) }}
-        variant="striking-accent"
-      >
-        {t("resend-button")}
-      </SubmitButton>
+      <VerifyExpiredBtn email={email} label={t("resend-button")} />
     </VerifyCard>
   );
 }

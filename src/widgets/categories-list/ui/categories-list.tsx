@@ -7,13 +7,13 @@ import { useInfiniteCategories } from "@/entities/category/model/hooks/use-infin
 import { CategoryWithProductCount, isCategoryWithProductCount } from "@/entities/category/model/types";
 import { QUERY_PARAMS_KEYS } from "@/shared/constants/query-params-keys";
 import { cn } from "@/shared/lib/utils";
-import { useIntersectionObserver } from "@/shared/lib/hooks";
+import { useIntersectionObserver } from "@/shared/lib/hooks/use-intersection-observer";
 import { useQueryParam } from "@/shared/lib/hooks/use-query-param";
 import { ScrollArea } from "@/shared/ui/scroll-area";
 import { useTranslations } from "next-intl";
 import { DeleteCategoryProvider, useDeleteCategoryContext } from "@/shared/lib/providers/delete-category-context";;
 import { CategoryCard } from "@/entities/category/ui/category-card";
-import { StateMessage } from "@/shared/ui";
+import { StateMessage } from "@/shared/ui/state-message";
 import { CategoryCardSkeleton } from "@/entities/category/ui/category-card-skeleton";
 
 interface CategoriesListProps {

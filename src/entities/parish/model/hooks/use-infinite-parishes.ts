@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect, useCallback, useRef } from "react"
-import { useDebouncedCallback } from "@/shared/lib/hooks"
+import { useDebouncedCallback } from "@/shared/lib/hooks/use-debounced-callback"
 import { useParishesStore } from "../parish-store"
 import { PAGINATION_PARISHES_DEFAULTS } from "@/shared/constants/pagination"
 import { FetchParishesParams } from "../types"

@@ -6,7 +6,7 @@ import { fetchParishesTotals } from "@/entities/parish/api/parish-api"
 import { cn } from "@/shared/lib/utils";
 import { QUERY_PARAMS_KEYS } from "@/shared/constants/query-params-keys"
 import { useQueryParam } from "@/shared/lib/hooks/use-query-param"
-import { useIntersectionObserver } from "@/shared/lib/hooks"
+import { useIntersectionObserver } from "@/shared/lib/hooks/use-intersection-observer"
 import { isTotalsParish, ParishWithRelationsTotals } from "@/entities/parish/model/types"
 import { useParishesStore } from "@/entities/parish/model/parish-store"
 import { useInfiniteParishes } from "@/entities/parish/model/hooks/use-infinite-parishes"
@@ -14,7 +14,7 @@ import { getParishLayout } from "./parishes-list.styles"
 import { DeleteParishProvider, useDeleteParishContext } from "@/shared/lib/providers/delete-parish-context";
 import { ParishWideCard } from "@/entities/parish/ui/parish-wide/parish-wide-card"
 import { ScrollArea } from "@/shared/ui/scroll-area"
-import { StateMessage } from "@/shared/ui";
+import { StateMessage } from "@/shared/ui/state-message";
 import { ParishWideCardSkeleton } from "@/entities/parish/ui/parish-wide/parish-wide-card-skeleton";
 
 interface ParishesListProps {

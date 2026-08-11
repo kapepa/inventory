@@ -1,6 +1,6 @@
 import { cn } from "@/shared/lib/utils"
-import { Skeleton, TooltipText } from "@/shared/ui"
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/shared/ui/tooltip"
+import { TooltipText } from "@/shared/ui/tooltip-text"
 import { memo } from "react"
 
 interface IdentifierCellProps {

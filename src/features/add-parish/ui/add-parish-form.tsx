@@ -1,7 +1,6 @@
 "use client"
 
 import { useLocale, useTranslations } from "next-intl"
-import { CancelButton, SubmitButton, Tabs, TabsContent } from "@/shared/ui"
 import { TranslationFields } from "./bricks/translation-fields"
 import { DeliveryDateField } from "./bricks/delivery-date-field"
 import { TranslationTabsHeader } from "./bricks/translation-tabs-header"
@@ -10,6 +9,8 @@ import { Form } from "@/shared/ui/form"
 import { AppLocale } from "@/shared/lib/i18n/config"
 import { useAddParishForm } from "../model/hooks/use-add-parish-form"
 import { useAddParishTranslation } from "../model/hooks/use-add-parish-translation"
+import { Tabs, TabsContent } from "@/shared/ui/tabs"
+import { CancelButton, SubmitButton } from "@/shared/ui/action-buttons"
 
 interface AddParishFormProps {
   onCancelAction: () => void

@@ -6,7 +6,7 @@ import { useTranslations } from "next-intl"
 import { cn } from "@/shared/lib/utils";
 import { QUERY_PARAMS_KEYS } from "@/shared/constants/query-params-keys"
 import { useQueryParam } from "@/shared/lib/hooks/use-query-param"
-import { useIntersectionObserver } from "@/shared/lib/hooks"
+import { useIntersectionObserver } from "@/shared/lib/hooks/use-intersection-observer"
 import { ProductWithRelationsWide } from "@/entities/product/model/types"
 import { useInfiniteProducts } from "@/entities/product/model/hooks/use-infinite-products"
 import { useViewProduct } from "@/features/view-product-details/model/hooks/use-view-product"
@@ -14,7 +14,7 @@ import { ProductsActionMode } from "../model/types"
 import { useFetchProductsAction } from "../model/hooks/use-fetch-products-action"
 import { DeleteProductProvider, useDeleteProductContext } from "@/shared/lib/providers/delete-product-context";
 import { getProductsLayout } from "./products-grid-layout-styles";
-import { StateMessage } from "@/shared/ui";
+import { StateMessage } from "@/shared/ui/state-message";
 import { ProductsWideCard } from "@/entities/product/ui/products-wide/products-wide-card";
 import { ProductsWideCardSkeleton } from "@/entities/product/ui/products-wide/products-wide-card-skeletob";
 import { AppLocale } from "@/shared/lib/i18n/config";

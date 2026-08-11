@@ -1,5 +1,5 @@
 import { cn } from "@/shared/lib/utils"
-import { InputSkeleton } from "@/shared/ui"
+import { InputSkeleton } from "@/shared/ui/input"
 
 export const CategorySelectorSkeleton = ({ className }: { className?: string }) => {
   return (

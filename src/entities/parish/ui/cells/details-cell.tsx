@@ -1,7 +1,8 @@
 import { cn } from "@/shared/lib/utils"
-import { MenuButton, MobileCellLabel } from "@/shared/ui"
 import { Popover, PopoverContent, PopoverTrigger } from "@/shared/ui/popover"
 import { DetailsCellProps } from "../../model/types/types"
+import { MobileCellLabel } from "@/shared/ui/mobile-cell-label"
+import { MenuButton } from "@/shared/ui/menu-button"
 
 export const DetailsCell = ({ label, title, description, className }: DetailsCellProps) => {
   return (

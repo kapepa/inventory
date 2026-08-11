@@ -8,15 +8,16 @@ import { ProductWithRelationsShort } from "@/entities/product/model/types"
 import { AddProductButton } from "@/features/add-product/ui/add-product-button"
 import { useViewProduct } from "@/features/view-product-details/model/hooks/use-view-product"
 import { cn } from "@/shared/lib/utils";
-import { useIntersectionObserver } from "@/shared/lib/hooks"
+import { useIntersectionObserver } from "@/shared/lib/hooks/use-intersection-observer"
 import { useActiveParishId } from "@/shared/lib/hooks/use-active-parish-id"
-import { LoaderSpin, StateMessage } from "@/shared/ui"
+import { LoaderSpin } from "@/shared/ui/loader-spin"
 import { useTranslations } from "next-intl"
 import { getRelationshLayout } from "./relations-grid-layout-styles"
 import { ProductsShortBody } from "@/entities/product/ui/products-short/products-short-body"
 import { ProductShortCard } from "@/entities/product/ui/products-short/product-short-card"
 import { DeleteProductProvider, useDeleteProductContext } from "@/shared/lib/providers/delete-product-context"
 import { ProductShortCardSkeleton } from "@/entities/product/ui/products-short/product-short-card-skeleton"
+import { StateMessage } from "@/shared/ui/state-message"
 
 interface GroupsRelationsProps {
   isAdmin: boolean,

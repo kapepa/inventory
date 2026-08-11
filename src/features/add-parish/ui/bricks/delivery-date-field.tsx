@@ -10,8 +10,8 @@ import { dateFnsLocales } from "@/shared/lib/i18n/date-fns-locales"
 import { cn } from "@/shared/lib/utils"
 import { FormField, FormItem, FormLabel, FormControl, FormMessage } from "@/shared/ui/form"
 import { Popover, PopoverContent, PopoverTrigger } from "@/shared/ui/popover"
-import { Button, InputSkeleton, Skeleton } from "@/shared/ui"
 import { AppLocale } from "@/shared/lib/i18n/config"
+import { Button } from "@/shared/ui/button"
 
 interface DeliveryDateFieldProps {
   isPending?: boolean,

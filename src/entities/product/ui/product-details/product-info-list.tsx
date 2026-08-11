@@ -1,9 +1,9 @@
 import { ProductStatusView } from "./product-status-view"
 import { ProductBadge } from "./product-badge"
 import { ProductStatus } from "@prisma/client"
-import { DotsDivider } from "@/shared/ui"
 import { cn } from "@/shared/lib/utils"
 import { useTranslations } from "next-intl"
+import { DotsDivider } from "@/shared/ui/dots-divider"
 
 interface ProductInfoListProps {
   className?: string

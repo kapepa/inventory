@@ -1,7 +1,6 @@
 "use client"
 
 import { useLocale, useTranslations } from "next-intl"
-import { CancelButton, SubmitButton, Tabs, TabsContent } from "@/shared/ui"
 import { TranslationFields } from "./bricks/translation-fields"
 import { TranslationTabsHeader } from "./bricks/translation-tabs-header"
 import { ModalBody, ModalFooter } from "@/shared/ui/modal/modal-contents"
@@ -9,6 +8,8 @@ import { Form } from "@/shared/ui/form"
 import { AppLocale } from "@/shared/lib/i18n/config"
 import { useAddCategoryForm } from "../model/hooks/use-add-category-form"
 import { useAddCategoryTranslation } from "../model/hooks/use-add-category-translation"
+import { Tabs, TabsContent } from "@/shared/ui/tabs"
+import { CancelButton, SubmitButton } from "@/shared/ui/action-buttons"
 
 interface AddCategoryFormProps {
   onCancelAction: () => void

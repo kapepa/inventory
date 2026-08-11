@@ -1,4 +1,5 @@
-import { BackButtonSkeleton, Container } from "@/shared/ui";
+import { BackButtonSkeleton } from "@/shared/ui/back-button";
+import { Container } from "@/shared/ui/container";
 import { PageHeaderSkeleton } from "@/widgets/page-header/ui/page-header-skeleton";
 import { ProductsListSkeleton } from "@/widgets/products-list/ui/products-list-skeleton";
 

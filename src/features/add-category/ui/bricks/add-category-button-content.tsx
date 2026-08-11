@@ -2,8 +2,9 @@
 
 import { useAddCategory } from "../../model/hooks/use-add-category";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/shared/ui/tooltip";
-import { CirclePlusButton, TooltipText } from "@/shared/ui";
 import { cn } from "@/shared/lib/utils";
+import { CirclePlusButton } from "@/shared/ui/circle-plus-button";
+import { TooltipText } from "@/shared/ui/tooltip-text";
 
 interface AddCategoryButtonContentProps {
   label: string

@@ -1,5 +1,4 @@
 import { cn } from "@/shared/lib/utils"
-import { memo } from "react"
 
 interface ProductPricingProps {
   className?: string

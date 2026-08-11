@@ -3,8 +3,9 @@
 import { memo, ReactNode } from "react"
 import { cn } from "@/shared/lib/utils"
 import { ScrollArea } from "@/shared/ui/scroll-area"
-import { Skeleton, TooltipText, XButtonClose, XButtonCloseSkeleton } from "@/shared/ui"
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/shared/ui/tooltip"
+import { XButtonClose } from "@/shared/ui/x-button-close"
+import { TooltipText } from "@/shared/ui/tooltip-text"
 
 interface ProductsShortBodyProps {
   title: string,

@@ -52,21 +52,14 @@ case $COMMAND in
       sh -c "npx prisma migrate reset"
     ;;
   studio)
-    echo "Starting Prisma Studio in Docker..."
-    CONTAINER_ID=$(docker run -d \
+    docker run --rm \
       --network "$NETWORK" \
       -v "$(pwd):/app" \
       -w /app \
       -p 5555:5555 \
       -e DATABASE_URL="$DB_URL" \
       $NODE_IMAGE \
-      sh -c "npx prisma studio --port 5555 --browser none")
-
-    echo "Prisma Studio is running at: http://localhost:5555"
-    echo "Press Ctrl+C to stop"
-
-    # Следим за логами контейнера
-    docker logs -f $CONTAINER_ID
+      sh -c "npx prisma studio --port 5555 --browser none"
     ;;
   *)
     echo "Unknown command: $COMMAND"

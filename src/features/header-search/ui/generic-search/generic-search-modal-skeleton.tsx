@@ -1,5 +1,6 @@
-import { SearchWithClearSkeleton, Skeleton } from "@/shared/ui"
 import { ModalBody, ModalContents, ModalFooter, ModalHeader } from "@/shared/ui/modal/modal-contents"
+import { SearchWithClearSkeleton } from "@/shared/ui/search-with-clear"
+import { Skeleton } from "@/shared/ui/skeleton"
 
 export const GenericSearchModalSkeleton = () => {
   return (
