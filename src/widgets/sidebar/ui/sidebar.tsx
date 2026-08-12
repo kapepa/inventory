@@ -18,7 +18,7 @@ export const Sidebar = () => {
 
       <aside
         aria-label="Side Panel"
-        className={cn("shadow-right-lg px-10 sm:px-16 z-30 bg-background", styles.sidebar)}
+        className={cn("shadow-right-lg px-10 sm:px-16 z-30 bg-background max-w-75 w-auto md:w-full", styles.sidebar)}
       >
         <SidebarSwitch />
         {/* Label button for switching */}

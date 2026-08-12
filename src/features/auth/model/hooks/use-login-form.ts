@@ -51,6 +51,9 @@ export const useLoginForm = ({ locale }: UseLoginFormProps) => {
           toast.success(tToast("auth-login-success"))
         })
       } catch (error) {
+        // if (!navigator.onLine) {
+        //   toast.error('Нет подключения к интернету');
+        // }
         if (error instanceof InvalidCredentialsError || error instanceof NotFoundError) {
           form.setError('email', {
             type: 'manual',

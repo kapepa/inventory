@@ -10,6 +10,7 @@ export const ROUTES = {
   REGISTER: '/register',
   VERIFY: '/verify',
   NOT_FOUND: '/not-found',
+  OFFLINE: '/offline'
 } as const;
 
 export type RoutePath = (typeof ROUTES)[keyof typeof ROUTES];

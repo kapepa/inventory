@@ -8,7 +8,7 @@ import { ROUTES } from './shared/constants/routes';
 const intlMiddleware = createIntlMiddleware(routing);
 
 // Public routes accessible without authorization
-const publicRoutes = ['/register', '/login', '/verify', '/api/auth/login', '/api/auth/register', '/api/verify', '/api/auth/resend-verification', "/api/auth/verify-email"];
+const publicRoutes = ['/register', '/login', '/verify', '/offline', '/api/auth/login', '/api/auth/register', '/api/verify', '/api/auth/resend-verification', "/api/auth/verify-email"];
 
 // Routes for admins only
 const adminRoutes = ['/admin', '/categories'];
@@ -87,5 +87,9 @@ export default async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/', '/(en|ru)/:path*', '/((?!_next|.*\\..*).*)']
-};
+  matcher: ['/((?!api|_next|_vercel|.*\\..*).*)']
+}
+
+// export const config = {
+//   matcher: ['/', '/(en|ru)/:path*', '/((?!_next|.*\\..*).*)',]
+// };
