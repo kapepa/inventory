@@ -36,9 +36,6 @@ export async function generateMetadata({
       statusBarStyle: 'default',
       title: 'Inventory',
     },
-    other: {
-      'preconnect': 'https://res.cloudinary.com',
-    },
   };
 }
 

@@ -2,6 +2,7 @@
   "title": "You're Offline",
   "description": "It looks like you've lost your internet connection. Some features may not be available until you're back online.",
   "retry": "Try Again",
+  "goBack": "Go Back",
   "waiting": "Waiting for connection...",
   "checkConnection": "Please check your internet connection"
 }

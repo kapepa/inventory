@@ -17,11 +17,11 @@ export default function OfflinePage() {
 
     const handleOnline = () => {
       setIsOnline(true);
-      // Автоматически возвращаемся назад при восстановлении связи
-      router.back();
     };
 
-    const handleOffline = () => setIsOnline(false);
+    const handleOffline = () => {
+      setIsOnline(false);
+    };
 
     window.addEventListener('online', handleOnline);
     window.addEventListener('offline', handleOffline);
@@ -30,15 +30,17 @@ export default function OfflinePage() {
       window.removeEventListener('online', handleOnline);
       window.removeEventListener('offline', handleOffline);
     };
-  }, [router]);
+  }, []);
 
-  const handleRetry = useCallback(() => {
+  const handleReload = useCallback(() => {
     if (isOnline) {
-      // Если online - возвращаемся на предыдущую страницу
-      router.back();
+      window.location.reload();
     }
-    // Если offline - кнопка неактивна, ничего не делаем
-  }, [isOnline, router]);
+  }, [isOnline]);
+
+  const handleBack = useCallback(() => {
+    router.back();
+  }, [router]);
 
   return (
     <Container className="flex flex-col items-center justify-center min-h-screen py-16">
@@ -47,13 +49,23 @@ export default function OfflinePage() {
       <p className="text-lg text-muted-foreground text-center max-w-md mb-8">
         {t('description')}
       </p>
-      <Button
-        onClick={handleRetry}
-        disabled={!isOnline}
-        className="px-6 py-3 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
-      >
-        {isOnline ? t('retry') : t('waiting')}
-      </Button>
+      <div className="flex gap-4">
+        <Button
+          onClick={handleReload}
+          disabled={!isOnline}
+          variant="default"
+          className="px-6 py-3 cursor-pointer"
+        >
+          {t('retry')}
+        </Button>
+        <Button
+          onClick={handleBack}
+          variant="outline"
+          className="px-6 py-3  cursor-pointer"
+        >
+          {t('goBack')}
+        </Button>
+      </div>
       {!isOnline && (
         <p className="text-sm text-muted-foreground mt-4">
           {t('checkConnection')}
