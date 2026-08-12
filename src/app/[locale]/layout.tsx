@@ -5,6 +5,8 @@ import { BaseProviders } from './providers';
 import { routing } from '@/shared/lib/i18n/routing';
 import { AppLocale } from '@/shared/lib/i18n/config';
 import { ProvidersUIClient } from './providers-client';
+import type { Metadata } from 'next';
+import { PWARegister } from '@/shared/lib/pwa-register';
 
 const inter = Inter({
   subsets: ['cyrillic', 'latin'],
@@ -15,6 +17,29 @@ const inter = Inter({
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+
+  return {
+    icons: {
+      icon: '/svgs/shield-user.svg',
+    },
+    manifest: `/manifest.${locale}.json`,
+    appleWebApp: {
+      capable: true,
+      statusBarStyle: 'default',
+      title: 'Inventory',
+    },
+    other: {
+      'preconnect': 'https://res.cloudinary.com',
+    },
+  };
 }
 
 export default async function LocaleLayout({
@@ -38,6 +63,7 @@ export default async function LocaleLayout({
       <body className='bg-static min-w-75'>
         <BaseProviders locale={typedLocale} messages={messages}>
           <ProvidersUIClient>
+            <PWARegister />
             {children}
           </ProvidersUIClient>
         </BaseProviders>
@@ -45,4 +71,3 @@ export default async function LocaleLayout({
     </html>
   );
 }
-
