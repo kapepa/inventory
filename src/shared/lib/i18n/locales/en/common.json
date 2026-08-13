@@ -15,7 +15,8 @@
     }
   },
   "errors": {
-    "admin-access-required": "Administrator privileges are required"
+    "admin-access-required": "Administrator privileges are required",
+    "offline": "No internet connection"
   },
   "delete-confirm-modal": {
     "title": "Confirm Deletion",

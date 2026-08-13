@@ -9,7 +9,18 @@ const PAGES_TTL = 5 * 60 * 1000; // 5 minutes in milliseconds
 
 // Service Worker installation
 self.addEventListener('install', (event) => {
-  // Skip pre-caching—the offline page will be cached on the first visit
+  event.waitUntil(
+    caches.open(STATIC_CACHE).then(cache => {
+      // We pre-allocate critical resources during installation
+      return cache.addAll([
+        '/manifest.en.json',
+        '/manifest.ru.json',
+        '/svgs/shield-user.svg'
+      ]).catch(() => {
+        //Ignore errors—files are cached on the first request
+      });
+    })
+  );
   self.skipWaiting();
 });
 
@@ -38,19 +49,46 @@ self.addEventListener('fetch', (event) => {
       fetch(request)
         .then((response) => {
           if (response.ok) {
-            // Always cache a successful response
+            // Clone the response for caching
             const responseClone = response.clone();
-            const headers = new Headers(responseClone.headers);
-            headers.set('sw-cache-time', Date.now().toString());
 
-            responseClone.blob().then(body => {
-              const newResponse = new Response(body, {
-                status: responseClone.status,
-                statusText: responseClone.statusText,
-                headers: headers
-              });
-              caches.open(PAGES_CACHE).then(cache => {
-                cache.put(request, newResponse);
+            // Check whether the cache needs to be refreshed (TTL: 5 minutes)
+            caches.open(PAGES_CACHE).then(cache => {
+              cache.match(request).then(cached => {
+                let shouldUpdate = false;
+
+                if (!cached) {
+                  // The page isn't in the cache—let's cache it
+                  shouldUpdate = true;
+                } else {
+                  // Checking the cache age
+                  const cacheTime = cached.headers.get('sw-cache-time');
+                  if (cacheTime) {
+                    const age = Date.now() - parseInt(cacheTime);
+                    if (age > PAGES_TTL) {
+                      // Cache is out of date (> 5 minutes) - refresh
+                      shouldUpdate = true;
+                    }
+                  } else {
+                    // No timestamp—update
+                    shouldUpdate = true;
+                  }
+                }
+
+                if (shouldUpdate) {
+                  // Add a timestamp to the headers
+                  const headers = new Headers(responseClone.headers);
+                  headers.set('sw-cache-time', Date.now().toString());
+
+                  responseClone.blob().then(body => {
+                    const newResponse = new Response(body, {
+                      status: responseClone.status,
+                      statusText: responseClone.statusText,
+                      headers: headers
+                    });
+                    cache.put(request, newResponse);
+                  });
+                }
               });
             });
           }

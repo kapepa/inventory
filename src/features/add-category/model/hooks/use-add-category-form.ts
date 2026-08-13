@@ -3,7 +3,7 @@
 import { useCallback, useTransition, useEffect } from "react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { toast } from "sonner"
+import { toast } from "@/shared/ui/sonner"
 import { useLocale, useTranslations } from "next-intl"
 import { requestCreateCategory } from "../../api"
 import { createCategoryFormSchema, CategoryFormValues } from "../schemas-client"
@@ -70,7 +70,7 @@ export const useAddCategoryForm = (closeModalAction: () => void) => {
           }
           addNewCategory(formattedCategory)
           onReset()
-          toast(t("create-category-success"))
+          toast.success(t("create-category-success"))
           closeModalAction()
         } catch (error) {
           if (error instanceof AlreadyExistsError) {
@@ -78,9 +78,9 @@ export const useAddCategoryForm = (closeModalAction: () => void) => {
               type: 'manual',
               message: tErrors('err-category-already-exists')
             }, { shouldFocus: true });
-            toast(t('category-already-exists'));
+            toast.error(t('category-already-exists'));
           } else {
-            toast(t("create-category-error"))
+            toast.error(t("create-category-error"))
           }
         }
       })

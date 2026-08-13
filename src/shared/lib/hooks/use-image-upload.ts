@@ -2,7 +2,7 @@
 
 import { useTranslations } from "next-intl"
 import { useState, useCallback, useRef } from "react"
-import { toast } from "sonner"
+import { toast } from "@/shared/ui/sonner"
 
 interface UseImageUploadProps {
   maxSizeMB: number

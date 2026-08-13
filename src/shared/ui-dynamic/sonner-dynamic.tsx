@@ -2,6 +2,10 @@
 
 import dynamic from 'next/dynamic';
 
-export const ToasterDynamic = dynamic(() => import('../ui/sonner').then(mod => mod.Toaster), {
-  ssr: false,
-});
+export const ToasterDynamic = dynamic(
+  () => import('../ui/sonner').then(mod => mod.SimpleToaster),
+  {
+    ssr: false,
+    loading: () => null,
+  }
+);

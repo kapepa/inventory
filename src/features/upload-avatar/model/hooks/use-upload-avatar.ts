@@ -2,7 +2,7 @@
 
 import { RefObject, useCallback, useMemo, useState, useTransition } from "react"
 import { requestUploadAvatar } from "../../api"
-import { toast } from "sonner"
+import { toast } from "@/shared/ui/sonner"
 import { useTranslations } from "next-intl"
 import { ImageUploadFieldRef } from "@/shared/types"
 import { ForbiddenError } from "@/shared/lib/errors"

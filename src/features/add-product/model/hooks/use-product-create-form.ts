@@ -2,7 +2,7 @@
 import { useCallback, useMemo, useTransition } from "react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { toast } from "sonner"
+import { toast } from "@/shared/ui/sonner"
 import { useTranslations } from "next-intl"
 import { ProductCreateFormValues, productCreateFormSchema } from "../schemas-client"
 import { ProductStatus } from "@prisma/client"
@@ -108,7 +108,7 @@ export const useProductCreateForm = (parishId: string, closeModalAction: () => v
               type: 'manual',
               message: tErrors('err-title-exists')
             }, { shouldFocus: true });
-            toast(t('toast.title-already-exists'));
+            toast.error(t('toast.title-already-exists'));
           } else {
             console.error(error)
             toast.error(t("toast.create-product-error"))

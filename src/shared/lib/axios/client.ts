@@ -31,6 +31,15 @@ class AxiosClient {
     // Request interceptor
     this.client.interceptors.request.use(
       async (config: InternalAxiosRequestConfig) => {
+        // Check internet connection
+        if (typeof window !== 'undefined' && !navigator.onLine) {
+          const locale = localStorage.getItem(STORAGE_KEYS.LOCALE) || 'ru';
+          const translations = await import(`@/shared/lib/i18n/locales/${locale}/common.json`);
+          const { toast } = await import('@/shared/ui/sonner');
+          toast.error(translations.errors.offline);
+          return Promise.reject(new Error('No internet connection'));
+        }
+
         // Load the language from localStorage
         const locale = localStorage.getItem(STORAGE_KEYS.LOCALE) || 'ru';
         config.headers['Accept-Language'] = locale;

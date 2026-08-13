@@ -1,6 +1,6 @@
 "use client"
 
-import { toast } from "sonner";
+import { toast } from "@/shared/ui/sonner";
 import { useTranslations } from "next-intl";
 import { useCallback, useEffect, useTransition } from "react";
 import { requestDeleteProduct } from "../../api";

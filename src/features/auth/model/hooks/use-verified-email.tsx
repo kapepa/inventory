@@ -2,7 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import { useCallback, useTransition } from "react";
-import { toast } from "sonner";
+import { toast } from "@/shared/ui/sonner";
 import { requestResendVerification } from "../../api";
 import { EmailNotVerifiedModalDynamic } from "../../ui/email-not-verified-modal-dynamic";
 import { NotFoundError } from "@/shared/lib/errors";

@@ -3,7 +3,6 @@
 import { useTranslations } from "next-intl";
 import { useCallback, useTransition } from "react";
 import { useForm } from "react-hook-form"
-import { toast } from "sonner";
 import { loginFormSchema, LoginFormValues, } from "../schemas-client";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useAuthStore } from "../auth-store";
@@ -14,6 +13,7 @@ import { ROUTES } from "@/shared/constants/routes";
 import { useUnmountCallback } from "@/shared/lib/hooks/use-unmount-callback";
 import { AppLocale } from "@/shared/lib/i18n/config";
 import { useRouter } from "next/navigation";
+import { toast } from "@/shared/ui/sonner";
 
 interface UseLoginFormProps {
   locale: AppLocale;

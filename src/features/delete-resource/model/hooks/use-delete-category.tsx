@@ -2,7 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import { useCallback, useEffect, useTransition } from "react";
-import { toast } from "sonner";
+import { toast } from "@/shared/ui/sonner";
 import { requestDeleteCategory } from "../../api";
 import { ForbiddenError, HasDependenciesError, NotFoundError } from "@/shared/lib/errors";
 import { useModalActions } from "@/shared/ui/modal/modal-context";

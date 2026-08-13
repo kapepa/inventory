@@ -3,7 +3,7 @@
 import { useTranslations } from "next-intl";
 import { useCallback, useTransition } from "react";
 import { useForm } from "react-hook-form"
-import { toast } from "sonner";
+import { toast } from "@/shared/ui/sonner";
 import { registerFormSchema, RegisterFormValues } from "../schemas-client";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { requestAuthRegister } from "../../api";

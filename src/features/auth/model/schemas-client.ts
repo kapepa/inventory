@@ -49,4 +49,3 @@ export type LoginFormSchema = ReturnType<typeof loginFormSchema>;
 export type LoginFormValues = z.infer<LoginFormSchema>;
 export type RegisterSchema = ReturnType<typeof registerFormSchema>;
 export type RegisterFormValues = z.infer<RegisterSchema>;
-
