@@ -5,7 +5,7 @@ import { Settings } from "lucide-react"
 import { useTranslations } from "next-intl";
 import { memo, useCallback, useTransition } from "react";
 import { requestAuthLogout } from "../api";
-import { toast } from "sonner";
+import { toast } from "@/shared/ui/sonner";
 import { cn } from "@/shared/lib/utils";
 import { ROUTES } from "@/shared/constants/routes";
 import { useRouter } from "@/shared/lib/i18n/routing";

@@ -5,8 +5,8 @@ import { BaseProviders } from './providers';
 import { routing } from '@/shared/lib/i18n/routing';
 import { AppLocale } from '@/shared/lib/i18n/config';
 import { ProvidersUIClient } from './providers-client';
-import type { Metadata } from 'next';
 import { PWARegister } from '@/shared/lib/pwa-register';
+import type { Metadata } from 'next';
 
 const inter = Inter({
   subsets: ['cyrillic', 'latin'],
@@ -35,6 +35,9 @@ export async function generateMetadata({
       capable: true,
       statusBarStyle: 'default',
       title: 'Inventory',
+    },
+    other: {
+      'link-preload-icon': '<link rel="preload" href="/svgs/shield-user.svg" as="image" type="image/svg+xml" />',
     },
   };
 }

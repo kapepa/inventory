@@ -2,7 +2,7 @@
 import { useCallback, useTransition, useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { toast } from "sonner"
+import { toast } from "@/shared/ui/sonner"
 import { useLocale, useTranslations } from "next-intl"
 import { requestCreateParish } from "../../api"
 import { createParishFormSchema, ParishFormValues } from "../schemas-client"
@@ -84,7 +84,7 @@ export const useAddParishForm = (closeModalAction: () => void) => {
           addNewParish(formattedParish)
           onReset()
 
-          toast(t("create-parish-success"))
+          toast.success(t("create-parish-success"))
           closeModalAction()
         } catch (error) {
           if (error instanceof AlreadyExistsError) {
@@ -96,10 +96,10 @@ export const useAddParishForm = (closeModalAction: () => void) => {
               type: 'manual',
               message: tErrors('err-parish-already-exists')
             }, { shouldFocus: true });
-            toast(t('parish-already-exists'));
+            toast.error(t('parish-already-exists'));
           } else {
             console.error(error)
-            toast(t("create-parish-error"))
+            toast.error(t("create-parish-error"))
           }
         }
       })

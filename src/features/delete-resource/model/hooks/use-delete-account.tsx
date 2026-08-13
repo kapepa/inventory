@@ -4,7 +4,7 @@ import { ForbiddenError } from "@/shared/lib/errors";
 import { ROUTES } from "@/shared/constants/routes";
 import { useTranslations } from "next-intl";
 import { useCallback, useEffect, useTransition } from "react";
-import { toast } from "sonner";
+import { toast } from "@/shared/ui/sonner";
 import { requestDeleteAccount } from "../../api";
 import { useModalActions } from "@/shared/ui/modal/modal-context";
 import { useRouter } from "@/shared/lib/i18n/routing";

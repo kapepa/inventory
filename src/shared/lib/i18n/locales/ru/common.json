@@ -15,7 +15,8 @@
     }
   },
   "errors": {
-    "admin-access-required": "Требуются права администратора"
+    "admin-access-required": "Требуются права администратора",
+    "offline": "Нет подключения к интернету"
   },
   "delete-confirm-modal": {
     "title": "Подтверждение удаления",
