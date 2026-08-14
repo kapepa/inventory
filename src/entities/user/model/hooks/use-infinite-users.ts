@@ -96,6 +96,9 @@ export const useInfiniteUsers = ({
       isFirstRender.current = false
       return
     }
+
+    if (isInitialized.current) return
+
     const controller = new AbortController()
     fetchItems(true, controller.signal)
     return () => controller.abort()

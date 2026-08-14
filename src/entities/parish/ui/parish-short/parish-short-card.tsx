@@ -7,12 +7,14 @@ import { ParishWithRelations } from "../../model/types";
 import { CountCell } from "../cells/count-cell";
 import { DetailsCell } from "../cells/details-cell";
 import { DateCell } from "../cells/date-cell";
+import { Link } from "@/shared/lib/i18n/routing";
+import { ROUTES } from "@/shared/constants/routes";
 
 interface ParishShortCardProps {
+  id: string,
   className?: string,
   parish: ParishWithRelations,
   isActive: boolean,
-  selectParishesActions: (id: string) => void,
 }
 
 const ActiveChevron = memo(({ isActive }: { isActive: boolean }) => {
@@ -27,13 +29,13 @@ const ActiveChevron = memo(({ isActive }: { isActive: boolean }) => {
 })
 
 export const ParishShortCard = memo(
-  ({ parish, className, isActive, selectParishesActions }: ParishShortCardProps) => {
+  ({ id, parish, className, isActive }: ParishShortCardProps) => {
     const { title, description } = parish.translations[0]
 
     return (
-      <button
-        disabled={isActive}
-        onClick={() => { selectParishesActions(parish.id) }}
+      <Link
+        href={`${ROUTES.GROUPS}/${id}`}
+        prefetch
         className={cn("border rounded-md bg-card hover:shadow-md transition-all cursor-pointer w-full flex overflow-hidden border-chart-1")}
       >
         <div className={cn("px-2 py-3 grow", className)}>
@@ -44,7 +46,7 @@ export const ParishShortCard = memo(
         <div className="hidden sm:block w-12 md:w-14">
           <ActiveChevron isActive={isActive} />
         </div>
-      </button>
+      </Link>
 
     )
   }

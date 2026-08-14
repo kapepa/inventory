@@ -126,6 +126,10 @@ export const useInfiniteProducts = <T extends { id: string }>({
       isFirstRender.current = false
       return
     }
+
+    // Skip fetch if we already initialized with server data
+    if (isInitialized.current) return
+
     const controller = new AbortController()
     fetchItems(true, controller.signal)
     return () => controller.abort()

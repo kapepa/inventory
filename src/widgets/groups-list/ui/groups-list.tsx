@@ -1,28 +1,27 @@
 "use client";
 
-import { useTranslations } from "next-intl";
 import { ScrollArea } from "@/shared/ui/scroll-area";
-import { memo, useCallback, useEffect } from "react";
+import { useEffect } from "react";
 import { cn } from "@/shared/lib/utils";
 import { QUERY_PARAMS_KEYS } from "@/shared/constants/query-params-keys";
 import { useIntersectionObserver } from "@/shared/lib/hooks/use-intersection-observer";
 import { useQueryParam } from "@/shared/lib/hooks/use-query-param";
-import { useActiveParishId } from "@/shared/lib/hooks/use-active-parish-id";
 import { ParishWithRelations } from "@/entities/parish/model/types";
-import { useParishesStore } from "@/entities/parish/model/parish-store";
 import { useInfiniteParishes } from "@/entities/parish/model/hooks/use-infinite-parishes";
 import { fetchParishes } from "@/entities/parish/api";
 import { ParishShortHeader } from "@/entities/parish/ui/parish-short/parish-short-header";
 import { ParishShortCard } from "@/entities/parish/ui/parish-short/parish-short-card";
 import { ParishShortCardSkeleton } from "@/entities/parish/ui/parish-short/parish-short-card-skeleton";
 import { StateMessage } from "@/shared/ui/state-message";
-import { useThrottle } from "@/shared/lib/hooks/use-throttle";
+import { useParams } from "next/navigation";
+import { GroupsListLabels } from "../model/types";
 
 interface GroupsListProps {
   className?: string;
 }
 
 interface GroupsListProps {
+  labels: GroupsListLabels
   className?: string,
   initialParishes?: ParishWithRelations[],
   initialHasMore?: boolean,
@@ -31,26 +30,21 @@ interface GroupsListProps {
 
 const CARD_CLASS = "grid grid-cols-[1fr_1fr_2fr] items-center gap-4";
 
-export const GroupsList = memo(({
+export const GroupsList = ({
+  labels,
   className,
   initialParishes = [],
   initialHasMore = true,
   initialParishesId,
 }: GroupsListProps) => {
-  const t = useTranslations('groups-list');
+  const params = useParams<{ id?: string }>();
   const [search] = useQueryParam(QUERY_PARAMS_KEYS.PARISHES_SEARCH);
-  const setActiveParishe = useParishesStore((state) => state.setActiveParishe)
-  const [activeParishId, setActiveParishId] = useActiveParishId(initialParishesId);
   const { parishes, isLoading, error, hasMore, loadMore } = useInfiniteParishes<ParishWithRelations>({
     search, initialParishes, initialHasMore, fetchFnAction: fetchParishes
   })
   const { targetRef, isIntersecting } = useIntersectionObserver({ threshold: 0.5, rootMargin: "100px" })
 
-  const selectParishesActions = useCallback((id: string) => {
-    setActiveParishId((prev: string | null) => prev === id ? null : id);
-  }, [setActiveParishId])
-
-  const throttleSelectParishesActions = useThrottle(selectParishesActions, 1000);
+  const activeParishId = params.id || initialParishesId;
 
   useEffect(() => {
     if (isIntersecting && hasMore && !isLoading) {
@@ -58,22 +52,15 @@ export const GroupsList = memo(({
     }
   }, [isIntersecting, hasMore, isLoading, loadMore])
 
-  useEffect(() => {
-    if (activeParishId) {
-      const activeParish = parishes.find(p => p.id === activeParishId);
-      if (activeParish) setActiveParishe(activeParish);
-    }
-  }, [activeParishId, parishes, setActiveParishe])
-
   if (error && !isLoading) return (
     <StateMessage variant="destructive" >
-      {t("errors.parishes")}
+      {labels.errorsParishes}
     </StateMessage>
   )
 
   if (!hasMore && !parishes.length) return (
     <StateMessage>
-      {t("parishes-empty")}
+      {labels.parishesEmpty}
     </StateMessage>
   )
 
@@ -88,10 +75,10 @@ export const GroupsList = memo(({
             parishes.map(parish => (
               <ParishShortCard
                 key={parish.id}
+                id={parish.id}
                 parish={parish}
                 className={CARD_CLASS}
-                selectParishesActions={throttleSelectParishesActions}
-                isActive={parish.id === activeParishId}
+                isActive={activeParishId === parish.id}
               />
             ))
           }
@@ -104,6 +91,6 @@ export const GroupsList = memo(({
       </ScrollArea>
     </div>
   );
-})
+}
 
 GroupsList.displayName = 'GroupsList';
