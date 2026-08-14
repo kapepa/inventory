@@ -5,7 +5,7 @@ import { BaseProviders } from './providers';
 import { routing } from '@/shared/lib/i18n/routing';
 import { AppLocale } from '@/shared/lib/i18n/config';
 import { ProvidersUIClient } from './providers-client';
-import { PWARegister } from '@/shared/lib/pwa-register';
+// import { PWARegister } from '@/shared/lib/pwa-register';
 import type { Metadata } from 'next';
 
 const inter = Inter({
@@ -63,7 +63,7 @@ export default async function LocaleLayout({
       <body className='bg-static min-w-75'>
         <BaseProviders locale={typedLocale} messages={messages}>
           <ProvidersUIClient>
-            <PWARegister />
+            {/* <PWARegister /> */}
             {children}
           </ProvidersUIClient>
         </BaseProviders>

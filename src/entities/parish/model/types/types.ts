@@ -37,7 +37,6 @@ export interface ParishesState {
   activeParishe: ParishesType | null;
   newParishe: ParishesType | null;
   addNewParish: (parishe: ParishesType | null) => void;
-  setActiveParishe: (parishe: ParishesType | null) => void;
   setTotal: (total: number) => void;
   setPage: (page: number) => void;
 }

@@ -1,16 +1,17 @@
 "use client"
 
-
 import { GroupsRelations } from "./groups-relations";
-import { memo } from "react";
 import { useTranslations } from "next-intl";
 import { Sheet, SheetClose, SheetContent, SheetFooter, SheetHeader, SheetTitle } from "@/shared/ui/sheet";
-import { useActiveParishId } from "@/shared/lib/hooks/use-active-parish-id";
-import { useMediaQuery } from "@/shared/lib/hooks/use-media-query";
 import { ProductWithRelationsShort } from "@/entities/product/model/types";
 import { CancelButton } from "@/shared/ui/action-buttons";
+import { GroupsRelationsLabels } from "../model/types";
+import { useRouter } from "@/shared/lib/i18n/routing";
+import { useCallback } from "react";
+import { ROUTES } from "@/shared/constants/routes";
 
 interface WrapperSheetGroupsRelationsProps {
+  labels: GroupsRelationsLabels,
   isAdmin: boolean,
   initialHasMore?: boolean;
   initialProducts?: ProductWithRelationsShort[];
@@ -18,20 +19,21 @@ interface WrapperSheetGroupsRelationsProps {
   initialParishTitle: string;
 }
 
-export const WrapperSheetGroupsRelations = memo((props: WrapperSheetGroupsRelationsProps) => {
+export const WrapperSheetGroupsRelations = (props: WrapperSheetGroupsRelationsProps) => {
   const t = useTranslations('groups.wrapper-sheet-groups-relations');
-  const [activeParishId, setActiveParishId] = useActiveParishId(props.initialParishesId);
-  const isDesktop = useMediaQuery("(min-width: 1024px)");
+  const router = useRouter()
 
-  if (isDesktop || isDesktop === undefined) return null
+  const handleClose = useCallback(() => {
+    router.push(ROUTES.GROUPS)
+  }, [router])
 
   return (
     <Sheet
-      open={!!activeParishId}
-      onOpenChange={(open) => !open && setActiveParishId("")}
+      open={true}
+      onOpenChange={handleClose}
     >
       <SheetHeader className="sr-only">
-        <SheetTitle>{activeParishId}</SheetTitle>
+        <SheetTitle>{props.initialParishTitle}</SheetTitle>
       </SheetHeader>
       <SheetContent
         side="right"
@@ -48,6 +50,6 @@ export const WrapperSheetGroupsRelations = memo((props: WrapperSheetGroupsRelati
     </Sheet>
   );
 }
-);
+
 
 WrapperSheetGroupsRelations.displayName = "WrapperSheetGroupsRelations"

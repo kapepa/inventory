@@ -118,8 +118,8 @@ export const useInfiniteParishes = <T extends { id: string }>({
       isFirstRender.current = false
       return
     }
-    // Don't fetch if we already have initial data on first render
-    // if (isInitialized.current && isCurrentPage.current >= 2) return
+
+    if (isInitialized.current) return
 
     const controller = new AbortController()
     fetchItems(true, controller.signal)

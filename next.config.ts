@@ -8,6 +8,15 @@ const withBundleAnalyzer = process.env.ANALYZE === 'true'
   : (config: NextConfig) => config;
 
 const nextConfig: NextConfig = {
+  async redirects() {
+    return [
+      {
+        source: '/:locale',
+        destination: '/:locale/parishes',
+        permanent: false
+      },
+    ];
+  },
   images: {
     minimumCacheTTL: 120,
     formats: ['image/avif', 'image/webp'],

@@ -12,7 +12,6 @@ export const useParishesStore = create<ParishesState>()(
       setPage: (page) => set({ page }),
       setTotal: (total) => set({ total }),
       addNewParish: (parishe) => set({ newParishe: parishe }),
-      setActiveParishe: (parishe) => set({ activeParishe: parishe }),
     }),
     {
       name: 'products-store',
