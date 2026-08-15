@@ -12,7 +12,7 @@ interface CountTotalProps {
 
 export const CountTotal = memo(({ fallbackCount, className, storeType }: CountTotalProps) => {
   const total = useTotalByStore(storeType);
-  const displayTotal = total === 0 ? (fallbackCount ?? 0) : total
+  const displayTotal = total === null ? (fallbackCount ?? 0) : total
 
   if (displayTotal === undefined) return null;
 

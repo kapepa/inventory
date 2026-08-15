@@ -43,7 +43,7 @@ export const UsersList = ({ className, initialUsers, initialHasMore }: UsersList
     </StateMessage>
   )
 
-  if (!hasMore && !users.length) return (
+  if (!hasMore && !isLoading && !users.length) return (
     <StateMessage>
       {t("users-empty")}
     </StateMessage>

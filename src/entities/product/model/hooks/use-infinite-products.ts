@@ -43,6 +43,11 @@ export const useInfiniteProducts = <T extends { id: string }>({
   const isCurrentPage = useRef(1)
   const hasMoreRef = useRef(initialHasMore)
 
+  const searchRef = useRef(search)
+  const parishIdRef = useRef(parishId)
+  const categoryIdRef = useRef(categoryId)
+  const specificationRef = useRef(specification)
+
   // Sync initial data from server only once on mount
   useEffect(() => {
     if (!isInitialized.current && initialProducts.length > 0) {
@@ -56,7 +61,7 @@ export const useInfiniteProducts = <T extends { id: string }>({
   const addProduct = useCallback((newProduct: T) => {
     setProducts((prev) => [newProduct, ...prev]);
     queueMicrotask(() => {
-      const currentTotal = useProductsStore.getState().total;
+      const currentTotal = useProductsStore.getState().total || 0;
       useProductsStore.getState().setTotal(currentTotal + 1);
     });
   }, []);
@@ -122,18 +127,40 @@ export const useInfiniteProducts = <T extends { id: string }>({
   )
 
   useEffect(() => {
+    const hasSearchChanged = searchRef.current !== search
+    const hasParishChanged = parishIdRef.current !== parishId
+    const hasCategoryChanged = categoryIdRef.current !== categoryId
+    const hasSpecificationChanged = specificationRef.current !== specification
+
+    // Skip first render
     if (isFirstRender.current) {
       isFirstRender.current = false
+      searchRef.current = search
+      parishIdRef.current = parishId
+      categoryIdRef.current = categoryId
+      specificationRef.current = specification
       return
     }
 
-    // Skip fetch if we already initialized with server data
-    if (isInitialized.current) return
+    // If any filter changed
+    if (hasSearchChanged || hasParishChanged || hasCategoryChanged || hasSpecificationChanged) {
+      // Update refs
+      searchRef.current = search
+      parishIdRef.current = parishId
+      categoryIdRef.current = categoryId
+      specificationRef.current = specification
 
-    const controller = new AbortController()
-    fetchItems(true, controller.signal)
-    return () => controller.abort()
-  }, [fetchItems])
+      // Reset state
+      setProducts([])
+      isCurrentPage.current = 1
+      hasMoreRef.current = true
+
+      // Fetch
+      const controller = new AbortController()
+      fetchItems(true, controller.signal)
+      return () => controller.abort()
+    }
+  }, [search, parishId, categoryId, specification, fetchItems, setProducts])
 
   const loadMore = useDebouncedCallback(() => { fetchItems(false) }, 1000)
 

@@ -7,7 +7,6 @@ import { QUERY_PARAMS_KEYS } from "@/shared/constants/query-params-keys";
 import { PageHeader } from "@/widgets/page-header/ui/page-header";
 import { AddParishButton } from "@/features/add-parish/ui/add-parish-button";
 import { GroupsList } from "@/widgets/groups-list/ui/groups-list";
-import { GroupsListLabels } from "@/widgets/groups-list/model/types";
 
 export default async function Groups({
   params,
@@ -32,14 +31,7 @@ export default async function Groups({
   ])
 
   const t = await getTranslations({ locale, namespace: "groups-page" });
-  const tGroupsList = await getTranslations({ locale, namespace: "groups-list" });
-
   const isAdmin = user?.role === "ADMIN";
-
-  const labelsGroupsList: GroupsListLabels = {
-    errorsParishes: tGroupsList("errors.parishes"),
-    parishesEmpty: tGroupsList("parishes-empty"),
-  }
 
   return (
     <>
@@ -51,7 +43,6 @@ export default async function Groups({
         storeType="parishes"
       />
       <GroupsList
-        labels={labelsGroupsList}
         initialHasMore={initialParishes.hasMore}
         initialParishes={initialParishes.data}
         initialParishesId={parishId}

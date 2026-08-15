@@ -5,7 +5,7 @@ import { UsersState } from './types/types';
 export const useUsersStore = create<UsersState>()(
   devtools(
     (set) => ({
-      total: 0,
+      total: null,
       page: 0,
       setPage: (page) => set({ page }, false, 'setPage'),
       setTotal: (total) => set({ total }, false, 'setTotal'),

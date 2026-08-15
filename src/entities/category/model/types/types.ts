@@ -29,7 +29,7 @@ export interface FetchCategoryById {
 }
 
 export interface CategoriesState {
-  total: number;
+  total: number | null;
   page: number;
   newCategory: CategoryWithTranslations | null;
   addNewCategory: (category: CategoryWithTranslations | null) => void;

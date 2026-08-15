@@ -38,7 +38,7 @@ export interface ProductStatusCounts extends Record<ProductStatusKey, number> {
 }
 
 export interface ProductsState {
-  total: number;
+  total: number | null;
   page: number;
   setPage: (page: number) => void;
   setTotal: (total: number) => void;

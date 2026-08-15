@@ -69,17 +69,21 @@ export const getParishesTotals = async (params: FetchParishes): Promise<Response
 export const getParishes = async (params: FetchParishes): Promise<ResponseParishesDTO> => {
   const { page = PAGINATION_PARISHES_DEFAULTS.PAGE, limit = PAGINATION_PARISHES_DEFAULTS.LIMIT, locale } = params;
   try {
+    const skip = (page - 1) * limit;
+    const where = buildWhereClause(params);
+
     const [parishes, total] = await Promise.all([
       prisma.parish.findMany({
-        skip: (page - 1) * limit,
-        take: limit,
+        where,
         include: {
           translations: {
             where: { locale }
           },
           _count: { select: { products: true } },
         },
-        orderBy: { createdAt: 'desc' }
+        skip,
+        take: limit,
+        orderBy: { createdAt: 'desc' },
       }),
       prisma.parish.count()
     ]);

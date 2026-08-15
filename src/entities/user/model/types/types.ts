@@ -9,7 +9,7 @@ export interface FetchUsers {
 export type UserPublic = Pick<User, 'id' | 'name' | 'email' | "imageUrl">;
 
 export interface UsersState {
-  total: number;
+  total: number | null;
   page: number;
   setPage: (page: number) => void;
   setTotal: (total: number) => void;

@@ -6,7 +6,7 @@ import { CategoriesState } from './types/types';
 export const useCategoriesStore = create<CategoriesState>()(
   devtools(
     (set) => ({
-      total: 0,
+      total: null,
       page: 0,
       newCategory: null,
       addNewCategory: (newCategory: CategoryWithTranslations | null) => set({ newCategory }, false, 'addNewCategory'),

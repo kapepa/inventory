@@ -57,7 +57,7 @@ export const CategoriesListInner = ({ className, initialHasMore, initialCategori
     </StateMessage>
   )
 
-  if (!hasMore && !categories.length) return (
+  if (!hasMore && !isLoading && !categories.length) return (
     <StateMessage>
       {t("categories-empty")}
     </StateMessage>

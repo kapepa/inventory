@@ -32,7 +32,7 @@ export interface FetchParishById {
 export type ParishesType = ParishWithRelations | ParishWithRelationsTotals
 
 export interface ParishesState {
-  total: number;
+  total: number | null;
   page: number;
   activeParishe: ParishesType | null;
   newParishe: ParishesType | null;

@@ -5,7 +5,7 @@ import { ProductsState } from './types/types';
 export const useProductsStore = create<ProductsState>()(
   devtools(
     (set) => ({
-      total: 0,
+      total: null,
       page: 0,
       setPage: (page) => set({ page }, false, 'setPage'),
       setTotal: (total) => set({ total }, false, 'setTotal'),
