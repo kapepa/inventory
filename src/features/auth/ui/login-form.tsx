@@ -6,14 +6,14 @@ import { VALIDATION_LIMITS } from "@/shared/constants/validation";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/shared/ui/form";
 import { useLoginForm } from "../model/hooks/use-login-form";
 import { AppLocale } from "@/shared/lib/i18n/config";
-import { LoginFormLabels } from "../model/types/types";
+import { useTranslations } from "next-intl";
 
 interface LoginFormProps {
   locale: AppLocale;
-  labels: LoginFormLabels
 }
 
-export const LoginForm = ({ locale, labels }: LoginFormProps) => {
+export const LoginForm = ({ locale }: LoginFormProps) => {
+  const t = useTranslations("auth.form");
   const { form, onSubmit, isSubmitting, onReset } = useLoginForm({ locale })
 
   return (
@@ -24,11 +24,11 @@ export const LoginForm = ({ locale, labels }: LoginFormProps) => {
             name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>{labels.emailLabel}</FormLabel>
+                <FormLabel>{t('labels.email')}</FormLabel>
                 <FormControl>
                   <Input
                     type="email"
-                    placeholder={labels.emailPlaceholder}
+                    placeholder={t('placeholders.email')}
                     {...field}
                     value={field.value ?? ''}
                     // We allow +1 character so that Zod can detect when the limit is exceeded and display an error
@@ -47,11 +47,11 @@ export const LoginForm = ({ locale, labels }: LoginFormProps) => {
             name="password"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>{labels.passwordLabel}</FormLabel>
+                <FormLabel>{t('labels.password')}</FormLabel>
                 <FormControl>
                   <Input
                     type="password"
-                    placeholder={labels.passwordPlaceholder}
+                    placeholder={t('placeholders.password')}
                     {...field}
                     value={field.value ?? ''}
                     // We allow +1 character so that Zod can detect when the limit is exceeded and display an error
@@ -72,7 +72,7 @@ export const LoginForm = ({ locale, labels }: LoginFormProps) => {
             onClick={onReset}
             disabled={isSubmitting}
           >
-            {labels.resetButton}
+            {t('buttons.reset')}
           </CancelButton>
           <SubmitButton
             type="submit"
@@ -80,7 +80,7 @@ export const LoginForm = ({ locale, labels }: LoginFormProps) => {
             isLoading={isSubmitting}
             disabled={isSubmitting}
           >
-            {labels.signInButton}
+            {t('buttons.sign-in')}
           </SubmitButton>
         </div>
       </form>

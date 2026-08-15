@@ -38,6 +38,8 @@ export const useInfiniteParishes = <T extends { id: string }>({
   const isCurrentPage = useRef(1)
   const hasMoreRef = useRef(initialHasMore)
 
+  const searchRef = useRef(search)
+
   // Sync initial data from server only once on mount
   useEffect(() => {
     if (!isInitialized.current && initialParishes.length > 0) {
@@ -51,7 +53,7 @@ export const useInfiniteParishes = <T extends { id: string }>({
   const addParishes = useCallback((parishe: T) => {
     setParishes((prev) => [parishe, ...prev]);
     queueMicrotask(() => {
-      const currentTotal = useParishesStore.getState().total;
+      const currentTotal = useParishesStore.getState().total || 0;
       useParishesStore.getState().setTotal(currentTotal + 1);
     });
   }, []);
@@ -114,17 +116,30 @@ export const useInfiniteParishes = <T extends { id: string }>({
   )
 
   useEffect(() => {
+    // Skip the first render
     if (isFirstRender.current) {
       isFirstRender.current = false
+      searchRef.current = search
       return
     }
 
-    if (isInitialized.current) return
+    // If search has changed, send a request
+    if (searchRef.current !== search) {
+      searchRef.current = search
 
-    const controller = new AbortController()
-    fetchItems(true, controller.signal)
-    return () => controller.abort()
-  }, [fetchItems])
+      const controller = new AbortController()
+      fetchItems(true, controller.signal)
+
+      return () => controller.abort()
+    }
+
+    // Initial load if no data is available
+    if (!isInitialized.current) {
+      const controller = new AbortController()
+      fetchItems(true, controller.signal)
+      return () => controller.abort()
+    }
+  }, [search, fetchItems])
 
   const loadMore = useDebouncedCallback(() => { fetchItems(false) }, 1200)
 

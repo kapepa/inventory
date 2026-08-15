@@ -25,7 +25,7 @@ export default function ParishesLayout({ children, content }: { children: React.
       <Sidebar />
       <Header
         className="shrink-0"
-        headerActions={<ParishesSearch />}
+        headerActions={<ParishesSearch searchType="groups" />}
       />
       <main className="flex-1 min-h-0 flex flex-col">
         <Container className="pt-6 md:pt-16 min-h-0 grid grid-cols-1 lg:grid-cols-3 grid-template-rows gap-4">

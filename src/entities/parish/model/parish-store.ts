@@ -5,7 +5,7 @@ import { ParishesState } from './types/types';
 export const useParishesStore = create<ParishesState>()(
   devtools(
     (set) => ({
-      total: 0,
+      total: null,
       page: 1,
       activeParishe: null,
       newParishe: null,

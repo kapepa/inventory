@@ -5,13 +5,11 @@ import { useTranslations } from "next-intl";
 import { Sheet, SheetClose, SheetContent, SheetFooter, SheetHeader, SheetTitle } from "@/shared/ui/sheet";
 import { ProductWithRelationsShort } from "@/entities/product/model/types";
 import { CancelButton } from "@/shared/ui/action-buttons";
-import { GroupsRelationsLabels } from "../model/types";
 import { useRouter } from "@/shared/lib/i18n/routing";
 import { useCallback } from "react";
 import { ROUTES } from "@/shared/constants/routes";
 
 interface WrapperSheetGroupsRelationsProps {
-  labels: GroupsRelationsLabels,
   isAdmin: boolean,
   initialHasMore?: boolean;
   initialProducts?: ProductWithRelationsShort[];

@@ -7,7 +7,7 @@ export const ProductsListSkeleton = ({ className }: { className?: string }) => {
       <div className="flex-1 min-h-0 w-full mx-auto max-w-lg lg:max-w-full overflow-hidden">
         <div className={cn("flex flex-col gap-3 pb-6 md:pb-16", className)}>
           {
-            Array.from({ length: 4 }).map((_, index) => (
+            Array.from({ length: 3 }).map((_, index) => (
               <ProductsWideCardSkeleton
                 key={`products-list-skeleton${index}`}
               />

@@ -40,6 +40,8 @@ export const ParishesListInner = memo(({
   const { targetRef, isIntersecting } = useIntersectionObserver({ threshold: 0.5, rootMargin: "100px" })
   const { confirmParishDelete } = useDeleteParishContext();
 
+  const PARISH_LAYOUT = useMemo(() => getParishLayout(isAdmin), [isAdmin])
+
   useEffect(() => {
     if (isIntersecting && hasMore && !isLoading) {
       loadMore()
@@ -64,13 +66,11 @@ export const ParishesListInner = memo(({
     </StateMessage>
   )
 
-  if (!hasMore && !parishes.length) return (
+  if (!hasMore && !isLoading && !parishes.length) return (
     <StateMessage >
       {t("parishes-empty")}
     </StateMessage>
   )
-
-  const PARISH_LAYOUT = useMemo(() => getParishLayout(isAdmin), [isAdmin])
 
   return (
     <ScrollArea className={cn("flex-1 min-h-0", className)}>

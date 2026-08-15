@@ -43,6 +43,8 @@ export const ProductsListInner = ({ locale, isAdmin, initialParishId, initialPro
   const { confirmProductDelete } = useDeleteProductContext()
   const { productDetails } = useViewProduct()
 
+  const PRODUCTD_LAYOUT = useMemo(() => getProductsLayout(isAdmin), [isAdmin])
+
   const handlerDeleteProduct = useCallback((product: ProductWithRelationsWide) => {
     confirmProductDelete(product, () => { removeProduct(product.id) });
   }, [removeProduct])
@@ -53,15 +55,13 @@ export const ProductsListInner = ({ locale, isAdmin, initialParishId, initialPro
     }
   }, [isIntersecting, hasMore, isLoading, loadMore])
 
-  const PRODUCTD_LAYOUT = useMemo(() => getProductsLayout(isAdmin), [isAdmin])
-
   if (error && !isLoading) return (
     <StateMessage variant="destructive">
       {t("errors.infinite-scroll-error")}
     </StateMessage>
   )
 
-  if (!hasMore && !products.length) return (
+  if (!hasMore && !isLoading && !products.length) return (
     <StateMessage>
       {t("products-empty")}
     </StateMessage>

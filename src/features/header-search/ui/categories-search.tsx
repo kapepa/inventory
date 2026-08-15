@@ -1,6 +1,5 @@
 "use client";
 
-import { memo } from "react";
 import { useTranslations } from "next-intl";
 import { QUERY_PARAMS_KEYS } from "@/shared/constants/query-params-keys";
 import { GenericSearchInput, GenericSearchResponsive } from "./generic-search";
@@ -10,7 +9,7 @@ interface CategoriesSearchProps {
   className?: string
 }
 
-export const CategoriesSearch = memo(({ className }: CategoriesSearchProps) => {
+export const CategoriesSearch = ({ className }: CategoriesSearchProps) => {
   const t = useTranslations('header-search.categories-search');
   const tPlaceholder = t("placeholder")
   const { openGenericSearch } = useGenericSearch({
@@ -32,6 +31,5 @@ export const CategoriesSearch = memo(({ className }: CategoriesSearchProps) => {
     </GenericSearchResponsive>
   );
 }
-)
 
 CategoriesSearch.displayName = "CategoriesSearch"

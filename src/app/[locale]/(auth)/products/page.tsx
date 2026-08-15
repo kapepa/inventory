@@ -34,6 +34,8 @@ export default async function Products({
 }) {
   const locale = (await params).locale as AppLocale;
   const resolvedSearchParams = await searchParams;
+
+  const search = (resolvedSearchParams[QUERY_PARAMS_KEYS.PRODUCTS_SEARCH] as string) || "";
   const categoryId = (resolvedSearchParams[QUERY_PARAMS_KEYS.CATEGORY] as string) || "";
   const specification = (resolvedSearchParams[QUERY_PARAMS_KEYS.SPECIFICATION] as string) || "";
 
@@ -42,6 +44,7 @@ export default async function Products({
     getCategoriesCached({ locale }),
     getFilteredProductsWideCached({
       locale,
+      search,
       categoryId,
       specification: specification,
       page: PAGINATION_PARISHES_DEFAULTS.PAGE,

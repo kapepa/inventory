@@ -1,4 +1,3 @@
-import { getTranslations } from "next-intl/server";
 import { getFilteredProductsShortCached } from "@/entities/product/lib/product-service-cached";
 import { PAGINATION_PRODUCTS_DEFAULTS } from "@/shared/constants/pagination";
 import { getSessionUserCached } from "@/features/auth/lib/auth-service-cached";
@@ -7,7 +6,6 @@ import { GroupsRelations } from "@/widgets/groups-relations/ui/groups-relations"
 import { AppLocale } from "@/shared/lib/i18n/config";
 import { redirect } from "@/shared/lib/i18n/routing";
 import { ROUTES } from "@/shared/constants/routes";
-import { GroupsRelationsLabels } from "@/widgets/groups-relations/model/types";
 import { headers } from "next/headers";
 import { isMobileDevice } from "@/shared/lib/device/is-mobile-device";
 import { SheetGroupsRelationsDynamic } from "@/widgets/groups-relations/ui/sheet-groups-relations-dynamic";
@@ -34,20 +32,12 @@ export default async function GroupDetailId({
 
   if (!initialProducts) return redirect({ locale, href: ROUTES.GROUPS })
 
-  const tGroupsRelations = await getTranslations({ locale, namespace: "groups-relations" });
-
   const isAdmin = user?.role === "ADMIN";
   const parishTitle = parish?.translations[0].title || "";
-
-  const labelsGroupsRelations: GroupsRelationsLabels = {
-    parishesError: tGroupsRelations("parishes-error"),
-    productsNotFound: tGroupsRelations("products.not-found"),
-  }
 
   if (isMobile) {
     return (
       <SheetGroupsRelationsDynamic
-        labels={labelsGroupsRelations}
         isAdmin={isAdmin}
         initialHasMore={initialProducts?.hasMore}
         initialProducts={initialProducts?.data}
@@ -59,7 +49,6 @@ export default async function GroupDetailId({
 
   return (
     <GroupsRelations
-      labels={labelsGroupsRelations}
       isAdmin={isAdmin}
       initialHasMore={initialProducts?.hasMore}
       initialProducts={initialProducts?.data}

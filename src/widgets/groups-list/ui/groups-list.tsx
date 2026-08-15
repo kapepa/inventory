@@ -14,14 +14,13 @@ import { ParishShortCard } from "@/entities/parish/ui/parish-short/parish-short-
 import { ParishShortCardSkeleton } from "@/entities/parish/ui/parish-short/parish-short-card-skeleton";
 import { StateMessage } from "@/shared/ui/state-message";
 import { useParams } from "next/navigation";
-import { GroupsListLabels } from "../model/types";
+import { useTranslations } from "next-intl";
 
 interface GroupsListProps {
   className?: string;
 }
 
 interface GroupsListProps {
-  labels: GroupsListLabels
   className?: string,
   initialParishes?: ParishWithRelations[],
   initialHasMore?: boolean,
@@ -31,14 +30,14 @@ interface GroupsListProps {
 const CARD_CLASS = "grid grid-cols-[1fr_1fr_2fr] items-center gap-4";
 
 export const GroupsList = ({
-  labels,
   className,
   initialParishes = [],
   initialHasMore = true,
   initialParishesId,
 }: GroupsListProps) => {
+  const t = useTranslations("groups-list");
   const params = useParams<{ id?: string }>();
-  const [search] = useQueryParam(QUERY_PARAMS_KEYS.PARISHES_SEARCH);
+  const [search] = useQueryParam(QUERY_PARAMS_KEYS.PARISHES_GROUPS_SEARCH);
   const { parishes, isLoading, error, hasMore, loadMore } = useInfiniteParishes<ParishWithRelations>({
     search, initialParishes, initialHasMore, fetchFnAction: fetchParishes
   })
@@ -54,13 +53,13 @@ export const GroupsList = ({
 
   if (error && !isLoading) return (
     <StateMessage variant="destructive" >
-      {labels.errorsParishes}
+      {t("errors.parishes")}
     </StateMessage>
   )
 
-  if (!hasMore && !parishes.length) return (
+  if (!hasMore && !isLoading && !parishes.length) return (
     <StateMessage>
-      {labels.parishesEmpty}
+      {t("parishes-empty")}
     </StateMessage>
   )
 

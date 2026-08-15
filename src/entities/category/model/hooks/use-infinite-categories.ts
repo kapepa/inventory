@@ -36,6 +36,7 @@ export const useInfiniteCategories = <T extends { id: string }>({
   const isLoadingRef = useRef(false)
   const isCurrentPage = useRef(1)
   const hasMoreRef = useRef(initialHasMore)
+  const searchRef = useRef(search)
 
   // Sync initial data from server only once on mount
   useEffect(() => {
@@ -50,7 +51,7 @@ export const useInfiniteCategories = <T extends { id: string }>({
   const addCategory = useCallback((newCategory: T) => {
     setCategories((prev) => [newCategory, ...prev]);
     queueMicrotask(() => {
-      const currentTotal = useCategoriesStore.getState().total;
+      const currentTotal = useCategoriesStore.getState().total || 0;
       useCategoriesStore.getState().setTotal(currentTotal + 1);
     });
   }, []);
@@ -113,17 +114,30 @@ export const useInfiniteCategories = <T extends { id: string }>({
   )
 
   useEffect(() => {
+    // Skip the first render
     if (isFirstRender.current) {
       isFirstRender.current = false
+      searchRef.current = search
       return
     }
 
-    if (isInitialized.current) return
+    // If search has changed, send a request
+    if (searchRef.current !== search) {
+      searchRef.current = search
 
-    const controller = new AbortController()
-    fetchItems(true, controller.signal)
-    return () => controller.abort()
-  }, [fetchItems])
+      const controller = new AbortController()
+      fetchItems(true, controller.signal)
+
+      return () => controller.abort()
+    }
+
+    // Initial load if no data is available
+    if (!isInitialized.current) {
+      const controller = new AbortController()
+      fetchItems(true, controller.signal)
+      return () => controller.abort()
+    }
+  }, [search, fetchItems])
 
   const loadMore = useDebouncedCallback(() => { fetchItems(false) }, 1000)
 

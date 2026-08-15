@@ -17,10 +17,9 @@ import { ProductShortCardSkeleton } from "@/entities/product/ui/products-short/p
 import { StateMessage } from "@/shared/ui/state-message"
 import { useRouter } from "@/shared/lib/i18n/routing"
 import { ROUTES } from "@/shared/constants/routes"
-import { GroupsRelationsLabels } from "../model/types"
+import { useTranslations } from "next-intl"
 
 interface GroupsRelationsProps {
-  labels: GroupsRelationsLabels
   isAdmin: boolean,
   className?: string,
   initialHasMore?: boolean,
@@ -29,7 +28,8 @@ interface GroupsRelationsProps {
   initialParishTitle: string
 }
 
-export const GroupsRelationsInner = ({ labels, isAdmin, className, initialHasMore, initialProducts, initialParishesId, initialParishTitle }: GroupsRelationsProps) => {
+export const GroupsRelationsInner = ({ isAdmin, className, initialHasMore, initialProducts, initialParishesId, initialParishTitle }: GroupsRelationsProps) => {
+  const t = useTranslations("groups-relations");
   const router = useRouter()
   const { products, isLoading, error, hasMore, loadMore, addProduct, removeProduct } = useInfiniteProducts<ProductWithRelationsShort>({
     parishId: initialParishesId, initialProducts, initialHasMore, fetchFnAction: fetchProductsShort
@@ -38,10 +38,7 @@ export const GroupsRelationsInner = ({ labels, isAdmin, className, initialHasMor
   const { confirmProductDelete } = useDeleteProductContext();
   const { productDetails } = useViewProduct()
 
-  const GROUPS_LAYOUT = useMemo(
-    () => getRelationshLayout(isAdmin),
-    [isAdmin]
-  )
+  const GROUPS_LAYOUT = useMemo(() => getRelationshLayout(isAdmin), [isAdmin])
 
   const openProductModal = useCallback((product: ProductWithRelationsShort) => {
     productDetails(product)
@@ -63,7 +60,7 @@ export const GroupsRelationsInner = ({ labels, isAdmin, className, initialHasMor
 
   if (error && !isLoading && !error.includes("cancel")) return (
     <StateMessage variant="destructive">
-      {labels.parishesError}
+      {t("parishes-error")}
     </StateMessage>
   )
 
@@ -100,7 +97,7 @@ export const GroupsRelationsInner = ({ labels, isAdmin, className, initialHasMor
           )}
           {(!hasMore && !products.length) && (
             <div className="w-full h-16 flex items-center justify-center">
-              <span className="text-sm text-muted-foreground font-semibold">{labels.productsNotFound}</span>
+              <span className="text-sm text-muted-foreground font-semibold">{t("products.not-found")}</span>
             </div>
           )}
         </div>
