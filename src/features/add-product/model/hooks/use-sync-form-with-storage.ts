@@ -21,7 +21,7 @@ export const useSyncFormWithStorage = (
           form.reset({
             ...parsedData,
             parishId, // Always use the current parishId
-          }, { keepDefaultValues: true })
+          })
         } else {
           sessionStorage.removeItem(ADD_PRODUCT_FORM_DATA)
         };
@@ -38,8 +38,22 @@ export const useSyncFormWithStorage = (
       // Filter out File objects and invalid photo values before saving
       const sanitizedValues = {
         ...values,
-        photo: values.photo instanceof File ? undefined : values.photo
+        photo: values.photo instanceof File ? undefined : values.photo,
       }
+
+      // Preserve categoryId from storage if current value is empty
+      const existingData = sessionStorage.getItem(ADD_PRODUCT_FORM_DATA);
+      if (existingData && (!sanitizedValues.categoryId || sanitizedValues.categoryId === '')) {
+        try {
+          const parsed = JSON.parse(existingData);
+          if (parsed.categoryId) {
+            sanitizedValues.categoryId = parsed.categoryId;
+          }
+        } catch (e) {
+          // ignore parse errors
+        }
+      }
+
       sessionStorage.setItem(ADD_PRODUCT_FORM_DATA, JSON.stringify(sanitizedValues));
     });
     return () => subscription.unsubscribe();

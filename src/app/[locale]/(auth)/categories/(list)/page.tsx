@@ -10,43 +10,39 @@ import { PageHeader } from "@/widgets/page-header/ui/page-header";
 import { Metadata } from "next";
 import { getSessionUserCached } from "@/features/auth/lib/auth-service-cached";
 import { CategoryHeader } from "@/entities/category/ui/category-header";
+import { generatePageMetadata } from "@/shared/lib/metadata";
 
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ locale: string }>;
+  params: Promise<{ locale: AppLocale }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: 'metadata' });
-
-  return {
-    title: t('categories.title'),
-    description: t('categories.description'),
-  };
+  return generatePageMetadata({ locale, key: "categories" })
 }
 
 export default async function Categories({
   params,
   searchParams,
 }: {
-  params: Promise<{ locale: string }>,
+  params: Promise<{ locale: AppLocale }>,
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>
 }) {
-  const locale = (await params).locale as AppLocale;
+  const locale = (await params).locale;
   const resolvedSearchParams = await searchParams;
   const categoryTerm = (resolvedSearchParams[QUERY_PARAMS_KEYS.CATEGORIES_SEARCH] as string) || "";
 
-  const [user, categories] = await Promise.all([
+  const [user, categories, t] = await Promise.all([
     getSessionUserCached(),
     getCategoriesWithProductCountCached({
       search: categoryTerm,
       page: PAGINATION_CATEGORIES_DEFAULTS.PAGE,
       limit: PAGINATION_CATEGORIES_DEFAULTS.LIMIT,
       locale,
-    })
+    }),
+    getTranslations({ locale, namespace: "categories-page" })
   ]);
 
-  const t = await getTranslations({ locale, namespace: "categories-page" });
   const isAdmin = user?.role === "ADMIN";
 
   return (

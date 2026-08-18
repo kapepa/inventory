@@ -1,3 +1,4 @@
+"use client"
 
 import { memo } from "react"
 import { VALIDATION_LIMITS } from "@/shared/constants/validation"

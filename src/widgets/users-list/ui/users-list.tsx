@@ -63,8 +63,8 @@ export const UsersList = ({ className, initialUsers, initialHasMore }: UsersList
             ))
           }
           {(hasMore || isLoading) && (
-            <div ref={targetRef} className="w-full h-auto flex items-center justify-center min-h-14">
-              {isLoading && <UserCardSkeleton className={cn("", CARD_CLASS)} />}
+            <div ref={targetRef} className="w-full h-auto flex items-center justify-center">
+              {isLoading && <UserCardSkeleton />}
             </div>
           )}
         </div>

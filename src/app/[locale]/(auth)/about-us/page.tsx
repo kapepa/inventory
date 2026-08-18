@@ -8,31 +8,29 @@ import { CategoryChart } from "@/widgets/category-chart/ui/category-chart";
 import { Container } from "@/shared/ui/container";
 import { BackButton } from "@/shared/ui/back-button";
 import { ScrollArea } from "@/shared/ui/scroll-area";
+import { generatePageMetadata } from "@/shared/lib/metadata";
 
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ locale: string }>;
+  params: Promise<{ locale: AppLocale }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: 'metadata' });
-
-  return {
-    title: t('about-us.title'),
-    description: t('about-us.description'),
-  };
+  return generatePageMetadata({ locale, key: "about-us" })
 }
 
 export default async function AboutUs({
   params,
 }: {
-  params: Promise<{ locale: string }>,
+  params: Promise<{ locale: AppLocale }>,
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>
 }) {
-  const locale = (await params).locale as AppLocale;
-  const statusCounts = await getProductStatusCountsCached();
+  const { locale } = await params;
 
-  const t = await getTranslations({ locale, namespace: "about-us" });
+  const [statusCounts, t] = await Promise.all([
+    getProductStatusCountsCached(),
+    getTranslations({ locale, namespace: "about-us" })
+  ])
 
   return (
     <Container className="pt-6 md:pt-16 flex-1 flex flex-col min-h-0">

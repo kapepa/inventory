@@ -9,11 +9,11 @@ interface ParishesSearchProps {
   className?: string,
 }
 
-export const ParishesSearch = ({ className }: ParishesSearchProps) => {
+export const GroupsSearch = ({ className }: ParishesSearchProps) => {
   const t = useTranslations('header-search.parishes-search');
   const tPlaceholder = t("placeholder")
   const { openGenericSearch } = useGenericSearch({
-    modalName: QUERY_PARAMS_KEYS.PARISHES_SEARCH,
+    modalName: QUERY_PARAMS_KEYS.GROUPS_SEARCH,
     placeholder: tPlaceholder
   })
 
@@ -23,7 +23,7 @@ export const ParishesSearch = ({ className }: ParishesSearchProps) => {
       openSearch={openGenericSearch}
     >
       <GenericSearchInput
-        queryKey={QUERY_PARAMS_KEYS.PARISHES_SEARCH}
+        queryKey={QUERY_PARAMS_KEYS.GROUPS_SEARCH}
         className="w-xs"
         placeholder={tPlaceholder}
       />
@@ -32,4 +32,4 @@ export const ParishesSearch = ({ className }: ParishesSearchProps) => {
 }
 
 
-ParishesSearch.displayName = "ParishesSearch"
+GroupsSearch.displayName = "GroupsSearch"

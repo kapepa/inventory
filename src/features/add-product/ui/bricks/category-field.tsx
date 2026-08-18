@@ -31,7 +31,10 @@ export const CategoryField = memo(({ className, isPending }: CategoryFieldProps)
           <FormItem>
             <FormLabel>{t('category')}</FormLabel>
             <Select
-              onValueChange={field.onChange}
+              onValueChange={(val) => {
+                console.log(val)
+                field.onChange(val)
+              }}
               value={field.value}
               disabled={isPending || isLoading}
             >

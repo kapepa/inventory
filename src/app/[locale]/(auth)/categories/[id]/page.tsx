@@ -4,6 +4,7 @@ import { getSessionUserCached } from "@/features/auth/lib/auth-service-cached";
 import { PAGINATION_PARISHES_DEFAULTS } from "@/shared/constants/pagination";
 import { QUERY_PARAMS_KEYS } from "@/shared/constants/query-params-keys";
 import { AppLocale } from "@/shared/lib/i18n/config";
+import { generatePageMetadata } from "@/shared/lib/metadata";
 import { BackButton } from "@/shared/ui/back-button";
 import { Container } from "@/shared/ui/container";
 import { PageHeader } from "@/widgets/page-header/ui/page-header";
@@ -15,36 +16,28 @@ import { notFound } from "next/navigation";
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ locale: string, id: string }>;
+  params: Promise<{ locale: AppLocale, id: string }>;
 }): Promise<Metadata> {
-  const getParams = (await params)
-  const id = getParams.id
-  const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: 'metadata' });
-  const category = await getCategoryByIdCached({ id, locale: locale as AppLocale });
+  const { id, locale } = await params
+  const category = await getCategoryByIdCached({ id, locale: locale });
 
-  return {
-    title: t('categories-id.title', { title: category?.translations[0].title || "" }),
-    description: t('categories-id.description'),
-  };
+  return generatePageMetadata({ locale, key: "categories-id", titleParams: { title: category?.translations[0].title || "" } })
 }
 
 export default async function CategoriesId({
   params,
   searchParams,
 }: {
-  params: Promise<{ locale: string, id: string }>,
+  params: Promise<{ locale: AppLocale, id: string }>,
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>
 }) {
-  const getParams = (await params)
-  const id = getParams.id
+  const { id, locale } = await params
   const resolvedSearchParams = await searchParams;
   const searchTerm = (resolvedSearchParams[QUERY_PARAMS_KEYS.PRODUCTS_SEARCH] as string) || "";
-  const locale = getParams.locale as AppLocale;
 
   const [user, category, products] = await Promise.all([
     getSessionUserCached(),
-    getCategoryByIdCached({ id, locale: locale as AppLocale }),
+    getCategoryByIdCached({ id, locale: locale }),
     getFilteredProductsWideCached({
       categoryId: id,
       search: searchTerm,

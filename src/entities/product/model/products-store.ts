@@ -10,6 +10,7 @@ export const useProductsStore = create<ProductsState>()(
       setPage: (page) => set({ page }, false, 'setPage'),
       setTotal: (total) => set({ total }, false, 'setTotal'),
       setFull: (props) => set({ ...props }, false, 'setFull'),
+      setReset: () => set({ page: 0, total: null }, false, 'setReset'),
     }),
     {
       name: 'products-store',

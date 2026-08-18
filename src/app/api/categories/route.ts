@@ -29,9 +29,9 @@ export const POST = apiHandler(async (request: NextRequest, user: AuthenticatedU
   try {
     if (user.role !== "ADMIN") throw new ForbiddenError('Admin access required');
     const body = await request.json();
-    const category = await createCategory(body)
-
     const locale = getLocaleFromRequest(request);
+    const category = await createCategory({ input: body, locale })
+
     invalidateCategoriesCacheList({ locale })
 
     return NextResponse.json(category)

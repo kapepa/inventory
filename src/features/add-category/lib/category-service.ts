@@ -1,11 +1,11 @@
 import { prisma } from '@/shared/lib/prisma';
 import { AlreadyExistsError } from '@/shared/lib/server';
 import { CategoryWithProductCount } from '@/entities/category/model/types';
-import { CategoryFormValues } from '../model/schemas-client';
 import { categoryCreateServerSchema } from '../model/schemas-server';
+import { CategoryMutationContext } from '../model/types';
 
-export const createCategory = async (data: CategoryFormValues): Promise<CategoryWithProductCount> => {
-  const validated = categoryCreateServerSchema.parse(data)
+export const createCategory = async ({ input, locale }: CategoryMutationContext): Promise<CategoryWithProductCount> => {
+  const validated = categoryCreateServerSchema.parse(input)
   try {
     const titles = Object.values(validated.translations).map(t => t.title);
 
@@ -32,7 +32,9 @@ export const createCategory = async (data: CategoryFormValues): Promise<Category
         },
       },
       include: {
-        translations: true,
+        translations: {
+          where: { locale }
+        },
         _count: { select: { products: true } }
       },
     });

@@ -1,6 +1,6 @@
-import { ProductCreate } from "./types";
+import { ProductCreateInput } from "./types";
 
 export interface CreateProductParams {
-  data: ProductCreate,
+  data: ProductCreateInput,
   signal?: AbortSignal,
 }

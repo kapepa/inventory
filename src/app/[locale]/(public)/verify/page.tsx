@@ -19,25 +19,32 @@ type TokenStatusType = {
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ locale: string }>;
+  params: Promise<{ locale: AppLocale }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: 'metadata' });
 
-  return {
-    title: t('verify.title'),
-    description: t('verify.description'),
-  };
+  const metadataByLocale: Record<AppLocale, Metadata> = {
+    ru: {
+      title: "Подтверждение почты — Inventory",
+      description: "Подтверждение адреса электронной почты для завершения регистрации."
+    },
+    en: {
+      title: "Email Address Verification — Inventory",
+      description: "Email Address Confirmation to Complete Registration."
+    }
+  }
+
+  return metadataByLocale[locale]
 }
 
 export default async function Verify({
   params,
   searchParams,
 }: {
-  params: Promise<{ locale: string }>,
+  params: Promise<{ locale: AppLocale }>,
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>
 }) {
-  const locale = (await params).locale as AppLocale;
+  const { locale } = await params;
   const resolvedSearchParams = await searchParams;
   const token = (resolvedSearchParams[QUERY_PARAMS_KEYS.VERIFY_TOKEN] as string) || "";
   if (!token) redirect({ href: ROUTES.LOGIN, locale });

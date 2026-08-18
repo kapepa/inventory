@@ -1,7 +1,6 @@
+import { TranslationFunction } from "@/shared/types/translation";
 import { Role } from "@prisma/client";
 import { z } from "zod";
-
-type TranslationFunction = (key: string) => string
 
 export const changeUserRoleFormSchema = (t: TranslationFunction) => z.object({
   userId: z.string().min(1, t("user-id-required")),

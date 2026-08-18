@@ -10,19 +10,15 @@ import { ParishesList } from "@/widgets/parishes-list/ui/parishes-list";
 import { getSessionUserCached } from "@/features/auth/lib/auth-service-cached";
 import { AddParishButton } from "@/features/add-parish/ui/add-parish-button";
 import { ParishWideHeader } from "@/entities/parish/ui/parish-wide/parish-wide-header";
+import { generatePageMetadata } from "@/shared/lib/metadata";
 
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ locale: string }>;
+  params: Promise<{ locale: AppLocale }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: 'metadata' });
-
-  return {
-    title: t('parishes.title'),
-    description: t('parishes.description'),
-  };
+  return generatePageMetadata({ locale, key: "parishes" })
 }
 
 export default async function Parishes({
@@ -36,17 +32,17 @@ export default async function Parishes({
   const resolvedSearchParams = await searchParams;
   const search = (resolvedSearchParams[QUERY_PARAMS_KEYS.PARISHES_SEARCH] as string) || "";
 
-  const [user, initialData] = await Promise.all([
+  const [user, initialData, t] = await Promise.all([
     getSessionUserCached(),
     getParishesTotalsCached({
       page: PAGINATION_PARISHES_DEFAULTS.PAGE,
       limit: PAGINATION_PARISHES_DEFAULTS.LIMIT,
       search,
       locale,
-    })
+    }),
+    getTranslations({ locale, namespace: "parishes-page" }),
   ]);
 
-  const t = await getTranslations({ locale, namespace: "parishes-page" });
   const isAdmin = user?.role === "ADMIN";
 
   return (

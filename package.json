@@ -33,7 +33,9 @@
     "db:push": "prisma db push",
     "db:push:docker": "bash prisma-docker.sh push",
     "db:reset": "npx prisma migrate reset",
-    "db:reset:docker": "bash prisma-docker.sh reset"
+    "db:reset:docker": "bash prisma-docker.sh reset",
+    "postinstall": "prisma generate",
+    "vercel-build": "prisma generate && next build"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.4.0",

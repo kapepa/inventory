@@ -2,7 +2,7 @@ import { ReactNode } from "react"
 import { cn } from "@/shared/lib/utils";
 import { StoreType } from "../lib/types/types"
 import { SubtitleDynamic } from "./bricks/subtitle-dynamic"
-import { CountTotaleDynamic } from "./bricks/count-total-dynamic"
+import { CountTotalSwitch } from "./bricks/count-total-switch";
 
 interface PageHeaderProps {
   title: string
@@ -29,7 +29,7 @@ export const PageHeader = ({ title, subtitle, count, reverse, children, action, 
           "text-lg md:text-3xl sm:text-xl gap-1 sm:gap-3 lg:flex-row"
         )}>
           <h3 className="lg:truncate text-center lg:text-left max-w-full">{title}</h3>
-          {storeType && count !== undefined && <CountTotaleDynamic fallbackCount={count} storeType={storeType} />}
+          {storeType && count !== undefined && <CountTotalSwitch fallbackCount={count} storeType={storeType} />}
           {subtitle && <SubtitleDynamic subtitle={subtitle} />}
         </div>
       </div>

@@ -1,11 +1,11 @@
 import { prisma } from '@/shared/lib/prisma';
 import { AlreadyExistsError } from '@/shared/lib/server';
-import { ParishFormValues } from '../model/schemas-client';
 import { ParishWithRelationsTotals } from '@/entities/parish/model/types';
 import { parishCreateServerSchema } from '../model/schemas-server';
+import { CreateParishContext } from '../model/types/types';
 
-export const createParish = async (data: ParishFormValues): Promise<ParishWithRelationsTotals> => {
-  const validated = parishCreateServerSchema.parse(data)
+export const createParish = async ({ input, locale }: CreateParishContext): Promise<ParishWithRelationsTotals> => {
+  const validated = parishCreateServerSchema.parse(input)
   try {
     const titles = Object.values(validated.translations).map(t => t.title);
 
@@ -31,7 +31,9 @@ export const createParish = async (data: ParishFormValues): Promise<ParishWithRe
         },
       },
       include: {
-        translations: true,
+        translations: {
+          where: { locale }
+        },
         _count: { select: { products: true } }
       },
     });

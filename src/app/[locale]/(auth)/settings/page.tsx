@@ -1,5 +1,6 @@
 import { getSessionUserCached } from "@/features/auth/lib/auth-service-cached";
 import { AppLocale } from "@/shared/lib/i18n/config";
+import { generatePageMetadata } from "@/shared/lib/metadata";
 import { Container } from "@/shared/ui/container";
 import { ScrollArea } from "@/shared/ui/scroll-area";
 import { PageHeader } from "@/widgets/page-header/ui/page-header";
@@ -10,25 +11,23 @@ import { getTranslations } from "next-intl/server";
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ locale: string }>;
+  params: Promise<{ locale: AppLocale }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: 'metadata' });
-
-  return {
-    title: t('settings.title'),
-    description: t('settings.description'),
-  };
+  return generatePageMetadata({ locale, key: "settings" })
 }
 
 export default async function Settings({
   params,
 }: {
-  params: Promise<{ locale: string }>,
+  params: Promise<{ locale: AppLocale }>,
 }) {
-  const locale = (await params).locale as AppLocale;
-  const t = await getTranslations({ locale, namespace: "settings-page" });
-  const user = await getSessionUserCached();
+  const { locale } = await params;
+
+  const [user, t] = await Promise.all([
+    getSessionUserCached(),
+    getTranslations({ locale, namespace: "settings-page" })
+  ])
 
   if (!user) return null
 

@@ -11,7 +11,7 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       {
-        source: '/:locale',
+        source: '/:locale(en|ru)',
         destination: '/:locale/parishes',
         permanent: false
       },
@@ -56,7 +56,6 @@ const nextConfig: NextConfig = {
       'axios',
       'react-intersection-observer',
     ],
-    cssChunking: 'loose',
     optimizeCss: true,
     useLightningcss: true,
   },
@@ -72,6 +71,10 @@ const nextConfig: NextConfig = {
     'cloudinary',
     'pg',
   ],
+  onDemandEntries: {
+    maxInactiveAge: 60 * 1000,
+    pagesBufferLength: 5,
+  },
 };
 
 export default withBundleAnalyzer(withNextIntl(nextConfig));

@@ -1,7 +1,6 @@
 import { VALIDATION_LIMITS } from "@/shared/constants/validation";
+import { TranslationFunction } from "@/shared/types/translation";
 import { z } from "zod"
-
-type TranslationFunction = (key: string) => string
 
 export const createParishFormSchema = (t: TranslationFunction) => z.object({
   deliveryDate: z.date({

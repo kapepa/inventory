@@ -1,1 +1,0 @@
-export { createProduct } from "./product-service"

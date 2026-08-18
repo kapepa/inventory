@@ -43,4 +43,5 @@ export interface ProductsState {
   setPage: (page: number) => void;
   setTotal: (total: number) => void;
   setFull: (props: { total: number; page: number }) => void;
+  setReset: () => void
 }
