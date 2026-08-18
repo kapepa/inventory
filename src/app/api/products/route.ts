@@ -10,6 +10,7 @@ import { AuthenticatedUser } from '@/features/auth/model/types';
 import { createProduct } from '@/features/add-product/lib/product-service';
 import { invalidateProductCacheList } from '@/entities/product/lib/cache-invalidation';
 import { deleteFile } from '@/entities/upload/lib/upload-service';
+import { invalidateParishesCacheList } from '@/entities/parish/lib/cache-invalidation';
 
 export const GET = apiHandler(async (request: NextRequest): Promise<NextResponse<ResponseProductsShortDTO | { error: string }>> => {
   try {
@@ -41,10 +42,11 @@ export const POST = apiHandler(async (request: NextRequest, user: AuthenticatedU
     const body = await request.json();
     photoToCleanup = body.photo;
     body.userId = user?.id
-    const newProduct = await createProduct(body);
-
     const locale = getLocaleFromRequest(request);
+    const newProduct = await createProduct({ input: body, locale });
+
     invalidateProductCacheList({ locale })
+    invalidateParishesCacheList({ locale })
 
     return NextResponse.json(newProduct, { status: 201 });
   } catch (error: unknown) {

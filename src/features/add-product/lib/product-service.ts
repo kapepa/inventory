@@ -1,11 +1,11 @@
 import { prisma } from "@/shared/lib/prisma";
 import { productCreateServerSchema } from "../model/schemas-server";
 import { AlreadyExistsError } from "@/shared/lib/server";
-import { ProductCreate } from "../model/types";
+import { ProductMutationContext } from "../model/types";
 import { ProductWithRelationsShort } from "@/entities/product/model/types";
 
-export const createProduct = async (body: ProductCreate): Promise<ProductWithRelationsShort> => {
-  const validated = productCreateServerSchema.parse(body)
+export const createProduct = async ({ input, locale }: ProductMutationContext): Promise<ProductWithRelationsShort> => {
+  const validated = productCreateServerSchema.parse(input)
   try {
     const titles = Object.values(validated.translations).map(t => t.title);
 
@@ -40,7 +40,9 @@ export const createProduct = async (body: ProductCreate): Promise<ProductWithRel
         },
       },
       include: {
-        translations: true,
+        translations: {
+          where: { locale }
+        },
         prices: true,
       },
     })

@@ -14,7 +14,6 @@ export default getRequestConfig(async ({ locale }) => {
       parish: (await import(`../shared/lib/i18n/locales/${locale}/parish.json`)).default,
       sidebar: (await import(`../shared/lib/i18n/locales/${locale}/sidebar.json`)).default,
       header: (await import(`../shared/lib/i18n/locales/${locale}/header.json`)).default,
-      metadata: (await import(`../shared/lib/i18n/locales/${locale}/metadata.json`)).default,
       "add-product": (await import(`../shared/lib/i18n/locales/${locale}/add-product.json`)).default,
       "add-parish": (await import(`../shared/lib/i18n/locales/${locale}/add-parish.json`)).default,
       "header-search": (await import(`../shared/lib/i18n/locales/${locale}/header-search.json`)).default,

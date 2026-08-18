@@ -1,6 +1,6 @@
 import { cn } from "@/shared/lib/utils";
 import { Skeleton } from "@/shared/ui/skeleton"
-import { CountTotalSkeleton } from "./bricks/count-total-skeleton"
+import { CountTotalSkeleton } from "./bricks/count-store/count-total-skeleton"
 import { SubtitleSkeleton } from "./bricks/subtitle-skeleton"
 import { ReactNode } from "react"
 

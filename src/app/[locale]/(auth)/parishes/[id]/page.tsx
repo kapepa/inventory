@@ -13,6 +13,7 @@ import { PageHeader } from "@/widgets/page-header/ui/page-header";
 import { ProductsList } from "@/widgets/products-list/ui/products-list";
 import { QUERY_PARAMS_KEYS } from "@/shared/constants/query-params-keys";
 import { getSessionUserCached } from "@/features/auth/lib/auth-service-cached";
+import { generatePageMetadata } from "@/shared/lib/metadata";
 
 export async function generateMetadata({
   params,
@@ -20,16 +21,15 @@ export async function generateMetadata({
   params: Promise<{ locale: AppLocale, id: string }>;
 }): Promise<Metadata> {
   const { id, locale } = await params;
-  const t = await getTranslations({ locale, namespace: 'metadata' });
-  const parish = await getParishByIdCached({ id, locale: locale as AppLocale });
-  const parishTitle = parish?.translations[0].title || "";
-  const parishDescription = (parish?.translations[0].description?.trim() || t('parishes-id.description')).substring(0, 160);
+  const parish = await getParishByIdCached({ id, locale: locale });
+  const { title, description } = generatePageMetadata({ locale, key: "parishes-id", titleParams: { title: parish?.translations[0].title || "" } })
+  const parishDescription = (parish?.translations[0].description?.trim() || description || "").substring(0, 160);
 
   return {
-    title: t('parishes-id.title', { title: parishTitle }),
+    title: title,
     description: parishDescription,
     openGraph: {
-      title: t('parishes-id.title', { title: parishTitle }),
+      title: title,
       description: parishDescription,
     },
   };

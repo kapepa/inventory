@@ -27,6 +27,7 @@ export const CategorySelector = memo(({ className, categoryId, initialCategories
       value={categoryId}
       onValueChange={(value) => {
         if (value === "all") return clearInput();
+        console.log(value)
         setInputValue(value)
       }}
     >

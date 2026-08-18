@@ -1,0 +1,35 @@
+"use client";
+
+import { useTranslations } from "next-intl";
+import { GenericSearchInput, GenericSearchResponsive } from "./generic-search";
+import { useGenericSearch } from "../hooks/use-generic-search";
+import { QUERY_PARAMS_KEYS } from "@/shared/constants/query-params-keys";
+
+interface ParishesSearchProps {
+  className?: string,
+}
+
+export const GroupsSearch = ({ className }: ParishesSearchProps) => {
+  const t = useTranslations('header-search.parishes-search');
+  const tPlaceholder = t("placeholder")
+  const { openGenericSearch } = useGenericSearch({
+    modalName: QUERY_PARAMS_KEYS.GROUPS_SEARCH,
+    placeholder: tPlaceholder
+  })
+
+  return (
+    <GenericSearchResponsive
+      className={className}
+      openSearch={openGenericSearch}
+    >
+      <GenericSearchInput
+        queryKey={QUERY_PARAMS_KEYS.GROUPS_SEARCH}
+        className="w-xs"
+        placeholder={tPlaceholder}
+      />
+    </GenericSearchResponsive>
+  );
+}
+
+
+GroupsSearch.displayName = "GroupsSearch"

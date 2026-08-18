@@ -16,7 +16,7 @@ export const uploadAvatar = async (body: UploadAvatarType, currentUserId: string
     if (error instanceof ForbiddenError) {
       throw error;
     }
-    console.error('Prisma Error in createProduct:', error);
+    console.error('Prisma Error in uploadAvatar:', error);
     throw error;
   }
 }

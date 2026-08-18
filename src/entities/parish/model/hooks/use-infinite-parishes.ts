@@ -162,6 +162,7 @@ export const useInfiniteParishes = <T extends { id: string }>({
     loadMore,
     addParishes,
     removeParishes,
-    clearParishes
+    clearParishes,
+    setParishes
   }
 }

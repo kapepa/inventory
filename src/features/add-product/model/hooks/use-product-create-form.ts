@@ -8,12 +8,13 @@ import { ProductCreateFormValues, productCreateFormSchema } from "../schemas-cli
 import { ProductStatus } from "@prisma/client"
 import { useSyncFormWithStorage } from "./use-sync-form-with-storage"
 import { requestСreateProduct } from "../../api"
-import { ProductCreate } from "../types"
+import { ProductCreateInput } from "../types"
 import { STORAGE_KEYS } from "@/shared/constants/storage-keys"
 import { AlreadyExistsError } from "@/shared/lib/errors"
 import { ProductWithRelations } from "@/entities/product/model/types"
 import { useUpload } from "@/entities/upload/model/hooks/use-upload"
 import { formatResponsiveImage } from "@/shared/lib/image-utils"
+import { emitProductAdded } from "@/shared/lib/events/product-events"
 
 const ADD_PRODUCT_FORM_DATA = STORAGE_KEYS.ADD_PRODUCT_FORM_DATA
 
@@ -44,6 +45,7 @@ export const useProductCreateForm = (parishId: string, closeModalAction: () => v
       serialNumber: undefined,
       isNew: true,
       status: ProductStatus.FREE,
+      categoryId: "",
     },
   })
 
@@ -69,7 +71,7 @@ export const useProductCreateForm = (parishId: string, closeModalAction: () => v
           }
 
           // Transform form data to DTO
-          const productData: ProductCreate = {
+          const productData: ProductCreateInput = {
             userId: "",
             serialNumber: values.serialNumber,
             order: values.order,
@@ -90,6 +92,9 @@ export const useProductCreateForm = (parishId: string, closeModalAction: () => v
 
           const response = await requestСreateProduct({ data: productData })
           onSuccessAction(response)
+
+          // Notify other components about new product
+          emitProductAdded({ parishId })
 
           toast.success(t("toast.create-product-success"))
           form.reset()

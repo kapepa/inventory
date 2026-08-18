@@ -4,7 +4,6 @@ import { AppLocale } from "@/shared/lib/i18n/config";
 import { Container } from "@/shared/ui/container";
 import { AuthGate } from "@/widgets/auth-gate/ui/auth-gate";
 import { Metadata } from "next";
-import { getTranslations } from "next-intl/server";
 
 export async function generateMetadata({
   params,
@@ -12,12 +11,19 @@ export async function generateMetadata({
   params: Promise<{ locale: AppLocale }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: 'metadata' });
 
-  return {
-    title: t('login.title'),
-    description: t('login.description'),
-  };
+  const metadataByLocale: Record<AppLocale, Metadata> = {
+    ru: {
+      title: "Вход пользователя — Inventory",
+      description: "Вход пользователя."
+    },
+    en: {
+      title: "Login — Inventory",
+      description: "User Login."
+    }
+  }
+
+  return metadataByLocale[locale]
 }
 
 export default async function Login({

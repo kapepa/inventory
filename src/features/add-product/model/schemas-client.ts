@@ -1,8 +1,7 @@
 import { z } from 'zod'
 import { ProductStatus } from '@prisma/client'
 import { VALIDATION_LIMITS } from '@/shared/constants/validation'
-
-type TranslationFunction = (key: string) => string
+import { TranslationFunction } from '@/shared/types/translation'
 
 export const productCreateFormSchema = (t: TranslationFunction) => z.object({
   serialNumber: z.string({ error: t('err-serial-required') })

@@ -23,7 +23,6 @@ import { Tabs, TabsContent } from '@/shared/ui/tabs'
 import { FooterBar } from '@/shared/ui/footer-bar'
 import { CancelButton, SubmitButton } from '@/shared/ui/action-buttons'
 
-
 interface ProductCreateFormProps {
   parishId: string
   onCancelAction: () => void

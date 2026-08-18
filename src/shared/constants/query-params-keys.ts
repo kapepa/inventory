@@ -1,6 +1,6 @@
 export const QUERY_PARAMS_KEYS = {
   PARISHES_SEARCH: 'parishes-search',
-  PARISHES_GROUPS_SEARCH: 'parishes-groups-search',
+  GROUPS_SEARCH: 'groups-search',
   PRODUCTS_SEARCH: 'products-search',
   CATEGORIES_SEARCH: 'categories-search',
   USERS_SEARCH: 'users-search',

@@ -42,9 +42,9 @@ export const POST = apiHandler(async (request: NextRequest, user: AuthenticatedU
   try {
     if (user.role !== "ADMIN") throw new ForbiddenError('Admin access required');
     const body = await request.json();
-    const result = await createParish(body);
-
     const locale = getLocaleFromRequest(request);
+    const result = await createParish({ input: body, locale });
+
     invalidateParishesCacheList({ locale })
 
     return NextResponse.json(result, { status: 201 });
