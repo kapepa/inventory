@@ -18,13 +18,14 @@ import { StateMessage } from "@/shared/ui/state-message"
 import { useRouter } from "@/shared/lib/i18n/routing"
 import { ROUTES } from "@/shared/constants/routes"
 import { useTranslations } from "next-intl"
+import { emitProductDeleted } from "@/shared/lib/events/product-events"
 
 interface GroupsRelationsProps {
   isAdmin: boolean,
   className?: string,
   initialHasMore?: boolean,
   initialProducts?: ProductWithRelationsShort[],
-  initialParishesId: string | null
+  initialParishesId: string
   initialParishTitle: string
 }
 
@@ -45,8 +46,11 @@ export const GroupsRelationsInner = ({ isAdmin, className, initialHasMore, initi
   }, [productDetails])
 
   const handlerDeleteProduct = useCallback((product: ProductWithRelationsShort) => {
-    confirmProductDelete(product, () => { removeProduct(product.id) });
-  }, [removeProduct])
+    confirmProductDelete(product, () => {
+      removeProduct(product.id)
+      emitProductDeleted({ parishId: initialParishesId, productId: product.id })
+    });
+  }, [removeProduct, initialParishesId])
 
   const handleClose = useCallback(() => {
     router.push(ROUTES.GROUPS)

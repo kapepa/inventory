@@ -4,7 +4,8 @@ import { ForbiddenError, getLocaleFromRequest, HasDependenciesError, NotFoundErr
 import { AuthenticatedUser } from '@/features/auth/model/types';
 import { getParishById } from '@/entities/parish/lib/parish-service';
 import { deleteParish } from '@/features/delete-resource/lib/parish-service';
-import { invalidateParishCacheById } from '@/entities/parish/lib/cache-invalidation';
+import { invalidateParishCacheById, invalidateParishesCacheList } from '@/entities/parish/lib/cache-invalidation';
+import { invalidateProductCacheList } from '@/entities/product/lib/cache-invalidation';
 
 export const DELETE = apiHandler(
   async (request: NextRequest, user: AuthenticatedUser, { params }: { params: Promise<{ id: string }> }): Promise<NextResponse<{ success: boolean } | { error: string }>> => {
@@ -20,6 +21,8 @@ export const DELETE = apiHandler(
 
       const locale = getLocaleFromRequest(request);
       invalidateParishCacheById({ id, locale })
+      invalidateProductCacheList({ locale })
+      invalidateParishesCacheList({ locale })
 
       return NextResponse.json({ success: true });
     } catch (error: unknown) {
