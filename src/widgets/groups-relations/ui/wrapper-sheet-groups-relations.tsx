@@ -13,7 +13,7 @@ interface WrapperSheetGroupsRelationsProps {
   isAdmin: boolean,
   initialHasMore?: boolean;
   initialProducts?: ProductWithRelationsShort[];
-  initialParishesId: string | null;
+  initialParishesId: string;
   initialParishTitle: string;
 }
 
