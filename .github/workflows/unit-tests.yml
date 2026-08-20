@@ -7,6 +7,14 @@ on:
     branches: [ main, master ]
 
 jobs:
+  lint:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Lint check (disabled)
+        run: echo "Lint check is temporarily disabled"
+
   unit-test:
     runs-on: ubuntu-latest
     timeout-minutes: 10
