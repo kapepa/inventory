@@ -35,6 +35,8 @@ export default defineConfig({
     timeout: 120000,
     env: {
       DATABASE_URL: process.env.DATABASE_URL || 'postgresql://postgres:password@localhost:5433/inventory_test',
+      EMAIL_ENABLED: 'false',
+      NODE_ENV: 'test',
     },
   },
 });
