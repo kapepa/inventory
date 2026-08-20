@@ -25,3 +25,5 @@ export const SidebarUser = memo(
     )
   }
 )
+
+SidebarUser.displayName = 'SidebarUser'

@@ -3,6 +3,12 @@ import { transporter } from '../config/transport';
 import { EmailOptions } from '../model/types/types';
 
 export async function sendEmail(options: EmailOptions): Promise<void> {
+  // Skip email sending in test environment
+  if (process.env.NODE_ENV === 'test' || process.env.EMAIL_ENABLED === 'false') {
+    console.log('Email skipped in test mode:', options.to);
+    return;
+  }
+
   try {
     const info = await transporter.sendMail({
       from: process.env.MAIL_FROM,

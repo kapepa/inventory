@@ -39,6 +39,7 @@ export default async function Settings({
         />
         <SettingsPanel
           user={user}
+          locale={locale}
         />
       </Container>
     </ScrollArea>

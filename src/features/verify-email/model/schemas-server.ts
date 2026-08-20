@@ -15,9 +15,9 @@ export const codeFormServerSchema = z.object({
     .trim(),
   code: z
     .string()
-    .length(VALIDATION_LIMITS.CODE_LENGTH)
+    .trim()
+    .length(VALIDATION_LIMITS.CODE_LENGTH),
     // .regex(/^\d+$/)
-    .trim(),
 });
 
 export type CodeServerValues = z.infer<typeof codeFormServerSchema>;

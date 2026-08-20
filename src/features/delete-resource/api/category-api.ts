@@ -28,7 +28,7 @@ export const requestDeleteCategory = async ({ id, signal }: DeleteCategoryParams
         throw new HasDependenciesError('Category');
       }
 
-      const errorMessage = error.response?.data?.error || "Failed to delete сategory"
+      const errorMessage = error.response?.data?.error || "Failed to delete category"
       throw new Error(errorMessage)
     }
 

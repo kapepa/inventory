@@ -36,6 +36,9 @@ export const DeliveryDateField = memo(
                 <FormControl>
                   <Button
                     variant={"outline"}
+                    name={field.name}
+                    data-testid="delivery-date-button"
+                    aria-label="Select delivery date"
                     className={cn(
                       "w-full pl-3 text-left font-normal h-8 md:h-10",
                       !field.value && "text-muted-foreground"
@@ -51,7 +54,11 @@ export const DeliveryDateField = memo(
                   </Button>
                 </FormControl>
               </PopoverTrigger>
-              <PopoverContent className="w-auto mb-1" align="start">
+              <PopoverContent
+                className="w-auto mb-1"
+                align="start"
+                data-testid="delivery-date-calendar"
+              >
                 <CalendarDynamic
                   mode="single"
                   locale={dateFnsLocales[locale]}
@@ -59,6 +66,7 @@ export const DeliveryDateField = memo(
                   onSelect={field.onChange}
                   disabled={(date) => date < new Date()}
                   autoFocus
+                  data-testid="delivery-date-calendar-grid"
                 />
               </PopoverContent>
             </Popover>
