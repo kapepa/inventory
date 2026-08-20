@@ -11,7 +11,7 @@ export const getFirstLetter = (
 
   if (!name || name.length === 0) return fallback;
 
-  let firstChar = name.charAt(0);
+  const firstChar = name.charAt(0);
 
   if (lowerFirst) {
     return firstChar.toLowerCase();
