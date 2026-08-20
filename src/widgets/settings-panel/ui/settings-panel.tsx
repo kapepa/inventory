@@ -7,17 +7,19 @@ import { DeleteAccountLabels } from "@/features/delete-resource/model/types/type
 import { DeleteAccount } from "@/features/delete-resource/ui/delete-account";
 import { AvatarUploadLabels } from "@/features/upload-avatar/model/types/types";
 import { AvatarUpload } from "@/features/upload-avatar/ui/avatar-upload";
+import { AppLocale } from "@/shared/lib/i18n/config";
 import { getTranslations } from "next-intl/server";
 
 interface SettingsPanelProps {
-  user: AuthenticatedUser
+  user: AuthenticatedUser,
+  locale: AppLocale
 }
 
-export const SettingsPanel = async ({ user }: SettingsPanelProps) => {
-  const tUpload = await getTranslations("avatar-upload");
-  const tPassword = await getTranslations("change-password");
-  const tRole = await getTranslations("change-user-role");
-  const tDelete = await getTranslations("delete-account");
+export const SettingsPanel = async ({ user, locale }: SettingsPanelProps) => {
+  const tUpload = await getTranslations({ locale, namespace: "avatar-upload" });
+  const tPassword = await getTranslations({ locale, namespace: "change-password" });
+  const tRole = await getTranslations({ locale, namespace: "change-user-role" });
+  const tDelete = await getTranslations({ locale, namespace: "delete-account" });
 
   const avatarLabels: AvatarUploadLabels = {
     description: tUpload("descriptions"),
@@ -54,10 +56,10 @@ export const SettingsPanel = async ({ user }: SettingsPanelProps) => {
   };
 
   return (
-    <div className="grid grid-cols-1 place-items-center gap-y-6 m-auto pb-6 md:pb-16">
+    <div className="grid grid-cols-1 place-items-center gap-y-6 m-auto pb-6 max-w-96 w-full">
       <AvatarUpload user={user} labels={avatarLabels} />
-      <ChangePasswordForm className="max-w-xl" labels={passwordLabels} />
-      <RoleSelector className="max-w-xl" user={user} labels={roleLabels} />
+      <ChangePasswordForm className="max-w-xl w-full" labels={passwordLabels} />
+      <RoleSelector className="max-w-xl w-full" user={user} labels={roleLabels} />
       <DeleteAccount user={user} labels={deleteLabels} />
     </div>
   )
