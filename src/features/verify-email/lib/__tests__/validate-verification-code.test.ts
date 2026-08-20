@@ -96,11 +96,14 @@ describe('Validate Verification Code Service', () => {
   })
 
   it('handles database errors', async () => {
+    const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => { })
     const dbError = new Error('Database error')
     vi.mocked(prisma.verificationCode.findFirst).mockRejectedValue(dbError)
 
     await expect(validateVerificationCode(validInput))
       .rejects.toThrow('Database error')
+
+    consoleErrorSpy.mockRestore()
   })
 
   it('logs and rethrows Prisma errors', async () => {
