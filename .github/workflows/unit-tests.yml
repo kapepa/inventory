@@ -49,6 +49,9 @@ jobs:
 
       - name: Run unit tests
         run: npm run test:coverage
+        env:
+          NODE_ENV: test
+          EMAIL_ENABLED: false
 
       - name: Upload coverage report
         if: always()
