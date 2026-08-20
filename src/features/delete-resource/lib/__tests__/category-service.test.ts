@@ -61,23 +61,32 @@ describe('Delete Category Service', () => {
   })
 
   it('handles database connection errors', async () => {
+    const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {})
     const dbError = new Error('Connection timeout')
     vi.mocked(prisma.category.delete).mockRejectedValue(dbError)
 
     await expect(deleteCategory('category-123')).rejects.toThrow('Connection timeout')
+
+    consoleErrorSpy.mockRestore()
   })
 
   it('throws error when category not found', async () => {
+    const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {})
     const notFoundError = new Error('Record to delete does not exist')
     vi.mocked(prisma.category.delete).mockRejectedValue(notFoundError)
 
     await expect(deleteCategory('category-123')).rejects.toThrow()
+
+    consoleErrorSpy.mockRestore()
   })
 
   it('handles invalid id format', async () => {
+    const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {})
     const invalidIdError = new Error('Invalid ID format')
     vi.mocked(prisma.category.delete).mockRejectedValue(invalidIdError)
 
     await expect(deleteCategory('invalid-id')).rejects.toThrow()
+
+    consoleErrorSpy.mockRestore()
   })
 })

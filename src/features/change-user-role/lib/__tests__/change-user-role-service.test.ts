@@ -187,12 +187,15 @@ describe('Change User Role Service', () => {
     })
 
     it('handles database connection errors', async () => {
+      const consoleLogSpy = vi.spyOn(console, 'log').mockImplementation(() => { })
       const dbError = new Error('Connection timeout')
       vi.mocked(prisma.user.update).mockRejectedValue(dbError)
 
       await expect(
         changeUserRoleService({ body: validBody as any, user: mockUser as any })
       ).rejects.toThrow('Connection timeout')
+
+      consoleLogSpy.mockRestore()
     })
   })
 })

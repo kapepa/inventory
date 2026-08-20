@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { changePasswordService } from '../change-password-service'
 import { prisma } from '@/shared/lib/prisma'
-import { NotFoundError, InvalidInputError } from '@/shared/lib/server'
+import { NotFoundError } from '@/shared/lib/server'
 import { InvalidCredentialsError } from '@/shared/lib/errors'
 import * as authLib from '@/shared/lib/auth'
 
@@ -178,28 +178,37 @@ describe('Password Service', () => {
     })
 
     it('handles database connection errors', async () => {
+      const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => { })
       const dbError = new Error('Connection timeout')
       vi.mocked(prisma.user.findUnique).mockRejectedValue(dbError)
 
       await expect(changePasswordService({ body: validBody as any, user: { id: 'user-123' } as any }))
         .rejects.toThrow('Connection timeout')
+
+      consoleErrorSpy.mockRestore()
     })
 
     it('handles hash password errors', async () => {
+      const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => { })
       vi.mocked(prisma.user.findUnique).mockResolvedValue(mockUser as any)
       vi.mocked(authLib.comparePassword).mockResolvedValue(true as never)
       vi.mocked(authLib.hashPassword).mockRejectedValue(new Error('Hashing failed'))
 
       await expect(changePasswordService({ body: validBody as any, user: { id: 'user-123' } as any }))
         .rejects.toThrow('Hashing failed')
+
+      consoleErrorSpy.mockRestore()
     })
 
     it('handles compare password errors', async () => {
+      const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => { })
       vi.mocked(prisma.user.findUnique).mockResolvedValue(mockUser as any)
       vi.mocked(authLib.comparePassword).mockRejectedValue(new Error('Comparison failed'))
 
       await expect(changePasswordService({ body: validBody as any, user: { id: 'user-123' } as any }))
         .rejects.toThrow('Comparison failed')
+
+      consoleErrorSpy.mockRestore()
     })
 
     it('calls prisma.user.findUnique with correct userId', async () => {

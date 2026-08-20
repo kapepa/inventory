@@ -88,12 +88,15 @@ describe('Upload Avatar Service', () => {
   })
 
   it('handles database connection errors', async () => {
+    const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {})
     const dbError = new Error('Connection timeout')
     vi.mocked(prisma.user.update).mockRejectedValue(dbError)
 
     await expect(
       uploadAvatar(validInput, 'user-123')
     ).rejects.toThrow('Connection timeout')
+
+    consoleErrorSpy.mockRestore()
   })
 
   it('logs and rethrows Prisma errors', async () => {
