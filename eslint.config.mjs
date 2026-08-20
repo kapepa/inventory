@@ -24,6 +24,7 @@ const eslintConfig = defineConfig([
       'react-hooks/exhaustive-deps': 'warn',
       'react-hooks/rules-of-hooks': 'warn',
       'react/display-name': 'warn',
+      '@next/next/no-img-element': 'warn',
     },
   },
 ]);
