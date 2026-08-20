@@ -48,7 +48,7 @@ export const changePasswordService = async ({ user, body }: ChangePasswordServic
       throw error;
     }
 
-    console.log('Prisma Error in validateEmailForResend:', error);
+    console.error('Prisma Error in changePasswordService:', error);
     throw error;
   }
 }

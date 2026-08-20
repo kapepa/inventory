@@ -52,6 +52,7 @@ export const LoginButton = memo(({ className }: LoginButtonProps) => {
             )}
           aria-label="settings"
           type="button"
+          data-testid="user-menu"
         >
           <Settings
             strokeWidth={2}
@@ -65,6 +66,7 @@ export const LoginButton = memo(({ className }: LoginButtonProps) => {
           <DropdownMenuItem
             onClick={handleLogout}
             disabled={isPending}
+            data-testid="logout-button"
           >
             {t("logout")}
           </DropdownMenuItem>

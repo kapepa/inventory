@@ -42,6 +42,12 @@ next-env.d.ts
 
 /src/generated/prisma
 
+# playwright
+/test-results/
+/playwright-report/
+/playwright/.cache/
+/.auth/
+
 # PWA files
 public/sw.js
 public/workbox-*.js
