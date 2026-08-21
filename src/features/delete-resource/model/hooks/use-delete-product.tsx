@@ -8,6 +8,7 @@ import { ForbiddenError, NotFoundError } from "@/shared/lib/errors";
 import { useModalActions } from "@/shared/ui/modal/modal-context";
 import { DeleteConfirmModalDynamic } from "../../ui/delete-confirm-modal-dynamic";
 import { ProductWithRelations } from "@/entities/product/model/types";
+import { useRouter } from "@/shared/lib/i18n/routing";
 
 interface DeleteProductModalWrapperProps {
   title: string;
@@ -25,12 +26,17 @@ const DeleteProductModalWrapper = ({
   const [isPending, startTransition] = useTransition();
   const t = useTranslations('groups');
   const tErrors = useTranslations('errors');
+  const router = useRouter();
 
   const handleConfirm = () => {
     startTransition(async () => {
       try {
         await requestDeleteProduct({ id: productId });
         toast.success(t("sonner.delete-product-success"));
+
+        // Invalidate Next.js Router Cache to ensure fresh data on navigation
+        router.refresh();
+
         onSuccess?.();
       } catch (error) {
         if (error instanceof ForbiddenError) {

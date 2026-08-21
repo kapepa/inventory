@@ -11,6 +11,7 @@ import { STORAGE_KEYS } from "@/shared/constants/storage-keys"
 import { AlreadyExistsError } from "@/shared/lib/errors"
 import { AppLocale } from "@/shared/lib/i18n/config"
 import { useDebounce } from "@/shared/lib/hooks/use-debounce"
+import { useRouter } from "@/shared/lib/i18n/routing"
 
 const ADD_PARISH_FORM_DATA = STORAGE_KEYS.ADD_PARISH_FORM_DATA
 
@@ -22,6 +23,7 @@ export const useAddParishForm = (closeModalAction: () => void) => {
   const addNewParish = useParishesStore((state) => state.addNewParish)
   const [formValues, setFormValues] = useState<ParishFormValues | null>(null);
   const debouncedFormValues = useDebounce(formValues, 500);
+  const router = useRouter();
 
   const form = useForm<ParishFormValues>({
     resolver: zodResolver(createParishFormSchema(tErrors)),
@@ -84,6 +86,9 @@ export const useAddParishForm = (closeModalAction: () => void) => {
           addNewParish(formattedParish)
           onReset()
 
+          // Invalidate Next.js Router Cache to ensure fresh data on navigation
+          router.refresh()
+
           toast.success(t("create-parish-success"))
           closeModalAction()
         } catch (error) {
@@ -104,7 +109,7 @@ export const useAddParishForm = (closeModalAction: () => void) => {
         }
       })
     },
-    [startSubmitTransition, closeModalAction, t, addNewParish, locale]
+    [startSubmitTransition, closeModalAction, t, addNewParish, locale, onReset, router, form, tErrors]
   )
 
   return {

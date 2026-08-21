@@ -8,6 +8,7 @@ import { ForbiddenError, HasDependenciesError, NotFoundError } from "@/shared/li
 import { useModalActions } from "@/shared/ui/modal/modal-context";
 import { DeleteConfirmModalDynamic } from "../../ui/delete-confirm-modal-dynamic";
 import { ParishesType } from "@/entities/parish/model/types";
+import { useRouter } from "@/shared/lib/i18n/routing";
 
 interface DeleteParishModalWrapperProps {
   title: string;
@@ -25,12 +26,17 @@ const DeleteParishModalWrapper = ({
   const [isPending, startTransition] = useTransition();
   const t = useTranslations('parish');
   const tErrors = useTranslations('errors');
+  const router = useRouter();
 
   const handleConfirm = () => {
     startTransition(async () => {
       try {
         await requestDeleteParish({ id: parishId });
         toast.success(t("sonner.delete-parish-success"));
+
+        // Invalidate Next.js Router Cache to ensure fresh data on navigation
+        router.refresh();
+
         onSuccess?.();
       } catch (error) {
         if (error instanceof ForbiddenError) {

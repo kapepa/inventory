@@ -10,7 +10,9 @@ import { AuthenticatedUser } from '@/features/auth/model/types';
 import { createProduct } from '@/features/add-product/lib/product-service';
 import { invalidateProductCacheList } from '@/entities/product/lib/cache-invalidation';
 import { deleteFile } from '@/entities/upload/lib/upload-service';
-import { invalidateParishesCacheList } from '@/entities/parish/lib/cache-invalidation';
+import { invalidateParishCacheById } from '@/entities/parish/lib/cache-invalidation';
+import { invalidateCategoriesCacheList } from '@/entities/category/lib/category-invalidation';
+import { ProductCreateInput } from '@/features/add-product/model/types';
 
 export const GET = apiHandler(async (request: NextRequest): Promise<NextResponse<ResponseProductsShortDTO | { error: string }>> => {
   try {
@@ -39,14 +41,15 @@ export const POST = apiHandler(async (request: NextRequest, user: AuthenticatedU
   let photoToCleanup: string | null = null
   try {
     if (user.role !== "ADMIN") throw new ForbiddenError('Admin access required');
-    const body = await request.json();
+    const body: ProductCreateInput = await request.json();
     photoToCleanup = body.photo;
     body.userId = user?.id
     const locale = getLocaleFromRequest(request);
     const newProduct = await createProduct({ input: body, locale });
 
     invalidateProductCacheList({ locale })
-    invalidateParishesCacheList({ locale })
+    invalidateParishCacheById({ locale, id: body.parishId! })
+    invalidateCategoriesCacheList({ locale })
 
     return NextResponse.json(newProduct, { status: 201 });
   } catch (error: unknown) {
