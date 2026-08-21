@@ -3,9 +3,14 @@ import { VerifyCard } from "./verify-card";
 import { ROUTES } from "@/shared/constants/routes";
 import { Link } from "@/shared/lib/i18n/routing";
 import { getTranslations } from "next-intl/server";
+import { AppLocale } from "@/shared/lib/i18n/config";
 
-export const VerifyInvalidView = async () => {
-  const t = await getTranslations("verify-email.verify-invalid-view");
+interface VerifyInvalidViewProps {
+  locale: AppLocale
+}
+
+export const VerifyInvalidView = async ({ locale }: VerifyInvalidViewProps) => {
+  const t = await getTranslations({ locale, namespace: "verify-email.verify-invalid-view" });
 
   return (
     <VerifyCard className="flex flex-col items-center gap-6 text-center">

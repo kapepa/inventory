@@ -1,13 +1,15 @@
 import { VerifyCard } from "./verify-card";
 import { getTranslations } from "next-intl/server";
 import { VerifyExpiredBtn } from "./verify-expired-btn";
+import { AppLocale } from "@/shared/lib/i18n/config";
 
 interface VerifyExpiredViewProps {
   email: string,
+  locale: AppLocale
 }
 
-export const VerifyExpiredView = async ({ email }: VerifyExpiredViewProps) => {
-  const t = await getTranslations("verify-email.verify-expired-view");
+export const VerifyExpiredView = async ({ email, locale }: VerifyExpiredViewProps) => {
+  const t = await getTranslations({ locale, namespace: "verify-email.verify-expired-view" });
 
   return (
     <VerifyCard className="flex flex-col items-center gap-6 text-center">
