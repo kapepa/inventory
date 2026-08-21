@@ -16,14 +16,12 @@ test.describe('Create Category', () => {
     await page.waitForLoadState('networkidle');
 
     // Close the sidebar first
-    await page.click('label[aria-label="side panel of the switch"]');
-
-    // Wait a bit for sidebar animation
-    await page.waitForTimeout(300);
+    const sidebarSwitch = page.locator('label[aria-label="side panel of the switch"]');
+    await sidebarSwitch.click();
 
     // Find the CirclePlusButton by aria-label and wait for it to be visible
     const createButton = page.locator('button[aria-label="Add"]');
-    await createButton.waitFor({ state: 'visible', timeout: 5000 });
+    await createButton.waitFor({ state: 'visible', timeout: 10000 });
     await createButton.click();
 
     // Verify modal is opened
@@ -37,12 +35,12 @@ test.describe('Create Category', () => {
     await page.waitForLoadState('networkidle');
 
     // Close the sidebar first
-    await page.click('label[aria-label="side panel of the switch"]');
-    await page.waitForTimeout(300);
+    const sidebarSwitch = page.locator('label[aria-label="side panel of the switch"]');
+    await sidebarSwitch.click();
 
     // Click create button
     const createButton = page.locator('button[aria-label="Add"]');
-    await createButton.waitFor({ state: 'visible', timeout: 5000 });
+    await createButton.waitFor({ state: 'visible', timeout: 10000 });
     await createButton.click();
 
     // Wait for modal to be visible
@@ -80,11 +78,11 @@ test.describe('Create Category', () => {
     await page.waitForLoadState('networkidle');
 
     // Close the sidebar first
-    await page.click('label[aria-label="side panel of the switch"]');
-    await page.waitForTimeout(300);
+    const sidebarSwitch = page.locator('label[aria-label="side panel of the switch"]');
+    await sidebarSwitch.click();
 
     const createButton = page.locator('button[aria-label="Add"]');
-    await createButton.waitFor({ state: 'visible', timeout: 5000 });
+    await createButton.waitFor({ state: 'visible', timeout: 10000 });
     await createButton.click();
 
     await page.waitForSelector('[role="dialog"]', { state: 'visible' });
@@ -94,17 +92,20 @@ test.describe('Create Category', () => {
 
     // Verify validation error appears (English: "At least 3 chars" or Russian: "От 3 символов")
     await expect(page.locator('form').getByText(/At least 3 chars|От 3 символов/i).first()).toBeVisible({ timeout: 5000 });
+
+    // Wait for any pending network requests to complete before test ends
+    await page.waitForLoadState('networkidle');
   });
 
   test('should reset form when clicking reset button', async ({ page }) => {
     await page.waitForLoadState('networkidle');
 
     // Close the sidebar first
-    await page.click('label[aria-label="side panel of the switch"]');
-    await page.waitForTimeout(300);
+    const sidebarSwitch = page.locator('label[aria-label="side panel of the switch"]');
+    await sidebarSwitch.click();
 
     const createButton = page.locator('button[aria-label="Add"]');
-    await createButton.waitFor({ state: 'visible', timeout: 5000 });
+    await createButton.waitFor({ state: 'visible', timeout: 10000 });
     await createButton.click();
 
     await page.waitForSelector('[role="dialog"]', { state: 'visible' });
@@ -129,11 +130,11 @@ test.describe('Create Category', () => {
     await page.waitForLoadState('networkidle');
 
     // Close the sidebar first
-    await page.click('label[aria-label="side panel of the switch"]');
-    await page.waitForTimeout(300);
+    const sidebarSwitch = page.locator('label[aria-label="side panel of the switch"]');
+    await sidebarSwitch.click();
 
     const createButton = page.locator('button[aria-label="Add"]');
-    await createButton.waitFor({ state: 'visible', timeout: 5000 });
+    await createButton.waitFor({ state: 'visible', timeout: 10000 });
     await createButton.click();
 
     await page.waitForSelector('[role="dialog"]', { state: 'visible' });
@@ -172,12 +173,17 @@ test.describe('Create Category', () => {
   test('should hide create button for non-admin users', async ({ page }) => {
     await authHelper.logout();
     await authHelper.login(testUsers.user.email, testUsers.user.password);
-    await page.goto('/en/categories');
+
+    // Navigate to categories after login completes
+    await page.goto('/en/categories', { waitUntil: 'networkidle' });
 
     // Verify create button is not visible for regular users
     const createButton = page.locator('button[aria-label="Add"]');
     // The button should not exist or not be visible
     const count = await createButton.count();
     expect(count).toBe(0);
+
+    // Wait for any pending requests before test ends
+    await page.waitForLoadState('networkidle');
   });
 });

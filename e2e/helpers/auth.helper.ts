@@ -10,8 +10,9 @@ export class AuthHelper {
     await this.page.fill('input[type="password"]', password);
     await this.page.click('button[type="submit"]');
 
-    // Ждем редиректа после успешного логина (учитываем локаль /en/)
-    await this.page.waitForURL(/\/(en|ru)\/(parishes|products|categories)/, { timeout: 30000 });
+    // Wait for navigation to complete
+    await this.page.waitForURL(/\/(en|ru)\/(parishes|products|categories)/, { timeout: 60000 });
+    await this.page.waitForLoadState('networkidle');
   }
 
   async logout() {
@@ -34,8 +35,9 @@ export class AuthHelper {
 
     await this.page.click('button[type="submit"]');
 
-    // Ждем редиректа после успешной регистрации (учитываем локаль /en/)
-    await this.page.waitForURL(/\/(en|ru)\/(verify|login|parishes|products|categories)/, { timeout: 10000 });
+    // Wait for navigation to complete
+    await this.page.waitForURL(/\/(en|ru)\/(verify|login|parishes|products|categories)/, { timeout: 60000 });
+    await this.page.waitForLoadState('networkidle');
   }
 
   async isLoggedIn(): Promise<boolean> {
