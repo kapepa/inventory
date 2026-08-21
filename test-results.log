@@ -1,0 +1,37 @@
+
+> inventory@0.1.0 test:e2e
+> playwright test
+
+◇ injected env (10) from .env.test // tip: ⌘ custom filepath { path: '/custom/path/.env' }
+
+Running 24 tests using 3 workers
+
+◇ injected env (0) from .env.test // tip: ⌁ auth for agents [www.vestauth.com]
+◇ injected env (0) from .env.test // tip: ◈ secrets for agents [www.dotenvx.com]
+◇ injected env (0) from .env.test // tip: ⌘ override existing { override: true }
+  ok  1 [chromium] › e2e\auth\login.spec.ts:38:7 › Login › should show validation error for empty fields (4.4s)
+  ok  2 [chromium] › e2e\auth\login.spec.ts:12:7 › Login › should login with valid credentials (6.4s)
+  ok  3 [chromium] › e2e\auth\login.spec.ts:22:7 › Login › should show error with invalid credentials (8.8s)
+  ok  4 [chromium] › e2e\auth\login.spec.ts:47:7 › Login › should logout successfully (6.1s)
+  ok  7 [chromium] › e2e\auth\register.spec.ts:34:7 › Register › should show error when passwords do not match (2.5s)
+  ok  5 [chromium] › e2e\auth\register.spec.ts:11:7 › Register › should register with valid data (7.9s)
+  ok  6 [chromium] › e2e\auth\register.spec.ts:25:7 › Register › should show validation error for empty fields (6.4s)
+  ok  8 [chromium] › e2e\auth\register.spec.ts:50:7 › Register › should show error for invalid email format (3.4s)
+  ok  9 [chromium] › e2e\auth\register.spec.ts:70:7 › Register › should show error for weak password (2.2s)
+  ok 11 [chromium] › e2e\auth\register.spec.ts:106:7 › Register › should reset form fields when reset button is clicked (3.0s)
+  ok 12 [chromium] › e2e\auth\register.spec.ts:127:7 › Register › should navigate to login page from register (3.3s)
+  ok 10 [chromium] › e2e\auth\register.spec.ts:86:7 › Register › should show error when email already exists (5.6s)
+  ok 13 [chromium] › e2e\categories\create-category.spec.ts:14:7 › Create Category › should open create category modal when clicking create button (23.6s)
+  ok 14 [chromium] › e2e\categories\create-category.spec.ts:33:7 › Create Category › should create category with valid data (23.3s)
+  ok 15 [chromium] › e2e\categories\create-category.spec.ts:79:7 › Create Category › should show validation error for empty required fields (24.5s)
+  ok 16 [chromium] › e2e\categories\create-category.spec.ts:99:7 › Create Category › should reset form when clicking reset button (12.5s)
+  ok 17 [chromium] › e2e\categories\create-category.spec.ts:128:7 › Create Category › should switch between translation tabs (13.2s)
+  ok 18 [chromium] › e2e\categories\create-category.spec.ts:172:7 › Create Category › should hide create button for non-admin users (13.2s)
+  ok 19 [chromium] › e2e\parishes\create-parish.spec.ts:17:7 › Create Parish › should open create parish modal when clicking create button (6.9s)
+  ok 20 [chromium] › e2e\parishes\create-parish.spec.ts:27:7 › Create Parish › should create parish with valid data (6.3s)
+  ok 21 [chromium] › e2e\parishes\create-parish.spec.ts:74:7 › Create Parish › should show validation error for empty required fields (6.6s)
+  ok 22 [chromium] › e2e\parishes\create-parish.spec.ts:97:7 › Create Parish › should reset form when clicking reset button (6.5s)
+  ok 23 [chromium] › e2e\parishes\create-parish.spec.ts:141:7 › Create Parish › should switch between translation tabs (6.9s)
+  ok 24 [chromium] › e2e\parishes\create-parish.spec.ts:189:7 › Create Parish › should hide create button for non-admin users (4.2s)
+
+  24 passed (1.6m)

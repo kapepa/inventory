@@ -96,8 +96,8 @@ test.describe('Register', () => {
 
     await page.click('button[type="submit"]');
 
-    // Wait for error message about existing email
-    await page.waitForTimeout(3000);
+    // Wait for the submit button to be enabled again (indicating request completed)
+    await page.waitForSelector('button[type="submit"]:not([disabled])', { timeout: 5000 });
 
     // Verify that we are still on the register page
     await expect(page).toHaveURL(/.*\/register/);

@@ -27,9 +27,7 @@ test.describe('Login', () => {
 
     await page.click('button[type="submit"]');
 
-    // Wait for field errors to appear (they are set via form.setError)
-    // or simply verify that the form is still on the login page (no redirect occurred)
-    await page.waitForTimeout(3000); // give time for the request to process
+    await page.waitForSelector('button[type="submit"]:not([disabled])', { timeout: 5000 });
 
     // Verify that we are still on the login page (successful login did not occur)
     await expect(page).toHaveURL(/.*\/login/);
