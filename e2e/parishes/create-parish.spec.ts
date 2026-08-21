@@ -16,6 +16,7 @@ test.describe('Create Parish', () => {
 
   test('should open create parish modal when clicking create button', async ({ page }) => {
     await page.waitForLoadState('networkidle');
+
     const sidebarSwitch = page.locator('label[aria-label="side panel of the switch"]');
     await sidebarSwitch.click();
     const createButton = page.locator('button[aria-label="Add"]');
@@ -27,11 +28,13 @@ test.describe('Create Parish', () => {
   test('should create parish with valid data', async ({ page }) => {
     const uniqueName = `Test Parish ${Date.now()}`;
     await page.waitForLoadState('networkidle');
+
     const sidebarSwitch = page.locator('label[aria-label="side panel of the switch"]');
     await sidebarSwitch.click();
 
     const createButton = page.locator('button[aria-label="Add"]');
     await createButton.waitFor({ state: 'visible', timeout: 10000 });
+
     await createButton.click();
     await page.waitForSelector('[role="dialog"]', { state: 'visible', timeout: 5000 });
 
@@ -54,6 +57,7 @@ test.describe('Create Parish', () => {
     // 5. Выбрать дату доставки
     const deliveryDateButton = page.locator('[data-testid="delivery-date-button"]');
     await deliveryDateButton.scrollIntoViewIfNeeded();
+
     await deliveryDateButton.click();
     // Ждем появления календаря и выбираем первую enabled дату
     await page.waitForSelector('[role="grid"]', { state: 'visible', timeout: 5000 });
@@ -77,6 +81,7 @@ test.describe('Create Parish', () => {
 
     const createButton = page.locator('button[aria-label="Add"]');
     await createButton.waitFor({ state: 'visible', timeout: 10000 });
+
     await createButton.click();
 
     await page.waitForSelector('[role="dialog"]', { state: 'visible' });
@@ -102,6 +107,7 @@ test.describe('Create Parish', () => {
 
     const createButton = page.locator('button[aria-label="Add"]');
     await createButton.waitFor({ state: 'visible', timeout: 10000 });
+
     await createButton.click();
 
     await page.waitForSelector('[role="dialog"]', { state: 'visible' });
@@ -120,11 +126,13 @@ test.describe('Create Parish', () => {
     const deliveryDateButton = page.locator('[data-testid="delivery-date-button"]');
     await deliveryDateButton.scrollIntoViewIfNeeded();
     await deliveryDateButton.click();
+
     // Ждем появления календаря и выбираем первую enabled дату
     await page.waitForSelector('[role="grid"]', { state: 'visible', timeout: 5000 });
     const dateButton = page.locator('[role="gridcell"]:not([aria-disabled="true"]) button:not([disabled])').first();
     await dateButton.waitFor({ state: 'visible', timeout: 5000 });
     await dateButton.click();
+
 
     // Click reset button (Clear/Очистить)
     await page.click('button[type="button"]:has-text("Clear"), button[type="button"]:has-text("Очистить")');
@@ -143,6 +151,7 @@ test.describe('Create Parish', () => {
 
     const createButton = page.locator('button[aria-label="Add"]');
     await createButton.waitFor({ state: 'visible', timeout: 10000 });
+
     await createButton.click();
 
     await page.waitForSelector('[role="dialog"]', { state: 'visible' });
@@ -197,5 +206,6 @@ test.describe('Create Parish', () => {
 
     // Wait for any pending requests before test ends
     await page.waitForLoadState('networkidle');
+
   });
 });

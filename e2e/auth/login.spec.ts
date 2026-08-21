@@ -27,7 +27,6 @@ test.describe('Login', () => {
 
     await page.click('button[type="submit"]');
 
-    // Wait for the submit button to be enabled again (indicating request completed)
     await page.waitForSelector('button[type="submit"]:not([disabled])', { timeout: 5000 });
 
     // Verify that we are still on the login page (successful login did not occur)
