@@ -74,6 +74,7 @@ export default async function Verify({
       />
       <div className="flex justify-center pt-8">
         <VerifyEmailStatus
+          locale={locale}
           token={token}
           status={tokenStatus.status}
           email={tokenStatus.email}
