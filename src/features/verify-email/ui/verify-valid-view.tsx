@@ -1,3 +1,4 @@
+import { AppLocale } from "@/shared/lib/i18n/config";
 import { VerifyCodeFormLabels } from "../model/types/types";
 import { VerifyCard } from "./verify-card";
 import { VerifyCodeForm } from "./verify-code-form";
@@ -6,11 +7,12 @@ import { getTranslations } from "next-intl/server";
 interface VerifyValidViewProps {
   token: string,
   email: string,
+  locale: AppLocale
 }
 
-export const VerifyValidView = async ({ token, email }: VerifyValidViewProps) => {
-  const t = await getTranslations("verify-email.verify-valid-view");
-  const tForm = await getTranslations("verify-email.verify-code-form");
+export const VerifyValidView = async ({ locale, token, email }: VerifyValidViewProps) => {
+  const t = await getTranslations({ locale, namespace: "verify-email.verify-valid-view" });
+  const tForm = await getTranslations({ locale, namespace: "verify-email.verify-code-form" });
 
   const labels: VerifyCodeFormLabels = {
     codeLabel: tForm('labels.code'),
