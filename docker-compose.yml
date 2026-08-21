@@ -28,7 +28,7 @@ services:
       - inventory-network
 
   app:
-    image: node:24-alpine
+    image: node:24
     container_name: inventory-app
     working_dir: /app
     volumes:
@@ -43,7 +43,7 @@ services:
       NEXT_PUBLIC_WS_URL: "http://localhost:3000"
       NEXT_PUBLIC_API_URL: "http://localhost:3000/api"
       NODE_ENV: "development"
-    command: sh -c "if [ ! -d node_modules/.bin ]; then npm install; fi && npx prisma generate && npm run dev"
+    command: sh -c "if [ ! -d node_modules/.bin ]; then npm install; fi && npx prisma generate && npx prisma migrate deploy && npm run dev"
     depends_on:
       postgres:
         condition: service_healthy
@@ -67,7 +67,7 @@ services:
       NEXT_PUBLIC_WS_URL: "http://localhost:3000"
       NEXT_PUBLIC_API_URL: "http://localhost:3000/api"
       NODE_ENV: "production"
-    command: sh -c "npm install --include=dev && npx prisma generate && npm run build && npm run start:prod"
+    command: sh -c "npm install --include=dev && npx prisma generate && npx prisma migrate deploy && npm run build && npm run start:prod"
     depends_on:
       postgres:
         condition: service_healthy
