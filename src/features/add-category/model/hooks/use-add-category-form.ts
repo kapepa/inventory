@@ -11,6 +11,7 @@ import { STORAGE_KEYS } from "@/shared/constants/storage-keys"
 import { AlreadyExistsError } from "@/shared/lib/errors"
 import { AppLocale } from "@/shared/lib/i18n/config"
 import { useCategoriesStore } from "@/entities/category/model/categories-store"
+import { useRouter } from "@/shared/lib/i18n/routing"
 
 const ADD_CATEGORY_FORM_DATA = STORAGE_KEYS.ADD_CATEGORY_FORM_DATA
 
@@ -20,6 +21,7 @@ export const useAddCategoryForm = (closeModalAction: () => void) => {
   const tErrors = useTranslations("add-category.form.errors")
   const [isSubmitting, startSubmitTransition] = useTransition()
   const { addNewCategory } = useCategoriesStore()
+  const router = useRouter();
 
   const form = useForm<CategoryFormValues>({
     resolver: zodResolver(createCategoryFormSchema(tErrors)),
@@ -70,6 +72,10 @@ export const useAddCategoryForm = (closeModalAction: () => void) => {
           }
           addNewCategory(formattedCategory)
           onReset()
+
+          // Invalidate Next.js Router Cache to ensure fresh data on navigation
+          router.refresh()
+
           toast.success(t("create-category-success"))
           closeModalAction()
         } catch (error) {
@@ -85,7 +91,7 @@ export const useAddCategoryForm = (closeModalAction: () => void) => {
         }
       })
     },
-    [startSubmitTransition, closeModalAction, t, addNewCategory, form, tErrors, locale]
+    [startSubmitTransition, closeModalAction, t, addNewCategory, form, tErrors, locale, onReset, router]
   )
 
   return {

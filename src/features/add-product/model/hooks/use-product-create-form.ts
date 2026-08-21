@@ -15,6 +15,7 @@ import { ProductWithRelations } from "@/entities/product/model/types"
 import { useUpload } from "@/entities/upload/model/hooks/use-upload"
 import { formatResponsiveImage } from "@/shared/lib/image-utils"
 import { emitProductAdded } from "@/shared/lib/events/product-events"
+import { useRouter } from "@/shared/lib/i18n/routing"
 
 const ADD_PRODUCT_FORM_DATA = STORAGE_KEYS.ADD_PRODUCT_FORM_DATA
 
@@ -23,6 +24,7 @@ export const useProductCreateForm = (parishId: string, closeModalAction: () => v
   const tErrors = useTranslations("add-product.create-form.errors")
   const [isSubmitting, startSubmitTransition] = useTransition()
   const { upload } = useUpload()
+  const router = useRouter()
 
   const form = useForm<ProductCreateFormValues>({
     resolver: zodResolver(productCreateFormSchema(tErrors)),
@@ -96,6 +98,9 @@ export const useProductCreateForm = (parishId: string, closeModalAction: () => v
           // Notify other components about new product
           emitProductAdded({ parishId })
 
+          // Invalidate Next.js Router Cache to ensure fresh data on navigation
+          router.refresh()
+
           toast.success(t("toast.create-product-success"))
           form.reset()
           closeModalAction()
@@ -121,7 +126,7 @@ export const useProductCreateForm = (parishId: string, closeModalAction: () => v
         }
       })
     },
-    [upload, closeModalAction, t, form]
+    [upload, closeModalAction, t, form, onSuccessAction, router, parishId]
   )
 
   return {

@@ -5,7 +5,7 @@ import { AuthenticatedUser } from "@/features/auth/model/types";
 import { getProductById } from "@/entities/product/lib/product-service";
 import { deleteFile } from "@/entities/upload/lib/upload-service";
 import { deleteProduct } from "@/features/delete-resource/lib/product-service";
-import { invalidateProductCacheById } from "@/entities/product/lib/cache-invalidation";
+import { invalidateProductCacheList } from "@/entities/product/lib/cache-invalidation";
 import { DeleteProductResult } from "@/features/delete-resource/model/types";
 import { invalidateParishesCacheList } from "@/entities/parish/lib/cache-invalidation";
 
@@ -29,7 +29,7 @@ export const DELETE = apiHandler(
       const response = await deleteProduct(id);
 
       const locale = getLocaleFromRequest(request);
-      invalidateProductCacheById({ id, locale })
+      invalidateProductCacheList({ locale })
       invalidateParishesCacheList({ locale })
 
       return NextResponse.json(response)

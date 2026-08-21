@@ -8,6 +8,7 @@ import { ForbiddenError, HasDependenciesError, NotFoundError } from "@/shared/li
 import { useModalActions } from "@/shared/ui/modal/modal-context";
 import { CategoryWithProductCount } from "@/entities/category/model/types";
 import { DeleteConfirmModalDynamic } from "../../ui/delete-confirm-modal-dynamic";
+import { useRouter } from "@/shared/lib/i18n/routing";
 
 interface DeleteCategoryModalWrapperProps {
   title: string;
@@ -25,12 +26,17 @@ const DeleteCategoryModalWrapper = ({
   const [isPending, startTransition] = useTransition();
   const t = useTranslations('category');
   const tErrors = useTranslations('errors');
+  const router = useRouter();
 
   const handleConfirm = () => {
     startTransition(async () => {
       try {
         await requestDeleteCategory({ id: categoryId });
         toast.success(t("sonner.delete-category-success"));
+
+        // Invalidate Next.js Router Cache to ensure fresh data on navigation
+        router.refresh();
+
         onSuccess?.();
       } catch (error) {
         if (error instanceof ForbiddenError) {
