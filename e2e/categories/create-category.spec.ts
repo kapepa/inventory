@@ -101,7 +101,7 @@ test.describe('Create Category', () => {
 
   test('should reset form when clicking reset button', async ({ page }) => {
     await page.waitForLoadState('networkidle');
-
+});
     // Close the sidebar first
     const sidebarSwitch = page.locator('label[aria-label="side panel of the switch"]');
     await sidebarSwitch.click();
