@@ -8,6 +8,7 @@ import { deleteProduct } from "@/features/delete-resource/lib/product-service";
 import { invalidateProductCacheList } from "@/entities/product/lib/cache-invalidation";
 import { DeleteProductResult } from "@/features/delete-resource/model/types";
 import { invalidateParishesCacheList } from "@/entities/parish/lib/cache-invalidation";
+import { invalidateCategoriesCacheList } from "@/entities/category/lib/category-invalidation";
 
 export const DELETE = apiHandler(
   async (request: NextRequest, user: AuthenticatedUser, { params }: { params: Promise<{ id: string }> }): Promise<NextResponse<DeleteProductResult | { error: string }>> => {
@@ -31,6 +32,7 @@ export const DELETE = apiHandler(
       const locale = getLocaleFromRequest(request);
       invalidateProductCacheList({ locale })
       invalidateParishesCacheList({ locale })
+      invalidateCategoriesCacheList({ locale })
 
       return NextResponse.json(response)
     } catch (error: unknown) {
