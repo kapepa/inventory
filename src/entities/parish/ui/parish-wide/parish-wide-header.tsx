@@ -1,15 +1,17 @@
+import { AppLocale } from "@/shared/lib/i18n/config";
 import { cn } from "@/shared/lib/utils";
 import { Skeleton } from "@/shared/ui/skeleton"
 import { getParishLayout } from "@/widgets/parishes-list/ui/parishes-list.styles";
 import { getTranslations } from "next-intl/server";
 
 interface ParishesWideHeaderProps {
+  locale: AppLocale
   isAdmin: boolean,
   className?: string,
 }
 
-export const ParishWideHeader = async ({ isAdmin, className }: ParishesWideHeaderProps) => {
-  const t = await getTranslations('parish.list.header');
+export const ParishWideHeader = async ({ locale, isAdmin, className }: ParishesWideHeaderProps) => {
+  const t = await getTranslations({ locale, namespace: 'parish.list.header' });
   const PARISH_LAYOUT = getParishLayout(isAdmin)
 
   return (

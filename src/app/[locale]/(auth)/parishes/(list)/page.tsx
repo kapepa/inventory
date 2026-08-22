@@ -55,6 +55,7 @@ export default async function Parishes({
       />
       <div className="w-full min-h-0 flex flex-col">
         <ParishWideHeader
+          locale={locale}
           isAdmin={isAdmin}
           className="hidden md:grid shrink-0"
         />
